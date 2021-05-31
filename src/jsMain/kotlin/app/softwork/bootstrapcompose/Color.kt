@@ -1,4 +1,4 @@
-package app.softwork.bootstrapcompose;
+package app.softwork.bootstrapcompose
 
 public enum class Color(private val value: String) {
     Primary("primary"),
