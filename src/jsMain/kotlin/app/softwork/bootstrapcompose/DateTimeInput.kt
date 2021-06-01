@@ -1,9 +1,8 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import androidx.compose.web.attributes.*
-import androidx.compose.web.attributes.Tag.*
-import androidx.compose.web.elements.*
+import org.jetbrains.compose.web.attributes.*
+import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 import org.w3c.dom.Text
 
@@ -14,7 +13,7 @@ public inline fun DateTimeInput(
     inputClasses: String = "form-control",
     placeholder: String,
     value: String,
-    crossinline attrs: AttrsBuilder<Input>.() -> Unit = { },
+    crossinline attrs: AttrsBuilder<Tag.Input>.() -> Unit = { },
     crossinline onChange: (HTMLInputElement) -> Unit
 ): Unit = Label(forId = "", attrs = {
     classes(labelClasses)

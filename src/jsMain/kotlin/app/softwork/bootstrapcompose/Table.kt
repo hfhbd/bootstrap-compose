@@ -1,8 +1,8 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import androidx.compose.web.attributes.*
-import androidx.compose.web.elements.*
+import org.jetbrains.compose.web.attributes.*
+import org.jetbrains.compose.web.dom.*
 
 
 public data class Row(val color: Color?, val cells: List<Cell>) {
@@ -62,15 +62,13 @@ public fun Table(
     rows: List<Row>
 ) {
     Table(attrs = {
-        classes {
-            +"table"
-            color?.let { +"table-$it" }
-            if (hover) {
-                +"table-hover"
-            }
-            if (striped) {
-                +"table-striped"
-            }
+        classes("table")
+        color?.let { classes("table-$it") }
+        if (hover) {
+            classes("table-hover")
+        }
+        if (striped) {
+            classes("table-striped")
         }
     }) {
         Thead {
@@ -87,15 +85,11 @@ public fun Table(
         Tbody {
             for (row in rows) {
                 Tr(attrs = {
-                    classes {
-                        row.color?.let { +"table-$it" }
-                    }
+                    row.color?.let { classes("table-$it") }
                 }) {
                     for (cell in row.cells) {
                         Td(attrs = {
-                            classes {
-                                cell.color?.let { +"table-$it" }
-                            }
+                            cell.color?.let { classes("table-$it") }
                         }) {
                             cell.content()
                         }

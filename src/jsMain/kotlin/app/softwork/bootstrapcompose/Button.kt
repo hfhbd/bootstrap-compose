@@ -1,8 +1,8 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import androidx.compose.web.attributes.*
-import androidx.compose.web.elements.*
+import org.jetbrains.compose.web.attributes.*
+import org.jetbrains.compose.web.dom.*
 
 @Composable
 public inline fun Button(

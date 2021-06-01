@@ -1,10 +1,10 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import androidx.compose.web.attributes.*
-import androidx.compose.web.elements.*
-import androidx.compose.web.elements.Text
+import org.jetbrains.compose.web.attributes.*
+import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
+import org.w3c.dom.Text
 
 @Composable
 public inline fun Input(
@@ -20,7 +20,7 @@ public inline fun Input(
     classes(labelClasses)
     attr("for", null)
 }) {
-    require(type != InputType.DateTimeLocal)
+    require(type != InputType.DateTimeLocal) { "Use DateTimeInput instead." }
     Text(label)
     Input(type = type, attrs = {
         attrs()
