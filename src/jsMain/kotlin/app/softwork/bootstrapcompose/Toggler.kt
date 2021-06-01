@@ -1,7 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import androidx.compose.web.elements.*
+import org.jetbrains.compose.web.dom.*
 
 @Composable
 public fun Toggler(target: String, controls: String) {
