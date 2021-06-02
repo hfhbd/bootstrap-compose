@@ -6,7 +6,7 @@ import org.jetbrains.compose.web.dom.*
 
 
 public data class Row(val color: Color?, val cells: List<Cell>) {
-    public data class Cell(val color: Color?, val content: @Composable () -> Unit)
+    public class Cell(public val color: Color?) { public lateinit var content: @Composable () -> Unit }
 
     public class Builder {
         private val values = mutableListOf<Pair<String, Cell>>()
@@ -16,8 +16,8 @@ public data class Row(val color: Color?, val cells: List<Cell>) {
         internal fun build() = values to rowColor
 
         @Composable
-        public fun column(title: String, color: Color? = null, content: @Composable () -> Unit) {
-            values.add(title to Cell(color, content))
+        public fun column(title: String, color: Color? = null, block: @Composable () -> Unit) {
+            values.add(title to Cell(color).apply { content = block })
         }
     }
 }
@@ -93,8 +93,7 @@ public fun Table(
                         Td(attrs = {
                             cell.color?.let { classes("table-$it") }
                         }) {
-                            val content: @Composable () -> Unit = cell.content
-                            content()
+                            cell.content()
                         }
                     }
                 }
