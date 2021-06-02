@@ -34,7 +34,9 @@ public fun <T> Table(
     val rows = mutableListOf<Row>()
 
     data.forEach {
-        val (rowValues, rowColor) = Row.Builder().apply { map(it) }.build()
+        val (rowValues, rowColor) = Row.Builder().apply {
+            map(it)
+        }.build()
         val cells = rowValues.map { (header, cellValue) ->
             if (header !in headers) {
                 headers.add(header)
@@ -91,7 +93,8 @@ public fun Table(
                         Td(attrs = {
                             cell.color?.let { classes("table-$it") }
                         }) {
-                            cell.content()
+                            val content: @Composable () -> Unit = cell.content
+                            content()
                         }
                     }
                 }
