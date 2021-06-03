@@ -8,14 +8,16 @@ public fun Container(
     fluid: Boolean = false,
     type: Breakpoint? = null,
     content: @Composable () -> Unit
-): Unit = Div(attrs = {
-    classes("container")
-    if (type != null) {
-        classes("container-$type")
+) {
+    Div(attrs = {
+        classes("container")
+        if (type != null) {
+            classes("container-$type")
+        }
+        if (fluid) {
+            classes("container-fluid")
+        }
+    }) {
+        content()
     }
-    if(fluid) {
-        classes("container-fluid")
-    }
-}) {
-    content()
 }
