@@ -38,9 +38,11 @@ public class DropDownBuilder {
 }
 
 @Composable
-public fun DropDown(title: String, id: String, color: Color = Color.Primary, block: DropDownBuilder.() -> Unit) {
+public fun DropDown(title: String, id: String, color: Color = Color.Primary, block: @Composable DropDownBuilder.() -> Unit) {
     Div({ classes("dropdown") }) {
-        val buttons = DropDownBuilder().apply(block).build()
+        val buttons = DropDownBuilder().apply {
+            block()
+        }.build()
 
         Button(attrs = {
             classes("btn", "btn-$color", "dropdown-toggle")
