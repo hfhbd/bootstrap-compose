@@ -70,8 +70,7 @@ public fun DropDown(title: String, id: String, color: Color = Color.Primary, blo
                             }
                         }
                         is DropDownBuilder.Content.Divider -> {
-                            Hr({classes("dropdown-divider")}) {
-                            }
+                            Hr { classes("dropdown-divider") }
                         }
                         is DropDownBuilder.Content.Header -> {
                             H6({classes("dropdown-header")}) {
