@@ -76,11 +76,14 @@ class TableTest {
                 column("Title") {
                     Text(it)
                 }
+                column("empty") {
+
+                }
             }
         }
 
         assertEquals(
-            expected = """<table class="table"><thead><tr><th scope="col">Title</th></tr></thead><tbody><tr><td>Foo</td></tr><tr><td>Bar</td></tr></tbody></table>""",
+            expected = """<table class="table"><thead><tr><th scope="col">Title</th><th scope="col">empty</th></tr></thead><tbody><tr><td>Foo</td><td></td></tr><tr><td>Bar</td><td></td></tr></tbody></table>""",
             actual = root.innerHTML
         )
     }
