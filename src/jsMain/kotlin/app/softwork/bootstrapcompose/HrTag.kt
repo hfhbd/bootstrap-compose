@@ -10,9 +10,6 @@ public object HrTag : Tag
 // https://github.com/JetBrains/compose-jb/pull/741
 
 @Composable
-public fun Hr(
-    attrs: AttrBuilderContext<HrTag> = {},
-    content: ContentBuilder<HTMLHRElement>? = null
-) {
-    TagElement("hr", applyAttrs = attrs, content = content)
+public fun Hr(attrs: AttrBuilderContext<HrTag> = {}) {
+    TagElement<HrTag, HTMLHRElement>("hr", applyAttrs = attrs, content = null)
 }
