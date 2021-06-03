@@ -49,7 +49,7 @@ class TableTest {
     @Test
     @Ignore // Constructor is not yet supported
     fun classConstructorTest() = runTest {
-        val holder = HolderConstructor(@Composable { Text("a") })
+        val holder = HolderConstructor @Composable { Text("a") }
         composition {
             holder.s()
         }
@@ -72,7 +72,7 @@ class TableTest {
     @Test
     fun table() = runTest {
         composition {
-            Table(listOf("Foo", "Bar")) {
+            Table(listOf("Foo", "Bar")) { _, it ->
                 column("Title") {
                     Text(it)
                 }

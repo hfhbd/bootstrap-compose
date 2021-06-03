@@ -28,14 +28,14 @@ public fun <T> Table(
     color: Color? = null,
     striped: Boolean = false,
     hover: Boolean = false,
-    map: @Composable Row.Builder.(T) -> Unit
+    map: @Composable Row.Builder.(Int, T) -> Unit
 ) {
     val headers = mutableListOf<String>()
     val rows = mutableListOf<Row>()
 
-    data.forEach {
+    data.forEachIndexed { index, it ->
         val (rowValues, rowColor) = Row.Builder().apply {
-            map(it)
+            map(index, it)
         }.build()
         val cells = rowValues.map { (header, cellValue) ->
             if (header !in headers) {
