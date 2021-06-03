@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
 @Composable
@@ -9,6 +10,7 @@ public fun Column(
     horizontalAlignment: HorizontalAlignment? = null,
     breakpoint: Breakpoint? = null,
     size: Int? = null,
+    attrs: AttrsBuilder<Tag.Div>.() -> Unit = { },
     content: @Composable () -> Unit
 ) {
     Div(attrs = {
@@ -23,6 +25,7 @@ public fun Column(
             classes("col-auto")
         }
         horizontalAlignment?.let { classes(it.toString()) }
+        attrs()
     }) {
         content()
     }

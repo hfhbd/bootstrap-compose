@@ -5,7 +5,13 @@ import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
 @Composable
-public fun Checkbox(checked: Boolean, label: String, id: String, onClick: () -> Unit) {
+public fun Checkbox(
+    checked: Boolean,
+    label: String,
+    id: String,
+    attrs: AttrsBuilder<Tag.Input>.() -> Unit = { },
+    onClick: () -> Unit
+) {
     Div({ classes("form-check") }) {
         Input(attrs = {
             classes("form-check-input")
@@ -15,6 +21,7 @@ public fun Checkbox(checked: Boolean, label: String, id: String, onClick: () -> 
             onClick {
                 onClick()
             }
+            attrs()
         }, type = InputType.Radio) {
         }
         Label(attrs = {
