@@ -1,6 +1,6 @@
 plugins {
     kotlin("multiplatform") version "1.5.10"
-    id("org.jetbrains.compose") version "0.5.0-build223"
+    id("org.jetbrains.compose") version "0.5.0-build222"
     `maven-publish`
 }
 
@@ -26,7 +26,7 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
-                implementation(compose.web.core)
+                api(compose.web.core)
             }
         }
     }
