@@ -22,8 +22,7 @@ public fun Checkbox(
                 onClick()
             }
             attrs()
-        }, type = InputType.Radio) {
-        }
+        }, type = InputType.Radio)
         Label(attrs = {
             classes("form-check-label")
             forId("a$id")
