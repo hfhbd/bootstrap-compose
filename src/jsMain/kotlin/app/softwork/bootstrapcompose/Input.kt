@@ -28,7 +28,7 @@ public fun Input(
             classes(inputClasses)
             value(value)
             placeholder(placeholder)
-            this.onInput {
+            addEventListener("input") {
                 val target = it.nativeEvent.target as HTMLInputElement
                 onChange(target)
             }
