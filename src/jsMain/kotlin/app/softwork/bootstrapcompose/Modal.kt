@@ -1,16 +1,17 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
+import kotlinx.uuid.*
 import org.jetbrains.compose.web.dom.*
 
 @Composable
 public fun Modal(
+    header: String,
+    buttonTitle: String,
     size: Breakpoint? = null,
     scrollable: Boolean = false,
-    buttonTitle: String,
-    id: String,
+    id: String = UUID().toString(),
     buttonColor: Color = Color.Primary,
-    header: String,
     footer: @Composable () -> Unit = {},
     content: @Composable () -> Unit
 ) {

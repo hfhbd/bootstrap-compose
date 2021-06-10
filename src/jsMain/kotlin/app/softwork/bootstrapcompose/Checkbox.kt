@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
+import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
@@ -8,7 +9,7 @@ import org.jetbrains.compose.web.dom.*
 public fun Checkbox(
     checked: Boolean,
     label: String,
-    id: String,
+    id: String = UUID().toString(),
     attrs: AttrsBuilder<Tag.Input>.() -> Unit = { },
     onClick: () -> Unit
 ) {

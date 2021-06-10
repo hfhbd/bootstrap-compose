@@ -9,10 +9,10 @@ import org.w3c.dom.Text
 @Composable
 public fun DateTimeInput(
     label: String,
-    labelClasses: String = "form-label",
-    inputClasses: String = "form-control",
     placeholder: String,
     value: String,
+    labelClasses: String = "form-label",
+    inputClasses: String = "form-control",
     attrs: AttrsBuilder<Tag.Input>.() -> Unit = { },
     onChange: (HTMLInputElement) -> Unit
 ) {

@@ -8,12 +8,12 @@ import org.w3c.dom.Text
 
 @Composable
 public fun Input(
-    type: InputType = InputType.Text,
     label: String,
-    labelClasses: String = "form-label",
-    inputClasses: String = "form-control",
     placeholder: String,
     value: String,
+    type: InputType = InputType.Text,
+    labelClasses: String = "form-label",
+    inputClasses: String = "form-control",
     attrs: AttrsBuilder<Tag.Input>.() -> Unit = { },
     onChange: (HTMLInputElement) -> Unit
 ) {
