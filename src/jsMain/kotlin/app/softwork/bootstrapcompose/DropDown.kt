@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
+import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
@@ -38,7 +39,7 @@ public class DropDownBuilder {
 }
 
 @Composable
-public fun DropDown(title: String, id: String, color: Color = Color.Primary, block: @Composable DropDownBuilder.() -> Unit) {
+public fun DropDown(title: String, id: String = UUID().toString(), color: Color = Color.Primary, block: @Composable DropDownBuilder.() -> Unit) {
     Div({ classes("dropdown") }) {
         val buttons = DropDownBuilder().apply {
             block()

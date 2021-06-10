@@ -4,9 +4,10 @@ import androidx.compose.runtime.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
-
-public data class Row(val color: Color?, val cells: List<Cell>) {
-    public class Cell(public val color: Color?) { public lateinit var content: @Composable () -> Unit }
+public data class Row(val color: Color?, val cells: List<Cell>, val key: Any?) {
+    public class Cell(public val color: Color?) {
+        public lateinit var content: @Composable () -> Unit
+    }
 
     public class Builder {
         private val values = mutableListOf<Pair<String, Cell>>()
@@ -25,6 +26,7 @@ public data class Row(val color: Color?, val cells: List<Cell>) {
 @Composable
 public fun <T> Table(
     data: List<T>,
+    key: ((T) -> Any)? = null,
     color: Color? = null,
     striped: Boolean = false,
     hover: Boolean = false,
@@ -43,7 +45,7 @@ public fun <T> Table(
             }
             cellValue
         }
-        val row = Row(rowColor, cells)
+        val row = Row(rowColor, cells, key = key?.invoke(it))
         rows.add(row)
     }
     Table(
@@ -86,14 +88,16 @@ public fun Table(
         }
         Tbody {
             for (row in rows) {
-                Tr(attrs = {
-                    row.color?.let { classes("table-$it") }
-                }) {
-                    for (cell in row.cells) {
-                        Td(attrs = {
-                            cell.color?.let { classes("table-$it") }
-                        }) {
-                            cell.content()
+                key(row.key) {
+                    Tr(attrs = {
+                        row.color?.let { classes("table-$it") }
+                    }) {
+                        for (cell in row.cells) {
+                            Td(attrs = {
+                                cell.color?.let { classes("table-$it") }
+                            }) {
+                                cell.content()
+                            }
                         }
                     }
                 }
