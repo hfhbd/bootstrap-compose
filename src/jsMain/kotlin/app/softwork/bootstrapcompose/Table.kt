@@ -7,6 +7,7 @@ import org.jetbrains.compose.web.dom.*
 public data class Row(val color: Color?, val cells: List<Cell>, val key: Any?) {
     public class Cell(public val color: Color?) {
         public lateinit var content: @Composable () -> Unit
+        public lateinit var headerAction: @Composable () -> Unit
     }
 
     public class Builder {
@@ -17,8 +18,16 @@ public data class Row(val color: Color?, val cells: List<Cell>, val key: Any?) {
         internal fun build() = values to rowColor
 
         @Composable
-        public fun column(title: String, color: Color? = null, block: @Composable () -> Unit) {
-            values.add(title to Cell(color).apply { content = block })
+        public fun column(
+            title: String,
+            color: Color? = null,
+            action: @Composable () -> Unit = { },
+            block: @Composable () -> Unit
+        ) {
+            values.add(title to Cell(color).apply {
+                content = block
+                headerAction = action
+            })
         }
     }
 }
@@ -32,7 +41,7 @@ public fun <T> Table(
     hover: Boolean = false,
     map: @Composable Row.Builder.(Int, T) -> Unit
 ) {
-    val headers = mutableListOf<String>()
+    val headers = mutableMapOf<String, @Composable () -> Unit>()
     val rows = mutableListOf<Row>()
 
     data.forEachIndexed { index, it ->
@@ -41,7 +50,7 @@ public fun <T> Table(
         }.build()
         val cells = rowValues.map { (header, cellValue) ->
             if (header !in headers) {
-                headers.add(header)
+                headers[header] = cellValue.headerAction
             }
             cellValue
         }
@@ -62,7 +71,7 @@ public fun Table(
     color: Color? = null,
     striped: Boolean = false,
     hover: Boolean = false,
-    headers: List<String>,
+    headers: Map<String, @Composable () -> Unit>,
     rows: List<Row>
 ) {
     Table(attrs = {
@@ -81,7 +90,10 @@ public fun Table(
                     Th(attrs = {
                         scope(Scope.Col)
                     }) {
-                        Text(header)
+                        Row {
+                            Column { Text(header.key) }
+                            Column(auto = true) { header.value() }
+                        }
                     }
                 }
             }
