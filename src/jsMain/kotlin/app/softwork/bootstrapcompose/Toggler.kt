@@ -3,9 +3,10 @@ package app.softwork.bootstrapcompose
 import androidx.compose.runtime.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import org.w3c.dom.*
 
 @Composable
-public fun Toggler(target: String, controls: String, attrs: AttrsBuilder<Tag.Button>.() -> Unit = { }) {
+public fun Toggler(target: String, controls: String, attrs: AttrsBuilder<HTMLButtonElement>.() -> Unit = { }) {
     Button(attrs = {
         classes("navbar-toggler")
         attr("data-toggle", "collapse")

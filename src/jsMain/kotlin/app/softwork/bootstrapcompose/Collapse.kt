@@ -4,12 +4,13 @@ import androidx.compose.runtime.*
 import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import org.w3c.dom.*
 
 @Composable
 public fun Collapse(
     title: String, id: String = UUID().toString(), color: Color = Color.Primary,
-    buttonAttrs: AttrsBuilder<Tag.Button>.() -> Unit = { },
-    contentAttrs: AttrsBuilder<Tag.Div>.() -> Unit = { },
+    buttonAttrs: AttrsBuilder<HTMLButtonElement>.() -> Unit = { },
+    contentAttrs: AttrsBuilder<HTMLDivElement>.() -> Unit = { },
     content: @Composable () -> Unit
 ) {
     Button(attrs = {
