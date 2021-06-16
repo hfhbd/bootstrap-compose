@@ -4,13 +4,15 @@ import androidx.compose.runtime.*
 import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Text
+import org.w3c.dom.*
 
 @Composable
 public fun Checkbox(
     checked: Boolean,
     label: String,
     id: String = UUID().toString(),
-    attrs: AttrsBuilder<Tag.Input>.() -> Unit = { },
+    attrs: AttrsBuilder<HTMLInputElement>.() -> Unit = { },
     onClick: () -> Unit
 ) {
     Div({ classes("form-check") }) {
@@ -18,7 +20,9 @@ public fun Checkbox(
             classes("form-check-input")
             name("flexRadioDefault1")
             id("a$id")
-            checked(checked)
+            if(checked) {
+                checked()
+            }
             onClick {
                 onClick()
             }

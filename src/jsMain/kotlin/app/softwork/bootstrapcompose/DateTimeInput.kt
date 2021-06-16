@@ -13,12 +13,11 @@ public fun DateTimeInput(
     value: String,
     labelClasses: String = "form-label",
     inputClasses: String = "form-control",
-    attrs: AttrsBuilder<Tag.Input>.() -> Unit = { },
+    attrs: AttrsBuilder<HTMLInputElement>.() -> Unit = { },
     onChange: (HTMLInputElement) -> Unit
 ) {
-    Label(forId = "", attrs = {
+    Label(forId = null, attrs = {
         classes(labelClasses)
-        attr("for", null)
     }) {
         Text(label)
         Input(type = InputType.DateTimeLocal, attrs = {
