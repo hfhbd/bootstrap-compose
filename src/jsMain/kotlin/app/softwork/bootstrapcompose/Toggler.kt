@@ -9,8 +9,8 @@ import org.w3c.dom.*
 public fun Toggler(target: String, controls: String, attrs: AttrsBuilder<HTMLButtonElement>.() -> Unit = { }) {
     Button(attrs = {
         classes("navbar-toggler")
-        attr("data-toggle", "collapse")
-        attr("data-target", "#$target")
+        attr("data-bs-toggle", "collapse")
+        attr("data-bs-target", "#$target")
         attr("aria-controls", controls)
         attr("aria-expanded", "false")
         attr("aria-label", "Toggle navigation")
