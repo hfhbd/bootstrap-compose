@@ -8,7 +8,16 @@ public enum class Color(private val value: String) {
     Warning("warning"),
     Danger("danger"),
     Light("light"),
-    Dark("dark");
+    Dark("dark"),
+    Body("body"),
+    Muted("muted"),
+    White("white"),
+    Black50("black-50"),
+    White50("white-50"),
+    Transparent("transparent");
 
     override fun toString(): String = value
+
+    public fun background(): String = "bg-$value"
+    public fun text(): String = "text-$value"
 }

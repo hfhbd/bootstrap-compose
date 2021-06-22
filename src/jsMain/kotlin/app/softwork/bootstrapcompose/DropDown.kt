@@ -87,3 +87,55 @@ public fun DropDown(title: String, id: String = UUID().toString(), color: Color 
         }
     }
 }
+
+@Composable
+public fun NavbarDropDown(title: String, href: String?, id: String = UUID().toString(), block: @Composable DropDownBuilder.() -> Unit) {
+    Div({ classes("dropdown") }) {
+        val buttons = DropDownBuilder().apply {
+            block()
+        }.build()
+
+        A(attrs = {
+            classes("nav-link", "dropdown-toggle")
+            id("dropdownMenu$id")
+            attr("data-bs-toggle", "dropdown")
+            attr("aria-expanded", "false")
+        },
+            href = href
+        ) {
+            Text(title)
+        }
+
+        Ul({
+            classes("dropdown-menu")
+            attr("aria-labelledby", "dropdownMenu$id")
+        }) {
+
+            for (button in buttons) {
+                Li {
+                    when (button) {
+                        is DropDownBuilder.Content.Button -> {
+                            Button({
+                                classes("dropdown-item")
+                                onClick { button.onClick() }
+                            }) {
+                                Text(button.title)
+                            }
+                        }
+                        is DropDownBuilder.Content.Divider -> {
+                            Hr { classes("dropdown-divider") }
+                        }
+                        is DropDownBuilder.Content.Header -> {
+                            H6({classes("dropdown-header")}) {
+                                Text(button.title)
+                            }
+                        }
+                        is DropDownBuilder.Content.Custom -> {
+                            button.content()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
