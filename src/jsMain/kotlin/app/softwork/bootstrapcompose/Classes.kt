@@ -4,7 +4,6 @@ public object BSClasses {
     public const val active: String = "active"
 
     public val align: Align = Align
-    public val background: Background = Background
     public val display: Display = Display
 
     public const val collapse: String = "collapse"
@@ -26,21 +25,6 @@ public object Align {
     public const val textBottom: String = "align-text-bottom"
 }
 
-public object Background {
-    public const val primary: String = "bg-primary"
-    public const val secondary: String = "bg-secondary"
-    public const val success: String = "bg-success"
-    public const val danger: String = "bg-danger"
-    public const val warning: String = "bg-warning"
-    public const val info: String = "bg-info"
-    public const val light: String = "bg-light"
-    public const val dark: String = "bg-dark"
-    public const val body: String = "bg-body"
-    public const val white: String = "bg-white"
-    public const val transparent: String = "bg-transparent"
-}
-
-
 public object Display {
     public val small: DisplayBreakpoint = DisplayBreakpoint(Breakpoint.Small)
     public val medium: DisplayBreakpoint = DisplayBreakpoint(Breakpoint.Medium)
@@ -59,7 +43,7 @@ public object Display {
     public const val inlineFlex: String = "d-${DisplayValue.inlineFlex}"
 }
 
-public class DisplayBreakpoint(private val breakpoint: Breakpoint) {
+public class DisplayBreakpoint(breakpoint: Breakpoint) {
     public val none: String = makeDisplayClass(breakpoint, DisplayValue.none)
     public val inline: String = makeDisplayClass(breakpoint, DisplayValue.inline)
     public val inlineBlock: String = makeDisplayClass(breakpoint, DisplayValue.inlineBlock)
