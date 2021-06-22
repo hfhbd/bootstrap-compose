@@ -67,7 +67,7 @@ public fun Navbar(
     colorScheme: Color = Color.Light,
     backgroundColor: Color = Color.Primary,
     toggler: Boolean = true,
-    togglerPosition: TogglerPosition = TogglerPosition.LEFT,
+    togglerPosition: TogglerPosition = TogglerPosition.Left,
     togglerAttrs: AttrsBuilder<HTMLButtonElement>.() -> Unit = { },
     attrs: AttrsBuilder<HTMLElement>.() -> Unit = { },
     navAttrs: AttrsBuilder<HTMLDivElement>.() -> Unit = { },
@@ -82,7 +82,7 @@ public fun Navbar(
         backgroundColor,
         attrs
     ) {
-        if (togglerPosition == TogglerPosition.RIGHT) {
+        if (togglerPosition == TogglerPosition.Right) {
             brand()
         }
 
@@ -104,7 +104,7 @@ public fun Navbar(
             }
         }
 
-        if (togglerPosition == TogglerPosition.LEFT) {
+        if (togglerPosition == TogglerPosition.Left) {
             brand()
         }
     }
@@ -167,15 +167,12 @@ public fun NavbarLink(
             }
             attr("aria-current", "page")
         }
-        link?.let {
-            href(it)
-        }
         attrs()
-    }) {
+    }, href = link) {
         content?.invoke(this)
     }
 }
 
 public enum class TogglerPosition{
-    LEFT, RIGHT
+    Left, Right
 }
