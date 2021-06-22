@@ -67,7 +67,7 @@ public fun Navbar(
     colorScheme: Color = Color.Light,
     backgroundColor: Color = Color.Primary,
     toggler: Boolean = true,
-    togglerPosition: TogglerPosition = TogglerPosition.LEFT,
+    togglerPosition: TogglerPosition = TogglerPosition.Left,
     togglerAttrs: AttrsBuilder<HTMLButtonElement>.() -> Unit = { },
     attrs: AttrsBuilder<HTMLElement>.() -> Unit = { },
     navAttrs: AttrsBuilder<HTMLDivElement>.() -> Unit = { },
