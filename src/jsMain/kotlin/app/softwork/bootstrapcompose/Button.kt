@@ -10,17 +10,16 @@ import org.w3c.dom.*
 public fun Button(
     title: String,
     color: Color = Color.Primary,
-    vararg customClasses: String = emptyArray(),
     type: ButtonType = ButtonType.Submit,
     attrs: AttrsBuilder<HTMLButtonElement>.() -> Unit = { },
-    onClick: () -> Unit
+    action: () -> Unit
 ) {
     Button(attrs = {
-        classes("btn", "btn-$color", *customClasses)
+        classes("btn", "btn-$color")
         attrs()
         type(type)
         onClick {
-            onClick()
+            action()
         }
     }) {
         Text(title)

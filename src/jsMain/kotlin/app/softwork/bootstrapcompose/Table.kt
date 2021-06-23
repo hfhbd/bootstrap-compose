@@ -17,7 +17,6 @@ public data class Row(val color: Color?, val cells: List<Cell>, val key: Any?) {
 
         internal fun build() = values to rowColor
 
-        @Composable
         public fun column(
             title: String,
             color: Color? = null,
@@ -39,7 +38,7 @@ public fun <T> Table(
     color: Color? = null,
     striped: Boolean = false,
     hover: Boolean = false,
-    map: @Composable Row.Builder.(Int, T) -> Unit
+    map: Row.Builder.(Int, T) -> Unit
 ) {
     val headers = mutableMapOf<String, @Composable () -> Unit>()
     val rows = mutableListOf<Row>()
