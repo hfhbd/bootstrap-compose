@@ -3,11 +3,13 @@ package app.softwork.bootstrapcompose
 import androidx.compose.runtime.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Text
+import org.w3c.dom.*
 
 public data class Row(val color: Color?, val cells: List<Cell>, val key: Any?) {
     public class Cell(public val color: Color?) {
-        public lateinit var content: @Composable () -> Unit
-        public lateinit var headerAction: @Composable () -> Unit
+        public lateinit var content: ContentBuilder<HTMLTableCellElement>
+        public lateinit var headerAction: ContentBuilder<HTMLDivElement>
     }
 
     public class Builder {
@@ -20,8 +22,8 @@ public data class Row(val color: Color?, val cells: List<Cell>, val key: Any?) {
         public fun column(
             title: String,
             color: Color? = null,
-            action: @Composable () -> Unit = { },
-            block: @Composable () -> Unit
+            action: ContentBuilder<HTMLDivElement>,
+            block: ContentBuilder<HTMLTableCellElement>
         ) {
             values.add(title to Cell(color).apply {
                 content = block
@@ -40,7 +42,7 @@ public fun <T> Table(
     hover: Boolean = false,
     map: Row.Builder.(Int, T) -> Unit
 ) {
-    val headers = mutableMapOf<String, @Composable () -> Unit>()
+    val headers = mutableMapOf<String, ContentBuilder<HTMLDivElement>?>()
     val rows = mutableListOf<Row>()
 
     data.forEachIndexed { index, it ->
@@ -70,7 +72,7 @@ public fun Table(
     color: Color? = null,
     striped: Boolean = false,
     hover: Boolean = false,
-    headers: Map<String, @Composable () -> Unit>,
+    headers: Map<String, ContentBuilder<HTMLDivElement>?>,
     rows: List<Row>
 ) {
     Table(attrs = {
@@ -91,7 +93,7 @@ public fun Table(
                     }) {
                         Row {
                             Column { Text(header.key) }
-                            Column(auto = true) { header.value() }
+                            Column(auto = true) { header.value?.invoke(this) }
                         }
                     }
                 }
@@ -107,7 +109,7 @@ public fun Table(
                             Td(attrs = {
                                 cell.color?.let { classes("table-$it") }
                             }) {
-                                cell.content()
+                                cell.content(this)
                             }
                         }
                     }

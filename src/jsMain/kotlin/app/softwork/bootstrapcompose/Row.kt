@@ -8,12 +8,12 @@ import org.w3c.dom.*
 @Composable
 public fun Row(
     horizontalAlignment: HorizontalAlignment? = null,
-    attrs: AttrsBuilder<HTMLDivElement>.() -> Unit = { },
-    content: @Composable () -> Unit
+    attrs: AttrBuilderContext<HTMLDivElement>? = null,
+    content: ContentBuilder<HTMLDivElement>
 ) {
     Div(attrs = {
         classes("row")
         horizontalAlignment?.let { classes(it.toString()) }
-        attrs()
+        attrs?.invoke(this)
     }) { content() }
 }

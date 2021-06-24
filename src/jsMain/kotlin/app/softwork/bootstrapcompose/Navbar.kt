@@ -24,8 +24,8 @@ public fun Navbar(
     containerBreakpoint: Breakpoint? = null,
     colorScheme: Color = Color.Light,
     backgroundColor: Color = Color.Primary,
-    attrs: AttrsBuilder<HTMLElement>.() -> Unit = { },
-    content: ContentBuilder<HTMLElement> = { }
+    attrs: AttrBuilderContext<HTMLElement>? = null,
+    content: ContentBuilder<HTMLDivElement>? = null
 ) {
     Nav(attrs = {
         classes(
@@ -35,10 +35,10 @@ public fun Navbar(
             "bg-${backgroundColor}"
         )
         attr("role", "navigation")
-        attrs()
+        attrs?.invoke(this)
     }) {
         Container(fluid, containerBreakpoint) {
-            content()
+            content?.invoke(this)
         }
     }
 }
@@ -68,11 +68,11 @@ public fun Navbar(
     backgroundColor: Color = Color.Primary,
     toggler: Boolean = true,
     togglerPosition: TogglerPosition = TogglerPosition.Left,
-    togglerAttrs: AttrsBuilder<HTMLButtonElement>.() -> Unit = { },
-    attrs: AttrsBuilder<HTMLElement>.() -> Unit = { },
-    navAttrs: AttrsBuilder<HTMLDivElement>.() -> Unit = { },
-    brand: @Composable () -> Unit,
-    navItems: @Composable () -> Unit
+    togglerAttrs: AttrBuilderContext<HTMLButtonElement>? = null,
+    attrs: AttrBuilderContext<HTMLElement>? = null,
+    navAttrs: AttrBuilderContext<HTMLDivElement>? = null,
+    brand: ContentBuilder<HTMLDivElement>,
+    navItems: ContentBuilder<HTMLDivElement>
 ) {
     Navbar(
         breakpoint,
@@ -94,7 +94,7 @@ public fun Navbar(
                 togglerAttrs
             )
             NavbarCollapse(targetId) {
-                NavbarNav(attrs = { navAttrs() }) {
+                NavbarNav(attrs = { navAttrs?.invoke(this) }) {
                     navItems()
                 }
             }
@@ -118,13 +118,13 @@ public fun Navbar(
 @Composable
 public fun NavbarCollapse(
     id: String,
-    attrs: AttrsBuilder<HTMLDivElement>.() -> Unit = {},
+    attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>? = null
 ) {
     Div(attrs = {
         classes(BSClasses.collapse, BSClasses.navbarCollapse)
         id(id)
-        attrs()
+        attrs?.invoke(this)
     }) {
         content?.invoke(this)
     }
@@ -135,12 +135,12 @@ public fun NavbarCollapse(
  */
 @Composable
 public fun NavbarNav(
-    attrs: AttrsBuilder<HTMLDivElement>.() -> Unit = {},
+    attrs: AttrBuilderContext<HTMLDivElement>? = null,
     links: ContentBuilder<HTMLDivElement>? = null
 ) {
     Div(attrs = {
         classes(BSClasses.navbarNav)
-        attrs()
+        attrs?.invoke(this)
     }) {
         links?.invoke(this)
     }
@@ -153,7 +153,7 @@ public fun NavbarNav(
 @Composable
 public fun NavbarLink(
     active: Boolean,
-    attrs: AttrsBuilder<HTMLAnchorElement>.() -> Unit = {},
+    attrs: AttrBuilderContext<HTMLAnchorElement>? = null,
     disabled: Boolean = false,
     link: String? = null,
     content: ContentBuilder<HTMLAnchorElement>? = null
@@ -167,7 +167,7 @@ public fun NavbarLink(
             }
             attr("aria-current", "page")
         }
-        attrs()
+        attrs?.invoke(this)
     }, href = link) {
         content?.invoke(this)
     }

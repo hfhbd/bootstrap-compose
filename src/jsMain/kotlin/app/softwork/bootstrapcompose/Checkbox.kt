@@ -12,7 +12,7 @@ public fun Checkbox(
     checked: Boolean,
     label: String,
     id: String = UUID().toString(),
-    attrs: AttrsBuilder<HTMLInputElement>.() -> Unit = { },
+    attrs: AttrBuilderContext<HTMLInputElement>? = null,
     onClick: () -> Unit
 ) {
     Div({ classes("form-check") }) {
@@ -26,7 +26,7 @@ public fun Checkbox(
             onClick {
                 onClick()
             }
-            attrs()
+            attrs?.invoke(this)
         }, type = InputType.Radio)
         Label(attrs = {
             classes("form-check-label")

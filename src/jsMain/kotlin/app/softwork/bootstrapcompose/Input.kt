@@ -14,7 +14,7 @@ public fun Input(
     type: InputType = InputType.Text,
     labelClasses: String = "form-label",
     inputClasses: String = "form-control",
-    attrs: AttrsBuilder<HTMLInputElement>.() -> Unit = { },
+    attrs: AttrBuilderContext<HTMLInputElement>? = null,
     onChange: (HTMLInputElement) -> Unit
 ) {
     Label(forId = null, attrs = {
@@ -23,7 +23,7 @@ public fun Input(
         require(type != InputType.DateTimeLocal) { "Use DateTimeInput instead." }
         Text(label)
         Input(type = type, attrs = {
-            attrs()
+            attrs?.invoke(this)
             classes(inputClasses)
             value(value)
             placeholder(placeholder)
