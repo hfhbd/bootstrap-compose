@@ -68,13 +68,21 @@ class TableTest {
         assertEquals("a", root.innerHTML)
     }
 
+    @Test
+    fun button() = runTest {
+        composition {
+            Button(title = "a") { }
+        }
+        assertEquals("""<button type="submit" class="btn btn-primary">a</button>""", root.innerHTML)
+    }
+
 
     @Test
     fun table() = runTest {
         composition {
             Table(listOf("Foo", "Bar")) { _, it ->
                 column("Title", action = {
-                    Button("Text") {
+                    Button(title = "Text") {
 
                     }
                 }) {

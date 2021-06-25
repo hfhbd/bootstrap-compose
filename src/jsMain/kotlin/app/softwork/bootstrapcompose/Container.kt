@@ -9,8 +9,8 @@ import org.w3c.dom.*
 public fun Container(
     fluid: Boolean = false,
     type: Breakpoint? = null,
-    attrs: AttrsBuilder<HTMLDivElement>.() -> Unit = { },
-    content: @Composable () -> Unit
+    attrs: AttrBuilderContext<HTMLDivElement>? = null,
+    content: ContentBuilder<HTMLDivElement>
 ) {
     Div(attrs = {
         classes("container")
@@ -20,7 +20,7 @@ public fun Container(
         if (fluid) {
             classes("container-fluid")
         }
-        attrs()
+        attrs?.invoke(this)
     }) {
         content()
     }

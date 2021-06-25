@@ -11,12 +11,12 @@ public fun Button(
     title: String,
     color: Color = Color.Primary,
     type: ButtonType = ButtonType.Submit,
-    attrs: AttrsBuilder<HTMLButtonElement>.() -> Unit = { },
+    attrs: AttrBuilderContext<HTMLButtonElement>? = null,
     action: () -> Unit
 ) {
     Button(attrs = {
         classes("btn", "btn-$color")
-        attrs()
+        attrs?.invoke(this)
         type(type)
         onClick {
             action()

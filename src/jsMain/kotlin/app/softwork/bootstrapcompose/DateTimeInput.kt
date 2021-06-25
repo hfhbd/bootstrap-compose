@@ -13,20 +13,20 @@ public fun DateTimeInput(
     value: String,
     labelClasses: String = "form-label",
     inputClasses: String = "form-control",
-    attrs: AttrsBuilder<HTMLInputElement>.() -> Unit = { },
-    onChange: (HTMLInputElement) -> Unit
+    attrs: AttrBuilderContext<HTMLInputElement>? = null,
+    onInput: (HTMLInputElement) -> Unit
 ) {
     Label(forId = null, attrs = {
         classes(labelClasses)
     }) {
         Text(label)
         Input(type = InputType.DateTimeLocal, attrs = {
-            attrs()
+            attrs?.invoke(this)
             classes(inputClasses)
             value(value)
             placeholder(placeholder)
             addEventListener("input") {
-                onChange(it.nativeEvent.target as HTMLInputElement)
+                onInput(it.nativeEvent.target as HTMLInputElement)
             }
         })
     }

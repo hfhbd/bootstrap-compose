@@ -4,13 +4,15 @@ import androidx.compose.runtime.*
 import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Text
+import org.w3c.dom.*
 
 public class DropDownBuilder {
     public sealed class Content {
         public data class Button(val title: String, val onClick: () -> Unit) : Content()
         public data class Header(val title: String) : Content()
         public class Custom : Content() {
-            public lateinit var content: @Composable () -> Unit
+            public lateinit var content: ContentBuilder<HTMLLIElement>
         }
 
         public object Divider : Content()
@@ -30,8 +32,8 @@ public class DropDownBuilder {
         content.add(Content.Header(title))
     }
 
-    @Composable
-    public fun Custom(block: @Composable () -> Unit) {
+
+    public fun Custom(block: ContentBuilder<HTMLLIElement>) {
         content.add(Content.Custom().apply { content = block })
     }
 
@@ -39,7 +41,7 @@ public class DropDownBuilder {
 }
 
 @Composable
-public fun DropDown(title: String, id: String = UUID().toString(), color: Color = Color.Primary, block: @Composable DropDownBuilder.() -> Unit) {
+public fun DropDown(title: String, id: String = UUID().toString(), color: Color = Color.Primary, block: DropDownBuilder.() -> Unit) {
     Div({ classes("dropdown") }) {
         val buttons = DropDownBuilder().apply {
             block()
@@ -79,7 +81,7 @@ public fun DropDown(title: String, id: String = UUID().toString(), color: Color 
                             }
                         }
                         is DropDownBuilder.Content.Custom -> {
-                            button.content()
+                            button.content(this)
                         }
                     }
                 }
@@ -89,7 +91,7 @@ public fun DropDown(title: String, id: String = UUID().toString(), color: Color 
 }
 
 @Composable
-public fun NavbarDropDown(title: String, href: String?, id: String = UUID().toString(), block: @Composable DropDownBuilder.() -> Unit) {
+public fun NavbarDropDown(title: String, href: String?, id: String = UUID().toString(), block: DropDownBuilder.() -> Unit) {
     Div({ classes("dropdown") }) {
         val buttons = DropDownBuilder().apply {
             block()
@@ -131,7 +133,7 @@ public fun NavbarDropDown(title: String, href: String?, id: String = UUID().toSt
                             }
                         }
                         is DropDownBuilder.Content.Custom -> {
-                            button.content()
+                            button.content(this)
                         }
                     }
                 }

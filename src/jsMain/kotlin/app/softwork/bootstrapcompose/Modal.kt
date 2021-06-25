@@ -3,6 +3,8 @@ package app.softwork.bootstrapcompose
 import androidx.compose.runtime.*
 import kotlinx.uuid.*
 import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Text
+import org.w3c.dom.*
 
 @Composable
 public fun Modal(
@@ -12,8 +14,8 @@ public fun Modal(
     scrollable: Boolean = false,
     id: String = UUID().toString(),
     buttonColor: Color = Color.Primary,
-    footer: @Composable () -> Unit = {},
-    content: @Composable () -> Unit
+    footer: ContentBuilder<HTMLDivElement>? = null,
+    content: ContentBuilder<HTMLDivElement>
 ) {
     Div {
         Button({
@@ -58,7 +60,7 @@ public fun Modal(
                         content()
                     }
                     Div({ classes("modal-footer") }) {
-                        footer()
+                        footer?.invoke(this)
                     }
                 }
             }

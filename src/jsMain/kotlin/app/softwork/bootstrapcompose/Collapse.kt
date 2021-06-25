@@ -9,9 +9,9 @@ import org.w3c.dom.*
 @Composable
 public fun Collapse(
     title: String, id: String = UUID().toString(), color: Color = Color.Primary,
-    buttonAttrs: AttrsBuilder<HTMLButtonElement>.() -> Unit = { },
-    contentAttrs: AttrsBuilder<HTMLDivElement>.() -> Unit = { },
-    content: @Composable () -> Unit
+    buttonAttrs: AttrBuilderContext<HTMLButtonElement>? = null,
+    contentAttrs: AttrBuilderContext<HTMLDivElement>? = null,
+    content: ContentBuilder<HTMLDivElement>
 ) {
     Button(attrs = {
         classes("btn", "btn-$color")
@@ -19,12 +19,12 @@ public fun Collapse(
         attr("data-bs-target", "#a$id")
         attr("aria-expanded", "false")
         attr("aria-controls", id)
-        buttonAttrs()
-    }, type = ButtonType.Button, title = title) {}
+        buttonAttrs?.invoke(this)
+    }, type = ButtonType.Button, title = title) { }
     Div({
         classes("collapse")
         id("a$id")
-        contentAttrs()
+        contentAttrs?.invoke(this)
     }) {
         content()
     }

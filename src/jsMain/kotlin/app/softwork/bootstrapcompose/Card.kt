@@ -1,7 +1,6 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
@@ -10,13 +9,13 @@ import org.w3c.dom.*
 public fun Card(
     header: String,
     color: Color = Color.Dark,
-    attrs: AttrsBuilder<HTMLDivElement>.() -> Unit = {},
-    footer: @Composable () -> Unit = {},
-    body: @Composable () -> Unit
+    attrs: AttrBuilderContext<HTMLDivElement>? = null,
+    footer: ContentBuilder<HTMLDivElement>? = null,
+    body: ContentBuilder<HTMLDivElement>
 ) {
     Div({
         classes("card", "border-$color", "mb-3")
-        attrs()
+        attrs?.invoke(this)
     }) {
         Div({ classes("card-header") }) {
             Text(header)
@@ -25,7 +24,7 @@ public fun Card(
             body()
         }
         Div({ classes("card-footer") }) {
-            footer()
+            footer?.invoke(this)
         }
     }
 }

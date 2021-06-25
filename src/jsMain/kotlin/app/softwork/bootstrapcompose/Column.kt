@@ -11,8 +11,8 @@ public fun Column(
     horizontalAlignment: HorizontalAlignment? = null,
     breakpoint: Breakpoint? = null,
     size: Int? = null,
-    attrs: AttrsBuilder<HTMLDivElement>.() -> Unit = { },
-    content: @Composable () -> Unit
+    attrs: AttrBuilderContext<HTMLDivElement>? = null,
+    content: ContentBuilder<HTMLDivElement>
 ) {
     Div(attrs = {
         classes("col")
@@ -26,7 +26,7 @@ public fun Column(
             classes("col-auto")
         }
         horizontalAlignment?.let { classes(it.toString()) }
-        attrs()
+        attrs?.invoke(this)
     }) {
         content()
     }
