@@ -73,7 +73,7 @@ class TableTest {
         composition {
             Button(title = "a") { }
         }
-        assertEquals("<button class=\"btn btn-primary\">a</button>", root.innerHTML)
+        assertEquals("""<button type="submit" class="btn btn-primary">a</button>""", root.innerHTML)
     }
 
 
@@ -88,7 +88,7 @@ class TableTest {
                 }) {
                     Text(it)
                 }
-                column("empty", action = { }) {
+                column("empty") {
 
                 }
             }

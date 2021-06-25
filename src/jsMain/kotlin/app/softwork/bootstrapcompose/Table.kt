@@ -9,7 +9,7 @@ import org.w3c.dom.*
 public data class Row(val color: Color?, val cells: List<Cell>, val key: Any?) {
     public class Cell(public val color: Color?) {
         public lateinit var content: ContentBuilder<HTMLTableCellElement>
-        public lateinit var headerAction: ContentBuilder<HTMLDivElement>
+        public var headerAction: ContentBuilder<HTMLDivElement>? = null
     }
 
     public class Builder {
@@ -22,7 +22,7 @@ public data class Row(val color: Color?, val cells: List<Cell>, val key: Any?) {
         public fun column(
             title: String,
             color: Color? = null,
-            action: ContentBuilder<HTMLDivElement>,
+            action: ContentBuilder<HTMLDivElement>? = null,
             block: ContentBuilder<HTMLTableCellElement>
         ) {
             values.add(title to Cell(color).apply {
