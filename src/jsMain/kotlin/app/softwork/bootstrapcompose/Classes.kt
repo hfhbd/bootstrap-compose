@@ -7,6 +7,12 @@ public object BSClasses {
     public val display: Display = Display
 
     public const val collapse: String = "collapse"
+    public const val listGroup: String = "list-group"
+    public const val listGroupFlush: String = "list-group-flush"
+    public const val listGroupHorizontal: String = "list-group-horizontal"
+    public const val listGroupItem: String = "list-group-item"
+    public const val listGroupItemAction: String = "list-group-item-action"
+    public const val listGroupNumbered: String = "list-group-numbered"
     public const val navbar: String = "navbar"
     public const val navbarBrand: String = "navbar-brand"
     public const val navbarCollapse: String = "navbar-collapse"
