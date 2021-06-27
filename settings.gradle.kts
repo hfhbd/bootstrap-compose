@@ -5,4 +5,8 @@ pluginManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "bootstrap-compose"
+
+include(":example")
