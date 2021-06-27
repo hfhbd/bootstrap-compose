@@ -2,7 +2,6 @@ package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
 import kotlinx.uuid.*
-import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
@@ -54,6 +53,7 @@ public fun Navbar(
  * @param toggler Whether or not a toggler button should be provided when falling below the breakpoint.
  * @param togglerPosition Specifies if the toggler should be placed on the left or right side of the Navbar.
  * @param togglerAttrs Additional attributes to set on the toggler button
+ * @param togglerTargetId Optional id of the toggler, using a random UUID by default
  * @param attrs Additional attributes to set on the Navbar
  * @param navAttrs Additional attributes to set on the navItems section of the Navbar
  * @param brand Composable implementing the brand elements
@@ -67,7 +67,8 @@ public fun Navbar(
     colorScheme: Color = Color.Light,
     backgroundColor: Color = Color.Primary,
     toggler: Boolean = true,
-    togglerPosition: TogglerPosition = TogglerPosition.Left,
+    togglerPosition: TogglerPosition = TogglerPosition.Right,
+    togglerTargetId: String = "toggler${UUID()}",
     togglerAttrs: AttrBuilderContext<HTMLButtonElement>? = null,
     attrs: AttrBuilderContext<HTMLElement>? = null,
     navAttrs: AttrBuilderContext<HTMLDivElement>? = null,
@@ -87,13 +88,12 @@ public fun Navbar(
         }
 
         if (toggler) {
-            val targetId = "toggler${UUID()}"
             Toggler(
-                target = targetId,
-                controls = targetId,
+                target = togglerTargetId,
+                controls = togglerTargetId,
                 togglerAttrs
             )
-            NavbarCollapse(targetId) {
+            NavbarCollapse(togglerTargetId) {
                 NavbarNav(attrs = { navAttrs?.invoke(this) }) {
                     navItems()
                 }
@@ -162,10 +162,10 @@ public fun NavbarLink(
         classes(BSClasses.navLink)
         if (active) {
             classes(BSClasses.active)
-            if(disabled){
-                classes("disabled")
-            }
             attr("aria-current", "page")
+        }
+        if (disabled) {
+            classes("disabled")
         }
         attrs?.invoke(this)
     }, href = link) {
@@ -173,6 +173,6 @@ public fun NavbarLink(
     }
 }
 
-public enum class TogglerPosition{
+public enum class TogglerPosition {
     Left, Right
 }
