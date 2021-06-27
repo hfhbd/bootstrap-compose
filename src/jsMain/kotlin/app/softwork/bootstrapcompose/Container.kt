@@ -1,7 +1,6 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
@@ -13,13 +12,18 @@ public fun Container(
     content: ContentBuilder<HTMLDivElement>
 ) {
     Div(attrs = {
-        classes("container")
-        if (type != null) {
-            classes("container-$type")
+        when {
+            fluid -> {
+                classes("container-fluid")
+            }
+            type != null -> {
+                classes("container-$type")
+            }
+            else -> {
+                classes("container")
+            }
         }
-        if (fluid) {
-            classes("container-fluid")
-        }
+
         attrs?.invoke(this)
     }) {
         content()
