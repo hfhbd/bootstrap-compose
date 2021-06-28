@@ -24,7 +24,7 @@ public fun main() {
             fluid = true,
             colorScheme = Color.Dark,
             backgroundColor = Color.Dark,
-            breakpoint = Breakpoint.Large,
+            collapseBehavior = NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Large),
             brand = {
                 Brand {
                     Text("Bootstrap Compose")
