@@ -9,7 +9,7 @@ import org.w3c.dom.*
  * Bootstrap Navbar component. This version provides more flexibility than the alternative but is more complex
  * to use. For a simpler implementation use the version that takes a brand and navItems as parameters.
  *
- * @param breakpoint Specifies the navbar-expand breakpoint
+ * @param collapseBehavior Specifies the Navbar's Responsive behavior with use of the .navbar-expand class.
  * @param fluid Specifies if the inner container is fluid (container-fluid) or not.
  * @param containerBreakpoint Breakpoint for the inner container.
  * @param colorScheme Valid values are Color.Light or Color.Dark to set the navbar-dark/light class.
@@ -18,7 +18,7 @@ import org.w3c.dom.*
  */
 @Composable
 public fun Navbar(
-    breakpoint: Breakpoint = Breakpoint.Medium,
+    collapseBehavior: NavbarCollapseBehavior = NavbarCollapseBehavior.Always,
     fluid: Boolean = false,
     containerBreakpoint: Breakpoint? = null,
     colorScheme: Color = Color.Light,
@@ -29,10 +29,14 @@ public fun Navbar(
     Nav(attrs = {
         classes(
             BSClasses.navbar,
-            "navbar-expand-$breakpoint",
             "navbar-${colorScheme}",
             "bg-${backgroundColor}"
         )
+        when(collapseBehavior){
+            is NavbarCollapseBehavior.Never -> classes("navbar-expand")
+            is NavbarCollapseBehavior.AtBreakpoint -> classes("navbar-expand-${collapseBehavior.breakpoint}")
+            is NavbarCollapseBehavior.Always -> { } //No class needed for "Always" behavior
+        }
         attr("role", "navigation")
         attrs?.invoke(this)
     }) {
@@ -45,7 +49,7 @@ public fun Navbar(
 /**
  * Bootstrap Navbar component that can optionally enable a Toggler and Brand.
  *
- * @param breakpoint Specifies the navbar-expand breakpoint
+ * @param collapseBehavior Specifies the Navbar's Responsive behavior with use of the .navbar-expand class.
  * @param fluid Specifies if the inner container is fluid (container-fluid) or not.
  * @param containerBreakpoint Breakpoint for the inner container.
  * @param colorScheme Valid values are Color.Light or Color.Dark to set the navbar-dark/light class.
@@ -61,7 +65,7 @@ public fun Navbar(
  */
 @Composable
 public fun Navbar(
-    breakpoint: Breakpoint = Breakpoint.Medium,
+    collapseBehavior: NavbarCollapseBehavior = NavbarCollapseBehavior.Always,
     fluid: Boolean = false,
     containerBreakpoint: Breakpoint? = null,
     colorScheme: Color = Color.Light,
@@ -76,7 +80,7 @@ public fun Navbar(
     navItems: ContentBuilder<HTMLDivElement>
 ) {
     Navbar(
-        breakpoint,
+        collapseBehavior,
         fluid,
         containerBreakpoint,
         colorScheme,
@@ -175,4 +179,10 @@ public fun NavbarLink(
 
 public enum class TogglerPosition {
     Left, Right
+}
+
+public sealed class NavbarCollapseBehavior {
+    public object Never: NavbarCollapseBehavior()
+    public object Always: NavbarCollapseBehavior()
+    public data class AtBreakpoint(val breakpoint: Breakpoint): NavbarCollapseBehavior()
 }
