@@ -7,29 +7,27 @@ import org.w3c.dom.*
 import org.w3c.dom.Text
 
 @Composable
-public fun Input(
+public fun<T> Input(
     label: String,
     placeholder: String,
     value: String,
-    type: InputType = InputType.Text,
+    type: InputType<T>,
     labelClasses: String = "form-label",
     inputClasses: String = "form-control",
     attrs: AttrBuilderContext<HTMLInputElement>? = null,
-    onChange: (HTMLInputElement) -> Unit
+    onInput: (T, HTMLInputElement) -> Unit
 ) {
     Label(forId = null, attrs = {
         classes(labelClasses)
     }) {
-        require(type != InputType.DateTimeLocal) { "Use DateTimeInput instead." }
         Text(label)
         Input(type = type, attrs = {
             attrs?.invoke(this)
             classes(inputClasses)
             value(value)
             placeholder(placeholder)
-            addEventListener("input") {
-                val target = it.nativeEvent.target as HTMLInputElement
-                onChange(target)
+            onInput {
+                onInput(it.value, it.target)
             }
         })
     }
