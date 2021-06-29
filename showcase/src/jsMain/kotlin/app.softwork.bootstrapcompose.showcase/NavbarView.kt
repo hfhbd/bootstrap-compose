@@ -8,46 +8,46 @@ import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun NavbarView() {
-    Hr { }
+    Hr()
 
     navBarExpand(NavbarCollapseBehavior.Always, true, "Never expand")
-    Hr { }
+    Hr()
 
     navBarExpand(NavbarCollapseBehavior.Never, true, "Always expand")
-    Hr { }
+    Hr()
 
     navBarExpand(NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Small), true, "Expand at sm")
-    Hr { }
+    Hr()
 
     navBarExpand(NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Medium), true, "Expand at md")
-    Hr { }
+    Hr()
 
     navBarExpand(NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Large), true, "Expand at lg")
-    Hr { }
+    Hr()
 
     navBarExpand(NavbarCollapseBehavior.AtBreakpoint(Breakpoint.ExtraLarge), true, "Expand at xl")
-    Hr { }
+    Hr()
 
     navBarExpand(NavbarCollapseBehavior.AtBreakpoint(Breakpoint.ExtraExtraLarge), true, "Expand at xxl")
-    Hr { }
+    Hr()
 
     navBarExpand(NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Large), false, "Container")
-    Hr { }
+    Hr()
 
     containerXL()
     Container(fluid = false, type = Breakpoint.ExtraLarge, attrs = { classes("mb-4") }) {
         Text("Matching .container-xl...")
     }
-    Hr { }
+    Hr()
 
     centeredNavOnly()
-    Hr { }
+    Hr()
 
     lightNavbar()
-    Hr { }
+    Hr()
 
     lightCenteredNavbar()
-    Hr { }
+    Hr()
 }
 
 @Composable
