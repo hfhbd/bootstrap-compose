@@ -16,11 +16,8 @@ repositories {
 
 kotlin {
     js(IR) {
-        browser(){
+        browser {
             binaries.executable()
-            commonWebpackConfig {
-                cssSupport.enabled = true
-            }
         }
     }
 
