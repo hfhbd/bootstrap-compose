@@ -80,7 +80,7 @@ private fun navBarExpand(collapseBehavior: NavbarCollapseBehavior, fluid: Boolea
                 }
             }
 
-            Form(attrs = { classes("m-0") }) {
+            org.jetbrains.compose.web.dom.Form(attrs = { classes("m-0") }) {
                 Input(type = InputType.Text, attrs = {
                     classes("form-control")
                     attr("placeholder", "Search")
@@ -121,7 +121,7 @@ private fun containerXL() {
                 }
             }
 
-            Form(attrs = { classes("m-0") }) {
+            org.jetbrains.compose.web.dom.Form(attrs = { classes("m-0") }) {
                 Input(type = InputType.Text, attrs = {
                     classes("form-control")
                     attr("placeholder", "Search")
@@ -185,7 +185,7 @@ private fun lightNavbar() {
                         Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Something else here") } }
                     }
                 }
-                Form(attrs = { classes("m-0") }) {
+                org.jetbrains.compose.web.dom.Form(attrs = { classes("m-0") }) {
                     Input(type = InputType.Text, attrs = {
                         classes("form-control")
                         attr("placeholder", "Search")

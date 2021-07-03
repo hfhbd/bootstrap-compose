@@ -9,7 +9,7 @@ data class AppState(val activePage: ActivePage)
 
 fun main() {
     renderComposable(rootElementId = "root") {
-        var state by remember { mutableStateOf(AppState(ActivePage.ListGroup)) }
+        var state by remember { mutableStateOf(AppState(ActivePage.Form)) }
 
         Navbar(
             collapseBehavior = NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Large),
@@ -40,8 +40,11 @@ fun main() {
 
         Main {
             when (state.activePage) {
+                ActivePage.ChecksAndRadios -> ChecksAndRadiosView()
+                ActivePage.Form -> FormView()
                 ActivePage.ListGroup -> ListGroupView()
                 ActivePage.Navbar -> NavbarView()
+                ActivePage.Select -> SelectView()
                 ActivePage.Table -> TableView()
             }
         }
@@ -57,8 +60,11 @@ fun main() {
 }
 
 enum class ActivePage {
+    ChecksAndRadios,
+    Form,
     ListGroup,
     Navbar,
+    Select,
     Table
 }
 
