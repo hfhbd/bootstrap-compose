@@ -14,6 +14,7 @@ public object BSClasses {
     public const val formControl: String = "form-control"
     public const val formFloating: String = "form-floating"
     public const val formLabel: String = "form-label"
+    public const val formRange: String = "form-range"
     public const val formSelect: String = "form-select"
     public const val formSelectSmall: String = "form-select-sm"
     public const val formSelectLarge: String = "form-select-lg"

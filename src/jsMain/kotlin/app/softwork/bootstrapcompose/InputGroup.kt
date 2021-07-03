@@ -11,7 +11,7 @@ import org.w3c.dom.*
 
 @Composable
 public fun <T> InputGroup(
-    value: String,
+    value: T,
     type: InputType<T>,
     placeholder: String? = null,
     attrs: AttrBuilderContext<HTMLInputElement>? = null,
@@ -64,13 +64,13 @@ public fun <T> InputGroup(
                 it.content?.invoke(this)
             }
         }
-        org.jetbrains.compose.web.dom.Input(
+        Input(
             type = type,
             attrs = {
                 id(inputId)
                 classes(BSClasses.formControl)
                 attrs?.invoke(this)
-                value(value)
+                value(value.toString())
                 placeholder?.let {
                     placeholder(it)
                 }
@@ -99,7 +99,7 @@ public fun <T> InputGroup(
 }
 
 
-public class InputGroupScope() {
+public class InputGroupScope {
     //Generic used To get around https://github.com/JetBrains/compose-jb/issues/746
     internal data class LabelContent<T>(
         val floating: Boolean,

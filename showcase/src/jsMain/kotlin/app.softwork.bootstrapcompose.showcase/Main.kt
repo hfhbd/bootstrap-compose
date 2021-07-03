@@ -25,7 +25,7 @@ fun main() {
         ) {
             NavbarDropDown(title = state.activePage.toString(), href = "#") {
                 ActivePage.values().forEach {
-                    Button(it.name) {
+                    Button(it.displayName) {
                         state = state.copy(activePage = it)
                     }
                 }
@@ -44,6 +44,7 @@ fun main() {
                 ActivePage.Form -> FormView()
                 ActivePage.ListGroup -> ListGroupView()
                 ActivePage.Navbar -> NavbarView()
+                ActivePage.Range -> RangeView()
                 ActivePage.Select -> SelectView()
                 ActivePage.Table -> TableView()
             }
@@ -59,12 +60,13 @@ fun main() {
     }
 }
 
-enum class ActivePage {
-    ChecksAndRadios,
-    Form,
-    ListGroup,
-    Navbar,
-    Select,
-    Table
+enum class ActivePage(val displayName: String) {
+    ChecksAndRadios("Checks and Radios"),
+    Form("Forms"),
+    ListGroup("Lists"),
+    Navbar("Navbars"),
+    Range("Range"),
+    Select("Select"),
+    Table("Table")
 }
 
