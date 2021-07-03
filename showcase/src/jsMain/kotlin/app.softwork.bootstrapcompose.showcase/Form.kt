@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
-import app.softwork.bootstrapcompose.Form
-import org.jetbrains.compose.web.attributes.ARel
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.dom.*
 
@@ -19,21 +17,40 @@ fun FormView() {
         Row() {
             Column(size = 4, attrs = { classes("border", "m-3", "p-2") }) {
                 Form {
-                    Input(
-                        type = InputType.Email,
-                        labelContent = {
-                            Text("Email address")
-                        },
-                        help = "We'll never share your email with anyone else."
-                    )
-                    Input(
-                        type = InputType.Password,
-                        labelContent = { Text("Password") }
-                    )
-                    Input(
-                        type = InputType.Checkbox,
-                        labelContent = { Text("Check me out") }
-                    )
+                    var emailAddress by remember { mutableStateOf("") }
+                    var password by remember { mutableStateOf("") }
+
+                    Div(attrs = {classes("mb-3")}){
+                        InputGroup(
+                            value = emailAddress,
+                            type = InputType.Text,
+                            onInput = { value, _ -> emailAddress = value }
+                        ) {
+                            Label() {
+                                Text("Email address")
+                            }
+                            Help() {
+                                Text("We'll never share your email with anyone else.")
+                            }
+                        }
+                    }
+
+                    Div(attrs = {classes("mb-3")}) {
+                        InputGroup(
+                            value = password,
+                            type = InputType.Password,
+                            onInput = { value, _ -> password = value }
+                        ) {
+                            Label() {
+                                Text("Password")
+                            }
+                        }
+                    }
+
+                    Div(attrs = {classes("mb-3")}) {
+                        Checkbox(checked = false, label = "Check me out") {}
+                    }
+
                     Button("Submit") {
                         console.info("submit")
                     }
