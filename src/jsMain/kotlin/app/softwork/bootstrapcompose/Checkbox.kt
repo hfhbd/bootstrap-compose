@@ -12,7 +12,7 @@ import org.w3c.dom.*
 public fun Checkbox(
     checked: Boolean,
     label: String,
-    id: String = UUID().toString(),
+    id: String = remember { UUID().toString() },
     disabled: Boolean = false,
     inline: Boolean = false,
     switch: Boolean = false,
@@ -24,7 +24,7 @@ public fun Checkbox(
         if (inline) {
             classes(BSClasses.formCheckInline)
         }
-        if(switch){
+        if (switch) {
             classes(BSClasses.formSwitch)
         }
     }) {

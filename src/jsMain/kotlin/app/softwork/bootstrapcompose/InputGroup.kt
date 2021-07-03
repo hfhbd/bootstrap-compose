@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import kotlinx.uuid.UUID
 import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.attributes.forId
@@ -21,7 +22,7 @@ public fun <T> InputGroup(
     val scope = InputGroupScope()
     scope.content()
 
-    val inputId = "_${UUID()}"
+    val inputId = remember {"_${UUID()}"}
 
     scope.label?.let {
         if (!it.floating) {

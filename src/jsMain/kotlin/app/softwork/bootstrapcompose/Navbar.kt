@@ -32,10 +32,11 @@ public fun Navbar(
             "navbar-${colorScheme}",
             "bg-${backgroundColor}"
         )
-        when(collapseBehavior){
+        when (collapseBehavior) {
             is NavbarCollapseBehavior.Never -> classes("navbar-expand")
             is NavbarCollapseBehavior.AtBreakpoint -> classes("navbar-expand-${collapseBehavior.breakpoint}")
-            is NavbarCollapseBehavior.Always -> { } //No class needed for "Always" behavior
+            is NavbarCollapseBehavior.Always -> {
+            } //No class needed for "Always" behavior
         }
         attr("role", "navigation")
         attrs?.invoke(this)
@@ -72,7 +73,7 @@ public fun Navbar(
     backgroundColor: Color = Color.Primary,
     toggler: Boolean = true,
     togglerPosition: TogglerPosition = TogglerPosition.Right,
-    togglerTargetId: String = "toggler${UUID()}",
+    togglerTargetId: String = remember { "toggler${UUID()}" },
     togglerAttrs: AttrBuilderContext<HTMLButtonElement>? = null,
     attrs: AttrBuilderContext<HTMLElement>? = null,
     navAttrs: AttrBuilderContext<HTMLDivElement>? = null,
@@ -182,7 +183,7 @@ public enum class TogglerPosition {
 }
 
 public sealed class NavbarCollapseBehavior {
-    public object Never: NavbarCollapseBehavior()
-    public object Always: NavbarCollapseBehavior()
-    public data class AtBreakpoint(val breakpoint: Breakpoint): NavbarCollapseBehavior()
+    public object Never : NavbarCollapseBehavior()
+    public object Always : NavbarCollapseBehavior()
+    public data class AtBreakpoint(val breakpoint: Breakpoint) : NavbarCollapseBehavior()
 }

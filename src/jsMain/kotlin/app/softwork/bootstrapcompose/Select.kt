@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import kotlinx.uuid.UUID
 import org.jetbrains.compose.web.attributes.disabled
 import org.jetbrains.compose.web.attributes.multiple
@@ -25,7 +26,7 @@ public fun Select(
     val scope = SelectScope()
     scope.content()
 
-    val id = "_${UUID()}"
+    val id = remember { "_${UUID()}" }
 
     scope.label?.let {
         Label(forId = id, attrs = {

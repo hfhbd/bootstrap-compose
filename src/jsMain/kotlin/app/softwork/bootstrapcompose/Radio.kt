@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import kotlinx.uuid.UUID
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.Div
@@ -10,7 +11,7 @@ import org.jetbrains.compose.web.dom.Text
 
 @Composable
 public fun RadioGroup(content: @Composable RadioGroupScope.() -> Unit) {
-    val groupName = "_${UUID()}"
+    val groupName = remember { "_${UUID()}" }
     val context = RadioGroupScope(groupName)
     content.invoke(context)
 }
@@ -25,7 +26,7 @@ public class RadioGroupScope(private val name: String) {
         inline: Boolean = false,
         onClick: (Boolean) -> Unit
     ) {
-        val id = "_${UUID()}"
+        val id = remember { "_${UUID()}" }
 
         Div(attrs = {
             classes(BSClasses.formCheck)

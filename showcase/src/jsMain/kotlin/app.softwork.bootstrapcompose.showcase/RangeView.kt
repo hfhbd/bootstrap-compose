@@ -1,6 +1,6 @@
 package app.softwork.bootstrapcompose.showcase
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.Container
 import app.softwork.bootstrapcompose.Range
 import org.jetbrains.compose.web.attributes.disabled
@@ -13,12 +13,15 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 fun RangeView() {
     Container {
-        Range(value = 5,
-            onInput = { _, _ -> }
-        ) {
-            Label {
-                Text("Example range")
+        var example1 by remember { mutableStateOf(5) }
+        Range(value = example1,
+            onInput = { value, _ ->
+                value?.let {
+                    example1 = it.toInt()
+                }
             }
+        ) {
+            Label { Text("Example range") }
         }
         Hr { }
 
@@ -33,27 +36,27 @@ fun RangeView() {
         }
         Hr { }
 
+        var minMax by remember { mutableStateOf(5) }
         Range(
-            value = 2,
-            attrs = {
-                min("0")
-                max("5")
-            },
-            onInput = { _, _ -> }) {
+            value = minMax,
+            min = 0,
+            max = 5,
+            onInput = { v, _ -> v?.let { minMax = v.toInt() } }
+        ) {
             Label {
                 Text("Min and max range")
             }
         }
         Hr { }
 
+        var step by remember { mutableStateOf(1.5) }
         Range(
-            value = 1.5,
-            attrs = {
-                min("0")
-                max("5")
-                step(0.5)
-            },
-            onInput = { _, _ -> }) {
+            value = step,
+            min = 0.0,
+            max = 5.0,
+            step = 0.5,
+            onInput = { v, _ -> v?.let { step = v.toDouble() } }
+        ) {
             Label {
                 Text("Step by 0.5")
             }

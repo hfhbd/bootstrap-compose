@@ -41,7 +41,7 @@ public class DropDownBuilder {
 }
 
 @Composable
-public fun DropDown(title: String, id: String = UUID().toString(), color: Color = Color.Primary, block: DropDownBuilder.() -> Unit) {
+public fun DropDown(title: String, id: String = remember{UUID().toString()}, color: Color = Color.Primary, block: DropDownBuilder.() -> Unit) {
     Div({ classes("dropdown") }) {
         val buttons = DropDownBuilder().apply {
             block()
@@ -91,7 +91,7 @@ public fun DropDown(title: String, id: String = UUID().toString(), color: Color 
 }
 
 @Composable
-public fun NavbarDropDown(title: String, href: String?, id: String = UUID().toString(), block: DropDownBuilder.() -> Unit) {
+public fun NavbarDropDown(title: String, href: String?, id: String = remember{UUID().toString()}, block: DropDownBuilder.() -> Unit) {
     Div({ classes("dropdown") }) {
         val buttons = DropDownBuilder().apply {
             block()

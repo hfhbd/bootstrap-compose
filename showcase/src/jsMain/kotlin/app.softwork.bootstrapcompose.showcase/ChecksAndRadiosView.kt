@@ -1,6 +1,8 @@
 package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
 
 @Composable
@@ -9,10 +11,14 @@ fun ChecksAndRadiosView() {
     Container {
         Row {
             Column(size = 6) {
+                var checkVal1 by remember { mutableStateOf(false) }
+                var checkVal2 by remember { mutableStateOf(true) }
                 Card("Checks") {
-                    Checkbox(false, label = "Default checkbox") {
+                    Checkbox(checkVal1, label = "Default checkbox") {
+                        checkVal1 = it
                     }
-                    Checkbox(true, label = "Checked checkbox") {
+                    Checkbox(checkVal2, label = "Checked checkbox") {
+                        checkVal2 = it
                     }
                 }
             }
