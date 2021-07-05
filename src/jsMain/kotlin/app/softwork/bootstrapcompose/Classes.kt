@@ -6,6 +6,7 @@ public object BSClasses {
     public val align: Align = Align
     public val display: Display = Display
 
+    public const val colFormLabel: String = "col-form-label"
     public const val collapse: String = "collapse"
     public const val formCheck: String = "form-check"
     public const val formCheckInline: String = "form-check-inline"
@@ -21,6 +22,8 @@ public object BSClasses {
     public const val formSwitch: String = "form-switch"
     public const val formText: String = "form-text"
     public const val inputGroup: String = "input-group"
+    public const val inputGroupLarge: String = "input-group-lg"
+    public const val inputGroupSmall: String = "input-group-sm"
     public const val inputGroupText: String = "input-group-text"
     public const val listGroup: String = "list-group"
     public const val listGroupFlush: String = "list-group-flush"

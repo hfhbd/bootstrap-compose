@@ -23,7 +23,7 @@ fun main() {
             },
             navAttrs = { classes("flex-grow-1") }
         ) {
-            NavbarDropDown(title = state.activePage.toString(), href = "#") {
+            NavbarDropDown(title = state.activePage.displayName, href = "#") {
                 ActivePage.values().forEach {
                     Button(it.displayName) {
                         state = state.copy(activePage = it)
@@ -42,6 +42,7 @@ fun main() {
             when (state.activePage) {
                 ActivePage.ChecksAndRadios -> ChecksAndRadiosView()
                 ActivePage.Form -> FormView()
+                ActivePage.InputGroup -> InputGroupView()
                 ActivePage.ListGroup -> ListGroupView()
                 ActivePage.Navbar -> NavbarView()
                 ActivePage.Range -> RangeView()
@@ -61,8 +62,9 @@ fun main() {
 }
 
 enum class ActivePage(val displayName: String) {
-    ChecksAndRadios("Checks and Radios"),
+    ChecksAndRadios("Checks & radios"),
     Form("Forms"),
+    InputGroup("Input group"),
     ListGroup("Lists"),
     Navbar("Navbars"),
     Range("Range"),

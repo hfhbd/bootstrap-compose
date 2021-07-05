@@ -2,10 +2,8 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.Composable
 import app.softwork.bootstrapcompose.*
-import org.jetbrains.compose.web.dom.AttrBuilderContext
 import org.jetbrains.compose.web.dom.Hr
 import org.jetbrains.compose.web.dom.Text
-import org.w3c.dom.HTMLSelectElement
 
 
 @Composable
@@ -38,7 +36,7 @@ fun SelectView() {
 @Composable
 fun basicSelect(
     multiple: Boolean = false,
-    size: SelectSize = SelectSize.Normal,
+    size: SelectSize = SelectSize.Default,
     rows: Int? = null,
     disabled: Boolean = false
 ) {

@@ -1,154 +1,382 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.NonRestartableComposable
 import androidx.compose.runtime.remember
+import androidx.compose.web.attributes.InputAttrsBuilder
 import kotlinx.uuid.UUID
-import org.jetbrains.compose.web.attributes.InputType
-import org.jetbrains.compose.web.attributes.forId
-import org.jetbrains.compose.web.attributes.placeholder
-import org.jetbrains.compose.web.attributes.value
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
 
 @Composable
-public fun <T> InputGroup(
-    value: T,
-    type: InputType<T>,
-    placeholder: String? = null,
-    attrs: AttrBuilderContext<HTMLInputElement>? = null,
-    onInput: (T, HTMLInputElement) -> Unit,
-    content: InputGroupScope.() -> Unit = {}
+public fun InputGroup(
+    inputId: String = remember { "_${UUID()}" },
+    size: InputGroupSize = InputGroupSize.Default,
+    content: @Composable InputGroupContext.() -> Unit = {}
 ) {
-    val scope = InputGroupScope()
-    scope.content()
-
-    val inputId = remember {"_${UUID()}"}
-
-    scope.label?.let {
-        if (!it.floating) {
-            Label(attrs = {
-                forId(inputId)
-                classes(BSClasses.formLabel)
-                //it.second?.invoke(this)
-                it.attrs?.invoke(this)
-            }) {
-                it.content?.invoke(this)
-            }
-        }
-    }
+    val scope = InputGroupContext(inputId)
 
     Div(
         attrs = {
             classes(BSClasses.inputGroup)
-            if (scope.label?.floating == true) {
-                classes(BSClasses.formFloating)
+            when (size) {
+                InputGroupSize.Small -> classes(BSClasses.inputGroupSmall)
+                InputGroupSize.Large -> classes(BSClasses.inputGroupLarge)
+                else -> {
+                }
             }
         }) {
-
-        scope.label?.let {
-            if (it.floating) {
-                Label(attrs = {
-                    forId(inputId)
-                    classes(BSClasses.formLabel)
-                    it.attrs?.invoke(this)
-                }) {
-                    it.content?.invoke(this)
-                }
-            }
-        }
-
-        scope.leftAddOn?.let {
-            Span(attrs = {
-                classes(BSClasses.inputGroupText)
-                it.attrs?.invoke(this)
-            }) {
-                it.content?.invoke(this)
-            }
-        }
-        Input(
-            type = type,
-            attrs = {
-                id(inputId)
-                classes(BSClasses.formControl)
-                attrs?.invoke(this)
-                value(value.toString())
-                placeholder?.let {
-                    placeholder(it)
-                }
-                onInput {
-                    onInput(it.value, it.target)
-                }
-            })
-        scope.rightAddOn?.let {
-            Span(attrs = {
-                classes(BSClasses.inputGroupText)
-                it.attrs?.invoke(this)
-            }) {
-                it.content?.invoke(this)
-            }
-        }
-    }
-
-    scope.help?.let {
-        Div(attrs = {
-            classes(BSClasses.formText)
-            it.attrs?.invoke(this)
-        }) {
-            it.content?.invoke(this)
-        }
+        scope.content()
     }
 }
 
 
-public class InputGroupScope {
-    //Generic used To get around https://github.com/JetBrains/compose-jb/issues/746
-    internal data class LabelContent<T>(
-        val floating: Boolean,
-        val attrs: AttrBuilderContext<HTMLLabelElement>?,
-        val content: T //should be ContentBuilder<HTMLLabelElement>?
-    )
-
-    internal data class AddOn<T>(
-        val attrs: AttrBuilderContext<HTMLSpanElement>?,
-        val content: T //ContentBuilder<HTMLSpanElement>?
-    )
-
-    internal data class HelpParams<T>(
-        val attrs: AttrBuilderContext<HTMLDivElement>?,
-        val content: T //ContentBuilder<HTMLDivElement>?>?
-    )
-
-    internal var label: LabelContent<ContentBuilder<HTMLLabelElement>?>? = null
-    internal var leftAddOn: AddOn<ContentBuilder<HTMLSpanElement>?>? = null
-    internal var rightAddOn: AddOn<ContentBuilder<HTMLSpanElement>?>? = null
-    internal var help: HelpParams<ContentBuilder<HTMLDivElement>?>? = null
-
-    public fun Label(
-        floating: Boolean = false,
-        attrs: AttrBuilderContext<HTMLLabelElement>? = null,
-        content: ContentBuilder<HTMLLabelElement>? = null
-    ) {
-        label = LabelContent(floating, attrs, content)
+public class InputGroupContext(private val inputId: String) {
+    private fun <K> buildInputAttrs(
+        disabled: Boolean = false,
+        attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
+        onInput: (K, HTMLInputElement) -> Unit
+    ): (InputAttrsBuilder<K>.() -> Unit) {
+        return {
+            classes(BSClasses.formControl)
+            id(inputId)
+            if (disabled) disabled()
+            attrs?.invoke(this)
+            onInput { event ->
+                onInput(event.value, event.target)
+            }
+        }
     }
 
-    public fun LeftAddOn(
-        attrs: AttrBuilderContext<HTMLSpanElement>? = null,
-        content: ContentBuilder<HTMLSpanElement>? = null
+    @Composable
+    @NonRestartableComposable
+    public fun <K> Input(
+        type: InputType<K>,
+        attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
+        onInput: (K, HTMLInputElement) -> Unit,
     ) {
-        leftAddOn = AddOn(attrs, content)
+        Input(type = type,
+            attrs = { buildInputAttrs(false, attrs, onInput)() })
     }
 
-    public fun RightAddOn(
-        attrs: AttrBuilderContext<HTMLSpanElement>? = null,
-        content: ContentBuilder<HTMLSpanElement>? = null
+    @Composable
+    @NonRestartableComposable
+    public fun DateInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrsBuilder: InputAttrsBuilder<String>.() -> Unit = {},
+        onInput: (String, HTMLInputElement) -> Unit,
     ) {
-        rightAddOn = AddOn(attrs, content)
+        org.jetbrains.compose.web.dom.DateInput(value) {
+            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        }
     }
 
-    public fun Help(
+    @Composable
+    @NonRestartableComposable
+    public fun DateTimeLocalInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrsBuilder: InputAttrsBuilder<String>.() -> Unit = {},
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.DateTimeLocalInput(value) {
+            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun EmailInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrsBuilder: InputAttrsBuilder<String>.() -> Unit = {},
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.EmailInput(value) {
+            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun FileInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.FileInput(value) {
+            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun HiddenInput(
+        disabled: Boolean = false,
+        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.HiddenInput() {
+            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun MonthInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.MonthInput(value) {
+            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun NumberInput(
+        value: Number? = null,
+        min: Number? = null,
+        max: Number? = null,
+        disabled: Boolean = false,
+        attrsBuilder: (InputAttrsBuilder<Number?>.() -> Unit)? = null,
+        onInput: (Number?, HTMLInputElement) -> Unit
+    ) {
+        org.jetbrains.compose.web.dom.NumberInput(value, min, max) {
+            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun PasswordInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.PasswordInput(value) {
+            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun SearchInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.SearchInput(value) {
+            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun TelInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.TelInput(value) {
+            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun TextInput(
+        value: String = "",
+        placeholder: String = "",
+        disabled: Boolean = false,
+        attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.TextInput(value) {
+            placeholder(placeholder)
+            buildInputAttrs(disabled, attrs, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun TextAreaInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrs: AttrBuilderContext<HTMLTextAreaElement>? = null,
+        onInput: (String) -> Unit
+    ) {
+        TextArea(attrs = {
+            classes(BSClasses.formControl)
+            id(inputId)
+            if (disabled) disabled()
+            attrs?.invoke(this)
+            onInput { event ->
+                onInput(event.value)
+            }
+        }, value = value)
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun TimeInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.TimeInput(value) {
+            buildInputAttrs(disabled, attrs, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun UrlInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.UrlInput(value) {
+            buildInputAttrs(disabled, attrs, onInput)()
+        }
+    }
+
+    @Composable
+    @NonRestartableComposable
+    public fun WeekInput(
+        value: String = "",
+        disabled: Boolean = false,
+        attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (String, HTMLInputElement) -> Unit,
+    ) {
+        org.jetbrains.compose.web.dom.WeekInput(value) {
+            buildInputAttrs(disabled, attrs, onInput)()
+        }
+    }
+
+    @Composable
+    public fun SelectInput(
+        disabled: Boolean = false,
+        attrs: AttrBuilderContext<HTMLSelectElement>? = null,
+        onChange: (List<String>) -> Unit,
+        content: @Composable SelectContext.() -> Unit
+    ) {
+        Select(
+            disabled = disabled,
+            id = inputId,
+            attrs = attrs,
+            onChange = onChange,
+            content = content
+        )
+    }
+
+    /**
+     * Implements the Input group add on as text in a Span element.
+     */
+    @Composable
+    public fun TextAddOn(
+        text: String,
+        attrs: AttrBuilderContext<HTMLSpanElement>? = null
+    ) {
+        Span(attrs = {
+            classes(BSClasses.inputGroupText)
+            attrs?.invoke(this)
+        }) {
+            Text(text)
+        }
+    }
+
+    /**
+     * Implements the Input group add on as text in a Label element. The label element's forId is set equal to the
+     * Input's id. An example of this usage is in the Custom select Bootstrap documentation
+     * at https://getbootstrap.com/docs/5.0/forms/input-group/#custom-select.
+     */
+    @Composable
+    public fun LabelAddOn(
+        text: String,
+        attrs: AttrBuilderContext<HTMLLabelElement>? = null
+    ) {
+        Label(attrs = {
+            classes(BSClasses.inputGroupText)
+            forId(inputId)
+            attrs?.invoke(this)
+        }) {
+            Text(text)
+        }
+    }
+
+    @Composable
+    public fun ButtonAddOn(
+        title: String,
+        color: Color = Color.Primary,
+        type: ButtonType = ButtonType.Submit,
+        attrs: AttrBuilderContext<HTMLButtonElement>? = null,
+        action: () -> Unit
+    ) {
+        Button(title, color, type, attrs, action)
+    }
+
+    @Composable
+    public fun DropDownAddOn(
+        title: String,
+        color: Color = Color.Primary,
+        block: DropDownBuilder.() -> Unit
+    ) {
+        DropDown(title, inputId, color, block)
+    }
+
+    @Composable
+    public fun CheckboxAddOn(
+        checked: Boolean,
         attrs: AttrBuilderContext<HTMLDivElement>? = null,
-        content: ContentBuilder<HTMLDivElement>? = null
+        onClick: (Boolean) -> Unit
     ) {
-        help = HelpParams(attrs, content)
+        Div(attrs = {
+            classes(BSClasses.inputGroupText)
+            attrs?.invoke(this)
+        }) {
+            CheckboxInput(checked, attrsBuilder = {
+                onInput { event ->
+                    onClick(event.value)
+                }
+                classes(BSClasses.formCheckInput, "mt-0")
+            })
+        }
     }
+
+    @Composable
+    public fun RadioAddOn(
+        checked: Boolean,
+        attrs: AttrBuilderContext<HTMLDivElement>? = null,
+        onClick: (Boolean) -> Unit
+    ) {
+        Div(attrs = {
+            classes(BSClasses.inputGroupText)
+            attrs?.invoke(this)
+        }) {
+            RadioInput(checked, attrsBuilder = {
+                onInput { event ->
+                    onClick(event.value)
+                }
+                classes(BSClasses.formCheckInput, "mt-0")
+            })
+        }
+    }
+}
+
+public enum class InputGroupSize {
+    Small,
+    Default,
+    Large
 }
