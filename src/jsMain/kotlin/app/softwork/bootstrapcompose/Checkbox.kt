@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
+import androidx.compose.web.attributes.SyntheticInputEvent
 import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
@@ -11,25 +12,38 @@ import org.w3c.dom.*
 public fun Checkbox(
     checked: Boolean,
     label: String,
-    id: String = UUID().toString(),
+    id: String = remember { UUID().toString() },
+    disabled: Boolean = false,
+    inline: Boolean = false,
+    switch: Boolean = false,
     attrs: AttrBuilderContext<HTMLInputElement>? = null,
-    onClick: () -> Unit
+    onClick: (Boolean) -> Unit
 ) {
-    Div({ classes("form-check") }) {
+    Div({
+        classes(BSClasses.formCheck)
+        if (inline) {
+            classes(BSClasses.formCheckInline)
+        }
+        if (switch) {
+            classes(BSClasses.formSwitch)
+        }
+    }) {
         Input(attrs = {
-            classes("form-check-input")
-            name("flexRadioDefault1")
+            classes(BSClasses.formCheckInput)
             id("a$id")
-            if(checked) {
+            if (checked) {
                 checked()
             }
-            onClick {
-                onClick()
+            onInput { event ->
+                onClick(event.value)
+            }
+            if (disabled) {
+                disabled()
             }
             attrs?.invoke(this)
-        }, type = InputType.Radio)
+        }, type = InputType.Checkbox)
         Label(attrs = {
-            classes("form-check-label")
+            classes(BSClasses.formCheckLabel)
             forId("a$id")
         }) {
             Text(label)

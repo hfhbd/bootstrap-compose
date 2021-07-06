@@ -9,7 +9,7 @@ data class AppState(val activePage: ActivePage)
 
 fun main() {
     renderComposable(rootElementId = "root") {
-        var state by remember { mutableStateOf(AppState(ActivePage.ListGroup)) }
+        var state by remember { mutableStateOf(AppState(ActivePage.Form)) }
 
         Navbar(
             collapseBehavior = NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Large),
@@ -23,9 +23,9 @@ fun main() {
             },
             navAttrs = { classes("flex-grow-1") }
         ) {
-            NavbarDropDown(title = state.activePage.toString(), href = "#") {
+            NavbarDropDown(title = state.activePage.displayName, href = "#") {
                 ActivePage.values().forEach {
-                    Button(it.name) {
+                    Button(it.displayName) {
                         state = state.copy(activePage = it)
                     }
                 }
@@ -40,8 +40,13 @@ fun main() {
 
         Main {
             when (state.activePage) {
+                ActivePage.ChecksAndRadios -> ChecksAndRadiosView()
+                ActivePage.Form -> FormView()
+                ActivePage.InputGroup -> InputGroupView()
                 ActivePage.ListGroup -> ListGroupView()
                 ActivePage.Navbar -> NavbarView()
+                ActivePage.Range -> RangeView()
+                ActivePage.Select -> SelectView()
                 ActivePage.Table -> TableView()
             }
         }
@@ -56,9 +61,14 @@ fun main() {
     }
 }
 
-enum class ActivePage {
-    ListGroup,
-    Navbar,
-    Table
+enum class ActivePage(val displayName: String) {
+    ChecksAndRadios("Checks & radios"),
+    Form("Forms"),
+    InputGroup("Input group"),
+    ListGroup("Lists"),
+    Navbar("Navbars"),
+    Range("Range"),
+    Select("Select"),
+    Table("Table")
 }
 
