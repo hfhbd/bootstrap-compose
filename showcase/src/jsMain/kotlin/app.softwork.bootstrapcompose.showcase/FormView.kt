@@ -2,8 +2,7 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
-import org.jetbrains.compose.web.attributes.placeholder
-import org.jetbrains.compose.web.attributes.value
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
 
@@ -12,16 +11,16 @@ fun FormView() {
     Container(fluid = true, attrs = {
         classes("border")
     }) {
-        Row() {
+        Row {
             Column(size = 4, attrs = { classes("border", "m-3", "p-2") }) {
                 FormOverview()
             }
         }
     }
 
-    Hr {}
+    Hr()
     CheckoutFormExample()
-    Hr { }
+    Hr()
     HorizontalFormView()
 }
 
@@ -38,8 +37,8 @@ private fun FormOverview() {
             InputGroup {
                 TextInput(attrs = {
                     value(emailAddress)
-                }) { value, _ ->
-                    emailAddress = value
+                }) {
+                    emailAddress = it.value
                 }
             }
             Div(attrs = { classes(BSClasses.formText) }) { Text("We'll never share your email with anyone else.") }
@@ -48,7 +47,7 @@ private fun FormOverview() {
         Div(attrs = { classes("mb-3") }) {
             FormLabel { Text("Password") }
             InputGroup {
-                PasswordInput(value = password) { value, _ -> password = value }
+                PasswordInput(value = password) { password = it.value }
             }
         }
 
@@ -85,14 +84,14 @@ private fun CheckoutFormExample() {
                 Column(size = 6, breakpoint = Breakpoint.Small) {
                     FormLabel { Text("First Name") }
                     InputGroup {
-                        TextInput(attrs = { value(firstName) }) { value, _ -> firstName = value }
+                        TextInput(attrs = { value(firstName) }) { firstName = it.value }
                     }
                 }
 
                 Column(size = 6, breakpoint = Breakpoint.Small) {
                     FormLabel { Text("Last Name") }
                     InputGroup {
-                        TextInput(attrs = { value(lastName) }) { value, _ -> lastName = value }
+                        TextInput(attrs = { value(lastName) }) { lastName = it.value }
                     }
                 }
 
@@ -103,7 +102,7 @@ private fun CheckoutFormExample() {
                         TextInput(attrs = {
                             value(username)
                             placeholder("Username")
-                        }) { value, _ -> username = value }
+                        }) { username = it.value }
                     }
                 }
 
@@ -118,7 +117,7 @@ private fun CheckoutFormExample() {
                         TextInput(attrs = {
                             value(email)
                             placeholder("you@example.com")
-                        }) { value, _ -> email = value }
+                        }) { email = it.value }
                     }
                 }
 
@@ -128,7 +127,7 @@ private fun CheckoutFormExample() {
                         TextInput(attrs = {
                             value(address)
                             placeholder("1234 Main St")
-                        }) { value, _ -> address = value }
+                        }) { address = it.value }
                     }
                 }
 
@@ -143,7 +142,7 @@ private fun CheckoutFormExample() {
                         TextInput(attrs = {
                             value(address2)
                             placeholder("Apartment or suite")
-                        }) { value, _ -> address2 = value }
+                        }) { address2 = it.value }
                     }
                 }
 
@@ -174,7 +173,7 @@ private fun CheckoutFormExample() {
                 Column(size = 3, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("Zip") }
                     InputGroup {
-                        TextInput(attrs = { value(zip) }) { value, _ -> zip = value }
+                        TextInput(attrs = { value(zip) }) { zip = it.value }
                     }
                 }
             }
@@ -210,8 +209,8 @@ private fun CheckoutFormExample() {
                 Column(size = 6, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("Name on card") }
                     InputGroup {
-                        TextInput(attrs = { value(nameOnCard) }) { value, _ ->
-                            nameOnCard = value
+                        TextInput(attrs = { value(nameOnCard) }) {
+                            nameOnCard = it.value
                         }
                     }
                     Small(attrs = { classes("text-muted") }) {
@@ -221,19 +220,19 @@ private fun CheckoutFormExample() {
                 Column(size = 6, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("Credit card number") }
                     InputGroup {
-                        TextInput(attrs = { value(cardNumber) }) { value, _ -> cardNumber = value }
+                        TextInput(attrs = { value(cardNumber) }) { cardNumber = it.value }
                     }
                 }
                 Column(size = 3, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("Expiration") }
                     InputGroup {
-                        TextInput(attrs = { value(expiration) }) { value, _ -> expiration = value }
+                        TextInput(attrs = { value(expiration) }) { expiration = it.value }
                     }
                 }
                 Column(size = 3, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("CVV") }
                     InputGroup {
-                        TextInput(attrs = { value(cvv) }) { value, _ -> cvv = value }
+                        TextInput(attrs = { value(cvv) }) { cvv = it.value }
                     }
                 }
             }
@@ -252,7 +251,7 @@ private fun HorizontalFormView() {
             Label(attrs = { classes(BSClasses.colFormLabel, "col-sm-2") }) { Text("Email") }
             Div(attrs = { classes("col-sm-10") }) {
                 InputGroup {
-                    EmailInput { _, _ -> }
+                    EmailInput { }
                 }
             }
         }
@@ -260,7 +259,7 @@ private fun HorizontalFormView() {
             Label(attrs = { classes(BSClasses.colFormLabel, "col-sm-2") }) { Text("Password") }
             Div(attrs = { classes("col-sm-10") }) {
                 InputGroup {
-                    PasswordInput { _, _ -> }
+                    PasswordInput { }
                 }
             }
         }

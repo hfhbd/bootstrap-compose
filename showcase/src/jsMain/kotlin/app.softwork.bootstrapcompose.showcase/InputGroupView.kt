@@ -1,29 +1,26 @@
 package app.softwork.bootstrapcompose.showcase
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
-import org.jetbrains.compose.web.attributes.ButtonType
-import org.jetbrains.compose.web.attributes.placeholder
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun InputGroupView() {
     BasicExampleView()
-    Hr { }
+    Hr()
     SizingView()
-    Hr { }
+    Hr()
     MutipleAddons()
-    Hr { }
+    Hr()
     CheckboxesAndRadiosView()
-    Hr { }
+    Hr()
     ButtonAddOnsView()
-    Hr { }
+    Hr()
     ButtonsWithDropdownsView()
-    Hr { }
+    Hr()
     CustomSelectView()
-    Hr { }
+    Hr()
     CustomFileInputView()
 }
 
@@ -34,12 +31,12 @@ fun MutipleAddons() {
             InputGroup {
                 TextAddOn("$")
                 TextAddOn("0.00")
-                TextInput { _, _ -> }
+                TextInput { }
             }
         }
 
         InputGroup {
-            TextInput { _, _ -> }
+            TextInput { }
             TextAddOn("$")
             TextAddOn("0.00")
         }
@@ -55,13 +52,13 @@ private fun BasicExampleView() {
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
                 TextAddOn("@")
-                TextInput(value = username, placeholder = "Username") { v, _ -> username = v }
+                TextInput(value = username, placeholder = "Username") { username = it.value }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                TextInput(attrs = { placeholder("Recipient's username") }) { _, _ -> }
+                TextInput(attrs = { placeholder("Recipient's username") }) { }
                 TextAddOn("@example.com")
             }
         }
@@ -70,30 +67,30 @@ private fun BasicExampleView() {
             Label(attrs = { classes(BSClasses.formLabel) }) { Text("Your vanity URL") }
             InputGroup {
                 TextAddOn("https://example.com/users/")
-                TextInput { _, _ -> }
+                TextInput { }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
                 TextAddOn("$")
-                TextInput { _, _ -> }
+                TextInput { }
                 TextAddOn(".00")
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                TextInput(attrs = { placeholder("Username") }) { _, _ -> }
+                TextInput(attrs = { placeholder("Username") }) { }
                 TextAddOn("@")
-                TextInput(attrs = { placeholder("Server") }) { _, _ -> }
+                TextInput(attrs = { placeholder("Server") }) { }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
                 TextAddOn("With textarea")
-                TextAreaInput(value = "") { _ -> }
+                TextAreaInput(value = "") { }
             }
         }
     }
@@ -107,14 +104,14 @@ fun SizingView() {
                 size = InputGroupSize.Small,
             ) {
                 TextAddOn("Small")
-                TextInput { _, _ -> }
+                TextInput { }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
                 TextAddOn("Default")
-                TextInput { _, _ -> }
+                TextInput { }
             }
         }
 
@@ -123,7 +120,7 @@ fun SizingView() {
                 size = InputGroupSize.Large,
             ) {
                 TextAddOn("Large")
-                TextInput { _, _ -> }
+                TextInput { }
             }
         }
     }
@@ -134,15 +131,15 @@ fun CheckboxesAndRadiosView() {
     Card("Checkboxes and radios") {
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                CheckboxAddOn(false) { _ -> }
-                TextInput { _, _ -> }
+                CheckboxAddOn(false) { }
+                TextInput { }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                RadioAddOn(false) { _ -> }
-                TextInput { _, _ -> }
+                RadioAddOn(false) { }
+                TextInput { }
             }
         }
     }
@@ -158,13 +155,13 @@ fun ButtonAddOnsView() {
                     Color.Transparent,
                     ButtonType.Button,
                     attrs = { classes("btn-outline-secondary") }) {}
-                TextInput { _, _ -> }
+                TextInput { }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                TextInput(attrs = { placeholder("Recipient's username") }) { _, _ -> }
+                TextInput(attrs = { placeholder("Recipient's username") }) { }
                 ButtonAddOn(
                     "Button",
                     Color.Transparent,
@@ -185,13 +182,13 @@ fun ButtonAddOnsView() {
                     Color.Transparent,
                     ButtonType.Button,
                     attrs = { classes("btn-outline-secondary") }) {}
-                TextInput { _, _ -> }
+                TextInput { }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                TextInput(attrs = { placeholder("Recipient's username") }) { _, _ -> }
+                TextInput(attrs = { placeholder("Recipient's username") }) { }
                 ButtonAddOn(
                     "Button",
                     Color.Transparent,
@@ -227,13 +224,13 @@ private fun ButtonsWithDropdownsView() {
                 ) {
                     makeDropDown()
                 }
-                TextInput { _, _ -> }
+                TextInput { }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                TextInput { _, _ -> }
+                TextInput { }
                 DropDownAddOn(
                     "Dropdown",
                     color = Color.Light
@@ -251,7 +248,7 @@ private fun ButtonsWithDropdownsView() {
                 ) {
                     makeDropDown()
                 }
-                TextInput { _, _ -> }
+                TextInput { }
                 DropDownAddOn(
                     "Dropdown",
                     color = Color.Light
@@ -278,14 +275,14 @@ private fun CustomSelectView() {
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
                 LabelAddOn("Options")
-                SelectInput(onChange = { _ -> }) {
+                SelectInput(onChange = { }) {
                     buildOptions()
                 }
             }
         }
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                SelectInput(onChange = { _ -> }) {
+                SelectInput(onChange = { }) {
                     buildOptions()
                 }
                 LabelAddOn("Options")
@@ -299,7 +296,7 @@ private fun CustomSelectView() {
                     Color.Transparent,
                     ButtonType.Button,
                     attrs = { classes("btn-outline-secondary") }) {}
-                SelectInput(onChange = { _ -> }) {
+                SelectInput(onChange = { }) {
                     buildOptions()
                 }
             }
@@ -307,7 +304,7 @@ private fun CustomSelectView() {
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                SelectInput(onChange = { _ -> }) {
+                SelectInput(onChange = { }) {
                     buildOptions()
                 }
                 ButtonAddOn(
@@ -326,13 +323,13 @@ private fun CustomFileInputView() {
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
                 LabelAddOn("Upload")
-                FileInput { _, _ -> }
+                FileInput { }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                FileInput { _, _ -> }
+                FileInput { }
                 LabelAddOn("Upload")
             }
         }
@@ -344,13 +341,13 @@ private fun CustomFileInputView() {
                     Color.Transparent,
                     ButtonType.Button,
                     attrs = { classes("btn-outline-secondary") }) {}
-                FileInput { _, _ -> }
+                FileInput { }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                FileInput { _, _ -> }
+                FileInput { }
                 ButtonAddOn(
                     "Button",
                     Color.Transparent,

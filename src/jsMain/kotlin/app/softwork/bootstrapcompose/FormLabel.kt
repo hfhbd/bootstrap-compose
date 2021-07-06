@@ -1,10 +1,8 @@
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.Composable
-import org.jetbrains.compose.web.dom.AttrBuilderContext
-import org.jetbrains.compose.web.dom.ContentBuilder
-import org.jetbrains.compose.web.dom.Label
-import org.w3c.dom.HTMLLabelElement
+import androidx.compose.runtime.*
+import org.jetbrains.compose.web.dom.*
+import org.w3c.dom.*
 
 @Composable
 public fun FormLabel(
@@ -17,7 +15,7 @@ public fun FormLabel(
         attrs = {
             classes(BSClasses.formLabel)
             attrs?.invoke(this)
-        }) {
-        content?.invoke(this)
-    }
+        },
+        content = content
+    )
 }

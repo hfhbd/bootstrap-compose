@@ -1,7 +1,6 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
@@ -27,7 +26,5 @@ public fun Column(
         }
         horizontalAlignment?.let { classes(it.toString()) }
         attrs?.invoke(this)
-    }) {
-        content()
-    }
+    }, content)
 }

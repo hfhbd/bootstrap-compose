@@ -16,16 +16,14 @@ public fun Collapse(
     Button(attrs = {
         classes("btn", "btn-$color")
         attr("data-bs-toggle", "collapse")
-        attr("data-bs-target", "#a$id")
+        attr("data-bs-target", "#_$id")
         attr("aria-expanded", "false")
-        attr("aria-controls", id)
+        attr("aria-controls", "_$id")
         buttonAttrs?.invoke(this)
     }, type = ButtonType.Button, title = title) { }
     Div({
         classes("collapse")
-        id("a$id")
+        id("_$id")
         contentAttrs?.invoke(this)
-    }) {
-        content()
-    }
+    }, content)
 }

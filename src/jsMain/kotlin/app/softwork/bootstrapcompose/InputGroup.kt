@@ -1,10 +1,8 @@
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.NonRestartableComposable
-import androidx.compose.runtime.remember
-import androidx.compose.web.attributes.InputAttrsBuilder
-import kotlinx.uuid.UUID
+import androidx.compose.runtime.*
+import androidx.compose.web.attributes.*
+import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
@@ -14,7 +12,7 @@ import org.w3c.dom.*
 public fun InputGroup(
     inputId: String = remember { "_${UUID()}" },
     size: InputGroupSize = InputGroupSize.Default,
-    content: @Composable InputGroupContext.() -> Unit = {}
+    content: @Composable InputGroupContext.() -> Unit
 ) {
     val scope = InputGroupContext(inputId)
 
@@ -34,19 +32,19 @@ public fun InputGroup(
 
 
 public class InputGroupContext(private val inputId: String) {
-    private fun <K> buildInputAttrs(
+    private fun <K> InputAttrsBuilder<K>.buildInputAttrs(
         disabled: Boolean = false,
         attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
-        onInput: (K, HTMLInputElement) -> Unit
-    ): (InputAttrsBuilder<K>.() -> Unit) {
-        return {
-            classes(BSClasses.formControl)
-            id(inputId)
-            if (disabled) disabled()
-            attrs?.invoke(this)
-            onInput { event ->
-                onInput(event.value, event.target)
-            }
+        onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit
+    ) {
+        classes(BSClasses.formControl)
+        id(inputId)
+        if (disabled) {
+            disabled()
+        }
+        attrs?.invoke(this)
+        onInput { event ->
+            onInput(event)
         }
     }
 
@@ -55,10 +53,12 @@ public class InputGroupContext(private val inputId: String) {
     public fun <K> Input(
         type: InputType<K>,
         attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
-        onInput: (K, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit,
     ) {
         Input(type = type,
-            attrs = { buildInputAttrs(false, attrs, onInput)() })
+            attrs = {
+                buildInputAttrs(false, attrs, onInput)
+            })
     }
 
     @Composable
@@ -66,11 +66,11 @@ public class InputGroupContext(private val inputId: String) {
     public fun DateInput(
         value: String = "",
         disabled: Boolean = false,
-        attrsBuilder: InputAttrsBuilder<String>.() -> Unit = {},
-        onInput: (String, HTMLInputElement) -> Unit,
+        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.DateInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)()
+            buildInputAttrs(disabled, attrsBuilder, onInput)
         }
     }
 
@@ -79,11 +79,11 @@ public class InputGroupContext(private val inputId: String) {
     public fun DateTimeLocalInput(
         value: String = "",
         disabled: Boolean = false,
-        attrsBuilder: InputAttrsBuilder<String>.() -> Unit = {},
-        onInput: (String, HTMLInputElement) -> Unit,
+        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.DateTimeLocalInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)()
+            buildInputAttrs(disabled, attrsBuilder, onInput)
         }
     }
 
@@ -92,11 +92,11 @@ public class InputGroupContext(private val inputId: String) {
     public fun EmailInput(
         value: String = "",
         disabled: Boolean = false,
-        attrsBuilder: InputAttrsBuilder<String>.() -> Unit = {},
-        onInput: (String, HTMLInputElement) -> Unit,
+        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.EmailInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)()
+            buildInputAttrs(disabled, attrsBuilder, onInput)
         }
     }
 
@@ -106,10 +106,10 @@ public class InputGroupContext(private val inputId: String) {
         value: String = "",
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
-        onInput: (String, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.FileInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)()
+            buildInputAttrs(disabled, attrsBuilder, onInput)
         }
     }
 
@@ -118,10 +118,10 @@ public class InputGroupContext(private val inputId: String) {
     public fun HiddenInput(
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
-        onInput: (String, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
-        org.jetbrains.compose.web.dom.HiddenInput() {
-            buildInputAttrs(disabled, attrsBuilder, onInput)()
+        org.jetbrains.compose.web.dom.HiddenInput {
+            buildInputAttrs(disabled, attrsBuilder, onInput)
         }
     }
 
@@ -131,10 +131,10 @@ public class InputGroupContext(private val inputId: String) {
         value: String = "",
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
-        onInput: (String, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.MonthInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)()
+            buildInputAttrs(disabled, attrsBuilder, onInput)
         }
     }
 
@@ -146,10 +146,10 @@ public class InputGroupContext(private val inputId: String) {
         max: Number? = null,
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<Number?>.() -> Unit)? = null,
-        onInput: (Number?, HTMLInputElement) -> Unit
+        onInput: (SyntheticInputEvent<Number?, HTMLInputElement>) -> Unit
     ) {
         org.jetbrains.compose.web.dom.NumberInput(value, min, max) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)()
+            buildInputAttrs(disabled, attrsBuilder, onInput)
         }
     }
 
@@ -159,10 +159,10 @@ public class InputGroupContext(private val inputId: String) {
         value: String = "",
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
-        onInput: (String, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.PasswordInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)()
+            buildInputAttrs(disabled, attrsBuilder, onInput)
         }
     }
 
@@ -172,10 +172,10 @@ public class InputGroupContext(private val inputId: String) {
         value: String = "",
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
-        onInput: (String, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.SearchInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)()
+            buildInputAttrs(disabled, attrsBuilder, onInput)
         }
     }
 
@@ -185,10 +185,10 @@ public class InputGroupContext(private val inputId: String) {
         value: String = "",
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
-        onInput: (String, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.TelInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)()
+            buildInputAttrs(disabled, attrsBuilder, onInput)
         }
     }
 
@@ -199,11 +199,11 @@ public class InputGroupContext(private val inputId: String) {
         placeholder: String = "",
         disabled: Boolean = false,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
-        onInput: (String, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.TextInput(value) {
             placeholder(placeholder)
-            buildInputAttrs(disabled, attrs, onInput)()
+            buildInputAttrs(disabled, attrs, onInput)
         }
     }
 
@@ -213,15 +213,15 @@ public class InputGroupContext(private val inputId: String) {
         value: String = "",
         disabled: Boolean = false,
         attrs: AttrBuilderContext<HTMLTextAreaElement>? = null,
-        onInput: (String) -> Unit
+        onInput: (SyntheticInputEvent<String, HTMLTextAreaElement>) -> Unit
     ) {
         TextArea(attrs = {
             classes(BSClasses.formControl)
             id(inputId)
-            if (disabled) disabled()
+            if (disabled) { disabled() }
             attrs?.invoke(this)
             onInput { event ->
-                onInput(event.value)
+                onInput(event)
             }
         }, value = value)
     }
@@ -232,10 +232,10 @@ public class InputGroupContext(private val inputId: String) {
         value: String = "",
         disabled: Boolean = false,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
-        onInput: (String, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.TimeInput(value) {
-            buildInputAttrs(disabled, attrs, onInput)()
+            buildInputAttrs(disabled, attrs, onInput)
         }
     }
 
@@ -245,10 +245,10 @@ public class InputGroupContext(private val inputId: String) {
         value: String = "",
         disabled: Boolean = false,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
-        onInput: (String, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.UrlInput(value) {
-            buildInputAttrs(disabled, attrs, onInput)()
+            buildInputAttrs(disabled, attrs, onInput)
         }
     }
 
@@ -258,10 +258,10 @@ public class InputGroupContext(private val inputId: String) {
         value: String = "",
         disabled: Boolean = false,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
-        onInput: (String, HTMLInputElement) -> Unit,
+        onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.WeekInput(value) {
-            buildInputAttrs(disabled, attrs, onInput)()
+            buildInputAttrs(disabled, attrs, onInput)
         }
     }
 

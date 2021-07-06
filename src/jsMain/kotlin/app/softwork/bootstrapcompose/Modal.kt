@@ -21,13 +21,13 @@ public fun Modal(
         Button({
             classes("btn", "btn-$buttonColor")
             attr("data-bs-toggle", "modal")
-            attr("data-bs-target", "#a$id")
+            attr("data-bs-target", "#_$id")
         }) {
             Text(buttonTitle)
         }
         Div({
             classes("modal")
-            id("a$id")
+            id("_$id")
             tabIndex(-1)
             attr("aria-labelledby", "label$id")
             attr("aria-hidden", "true")
@@ -56,12 +56,8 @@ public fun Modal(
                             attr("aria-label", "Close")
                         })
                     }
-                    Div({ classes("modal-body") }) {
-                        content()
-                    }
-                    Div({ classes("modal-footer") }) {
-                        footer?.invoke(this)
-                    }
+                    Div({ classes("modal-body") }, content)
+                    Div({ classes("modal-footer") }, footer)
                 }
             }
         }

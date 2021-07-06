@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
+import androidx.compose.web.attributes.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
@@ -15,7 +16,7 @@ public fun<T> Input(
     labelClasses: String = "form-label",
     inputClasses: String = "form-control",
     attrs: AttrBuilderContext<HTMLInputElement>? = null,
-    onInput: (T, HTMLInputElement) -> Unit
+    onInput: (SyntheticInputEvent<T, HTMLInputElement>) -> Unit
 ) {
     Label(forId = null, attrs = {
         classes(labelClasses)
@@ -27,7 +28,7 @@ public fun<T> Input(
             value(value)
             placeholder(placeholder)
             onInput {
-                onInput(it.value, it.target)
+                onInput(it)
             }
         })
     }

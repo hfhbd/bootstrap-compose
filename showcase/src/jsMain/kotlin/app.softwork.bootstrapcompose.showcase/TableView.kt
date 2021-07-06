@@ -2,6 +2,7 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
 
@@ -9,7 +10,15 @@ data class Todo(val title: String, val finished: Boolean)
 
 @Composable
 fun TableView() {
-    val todos = listOf(Todo("Learn Compose Web", finished = true), Todo("Create a demo", finished = false))
+    var todos by remember {
+        mutableStateOf(
+            listOf(
+                Todo("Learn Compose Web", finished = true),
+                Todo("Create a demo", finished = false)
+            )
+        )
+    }
+
     var filter by remember { mutableStateOf(false) }
 
     val filteredTodos = todos.filter {
@@ -20,6 +29,26 @@ fun TableView() {
         }
     }
     Container {
+        P {
+            var newTitle by remember { mutableStateOf("") }
+
+            Input(
+                label = "Todo Title",
+                value = newTitle,
+                placeholder = "Title",
+                type = InputType.Text
+            ) {
+                newTitle = it.value
+            }
+            Button("Create", attrs = {
+                if (newTitle.isBlank()) {
+                    disabled()
+                }
+            }) {
+                todos += Todo(title = newTitle, finished = false)
+                newTitle = ""
+            }
+        }
         Table(filteredTodos) { index, todo ->
             column("Index") {
                 Text(index.toString())

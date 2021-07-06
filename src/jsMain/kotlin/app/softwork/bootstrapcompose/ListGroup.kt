@@ -1,7 +1,7 @@
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.Composable
-import org.jetbrains.compose.web.attributes.AttrsBuilder
+import androidx.compose.runtime.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
@@ -13,12 +13,12 @@ public fun ListGroup(
     attrs: AttrBuilderContext<HTMLUListElement>? = null,
     content: ContentBuilder<HTMLUListElement>? = null
 ) {
-    Ul(attrs = {
-        ListGroupAttrs(flush, false, listGroupDirection, attrs)
-    }
-    ) {
-        content?.invoke(this)
-    }
+    Ul(
+        attrs = {
+            ListGroupAttrs(flush, false, listGroupDirection, attrs)
+        },
+        content = content
+    )
 }
 
 @Composable
@@ -28,12 +28,12 @@ public fun NumberedListGroup(
     attrs: AttrBuilderContext<HTMLOListElement>? = null,
     content: ContentBuilder<HTMLOListElement>? = null
 ) {
-    Ol(attrs = {
-        ListGroupAttrs(flush, true, listGroupDirection, attrs)
-    }
-    ) {
-        content?.invoke(this)
-    }
+    Ol(
+        attrs = {
+            ListGroupAttrs(flush, true, listGroupDirection, attrs)
+        },
+        content = content
+    )
 }
 
 private fun <T : HTMLElement> AttrsBuilder<T>.ListGroupAttrs(
@@ -66,9 +66,7 @@ public fun DOMScope<HTMLUListElement>.ListItem(
 ) {
     Li(attrs = {
         ListItemAttrs(active, disabled, false, background, attrs)
-    }) {
-        content?.invoke(this)
-    }
+    }, content = content)
 }
 
 @Composable
@@ -81,9 +79,7 @@ public fun DOMScope<HTMLOListElement>.ListItem(
 ) {
     Li(attrs = {
         ListItemAttrs(active, disabled, false, background, attrs)
-    }) {
-        content?.invoke(this)
-    }
+    }, content = content)
 }
 
 @Composable
@@ -99,9 +95,8 @@ public fun AnchorListItem(
         href = href,
         attrs = {
             ListItemAttrs(active, disabled, true, background, attrs)
-        }) {
-        content?.invoke(this)
-    }
+        }, content = content
+    )
 }
 
 @Composable
@@ -114,9 +109,7 @@ public fun ButtonListItem(
 ) {
     Button(attrs = {
         ListItemAttrs(active, disabled, true, background, attrs)
-    }) {
-        content?.invoke(this)
-    }
+    }, content = content)
 }
 
 private fun <T : HTMLElement> AttrsBuilder<T>.ListItemAttrs(

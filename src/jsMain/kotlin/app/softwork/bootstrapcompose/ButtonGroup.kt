@@ -6,7 +6,5 @@ import org.w3c.dom.*
 
 @Composable
 public fun ButtonGroup(content: ContentBuilder<HTMLDivElement>) {
-    Div({ classes("btn-group") }) {
-        content()
-    }
+    Div({ classes("btn-group") }, content)
 }

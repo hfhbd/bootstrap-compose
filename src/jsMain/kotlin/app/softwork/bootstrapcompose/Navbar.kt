@@ -41,9 +41,7 @@ public fun Navbar(
         attr("role", "navigation")
         attrs?.invoke(this)
     }) {
-        Container(fluid, containerBreakpoint) {
-            content?.invoke(this)
-        }
+        Container(fluid, containerBreakpoint, content = content)
     }
 }
 
@@ -130,9 +128,7 @@ public fun NavbarCollapse(
         classes(BSClasses.collapse, BSClasses.navbarCollapse)
         id(id)
         attrs?.invoke(this)
-    }) {
-        content?.invoke(this)
-    }
+    }, content = content)
 }
 
 /**
@@ -146,9 +142,7 @@ public fun NavbarNav(
     Div(attrs = {
         classes(BSClasses.navbarNav)
         attrs?.invoke(this)
-    }) {
-        links?.invoke(this)
-    }
+    }, content = links)
 }
 
 
@@ -173,9 +167,7 @@ public fun NavbarLink(
             classes("disabled")
         }
         attrs?.invoke(this)
-    }, href = link) {
-        content?.invoke(this)
-    }
+    }, href = link, content = content)
 }
 
 public enum class TogglerPosition {
