@@ -2,6 +2,7 @@ package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.web.attributes.*
 import kotlinx.uuid.UUID
 import org.jetbrains.compose.web.attributes.disabled
 import org.jetbrains.compose.web.dom.AttrBuilderContext
@@ -17,11 +18,11 @@ public fun Range(
     disabled: Boolean = false,
     id: String = remember { "_${UUID()}" },
     attrs: AttrBuilderContext<HTMLInputElement>? = null,
-    onInput: (Number?, HTMLInputElement) -> Unit,
+    onInput: (SyntheticInputEvent<Number?, HTMLInputElement>) -> Unit,
 ) {
     RangeInput(value, min, max, step) {
-        onInput { event ->
-            onInput(event.value, event.target)
+        onInput {
+            onInput(it)
         }
         if (disabled) {
             disabled()

@@ -20,11 +20,7 @@ public fun Card(
         Div({ classes("card-header") }) {
             Text(header)
         }
-        Div({ classes("card-body") }) {
-            body()
-        }
-        Div({ classes("card-footer") }) {
-            footer?.invoke(this)
-        }
+        Div({ classes("card-body") }, body)
+        Div({ classes("card-footer") }, footer)
     }
 }

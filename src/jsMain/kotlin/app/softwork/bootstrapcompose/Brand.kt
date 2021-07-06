@@ -9,7 +9,5 @@ public fun Brand(attrs: AttrBuilderContext<HTMLDivElement>? = null, content: Con
     Div(attrs = {
         classes("navbar-brand")
         attrs?.invoke(this)
-    }) {
-        content()
-    }
+    }, content)
 }

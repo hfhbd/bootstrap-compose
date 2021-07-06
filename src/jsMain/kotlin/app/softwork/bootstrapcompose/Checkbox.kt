@@ -30,7 +30,7 @@ public fun Checkbox(
     }) {
         Input(attrs = {
             classes(BSClasses.formCheckInput)
-            id("a$id")
+            id("_$id")
             if (checked) {
                 checked()
             }
@@ -44,7 +44,7 @@ public fun Checkbox(
         }, type = InputType.Checkbox)
         Label(attrs = {
             classes(BSClasses.formCheckLabel)
-            forId("a$id")
+            forId("_$id")
         }) {
             Text(label)
         }

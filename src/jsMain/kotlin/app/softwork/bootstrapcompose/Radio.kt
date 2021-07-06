@@ -13,7 +13,7 @@ import org.jetbrains.compose.web.dom.Text
 public fun RadioGroup(content: @Composable RadioGroupScope.() -> Unit) {
     val groupName = remember { "_${UUID()}" }
     val context = RadioGroupScope(groupName)
-    content.invoke(context)
+    context.content()
 }
 
 

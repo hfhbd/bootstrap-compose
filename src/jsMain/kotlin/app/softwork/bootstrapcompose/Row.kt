@@ -15,5 +15,5 @@ public fun Row(
         classes("row")
         horizontalAlignment?.let { classes(it.toString()) }
         attrs?.invoke(this)
-    }) { content() }
+    }, content = content)
 }

@@ -1,11 +1,8 @@
 package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
-import app.softwork.bootstrapcompose.Container
-import app.softwork.bootstrapcompose.FormLabel
-import app.softwork.bootstrapcompose.Range
-import org.jetbrains.compose.web.dom.Hr
-import org.jetbrains.compose.web.dom.Text
+import app.softwork.bootstrapcompose.*
+import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun RangeView() {
@@ -15,13 +12,13 @@ fun RangeView() {
         FormLabel(forId = example1Id) { Text("Example range") }
         Range(value = example1,
             id = example1Id,
-            onInput = { value, _ ->
-                value?.let {
+            onInput = {
+                it.value?.let {
                     example1 = it.toInt()
                 }
             }
         )
-        Hr { }
+        Hr()
 
         val example2Id = "ex2"
         FormLabel(forId = example2Id) { Text("Disabled range") }
@@ -29,9 +26,9 @@ fun RangeView() {
             value = 7,
             disabled = true,
             id = example2Id,
-            onInput = { _, _ -> }
+            onInput = { }
         )
-        Hr { }
+        Hr()
 
         var minMax by remember { mutableStateOf(5) }
         val example3Id = "ex3"
@@ -41,9 +38,9 @@ fun RangeView() {
             min = 0,
             max = 5,
             id = example3Id,
-            onInput = { v, _ -> v?.let { minMax = v.toInt() } }
+            onInput = { it.value?.let { minMax = it.toInt() } }
         )
-        Hr { }
+        Hr()
 
         var step by remember { mutableStateOf(1.5) }
         val example4Id = "ex4"
@@ -54,8 +51,8 @@ fun RangeView() {
             max = 5.0,
             step = 0.5,
             id = example4Id,
-            onInput = { v, _ -> v?.let { step = v.toDouble() } }
+            onInput = { it.value?.let { step = it.toDouble() } }
         )
-        Hr { }
+        Hr()
     }
 }

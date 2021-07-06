@@ -7,7 +7,6 @@ import app.softwork.bootstrapcompose.*
 
 @Composable
 fun ChecksAndRadiosView() {
-
     Container {
         Row {
             Column(size = 6) {
@@ -41,7 +40,7 @@ fun ChecksAndRadiosView() {
             }
             Column(size = 6) {
                 Card("Disabled Radios") {
-                    RadioGroup() {
+                    RadioGroup {
                         Radio("Disabled radio", disabled = true) {}
                         Radio("Disabled checked radio", checked = true, disabled = true) {}
                     }

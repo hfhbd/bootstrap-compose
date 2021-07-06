@@ -9,7 +9,7 @@ public fun Container(
     fluid: Boolean = false,
     type: Breakpoint? = null,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
-    content: ContentBuilder<HTMLDivElement>
+    content: ContentBuilder<HTMLDivElement>?
 ) {
     Div(attrs = {
         when {
@@ -25,7 +25,5 @@ public fun Container(
         }
 
         attrs?.invoke(this)
-    }) {
-        content()
-    }
+    }, content)
 }

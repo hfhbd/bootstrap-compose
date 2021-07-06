@@ -1,16 +1,10 @@
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import kotlinx.uuid.UUID
-import org.jetbrains.compose.web.attributes.disabled
-import org.jetbrains.compose.web.attributes.multiple
-import org.jetbrains.compose.web.attributes.selected
-import org.jetbrains.compose.web.attributes.size
+import androidx.compose.runtime.*
+import kotlinx.uuid.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
-import org.w3c.dom.HTMLLabelElement
-import org.w3c.dom.HTMLOptionElement
-import org.w3c.dom.HTMLSelectElement
+import org.w3c.dom.*
 
 
 @Composable
@@ -60,7 +54,7 @@ public fun Select(
     }
 }
 
-public class SelectContext() {
+public class SelectContext {
     @Composable
     public fun Option(
         value: String,
@@ -75,10 +69,8 @@ public class SelectContext() {
                     selected()
                 }
                 attrs?.invoke(this)
-            }
-        ) {
-            content?.invoke(this)
-        }
+            }, content = content
+        )
     }
 }
 
