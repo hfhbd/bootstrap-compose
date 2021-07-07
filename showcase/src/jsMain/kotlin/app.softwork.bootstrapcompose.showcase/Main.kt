@@ -30,6 +30,11 @@ fun main() {
                     }
                 }
             }
+            NavbarDropDown(title = "Login", href = "#") {
+                Custom {
+                    RawInputView()
+                }
+            }
             A(href = "https://github.com/hfhbd/bootstrap-compose", attrs = {
                 classes("nav-link", "ms-auto", "link-secondary")
             }) {

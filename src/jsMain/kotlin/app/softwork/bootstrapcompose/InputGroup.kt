@@ -116,7 +116,7 @@ public class InputGroupContext(private val inputId: String) {
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.FileInput(value) {
-            buildInputAttrs(disabled,autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
         }
     }
 
@@ -186,7 +186,7 @@ public class InputGroupContext(private val inputId: String) {
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.SearchInput(value) {
-            buildInputAttrs(disabled,autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
         }
     }
 
@@ -232,7 +232,9 @@ public class InputGroupContext(private val inputId: String) {
             classes(BSClasses.formControl)
             attr("autocomplete", autocomplete)
             id(inputId)
-            if (disabled) { disabled() }
+            if (disabled) {
+                disabled()
+            }
             attrs?.invoke(this)
             onInput { event ->
                 onInput(event)
@@ -283,6 +285,7 @@ public class InputGroupContext(private val inputId: String) {
     }
 
     @Composable
+    @NonRestartableComposable
     public fun SelectInput(
         disabled: Boolean,
         autocomplete: String = AutoComplete.off,

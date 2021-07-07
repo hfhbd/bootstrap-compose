@@ -2,6 +2,8 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
+import kotlinx.browser.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
 
@@ -26,7 +28,11 @@ fun FormView() {
 
 @Composable
 private fun FormOverview() {
-    Form {
+    Form(attrs = {
+        onSubmit {
+            window.alert("submitted")
+        }
+    }) {
         var emailAddress by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
         var check by remember { mutableStateOf(false) }
@@ -52,9 +58,11 @@ private fun FormOverview() {
             Checkbox(checked = check, label = "Check me out") { check = it }
         }
 
-        Button("Submit") {
-            console.info("submit")
-        }
+        Button("Submit", attrs = {
+            if (password.isEmpty() || emailAddress.isEmpty()) {
+                disabled()
+            }
+        }) { }
     }
 }
 
