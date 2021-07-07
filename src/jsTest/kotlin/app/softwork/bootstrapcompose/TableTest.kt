@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import kotlin.test.*
 
@@ -74,6 +75,26 @@ class TableTest {
             Button(title = "a") { }
         }
         assertEquals("""<button type="submit" class="btn btn-primary">a</button>""", root.innerHTML)
+    }
+
+    @Test
+    fun placeholder() = runTest {
+        composition {
+            Input(type = InputType.Text) {
+                placeholder("")
+            }
+        }
+        assertEquals("""<input type="text" placeholder="">""", root.innerHTML)
+    }
+
+    @Test
+    fun placeholderTextInput() = runTest {
+        composition {
+            TextInput {
+                placeholder("")
+            }
+        }
+        assertEquals("""<input type="text" placeholder="">""", root.innerHTML)
     }
 
 

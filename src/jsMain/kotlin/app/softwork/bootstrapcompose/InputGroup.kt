@@ -34,6 +34,7 @@ public fun InputGroup(
 public class InputGroupContext(private val inputId: String) {
     private fun <K> InputAttrsBuilder<K>.buildInputAttrs(
         disabled: Boolean = false,
+        autocomplete: String = AutoComplete.off,
         attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit
     ) {
@@ -42,6 +43,7 @@ public class InputGroupContext(private val inputId: String) {
         if (disabled) {
             disabled()
         }
+        attr("autocomplete", autocomplete)
         attrs?.invoke(this)
         onInput { event ->
             onInput(event)
@@ -52,64 +54,69 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun <K> Input(
         type: InputType<K>,
+        autocomplete: String = AutoComplete.off,
         attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit,
     ) {
         Input(type = type,
             attrs = {
-                buildInputAttrs(false, attrs, onInput)
+                buildInputAttrs(false, autocomplete, attrs, onInput)
             })
     }
 
     @Composable
     @NonRestartableComposable
     public fun DateInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.DateInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun DateTimeLocalInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.DateTimeLocalInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun EmailInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.EmailInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun FileInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.FileInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)
+            buildInputAttrs(disabled,autocomplete, attrsBuilder, onInput)
         }
     }
 
@@ -121,102 +128,109 @@ public class InputGroupContext(private val inputId: String) {
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.HiddenInput {
-            buildInputAttrs(disabled, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete = AutoComplete.off, attrsBuilder, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun MonthInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.MonthInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun NumberInput(
-        value: Number? = null,
+        value: Number?,
+        autocomplete: String = AutoComplete.off,
         min: Number? = null,
         max: Number? = null,
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<Number?>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<Number?, HTMLInputElement>) -> Unit
     ) {
-        org.jetbrains.compose.web.dom.NumberInput(value, min, max) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)
+        NumberInput(value, min, max) {
+            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun PasswordInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.PasswordInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun SearchInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.SearchInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)
+            buildInputAttrs(disabled,autocomplete, attrsBuilder, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun TelInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.TelInput(value) {
-            buildInputAttrs(disabled, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
         }
     }
 
     @Composable
-    @NonRestartableComposable
     public fun TextInput(
-        value: String = "",
-        placeholder: String = "",
+        value: String,
+        placeholder: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
-        org.jetbrains.compose.web.dom.TextInput(value) {
+        TextInput(value) {
+            buildInputAttrs(disabled, autocomplete, attrs, onInput)
             placeholder(placeholder)
-            buildInputAttrs(disabled, attrs, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun TextAreaInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrs: AttrBuilderContext<HTMLTextAreaElement>? = null,
         onInput: (SyntheticInputEvent<String, HTMLTextAreaElement>) -> Unit
     ) {
         TextArea(attrs = {
             classes(BSClasses.formControl)
+            attr("autocomplete", autocomplete)
             id(inputId)
             if (disabled) { disabled() }
             attrs?.invoke(this)
@@ -229,45 +243,49 @@ public class InputGroupContext(private val inputId: String) {
     @Composable
     @NonRestartableComposable
     public fun TimeInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.TimeInput(value) {
-            buildInputAttrs(disabled, attrs, onInput)
+            buildInputAttrs(disabled, autocomplete, attrs, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun UrlInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.UrlInput(value) {
-            buildInputAttrs(disabled, attrs, onInput)
+            buildInputAttrs(disabled, autocomplete, attrs, onInput)
         }
     }
 
     @Composable
     @NonRestartableComposable
     public fun WeekInput(
-        value: String = "",
+        value: String,
+        autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         org.jetbrains.compose.web.dom.WeekInput(value) {
-            buildInputAttrs(disabled, attrs, onInput)
+            buildInputAttrs(disabled, autocomplete, attrs, onInput)
         }
     }
 
     @Composable
     public fun SelectInput(
-        disabled: Boolean = false,
+        disabled: Boolean,
+        autocomplete: String = AutoComplete.off,
         attrs: AttrBuilderContext<HTMLSelectElement>? = null,
         onChange: (List<String>) -> Unit,
         content: @Composable SelectContext.() -> Unit
@@ -275,6 +293,7 @@ public class InputGroupContext(private val inputId: String) {
         Select(
             disabled = disabled,
             id = inputId,
+            autocomplete = autocomplete,
             attrs = attrs,
             onChange = onChange,
             content = content

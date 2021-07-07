@@ -2,7 +2,6 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
-import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
 
@@ -35,9 +34,7 @@ private fun FormOverview() {
         Div(attrs = { classes("mb-3") }) {
             FormLabel { Text("Email address") }
             InputGroup {
-                TextInput(attrs = {
-                    value(emailAddress)
-                }) {
+                TextInput(value = emailAddress, placeholder = "user@server.com", autocomplete = AutoComplete.email) {
                     emailAddress = it.value
                 }
             }
@@ -47,7 +44,7 @@ private fun FormOverview() {
         Div(attrs = { classes("mb-3") }) {
             FormLabel { Text("Password") }
             InputGroup {
-                PasswordInput(value = password) { password = it.value }
+                PasswordInput(value = password, autocomplete = AutoComplete.currentPassword) { password = it.value }
             }
         }
 
@@ -84,14 +81,22 @@ private fun CheckoutFormExample() {
                 Column(size = 6, breakpoint = Breakpoint.Small) {
                     FormLabel { Text("First Name") }
                     InputGroup {
-                        TextInput(attrs = { value(firstName) }) { firstName = it.value }
+                        TextInput(
+                            value = firstName,
+                            placeholder = "",
+                            autocomplete = AutoComplete.givenName
+                        ) { firstName = it.value }
                     }
                 }
 
                 Column(size = 6, breakpoint = Breakpoint.Small) {
                     FormLabel { Text("Last Name") }
                     InputGroup {
-                        TextInput(attrs = { value(lastName) }) { lastName = it.value }
+                        TextInput(
+                            value = lastName,
+                            placeholder = "",
+                            autocomplete = AutoComplete.familyName
+                        ) { lastName = it.value }
                     }
                 }
 
@@ -99,10 +104,11 @@ private fun CheckoutFormExample() {
                     FormLabel { Text("Username") }
                     InputGroup {
                         TextAddOn("@")
-                        TextInput(attrs = {
-                            value(username)
-                            placeholder("Username")
-                        }) { username = it.value }
+                        TextInput(
+                            value = username,
+                            autocomplete = AutoComplete.username,
+                            placeholder = "Username"
+                        ) { username = it.value }
                     }
                 }
 
@@ -114,20 +120,22 @@ private fun CheckoutFormExample() {
                         }
                     }
                     InputGroup {
-                        TextInput(attrs = {
-                            value(email)
-                            placeholder("you@example.com")
-                        }) { email = it.value }
+                        TextInput(
+                            value = email,
+                            autocomplete = AutoComplete.email,
+                            placeholder = "you@example.com"
+                        ) { email = it.value }
                     }
                 }
 
                 Column(size = 12) {
                     FormLabel { Text("Address") }
                     InputGroup {
-                        TextInput(attrs = {
-                            value(address)
-                            placeholder("1234 Main St")
-                        }) { address = it.value }
+                        TextInput(
+                            value = address,
+                            autocomplete = AutoComplete.streetAddress,
+                            placeholder = "1234 Main St"
+                        ) { address = it.value }
                     }
                 }
 
@@ -139,16 +147,16 @@ private fun CheckoutFormExample() {
                         }
                     }
                     InputGroup {
-                        TextInput(attrs = {
-                            value(address2)
-                            placeholder("Apartment or suite")
-                        }) { address2 = it.value }
+                        TextInput(
+                            value = address2,
+                            placeholder = "Apartment or suite"
+                        ) { address2 = it.value }
                     }
                 }
 
                 Column(size = 5, breakpoint = Breakpoint.Medium) {
                     FormLabel(forId = "countryId") { Text("Country") }
-                    Select(onChange = { s -> println(s) }) {
+                    Select(autocomplete = AutoComplete.countryName, onChange = { s -> println(s) }) {
                         Option(value = "") {
                             Text("Choose...")
                         }
@@ -160,7 +168,7 @@ private fun CheckoutFormExample() {
 
                 Column(size = 4, breakpoint = Breakpoint.Medium) {
                     FormLabel(forId = "stateId") { Text("State") }
-                    Select(id = "stateId", onChange = { s -> println(s) }) {
+                    Select(id = "stateId", autocomplete = AutoComplete.addressLevel1, onChange = { s -> println(s) }) {
                         Option(value = "") {
                             Text("Choose...")
                         }
@@ -173,7 +181,9 @@ private fun CheckoutFormExample() {
                 Column(size = 3, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("Zip") }
                     InputGroup {
-                        TextInput(attrs = { value(zip) }) { zip = it.value }
+                        TextInput(value = zip, placeholder = "", autocomplete = AutoComplete.postalCode) {
+                            zip = it.value
+                        }
                     }
                 }
             }
@@ -209,7 +219,7 @@ private fun CheckoutFormExample() {
                 Column(size = 6, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("Name on card") }
                     InputGroup {
-                        TextInput(attrs = { value(nameOnCard) }) {
+                        TextInput(value = nameOnCard, placeholder = "John Doe", autocomplete = AutoComplete.ccName) {
                             nameOnCard = it.value
                         }
                     }
@@ -220,19 +230,29 @@ private fun CheckoutFormExample() {
                 Column(size = 6, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("Credit card number") }
                     InputGroup {
-                        TextInput(attrs = { value(cardNumber) }) { cardNumber = it.value }
+                        TextInput(
+                            value = cardNumber,
+                            placeholder = "",
+                            autocomplete = AutoComplete.ccNumber
+                        ) { cardNumber = it.value }
                     }
                 }
                 Column(size = 3, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("Expiration") }
                     InputGroup {
-                        TextInput(attrs = { value(expiration) }) { expiration = it.value }
+                        TextInput(
+                            value = expiration,
+                            placeholder = "",
+                            autocomplete = AutoComplete.ccExp
+                        ) { expiration = it.value }
                     }
                 }
                 Column(size = 3, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("CVV") }
                     InputGroup {
-                        TextInput(attrs = { value(cvv) }) { cvv = it.value }
+                        TextInput(value = cvv, placeholder = "", autocomplete = AutoComplete.ccSecurityCode) {
+                            cvv = it.value
+                        }
                     }
                 }
             }
@@ -267,9 +287,9 @@ private fun HorizontalFormView() {
             Legend(attrs = { classes("col-form-label", "col-sm-2", "pt-0") }) { Text("Radios") }
             Div(attrs = { classes("col-sm-10") }) {
                 RadioGroup {
-                    Radio("First radio", onClick = {})
-                    Radio("Second radio", onClick = {})
-                    Radio("Third disabled radio", disabled = true, onClick = {})
+                    Radio("First radio") { }
+                    Radio("Second radio") { }
+                    Radio("Third disabled radio", disabled = true) { }
                 }
             }
         }
