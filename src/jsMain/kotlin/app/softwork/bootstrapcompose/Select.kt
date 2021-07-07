@@ -13,6 +13,7 @@ public fun Select(
     size: SelectSize = SelectSize.Default,
     rows: Int? = null,
     disabled: Boolean = false,
+    autocomplete: String = AutoComplete.off,
     id: String = remember { "_${UUID()}" },
     attrs: AttrBuilderContext<HTMLSelectElement>? = null,
     onChange: (List<String>) -> Unit,
@@ -36,6 +37,7 @@ public fun Select(
         if (disabled) {
             disabled()
         }
+        attr("autocomplete", autocomplete)
         attrs?.invoke(this)
         onChange { event ->
             val selectElement = event.nativeEvent.target as HTMLSelectElement

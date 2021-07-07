@@ -4,6 +4,8 @@ import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Text
+import org.w3c.dom.*
 
 @Composable
 fun InputGroupView() {
@@ -47,6 +49,7 @@ fun MutipleAddons() {
 private fun BasicExampleView() {
     var username by remember { mutableStateOf("") }
     var range by remember { mutableStateOf(0.5) }
+    var server by remember { mutableStateOf("") }
 
     Card("Basic example") {
         Div(attrs = { classes("mb-3") }) {
@@ -58,7 +61,7 @@ private fun BasicExampleView() {
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                TextInput(attrs = { placeholder("Recipient's username") }) { }
+                TextInput(value = username, placeholder = "Recipient's username") { }
                 TextAddOn("@example.com")
             }
         }
@@ -67,23 +70,23 @@ private fun BasicExampleView() {
             Label(attrs = { classes(BSClasses.formLabel) }) { Text("Your vanity URL") }
             InputGroup {
                 TextAddOn("https://example.com/users/")
-                TextInput { }
+                TextInput("") { }
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
                 TextAddOn("$")
-                TextInput { }
+                TextInput("") { }
                 TextAddOn(".00")
             }
         }
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                TextInput(attrs = { placeholder("Username") }) { }
+                TextInput(username, placeholder = "Username") { username = it.value }
                 TextAddOn("@")
-                TextInput(attrs = { placeholder("Server") }) { }
+                TextInput(server, placeholder = "Server") { server = it.value }
             }
         }
 
@@ -161,7 +164,7 @@ fun ButtonAddOnsView() {
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                TextInput(attrs = { placeholder("Recipient's username") }) { }
+                TextInput("", placeholder = "Recipient's username") { }
                 ButtonAddOn(
                     "Button",
                     Color.Transparent,
@@ -188,7 +191,7 @@ fun ButtonAddOnsView() {
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                TextInput(attrs = { placeholder("Recipient's username") }) { }
+                TextInput("", placeholder = "Recipient's username") { }
                 ButtonAddOn(
                     "Button",
                     Color.Transparent,
@@ -275,14 +278,14 @@ private fun CustomSelectView() {
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
                 LabelAddOn("Options")
-                SelectInput(onChange = { }) {
+                SelectInput(false, onChange = { }) {
                     buildOptions()
                 }
             }
         }
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                SelectInput(onChange = { }) {
+                SelectInput(false, onChange = { }) {
                     buildOptions()
                 }
                 LabelAddOn("Options")
@@ -296,7 +299,7 @@ private fun CustomSelectView() {
                     Color.Transparent,
                     ButtonType.Button,
                     attrs = { classes("btn-outline-secondary") }) {}
-                SelectInput(onChange = { }) {
+                SelectInput(false, onChange = { }) {
                     buildOptions()
                 }
             }
@@ -304,7 +307,7 @@ private fun CustomSelectView() {
 
         Div(attrs = { classes("mb-3") }) {
             InputGroup {
-                SelectInput(onChange = { }) {
+                SelectInput(false, onChange = { }) {
                     buildOptions()
                 }
                 ButtonAddOn(
@@ -353,6 +356,29 @@ private fun CustomFileInputView() {
                     Color.Transparent,
                     ButtonType.Button,
                     attrs = { classes("btn-outline-secondary") }) {}
+            }
+        }
+
+        Div(attrs = { classes("mb-3") }) {
+            InputGroup {
+                var upload: HTMLInputElement? = null
+                FileInput {
+                    hidden()
+                    ref {
+                        upload = it as HTMLInputElement
+                        onDispose {
+
+                        }
+                    }
+                }
+                ButtonAddOn(
+                    "Upload using hidden FileInput",
+                    Color.Transparent,
+                    ButtonType.Button,
+                    attrs = { classes("btn-outline-secondary") }) {
+                    upload!!.value = ""
+                    upload!!.click()
+                }
             }
         }
     }
