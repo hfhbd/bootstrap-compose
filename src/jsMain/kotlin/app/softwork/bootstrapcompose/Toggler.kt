@@ -6,9 +6,19 @@ import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
 @Composable
-public fun Toggler(target: String, controls: String, attrs: AttrBuilderContext<HTMLButtonElement>? = null) {
+public fun Toggler(
+    target: String,
+    controls: String,
+    styling: (Styling.() -> Unit)? = null,
+    attrs: AttrBuilderContext<HTMLButtonElement>? = null
+) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Button(attrs = {
         classes("navbar-toggler")
+        classes(*classes)
         attr("data-bs-toggle", "collapse")
         attr("data-bs-target", "#$target")
         attr("aria-controls", controls)

@@ -10,17 +10,17 @@ public fun Column(
     horizontalAlignment: HorizontalAlignment? = null,
     breakpoint: Breakpoint? = null,
     size: Int? = null,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Div(attrs = {
-        classes("col")
-        if (breakpoint != null) {
-            classes("col-$breakpoint")
-        }
-        if (size != null) {
-            classes("col-$size")
-        }
+        classes("col" + (breakpoint?.let { "-$it" } ?: "") + (size?.let{"-$it"} ?: "") )
+        classes(*classes)
         if (auto) {
             classes("col-auto")
         }

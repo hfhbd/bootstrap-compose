@@ -9,12 +9,18 @@ import org.w3c.dom.*
 public fun Card(
     header: String,
     color: Color = Color.Dark,
+    styling: (Styling.() -> Unit)?=null,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     footer: ContentBuilder<HTMLDivElement>? = null,
     body: ContentBuilder<HTMLDivElement>
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Div({
         classes("card", "border-$color", "mb-3")
+        classes(*classes)
         attrs?.invoke(this)
     }) {
         Div({ classes("card-header") }) {

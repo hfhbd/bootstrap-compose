@@ -14,9 +14,14 @@ public fun Modal(
     scrollable: Boolean = false,
     id: String = UUID().toString(),
     buttonColor: Color = Color.Primary,
+    styling: (Styling.() -> Unit)? = null,
     footer: ContentBuilder<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Div {
         Button({
             classes("btn", "btn-$buttonColor")
@@ -42,7 +47,10 @@ public fun Modal(
                     classes("modal-dialog-scrollable")
                 }
             }) {
-                Div({ classes("modal-content") }) {
+                Div({
+                    classes("modal-content")
+                    classes(*classes)
+                }) {
                     Div({ classes("modal-header") }) {
                         H5({
                             classes("modal-title")

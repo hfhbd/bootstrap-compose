@@ -10,12 +10,18 @@ import org.w3c.dom.*
 public fun ListGroup(
     flush: Boolean = false,
     listGroupDirection: ListGroupDirection = ListGroupDirection.Vertical,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLUListElement>? = null,
     content: ContentBuilder<HTMLUListElement>? = null
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Ul(
         attrs = {
             ListGroupAttrs(flush, false, listGroupDirection, attrs)
+            classes(*classes)
         },
         content = content
     )
@@ -25,12 +31,19 @@ public fun ListGroup(
 public fun NumberedListGroup(
     flush: Boolean = false,
     listGroupDirection: ListGroupDirection = ListGroupDirection.Vertical,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLOListElement>? = null,
     content: ContentBuilder<HTMLOListElement>? = null
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
+
     Ol(
         attrs = {
             ListGroupAttrs(flush, true, listGroupDirection, attrs)
+            classes(*classes)
         },
         content = content
     )
@@ -61,11 +74,17 @@ public fun DOMScope<HTMLUListElement>.ListItem(
     active: Boolean = false,
     disabled: Boolean = false,
     background: Color? = null,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLLIElement>? = null,
     content: ContentBuilder<HTMLLIElement>? = null
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Li(attrs = {
         ListItemAttrs(active, disabled, false, background, attrs)
+        classes(*classes)
     }, content = content)
 }
 
@@ -74,11 +93,17 @@ public fun DOMScope<HTMLOListElement>.ListItem(
     active: Boolean = false,
     disabled: Boolean = false,
     background: Color? = null,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLLIElement>? = null,
     content: ContentBuilder<HTMLLIElement>? = null
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Li(attrs = {
         ListItemAttrs(active, disabled, false, background, attrs)
+        classes(*classes)
     }, content = content)
 }
 
@@ -88,13 +113,19 @@ public fun AnchorListItem(
     active: Boolean = false,
     disabled: Boolean = false,
     background: Color? = null,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLAnchorElement>? = null,
     content: ContentBuilder<HTMLAnchorElement>? = null
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     A(
         href = href,
         attrs = {
             ListItemAttrs(active, disabled, true, background, attrs)
+            classes(*classes)
         }, content = content
     )
 }
@@ -104,11 +135,17 @@ public fun ButtonListItem(
     active: Boolean = false,
     disabled: Boolean = false,
     background: Color? = null,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLButtonElement>? = null,
     content: ContentBuilder<HTMLButtonElement>? = null
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Button(attrs = {
         ListItemAttrs(active, disabled, true, background, attrs)
+        classes(*classes)
     }, content = content)
 }
 

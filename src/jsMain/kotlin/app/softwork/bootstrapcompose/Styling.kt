@@ -1,23 +1,46 @@
-@file:Suppress("unused")
+@file:Suppress("unused", "MemberVisibilityCanBePrivate", "PropertyName")
 
 package app.softwork.bootstrapcompose
 
-public class Styling {
+import androidx.compose.runtime.Composable
+
+@DslMarker
+public annotation class StylingMarker
+
+/**
+ * Primary entrypoint for the Styling DSL. Component authors may create a subclass to add additional styling
+ * capabilities to their component, including the dynamic generation of classes by using Compose-web style sheet
+ * builders.
+ */
+@StylingMarker
+public open class Styling {
     public val Margins: SpacingSpecs = SpacingSpecs("m")
     public val Padding: SpacingSpecs = SpacingSpecs("p")
     public val Borders: BorderSpec = BorderSpec()
     public val Background: Background = Background()
     public val Text: Text = Text()
+    public val Layout: Layout = Layout()
 
-    internal fun generateClassStrings(): Array<String> {
+    /**
+     * This function will generate a list of css class names that should be applied to a component in order
+     * to implement the styling features specified by the dsl. Subclasses should invoke this method and add
+     * any additional class names to the returned list. This method is Composable so additional style tags can
+     * be composed if new css class definitions are required.
+     *
+     * @return An array of css class names that are to be applied to the target component.
+     */
+    @Composable
+    public open fun generate(): Array<String> {
         return Margins.generateClassStrings() +
                 Padding.generateClassStrings() +
                 Borders.generateClassStrings() +
                 Background.generateClassStrings() +
-                Text.generateClassStrings()
+                Text.generateClassStrings() +
+                Layout.generateClassStrings()
     }
 }
 
+@StylingMarker
 public class SpacingSpecs(private val property: String) {
     public operator fun invoke(f: SpacingSpecs.() -> Unit) {
         this.f()
@@ -51,9 +74,15 @@ public class SpacingSpecs(private val property: String) {
         }
     }
 
-    public class SideSpec(internal val sides: List<Sides>) {
+    public class SideSpec(private val sides: List<Sides>) {
         public var size: SpacingSize = SpacingSize.Small
         public var breakpoint: Breakpoint? = null
+
+        internal fun generateClassStrings(property: String): List<String> {
+            return sides.map { side ->
+                "$property$side-" + (breakpoint?.let { "$it-" } ?: "") + "$size"
+            }
+        }
     }
 
     private val _specs: MutableList<SideSpec> = mutableListOf()
@@ -73,9 +102,7 @@ public class SpacingSpecs(private val property: String) {
 
     internal fun generateClassStrings(): Array<String> {
         return _specs.flatMap { spec ->
-            spec.sides.map { side ->
-                "$property$side-" + (spec.breakpoint?.let { "$it-" } ?: "") + "${spec.size}"
-            }
+            spec.generateClassStrings(property)
         }.toTypedArray()
     }
 
@@ -88,7 +115,7 @@ public class SpacingSpecs(private val property: String) {
     public val Horizontal: Sides = Sides.Horizontal
 }
 
-
+@StylingMarker
 public class BorderSpec {
     public operator fun invoke(f: BorderSpec.() -> Unit) {
         this.f()
@@ -118,6 +145,30 @@ public class BorderSpec {
         }
     }
 
+    public val All: Sides = Sides.All
+    public val Top: Sides = Sides.Top
+    public val End: Sides = Sides.End
+    public val Bottom: Sides = Sides.Bottom
+    public val Start: Sides = Sides.Start
+
+    public operator fun Sides.plus(side: Sides): List<Sides> {
+        return listOf(this, side)
+    }
+
+    public class SideSpec(private val sides: List<Sides>) {
+        public var width: BorderWidth? = null
+        public var color: Color? = null
+
+        internal fun generateClassString(): List<String> {
+            val classList: MutableList<String> = mutableListOf()
+            sides.map {
+                classList += it.toString()
+            }
+
+            return classList
+        }
+    }
+
     public enum class BorderRadius(private val value: String) {
         All("rounded"),
         Top("rounded-top"),
@@ -135,32 +186,11 @@ public class BorderSpec {
     public enum class RadiusSize(private val value: String) {
         Small("rounded-1"),
         Medium("rounded-2"),
-        Large("rounded-3")
-    }
+        Large("rounded-3");
 
-    public val All: Sides = Sides.All
-    public val Top: Sides = Sides.Top
-    public val End: Sides = Sides.End
-    public val Bottom: Sides = Sides.Bottom
-    public val Start: Sides = Sides.Start
-
-    public operator fun Sides.plus(side: Sides): List<Sides> {
-        return listOf(this, side)
-    }
-
-    public class SideSpec(internal val sides: List<Sides>) {
-        public var width: BorderWidth? = null
-        public var color: Color? = null
-        internal var radiusSpec: RadiusSpec? = null
-
-        public val Small: RadiusSize = RadiusSize.Small
-        public val Medium: RadiusSize = RadiusSize.Medium
-        public val Large: RadiusSize = RadiusSize.Large
-
-        public fun radius(type: BorderRadius, size: RadiusSize) {
-            radiusSpec = RadiusSpec(type, size)
+        override fun toString(): String {
+            return value
         }
-
     }
 
     private var sideSpecs: SideSpec? = null
@@ -173,17 +203,19 @@ public class BorderSpec {
         sideSpecs = SideSpec(this).apply(spec)
     }
 
-    public data class RadiusSpec(
-        public var type: BorderRadius = BorderRadius.All,
-        public var size: RadiusSize = RadiusSize.Medium
-    )
+    private var radiusType: BorderRadius? = null
+    private var radiusSize: RadiusSize? = null
 
+    public fun radius(type: BorderRadius, size: RadiusSize? = null){
+        radiusType = type
+        radiusSize = size
+    }
 
     internal fun generateClassStrings(): Array<String> {
         val classList: MutableList<String> = mutableListOf()
 
         sideSpecs?.let { sideSpecs ->
-            classList += sideSpecs.sides.map { it.toString() }
+            classList += sideSpecs.generateClassString()
 
             sideSpecs.color?.let { color ->
                 classList += "border-$color"
@@ -192,20 +224,18 @@ public class BorderSpec {
             sideSpecs.width?.let { width ->
                 classList += width.toString()
             }
+        }
 
-            sideSpecs.radiusSpec?.let { (type, size) ->
-                classList += type.toString()
-                classList += size.toString()
-            }
+        classList += listOfNotNull(radiusType, radiusSize).map {
+            it.toString()
         }
 
         return classList.toTypedArray()
     }
-
 }
 
 
-
+@StylingMarker
 public class Background {
     public var color: Color? = null
     public var gradient: Boolean = false
@@ -228,6 +258,7 @@ public class Background {
     }
 }
 
+@StylingMarker
 public class Text {
     public var color: Color? = null
     private val alignments: MutableList<AlignSpec> = mutableListOf()
@@ -318,7 +349,13 @@ public class Text {
         }
     }
 
-    public class AlignSpec(internal val alignment: Alignment, public var breakpoint: Breakpoint? = null)
+    public data class AlignSpec(private val alignment: Alignment, private var breakpoint: Breakpoint? = null) {
+        internal fun className(): String {
+            return breakpoint?.let {
+                "text-$it-${alignment}"
+            } ?: "text-${alignment}"
+        }
+    }
 
     public fun align(alignment: Alignment, breakpoint: Breakpoint? = null) {
         alignments += AlignSpec(alignment, breakpoint)
@@ -332,37 +369,15 @@ public class Text {
         }
 
         alignments.forEach { spec ->
-            classes += spec.breakpoint?.let { bp ->
-                "text-$bp-${spec.alignment}"
-            } ?: "text-${spec.alignment}"
-        }
-
-        wrap?.let {
-            classes += it.toString()
+            classes += spec.className()
         }
 
         if (wordBreak) {
             classes += "text-break"
         }
 
-        transform?.let {
-            classes += it.toString()
-        }
-
         size?.let {
             classes += "fs-${it.coerceIn(1, 6)}"
-        }
-
-        weight?.let {
-            classes += it.toString()
-        }
-
-        style?.let {
-            classes += it.toString()
-        }
-
-        lineHeight?.let {
-            classes += it.toString()
         }
 
         if (monospace) {
@@ -379,6 +394,136 @@ public class Text {
 
         decoration?.let {
             classes += it.toString()
+        }
+
+        classes += listOfNotNull(wrap, transform, weight, style, lineHeight).map {
+            it.toString()
+        }
+
+        return classes.toTypedArray()
+    }
+}
+
+@StylingMarker
+public class Layout {
+    private val displaySpecs: MutableList<DisplaySpec> = mutableListOf()
+    private val floatSpecs: MutableList<FloatSpec> = mutableListOf()
+    public var overflow: Overflow? = null
+    public var width: Width? = null
+    public var height: Height? = null
+    public var verticalAlignment: VerticalAlignment? = null
+    public var visible: Boolean? = null
+
+    public operator fun invoke(f: Layout.() -> Unit) {
+        this.f()
+    }
+
+    public enum class Display(private val value: String) {
+        None("none"),
+        Inline("inline"),
+        InlineBlock("inline-block"),
+        Block("block"),
+        Grid("grid"),
+        Flex("flex"),
+        InlineFlex("inline-flex");
+
+        override fun toString(): String {
+            return value
+        }
+    }
+
+    public enum class Float(private val value: String) {
+        Start("start"),
+        End("end"),
+        None("none");
+
+        override fun toString(): String {
+            return value
+        }
+    }
+
+    public enum class Overflow(private val value: String) {
+        Auto("overflow-auto"),
+        Hidden("overflow-hidden"),
+        Visible("overflow-visible"),
+        Scroll("overflow-scroll");
+
+        override fun toString(): String {
+            return value
+        }
+    }
+
+    public enum class Width(private val value: String) {
+        Quarter("w-25"),
+        Half("w-50"),
+        ThreeQuarters("w-75"),
+        Full("w-100"),
+        Auto("w-auto"),
+        View("vw-100");
+
+        override fun toString(): String {
+            return value
+        }
+    }
+
+    public enum class Height(private val value: String) {
+        Quarter("h-25"),
+        Half("h-50"),
+        ThreeQuarters("h-75"),
+        Full("h-100"),
+        Auto("h-auto"),
+        View("vh-100");
+
+        override fun toString(): String {
+            return value
+        }
+    }
+
+    public enum class VerticalAlignment(private val value: String) {
+        Baseline("align-baseline"),
+        Top("align-top"),
+        Middle("align-middle"),
+        Bottom("align-bottom"),
+        TextTop("align-text-top"),
+        TextBottom("align-text-bottom");
+
+        override fun toString(): String {
+            return value
+        }
+    }
+
+    private data class DisplaySpec(val display: Display, val breakpoint: Breakpoint?)
+    private data class FloatSpec(val float: Float, val breakpoint: Breakpoint?)
+
+    public fun display(display: Display, breakpoint: Breakpoint? = null) {
+        displaySpecs += DisplaySpec(display, breakpoint)
+    }
+
+    public fun float(float: Float, breakpoint: Breakpoint? = null) {
+        floatSpecs += FloatSpec(float, breakpoint)
+    }
+
+    internal fun generateClassStrings(): Array<String> {
+        val classes: MutableList<String> = mutableListOf()
+
+        displaySpecs.forEach { displaySpec ->
+            classes += "d-" + (displaySpec.breakpoint?.let { "$it-" } ?: "") + "${displaySpec.display}"
+        }
+
+        floatSpecs.forEach { floatSpec ->
+            classes += "float-" + (floatSpec.breakpoint?.let { "$it-" } ?: "") + "${floatSpec.float}"
+        }
+
+        visible?.let { visible ->
+            classes += if (visible) {
+                "visible"
+            } else {
+                "invisible"
+            }
+        }
+
+        classes += listOfNotNull(overflow, width, height, verticalAlignment).map {
+            it.toString()
         }
 
         return classes.toTypedArray()

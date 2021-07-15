@@ -17,10 +17,16 @@ public fun Range(
     step: Number = 1,
     disabled: Boolean = false,
     id: String = remember { "_${UUID()}" },
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLInputElement>? = null,
     onInput: (SyntheticInputEvent<Number?, HTMLInputElement>) -> Unit,
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     RangeInput(value, min, max, step) {
+        classes(*classes)
         onInput {
             onInput(it)
         }

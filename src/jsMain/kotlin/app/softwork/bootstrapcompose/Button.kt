@@ -11,11 +11,17 @@ public fun Button(
     title: String,
     color: Color = Color.Primary,
     type: ButtonType = ButtonType.Submit,
+    styling: (Styling.() -> Unit)?=null,
     attrs: AttrBuilderContext<HTMLButtonElement>? = null,
     action: () -> Unit
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Button(attrs = {
         classes("btn", "btn-$color")
+        classes(*classes)
         attrs?.invoke(this)
         type(type)
         onClick {

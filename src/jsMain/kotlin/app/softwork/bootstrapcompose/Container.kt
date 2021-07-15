@@ -8,10 +8,16 @@ import org.w3c.dom.*
 public fun Container(
     fluid: Boolean = false,
     type: Breakpoint? = null,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>?
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Div(attrs = {
+        classes(*classes)
         when {
             fluid -> {
                 classes("container-fluid")

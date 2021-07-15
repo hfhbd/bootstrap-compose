@@ -6,11 +6,12 @@ import org.jetbrains.compose.web.dom.Div
 import org.w3c.dom.HTMLDivElement
 
 @Composable
-public fun Box(styling: Styling.() -> Unit, content: ContentBuilder<HTMLDivElement>? = null) {
-    val stylingSpecs = Styling()
-    stylingSpecs.styling()
+public fun Box(styling: (Styling.() -> Unit)? = null, content: ContentBuilder<HTMLDivElement>? = null) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
 
     Div(attrs = {
-        classes(*stylingSpecs.generateClassStrings())
+        classes(*classes)
     }, content = content)
 }

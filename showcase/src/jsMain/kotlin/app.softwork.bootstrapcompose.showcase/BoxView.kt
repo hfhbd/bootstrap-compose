@@ -2,7 +2,6 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.Composable
 import app.softwork.bootstrapcompose.*
-import app.softwork.bootstrapcompose.BorderSpec.BorderRadius
 import app.softwork.bootstrapcompose.BorderSpec.BorderWidth.Thicker
 import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize
 import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Large
@@ -30,8 +29,8 @@ fun BoxView() {
                         All {
                             width = Thicker
                             color = Color.Primary
-                            radius(BorderRadius.Top, Large)
                         }
+                        radius(BorderSpec.BorderRadius.Top, BorderSpec.RadiusSize.Large)
                     }
                     Text {
                         align(alignment = Center)
@@ -55,8 +54,8 @@ fun BoxView() {
                         All {
                             width = Thicker
                             color = Color.Primary
-                            radius(type = BorderRadius.Pill, size = Small)
                         }
+                        radius(type = BorderSpec.BorderRadius.Pill, size = BorderSpec.RadiusSize.Small)
                     }
 
                     Padding {
@@ -70,7 +69,7 @@ fun BoxView() {
                         gradient = true
                     }
 
-                    Text{
+                    Text {
                         align(Center)
                     }
                 }) {

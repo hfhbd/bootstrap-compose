@@ -23,15 +23,21 @@ public fun Navbar(
     containerBreakpoint: Breakpoint? = null,
     colorScheme: Color = Color.Light,
     backgroundColor: Color = Color.Primary,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLElement>? = null,
     content: ContentBuilder<HTMLDivElement>? = null
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Nav(attrs = {
         classes(
             BSClasses.navbar,
             "navbar-${colorScheme}",
             "bg-${backgroundColor}"
         )
+        classes(*classes)
         when (collapseBehavior) {
             is NavbarCollapseBehavior.Never -> classes("navbar-expand")
             is NavbarCollapseBehavior.AtBreakpoint -> classes("navbar-expand-${collapseBehavior.breakpoint}")
@@ -73,6 +79,7 @@ public fun Navbar(
     togglerPosition: TogglerPosition = TogglerPosition.Right,
     togglerTargetId: String = remember { "toggler${UUID()}" },
     togglerAttrs: AttrBuilderContext<HTMLButtonElement>? = null,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLElement>? = null,
     navAttrs: AttrBuilderContext<HTMLDivElement>? = null,
     brand: ContentBuilder<HTMLDivElement>,
@@ -84,6 +91,7 @@ public fun Navbar(
         containerBreakpoint,
         colorScheme,
         backgroundColor,
+        styling,
         attrs
     ) {
         if (togglerPosition == TogglerPosition.Right) {
@@ -94,7 +102,8 @@ public fun Navbar(
             Toggler(
                 target = togglerTargetId,
                 controls = togglerTargetId,
-                togglerAttrs
+                styling = styling,
+                attrs = togglerAttrs
             )
             NavbarCollapse(togglerTargetId) {
                 NavbarNav(attrs = { navAttrs?.invoke(this) }) {
