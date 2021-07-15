@@ -31,22 +31,29 @@ fun TableView() {
     Container {
         P {
             var newTitle by remember { mutableStateOf("") }
-
-            Input(
-                label = "Todo Title",
-                value = newTitle,
-                placeholder = "Title",
-                type = InputType.Text
-            ) {
-                newTitle = it.value
-            }
-            Button("Create", attrs = {
-                if (newTitle.isBlank()) {
-                    disabled()
+            Form(attrs = {
+                onSubmit {
+                    todos += Todo(title = newTitle, finished = false)
+                    newTitle = ""
                 }
             }) {
-                todos += Todo(title = newTitle, finished = false)
-                newTitle = ""
+                Div {
+                    FormLabel { Text("New Todo Title: $newTitle") }
+                    InputGroup {
+                        TextInput(
+                            value = newTitle,
+                            placeholder = "Title",
+                        ) {
+                            newTitle = it.value
+                        }
+                        Button("Create", attrs = {
+                            if (newTitle.isBlank()) {
+                                disabled()
+                            }
+                        }) {
+                        }
+                    }
+                }
             }
         }
         Table(filteredTodos) { index, todo ->
