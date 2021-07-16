@@ -34,7 +34,7 @@ public fun InputGroup(
 public class InputGroupContext(private val inputId: String) {
     private fun <K> InputAttrsBuilder<K>.buildInputAttrs(
         disabled: Boolean = false,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         classes: Array<String>,
         attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit
@@ -45,7 +45,7 @@ public class InputGroupContext(private val inputId: String) {
         if (disabled) {
             disabled()
         }
-        attr("autocomplete", autocomplete)
+        autoComplete(autocomplete)
         attrs?.invoke(this)
         onInput { event ->
             onInput(event)
@@ -56,7 +56,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun <K> Input(
         type: InputType<K>,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         styling: (Styling.() -> Unit)? = null,
         attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit,
@@ -75,7 +75,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun DateInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -94,7 +94,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun DateTimeLocalInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -113,7 +113,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun EmailInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -132,7 +132,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun FileInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -168,7 +168,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun MonthInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -187,7 +187,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun NumberInput(
         value: Number?,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         min: Number? = null,
         max: Number? = null,
         disabled: Boolean = false,
@@ -208,7 +208,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun PasswordInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -227,7 +227,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun SearchInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -246,7 +246,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun TelInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -265,7 +265,7 @@ public class InputGroupContext(private val inputId: String) {
     public fun TextInput(
         value: String,
         placeholder: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -285,7 +285,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun TextAreaInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLTextAreaElement>? = null,
@@ -298,7 +298,7 @@ public class InputGroupContext(private val inputId: String) {
         TextArea(attrs = {
             classes(BSClasses.formControl)
             classes(*classes)
-            attr("autocomplete", autocomplete)
+            autoComplete(autocomplete)
             id(inputId)
             if (disabled) {
                 disabled()
@@ -314,7 +314,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun TimeInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -333,7 +333,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun UrlInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -352,7 +352,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun WeekInput(
         value: String,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
@@ -371,7 +371,7 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun SelectInput(
         disabled: Boolean,
-        autocomplete: String = AutoComplete.off,
+        autocomplete: AutoComplete = AutoComplete.off,
         styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLSelectElement>? = null,
         onChange: (List<String>) -> Unit,
