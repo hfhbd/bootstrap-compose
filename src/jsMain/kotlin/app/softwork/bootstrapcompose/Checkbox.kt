@@ -16,11 +16,17 @@ public fun Checkbox(
     disabled: Boolean = false,
     inline: Boolean = false,
     switch: Boolean = false,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLInputElement>? = null,
     onClick: (Boolean) -> Unit
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Div({
         classes(BSClasses.formCheck)
+        classes(*classes)
         if (inline) {
             classes(BSClasses.formCheckInline)
         }

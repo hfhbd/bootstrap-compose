@@ -35,7 +35,11 @@ fun NavbarView() {
     Hr()
 
     containerXL()
-    Container(fluid = false, type = Breakpoint.ExtraLarge, attrs = { classes("mb-4") }) {
+    Container(
+        fluid = false,
+        type = Breakpoint.ExtraLarge,
+        styling = { Margins { Bottom { size = SpacingSpecs.SpacingSize.Large } } },
+    ) {
         Text("Matching .container-xl...")
     }
     Hr()
@@ -166,7 +170,7 @@ private fun lightNavbar() {
             colorScheme = Color.Light,
             backgroundColor = Color.Light,
             fluid = true,
-            attrs = { classes("rounded") }
+            styling = { Borders { radius(BorderSpec.BorderRadius.All, BorderSpec.RadiusSize.Small) } }
         ) {
             Brand {
                 Text("Navbar")
@@ -204,7 +208,7 @@ private fun lightCenteredNavbar() {
             colorScheme = Color.Light,
             backgroundColor = Color.Light,
             fluid = true,
-            attrs = { classes("rounded") }
+            styling = { Borders { radius(BorderSpec.BorderRadius.All, BorderSpec.RadiusSize.Small) } }
         ) {
             val togglerTargetId = "toggler${UUID()}"
 

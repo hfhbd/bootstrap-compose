@@ -5,9 +5,14 @@ import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
 @Composable
-public fun Brand(attrs: AttrBuilderContext<HTMLDivElement>? = null, content: ContentBuilder<HTMLDivElement>) {
+public fun Brand(styling: (Styling.() -> Unit)? = null, attrs: AttrBuilderContext<HTMLDivElement>? = null, content: ContentBuilder<HTMLDivElement>) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Div(attrs = {
         classes("navbar-brand")
+        classes(*classes)
         attrs?.invoke(this)
     }, content)
 }

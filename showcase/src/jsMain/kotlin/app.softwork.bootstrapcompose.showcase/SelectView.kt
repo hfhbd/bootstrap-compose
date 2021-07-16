@@ -4,12 +4,12 @@ import androidx.compose.runtime.Composable
 import app.softwork.bootstrapcompose.*
 import org.jetbrains.compose.web.dom.Hr
 import org.jetbrains.compose.web.dom.Text
-
+import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.*
 
 @Composable
 
 fun SelectView() {
-    Container(attrs = { classes("mt-3") }) {
+    Container(styling = { Margins { Top { size = Medium } } }) {
         Row {
             Column(size = 4) {
                 basicSelect()

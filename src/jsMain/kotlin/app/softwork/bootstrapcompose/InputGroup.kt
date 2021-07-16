@@ -35,10 +35,12 @@ public class InputGroupContext(private val inputId: String) {
     private fun <K> InputAttrsBuilder<K>.buildInputAttrs(
         disabled: Boolean = false,
         autocomplete: String = AutoComplete.off,
+        classes: Array<String>,
         attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit
     ) {
         classes(BSClasses.formControl)
+        classes(*classes)
         id(inputId)
         if (disabled) {
             disabled()
@@ -55,12 +57,17 @@ public class InputGroupContext(private val inputId: String) {
     public fun <K> Input(
         type: InputType<K>,
         autocomplete: String = AutoComplete.off,
+        styling: (Styling.() -> Unit)? = null,
         attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         Input(type = type,
             attrs = {
-                buildInputAttrs(false, autocomplete, attrs, onInput)
+                buildInputAttrs(false, autocomplete, classes, attrs, onInput)
             })
     }
 
@@ -70,11 +77,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.DateInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
         }
     }
 
@@ -84,11 +96,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.DateTimeLocalInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
         }
     }
 
@@ -98,11 +115,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.EmailInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
         }
     }
 
@@ -112,11 +134,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.FileInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
         }
     }
 
@@ -124,11 +151,16 @@ public class InputGroupContext(private val inputId: String) {
     @NonRestartableComposable
     public fun HiddenInput(
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.HiddenInput {
-            buildInputAttrs(disabled, autocomplete = AutoComplete.off, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete = AutoComplete.off, classes, attrsBuilder, onInput)
         }
     }
 
@@ -138,11 +170,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.MonthInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
         }
     }
 
@@ -154,11 +191,16 @@ public class InputGroupContext(private val inputId: String) {
         min: Number? = null,
         max: Number? = null,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<Number?>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<Number?, HTMLInputElement>) -> Unit
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         NumberInput(value, min, max) {
-            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
         }
     }
 
@@ -168,11 +210,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.PasswordInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
         }
     }
 
@@ -182,11 +229,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.SearchInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
         }
     }
 
@@ -196,11 +248,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.TelInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrsBuilder, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
         }
     }
 
@@ -210,11 +267,16 @@ public class InputGroupContext(private val inputId: String) {
         placeholder: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         TextInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrs, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrs, onInput)
             placeholder(placeholder)
         }
     }
@@ -225,11 +287,17 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLTextAreaElement>? = null,
         onInput: (SyntheticInputEvent<String, HTMLTextAreaElement>) -> Unit
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         TextArea(attrs = {
             classes(BSClasses.formControl)
+            classes(*classes)
             attr("autocomplete", autocomplete)
             id(inputId)
             if (disabled) {
@@ -248,11 +316,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.TimeInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrs, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrs, onInput)
         }
     }
 
@@ -262,11 +335,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.UrlInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrs, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrs, onInput)
         }
     }
 
@@ -276,11 +354,16 @@ public class InputGroupContext(private val inputId: String) {
         value: String,
         autocomplete: String = AutoComplete.off,
         disabled: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.WeekInput(value) {
-            buildInputAttrs(disabled, autocomplete, attrs, onInput)
+            buildInputAttrs(disabled, autocomplete, classes, attrs, onInput)
         }
     }
 
@@ -289,6 +372,7 @@ public class InputGroupContext(private val inputId: String) {
     public fun SelectInput(
         disabled: Boolean,
         autocomplete: String = AutoComplete.off,
+        styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLSelectElement>? = null,
         onChange: (List<String>) -> Unit,
         content: @Composable SelectContext.() -> Unit
@@ -297,6 +381,7 @@ public class InputGroupContext(private val inputId: String) {
             disabled = disabled,
             id = inputId,
             autocomplete = autocomplete,
+            styling = styling,
             attrs = attrs,
             onChange = onChange,
             content = content
@@ -309,10 +394,16 @@ public class InputGroupContext(private val inputId: String) {
     @Composable
     public fun TextAddOn(
         text: String,
+        styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLSpanElement>? = null
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         Span(attrs = {
             classes(BSClasses.inputGroupText)
+            classes(*classes)
             attrs?.invoke(this)
         }) {
             Text(text)
@@ -327,10 +418,16 @@ public class InputGroupContext(private val inputId: String) {
     @Composable
     public fun LabelAddOn(
         text: String,
+        styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLLabelElement>? = null
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         Label(attrs = {
             classes(BSClasses.inputGroupText)
+            classes(*classes)
             forId(inputId)
             attrs?.invoke(this)
         }) {
@@ -343,29 +440,37 @@ public class InputGroupContext(private val inputId: String) {
         title: String,
         color: Color = Color.Primary,
         type: ButtonType = ButtonType.Submit,
+        styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLButtonElement>? = null,
         action: () -> Unit
     ) {
-        Button(title, color, type, attrs, action)
+        Button(title, color, type, styling, attrs, action)
     }
 
     @Composable
     public fun DropDownAddOn(
         title: String,
         color: Color = Color.Primary,
+        styling: (Styling.() -> Unit)? = null,
         block: DropDownBuilder.() -> Unit
     ) {
-        DropDown(title, inputId, color, block)
+        DropDown(title, inputId, color, styling, block)
     }
 
     @Composable
     public fun CheckboxAddOn(
         checked: Boolean,
+        styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLDivElement>? = null,
         onClick: (Boolean) -> Unit
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         Div(attrs = {
             classes(BSClasses.inputGroupText)
+            classes(*classes)
             attrs?.invoke(this)
         }) {
             CheckboxInput(checked, attrsBuilder = {
@@ -380,11 +485,17 @@ public class InputGroupContext(private val inputId: String) {
     @Composable
     public fun RadioAddOn(
         checked: Boolean,
+        styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLDivElement>? = null,
         onClick: (Boolean) -> Unit
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         Div(attrs = {
             classes(BSClasses.inputGroupText)
+            classes(*classes)
             attrs?.invoke(this)
         }) {
             RadioInput(checked, attrsBuilder = {

@@ -6,6 +6,7 @@ import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
+import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.*
 
 @Composable
 fun InputGroupView() {
@@ -29,7 +30,7 @@ fun InputGroupView() {
 @Composable
 fun MutipleAddons() {
     Card("Multiple addons") {
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextAddOn("$")
                 TextAddOn("0.00")
@@ -52,21 +53,21 @@ private fun BasicExampleView() {
     var server by remember { mutableStateOf("") }
 
     Card("Basic example") {
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextAddOn("@")
                 TextInput(value = username, placeholder = "Username") { username = it.value }
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextInput(value = username, placeholder = "Recipient's username") { }
                 TextAddOn("@example.com")
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             Label(attrs = { classes(BSClasses.formLabel) }) { Text("Your vanity URL") }
             InputGroup {
                 TextAddOn("https://example.com/users/")
@@ -74,7 +75,7 @@ private fun BasicExampleView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextAddOn("$")
                 TextInput("") { }
@@ -82,7 +83,7 @@ private fun BasicExampleView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextInput(username, placeholder = "Username") { username = it.value }
                 TextAddOn("@")
@@ -90,7 +91,7 @@ private fun BasicExampleView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextAddOn("With textarea")
                 TextAreaInput(value = "") { }
@@ -102,7 +103,7 @@ private fun BasicExampleView() {
 @Composable
 fun SizingView() {
     Card("Sizing") {
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup(
                 size = InputGroupSize.Small,
             ) {
@@ -111,14 +112,14 @@ fun SizingView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextAddOn("Default")
                 TextInput { }
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup(
                 size = InputGroupSize.Large,
             ) {
@@ -132,14 +133,14 @@ fun SizingView() {
 @Composable
 fun CheckboxesAndRadiosView() {
     Card("Checkboxes and radios") {
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 CheckboxAddOn(false) { }
                 TextInput { }
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 RadioAddOn(false) { }
                 TextInput { }
@@ -151,7 +152,7 @@ fun CheckboxesAndRadiosView() {
 @Composable
 fun ButtonAddOnsView() {
     Card("Button addons") {
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 ButtonAddOn(
                     "Button",
@@ -162,7 +163,7 @@ fun ButtonAddOnsView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextInput("", placeholder = "Recipient's username") { }
                 ButtonAddOn(
@@ -173,7 +174,7 @@ fun ButtonAddOnsView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 ButtonAddOn(
                     "Button",
@@ -189,7 +190,7 @@ fun ButtonAddOnsView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextInput("", placeholder = "Recipient's username") { }
                 ButtonAddOn(
@@ -218,7 +219,7 @@ private fun ButtonsWithDropdownsView() {
     }
 
     Card("Buttons with dropdowns") {
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 //TODO DropDown doesn't support adding btn-outline-secondary class
                 DropDownAddOn(
@@ -231,7 +232,7 @@ private fun ButtonsWithDropdownsView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextInput { }
                 DropDownAddOn(
@@ -243,7 +244,7 @@ private fun ButtonsWithDropdownsView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 DropDownAddOn(
                     "Dropdown",
@@ -275,7 +276,7 @@ private fun CustomSelectView() {
     }
 
     Card("Custom select") {
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 LabelAddOn("Options")
                 SelectInput(false, onChange = { }) {
@@ -283,7 +284,7 @@ private fun CustomSelectView() {
                 }
             }
         }
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 SelectInput(false, onChange = { }) {
                     buildOptions()
@@ -292,7 +293,7 @@ private fun CustomSelectView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 ButtonAddOn(
                     "Button",
@@ -305,7 +306,7 @@ private fun CustomSelectView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 SelectInput(false, onChange = { }) {
                     buildOptions()
@@ -323,21 +324,21 @@ private fun CustomSelectView() {
 @Composable
 private fun CustomFileInputView() {
     Card("Custom file input") {
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 LabelAddOn("Upload")
                 FileInput { }
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 FileInput { }
                 LabelAddOn("Upload")
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 ButtonAddOn(
                     "Button",
@@ -348,7 +349,7 @@ private fun CustomFileInputView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 FileInput { }
                 ButtonAddOn(
@@ -359,7 +360,7 @@ private fun CustomFileInputView() {
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 var upload: HTMLInputElement? = null
                 FileInput {

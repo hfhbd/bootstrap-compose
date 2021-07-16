@@ -5,7 +5,9 @@ import app.softwork.bootstrapcompose.*
 import kotlinx.browser.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
-
+import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.*
+import app.softwork.bootstrapcompose.Gutters.Direction.*
+import app.softwork.bootstrapcompose.Gutters.GutterSize
 
 @Composable
 fun FormView() {
@@ -13,7 +15,13 @@ fun FormView() {
         classes("border")
     }) {
         Row {
-            Column(size = 4, attrs = { classes("border", "m-3", "p-2") }) {
+            Column(
+                size = 4,
+                styling = {
+                    Borders { All {} }
+                    Margins { All { size = Medium } }
+                    Padding { All { size = Small } }
+                }) {
                 FormOverview()
             }
         }
@@ -37,7 +45,7 @@ private fun FormOverview() {
         var password by remember { mutableStateOf("") }
         var check by remember { mutableStateOf(false) }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             FormLabel { Text("Email address") }
             InputGroup {
                 TextInput(value = emailAddress, placeholder = "user@server.com", autocomplete = AutoComplete.email) {
@@ -47,14 +55,14 @@ private fun FormOverview() {
             Div(attrs = { classes(BSClasses.formText) }) { Text("We'll never share your email with anyone else.") }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             FormLabel { Text("Password") }
             InputGroup {
                 PasswordInput(value = password, autocomplete = AutoComplete.currentPassword) { password = it.value }
             }
         }
 
-        Div(attrs = { classes("mb-3") }) {
+        Box(styling = { Margins { Bottom { size = Medium } } }) {
             Checkbox(checked = check, label = "Check me out") { check = it }
         }
 
@@ -84,7 +92,11 @@ private fun CheckoutFormExample() {
         var cvv by remember { mutableStateOf("") }
 
         Form {
-            Row(attrs = { classes("g-3") }) {
+            Row(styling = {
+                Gutters {
+                    HorizontalAndVertical { size = GutterSize.Medium }
+                }
+            }) {
                 H4(attrs = { classes("mb-3") }) { Text("Billing address") }
                 Column(size = 6, breakpoint = Breakpoint.Small) {
                     FormLabel { Text("First Name") }
@@ -215,7 +227,9 @@ private fun CheckoutFormExample() {
             }
 
             var paymentType by remember { mutableStateOf(PaymentType.Credit) }
-            Div(attrs = { classes("my-3") }) {
+            Box(styling = {
+                Margins { Horizontal { size = Medium } }
+            }) {
                 RadioGroup {
                     PaymentType.values().forEach { type ->
                         Radio(label = type.label, checked = paymentType == type) { paymentType = type }
@@ -223,7 +237,7 @@ private fun CheckoutFormExample() {
                 }
             }
 
-            Row(attrs = { classes("gy-3") }) {
+            Row(styling = { Gutters { Vertical { size = GutterSize.Medium } } }) {
                 Column(size = 6, breakpoint = Breakpoint.Medium) {
                     FormLabel { Text("Name on card") }
                     InputGroup {
@@ -275,17 +289,17 @@ private fun CheckoutFormExample() {
 @Composable
 private fun HorizontalFormView() {
     Card("Horizontal form") {
-        Row(attrs = { classes("mb-3") }) {
+        Row(styling = { Margins { Bottom { size = Medium } } }) {
             Label(attrs = { classes(BSClasses.colFormLabel, "col-sm-2") }) { Text("Email") }
-            Div(attrs = { classes("col-sm-10") }) {
+            Column(breakpoint = Breakpoint.Small, size = 10) {
                 InputGroup {
                     EmailInput { }
                 }
             }
         }
-        Row(attrs = { classes("mb-3") }) {
+        Row(styling = { Margins { Bottom { size = Medium } } }) {
             Label(attrs = { classes(BSClasses.colFormLabel, "col-sm-2") }) { Text("Password") }
-            Div(attrs = { classes("col-sm-10") }) {
+            Column(breakpoint = Breakpoint.Small, size = 10) {
                 InputGroup {
                     PasswordInput { }
                 }
@@ -293,7 +307,7 @@ private fun HorizontalFormView() {
         }
         Fieldset(attrs = { classes("row", "mb-3") }) {
             Legend(attrs = { classes("col-form-label", "col-sm-2", "pt-0") }) { Text("Radios") }
-            Div(attrs = { classes("col-sm-10") }) {
+            Column(breakpoint = Breakpoint.Small, size = 10) {
                 RadioGroup {
                     Radio("First radio") { }
                     Radio("Second radio") { }
@@ -301,7 +315,7 @@ private fun HorizontalFormView() {
                 }
             }
         }
-        Row(attrs = { classes("mb-3") }) {
+        Row(styling = { Margins { Bottom { size = Medium } } }) {
             Column(attrs = { classes("offset-sm-2") }) {
                 Checkbox(checked = false, label = "Example checkbox") {
                 }

@@ -15,13 +15,19 @@ public fun Select(
     disabled: Boolean = false,
     autocomplete: String = AutoComplete.off,
     id: String = remember { "_${UUID()}" },
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLSelectElement>? = null,
     onChange: (List<String>) -> Unit,
     content: @Composable SelectContext.() -> Unit
 ) {
+    val classes = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+
     Select(attrs = {
         id(id)
         classes(BSClasses.formSelect)
+        classes(*classes)
         if (multiple) {
             multiple()
         }
@@ -61,15 +67,21 @@ public class SelectContext {
     public fun Option(
         value: String,
         selected: Boolean? = null,
+        styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLOptionElement>? = null,
         content: ContentBuilder<HTMLOptionElement>? = null
     ) {
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
+
         org.jetbrains.compose.web.dom.Option(
             value = value,
             attrs = {
                 if (selected == true) {
                     selected()
                 }
+                classes(*classes)
                 attrs?.invoke(this)
             }, content = content
         )

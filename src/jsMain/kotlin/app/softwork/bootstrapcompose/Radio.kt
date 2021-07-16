@@ -24,15 +24,21 @@ public class RadioGroupScope(private val name: String) {
         checked: Boolean = false,
         disabled: Boolean = false,
         inline: Boolean = false,
+        styling: (Styling.() -> Unit)? = null,
         onClick: (Boolean) -> Unit
     ) {
         val id = remember { "_${UUID()}" }
+
+        val classes = styling?.let {
+            Styling().apply(it).generate()
+        } ?: arrayOf()
 
         Div(attrs = {
             classes(BSClasses.formCheck)
             if (inline) {
                 classes(BSClasses.formCheckInline)
             }
+            classes(*classes)
         }) {
             Input(attrs = {
                 classes(BSClasses.formCheckInput)
