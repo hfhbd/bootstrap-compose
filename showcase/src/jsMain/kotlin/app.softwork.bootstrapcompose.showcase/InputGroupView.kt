@@ -366,7 +366,7 @@ private fun CustomFileInputView() {
                 FileInput {
                     hidden()
                     ref {
-                        upload = it as HTMLInputElement
+                        upload = it
                         onDispose {
 
                         }
