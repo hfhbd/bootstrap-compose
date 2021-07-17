@@ -11,6 +11,7 @@ import org.w3c.dom.*
  *
  * @param collapseBehavior Specifies the Navbar's Responsive behavior with use of the .navbar-expand class.
  * @param fluid Specifies if the inner container is fluid (container-fluid) or not.
+ * @param placement Specifies the placement of the navbar
  * @param containerBreakpoint Breakpoint for the inner container.
  * @param colorScheme Valid values are Color.Light or Color.Dark to set the navbar-dark/light class.
  * @param backgroundColor Background color to use, with the bg-* classes.
@@ -20,6 +21,7 @@ import org.w3c.dom.*
 public fun Navbar(
     collapseBehavior: NavbarCollapseBehavior = NavbarCollapseBehavior.Always,
     fluid: Boolean = false,
+    placement: NavbarPlacement = NavbarPlacement.Default,
     containerBreakpoint: Breakpoint? = null,
     colorScheme: Color = Color.Light,
     backgroundColor: Color = Color.Primary,
@@ -37,7 +39,15 @@ public fun Navbar(
             "navbar-${colorScheme}",
             "bg-${backgroundColor}"
         )
-        classes(*classes)
+        when (placement) {
+            NavbarPlacement.Default -> {
+            }
+            else -> {
+                classes(placement.toString())
+            }
+        }
+
+        classes(* classes)
         when (collapseBehavior) {
             is NavbarCollapseBehavior.Never -> classes("navbar-expand")
             is NavbarCollapseBehavior.AtBreakpoint -> classes("navbar-expand-${collapseBehavior.breakpoint}")
@@ -56,6 +66,7 @@ public fun Navbar(
  *
  * @param collapseBehavior Specifies the Navbar's Responsive behavior with use of the .navbar-expand class.
  * @param fluid Specifies if the inner container is fluid (container-fluid) or not.
+ * @param stickyTop if true, shows the navbar at top
  * @param containerBreakpoint Breakpoint for the inner container.
  * @param colorScheme Valid values are Color.Light or Color.Dark to set the navbar-dark/light class.
  * @param backgroundColor Background color to use, with the bg-* classes.
@@ -72,6 +83,7 @@ public fun Navbar(
 public fun Navbar(
     collapseBehavior: NavbarCollapseBehavior = NavbarCollapseBehavior.Always,
     fluid: Boolean = false,
+    placement: NavbarPlacement = NavbarPlacement.Default,
     containerBreakpoint: Breakpoint? = null,
     colorScheme: Color = Color.Light,
     backgroundColor: Color = Color.Primary,
@@ -88,6 +100,7 @@ public fun Navbar(
     Navbar(
         collapseBehavior,
         fluid,
+        placement,
         containerBreakpoint,
         colorScheme,
         backgroundColor,
@@ -187,4 +200,10 @@ public sealed class NavbarCollapseBehavior {
     public object Never : NavbarCollapseBehavior()
     public object Always : NavbarCollapseBehavior()
     public data class AtBreakpoint(val breakpoint: Breakpoint) : NavbarCollapseBehavior()
+}
+
+public enum class NavbarPlacement(private val prefix: String) {
+    Default(""), FixedTop("fixed-top"), FixedBottom("fixed-bottom"), StickyTop("sticky-top");
+
+    override fun toString(): String = prefix
 }

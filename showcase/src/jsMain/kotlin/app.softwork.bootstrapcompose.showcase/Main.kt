@@ -12,6 +12,7 @@ fun main() {
         var state by remember { mutableStateOf(AppState(ActivePage.Box)) }
 
         Navbar(
+            placement = NavbarPlacement.StickyTop,
             collapseBehavior = NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Large),
             colorScheme = Color.Dark,
             toggler = true,
