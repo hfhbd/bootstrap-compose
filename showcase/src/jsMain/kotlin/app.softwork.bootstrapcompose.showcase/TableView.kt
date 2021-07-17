@@ -2,7 +2,9 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
+import app.softwork.bootstrapcompose.Color
 import org.jetbrains.compose.web.attributes.*
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 
 
@@ -56,20 +58,26 @@ fun TableView() {
                 }
             }
         }
-        Table(filteredTodos) { index, todo ->
-            column("Index") {
+        Table(filteredTodos, fixedHeader = FixedHeaderProperty(size = 56.px)) { index, todo ->
+            column("Index", scope = Scope.Row) {
                 Text(index.toString())
             }
             column("Title") {
                 Text(todo.title)
             }
-            column("Finished", color = if (todo.finished) Color.Success else Color.Warning, action = {
-                val text = if (filter) "Show finished" else "Hide finished"
-                Button(text) {
-                    filter = !filter
+            column(
+                "Finished",
+                header = Header(Color.Dark) {
+                    val text = if (filter) "Show finished" else "Hide finished"
+                    Button(text) {
+                        filter = !filter
+                    }
+                },
+                cellColor = if (todo.finished) Color.Success else Color.Warning
+            ) {
+                Column {
+                    Text(todo.finished.toString())
                 }
-            }) {
-                Text(todo.finished.toString())
             }
         }
     }
