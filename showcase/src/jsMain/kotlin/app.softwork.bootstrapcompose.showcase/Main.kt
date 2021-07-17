@@ -49,6 +49,7 @@ fun main() {
                 ActivePage.Box -> BoxView()
                 ActivePage.ChecksAndRadios -> ChecksAndRadiosView()
                 ActivePage.Form -> FormView()
+                ActivePage.Grid -> GridBoxView()
                 ActivePage.InputGroup -> InputGroupView()
                 ActivePage.ListGroup -> ListGroupView()
                 ActivePage.Navbar -> NavbarView()
@@ -72,6 +73,7 @@ enum class ActivePage(val displayName: String) {
     Box("Boxes"),
     ChecksAndRadios("Checks & radios"),
     Form("Forms"),
+    Grid("Grid Layout"),
     InputGroup("Input group"),
     ListGroup("Lists"),
     Navbar("Navbars"),
