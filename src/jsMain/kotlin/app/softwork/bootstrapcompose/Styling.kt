@@ -14,6 +14,7 @@ public annotation class StylingMarker
  */
 @StylingMarker
 public open class Styling {
+    private val generators: MutableList<@Composable () -> List<String>> = mutableListOf()
     public val Margins: SpacingSpecs = SpacingSpecs("m")
     public val Padding: SpacingSpecs = SpacingSpecs("p")
     public val Borders: BorderSpec = BorderSpec()
@@ -31,14 +32,30 @@ public open class Styling {
      */
     @Composable
     public open fun generate(): Array<String> {
-        return Margins.generateClassStrings() +
+        val classes: MutableList<String> = mutableListOf()
+        for(gen in generators){
+            classes += gen()
+        }
+
+        classes += Margins.generateClassStrings() +
                 Padding.generateClassStrings() +
                 Borders.generateClassStrings() +
                 Background.generateClassStrings() +
                 Text.generateClassStrings() +
                 Layout.generateClassStrings()
+
+        return classes.toTypedArray()
+    }
+
+    /**
+     * Register a styling generator. The provided function is a Composable that may create new styles and classes,
+     * and returns an array of classnames that are to be applied to the target component.
+     */
+    public fun registerGenerator(block: @Composable () -> List<String>) {
+        generators += block
     }
 }
+
 
 @StylingMarker
 public class SpacingSpecs(private val property: String) {
@@ -100,10 +117,10 @@ public class SpacingSpecs(private val property: String) {
         _specs += SideSpec(this).apply(spec)
     }
 
-    internal fun generateClassStrings(): Array<String> {
+    internal fun generateClassStrings(): List<String> {
         return _specs.flatMap { spec ->
             spec.generateClassStrings(property)
-        }.toTypedArray()
+        }
     }
 
     public val All: Sides = Sides.All
@@ -206,12 +223,12 @@ public class BorderSpec {
     private var radiusType: BorderRadius? = null
     private var radiusSize: RadiusSize? = null
 
-    public fun radius(type: BorderRadius, size: RadiusSize? = null){
+    public fun radius(type: BorderRadius, size: RadiusSize? = null) {
         radiusType = type
         radiusSize = size
     }
 
-    internal fun generateClassStrings(): Array<String> {
+    internal fun generateClassStrings(): List<String> {
         val classList: MutableList<String> = mutableListOf()
 
         sideSpecs?.let { sideSpecs ->
@@ -230,7 +247,7 @@ public class BorderSpec {
             it.toString()
         }
 
-        return classList.toTypedArray()
+        return classList
     }
 }
 
@@ -244,7 +261,7 @@ public class Background {
         this.f()
     }
 
-    internal fun generateClassStrings(): Array<String> {
+    internal fun generateClassStrings(): List<String> {
         val classes: MutableList<String> = mutableListOf()
 
         color?.let { color ->
@@ -254,7 +271,7 @@ public class Background {
             }
         }
 
-        return classes.toTypedArray()
+        return classes
     }
 }
 
@@ -361,7 +378,7 @@ public class Text {
         alignments += AlignSpec(alignment, breakpoint)
     }
 
-    internal fun generateClassStrings(): Array<String> {
+    internal fun generateClassStrings(): List<String> {
         val classes: MutableList<String> = mutableListOf()
 
         color?.let { color ->
@@ -400,7 +417,7 @@ public class Text {
             it.toString()
         }
 
-        return classes.toTypedArray()
+        return classes
     }
 }
 
@@ -503,7 +520,7 @@ public class Layout {
         floatSpecs += FloatSpec(float, breakpoint)
     }
 
-    internal fun generateClassStrings(): Array<String> {
+    internal fun generateClassStrings(): List<String> {
         val classes: MutableList<String> = mutableListOf()
 
         displaySpecs.forEach { displaySpec ->
@@ -526,6 +543,6 @@ public class Layout {
             it.toString()
         }
 
-        return classes.toTypedArray()
+        return classes
     }
 }
