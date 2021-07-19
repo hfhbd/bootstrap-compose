@@ -10,7 +10,9 @@ import org.w3c.dom.*
 public fun Button(
     title: String,
     color: Color = Color.Primary,
+    outlined: Boolean = false,
     type: ButtonType = ButtonType.Submit,
+    disabled: Boolean = false,
     styling: (Styling.() -> Unit)?=null,
     attrs: AttrBuilderContext<HTMLButtonElement>? = null,
     action: () -> Unit
@@ -20,7 +22,15 @@ public fun Button(
     } ?: arrayOf()
 
     Button(attrs = {
-        classes("btn", "btn-$color")
+        classes("btn")
+        if(outlined){
+            classes("btn-outline-$color")
+        }else{
+            classes("btn-$color")
+        }
+        if(disabled){
+            disabled()
+        }
         classes(*classes)
         attrs?.invoke(this)
         type(type)

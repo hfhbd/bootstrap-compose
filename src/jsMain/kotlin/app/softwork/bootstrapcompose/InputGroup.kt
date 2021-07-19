@@ -440,11 +440,12 @@ public class InputGroupContext(private val inputId: String) {
         title: String,
         color: Color = Color.Primary,
         type: ButtonType = ButtonType.Submit,
+        disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLButtonElement>? = null,
         action: () -> Unit
     ) {
-        Button(title, color, type, styling, attrs, action)
+        Button(title, color, false, type, disabled, styling, attrs, action)
     }
 
     @Composable
