@@ -1,13 +1,9 @@
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import kotlinx.uuid.UUID
+import androidx.compose.runtime.*
+import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Input
-import org.jetbrains.compose.web.dom.Label
-import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.dom.*
 
 @Composable
 public fun RadioGroup(content: @Composable RadioGroupScope.() -> Unit) {

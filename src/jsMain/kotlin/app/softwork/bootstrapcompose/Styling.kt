@@ -2,7 +2,7 @@
 
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 
 @DslMarker
 public annotation class StylingMarker
@@ -33,7 +33,7 @@ public open class Styling {
     @Composable
     public open fun generate(): Array<String> {
         val classes: MutableList<String> = mutableListOf()
-        for(gen in generators){
+        for (gen in generators) {
             classes += gen()
         }
 

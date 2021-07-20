@@ -1,11 +1,12 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import androidx.compose.web.attributes.*
 import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
+import org.jetbrains.compose.web.attributes.builders.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.events.*
 import org.w3c.dom.*
 
 @Composable
@@ -264,7 +265,7 @@ public class InputGroupContext(private val inputId: String) {
     @Composable
     public fun TextInput(
         value: String,
-        placeholder: String?=null,
+        placeholder: String? = null,
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
@@ -277,7 +278,7 @@ public class InputGroupContext(private val inputId: String) {
 
         org.jetbrains.compose.web.dom.TextInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrs, onInput)
-            placeholder?.let{
+            placeholder?.let {
                 placeholder(it)
             }
         }
@@ -476,7 +477,7 @@ public class InputGroupContext(private val inputId: String) {
             classes(*classes)
             attrs?.invoke(this)
         }) {
-            CheckboxInput(checked, attrsBuilder = {
+            CheckboxInput(checked, attrs = {
                 onInput { event ->
                     onClick(event.value)
                 }
@@ -501,7 +502,7 @@ public class InputGroupContext(private val inputId: String) {
             classes(*classes)
             attrs?.invoke(this)
         }) {
-            RadioInput(checked, attrsBuilder = {
+            RadioInput(checked, attrs = {
                 onInput { event ->
                     onClick(event.value)
                 }

@@ -1,13 +1,11 @@
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.web.attributes.*
-import kotlinx.uuid.UUID
-import org.jetbrains.compose.web.attributes.disabled
-import org.jetbrains.compose.web.dom.AttrBuilderContext
-import org.jetbrains.compose.web.dom.RangeInput
-import org.w3c.dom.HTMLInputElement
+import androidx.compose.runtime.*
+import kotlinx.uuid.*
+import org.jetbrains.compose.web.attributes.*
+import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.events.*
+import org.w3c.dom.*
 
 @Composable
 public fun Range(

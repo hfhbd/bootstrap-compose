@@ -2,11 +2,10 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
+import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Medium
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
-import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
-import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.*
 
 @Composable
 fun InputGroupView() {
