@@ -7,72 +7,79 @@ import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
 
-public data class Column(
-    val title: String,
-    val scope: Scope?,
-    val header: Header?,
-    val cell: Cell,
-    val footer: Footer?
-)
+public object Table {
+    public data class Column(
+        val title: String,
+        val scope: Scope?,
+        val header: Header?,
+        val cell: Cell,
+        val footer: Footer?
+    )
 
-public data class Cell internal constructor(public val color: Color? = null, val scope: Scope?) {
-    internal lateinit var content: ContentBuilder<HTMLTableCellElement>
+    public data class Cell internal constructor(public val color: Color? = null, val scope: Scope?) {
+        internal lateinit var content: ContentBuilder<HTMLTableCellElement>
 
-    public constructor(
-        color: Color? = null,
-        scope: Scope? = null,
-        content: ContentBuilder<HTMLTableCellElement>
-    ) : this(color = color, scope) {
-        this.content = content
+        public constructor(
+            color: Color? = null,
+            scope: Scope? = null,
+            content: ContentBuilder<HTMLTableCellElement>
+        ) : this(color = color, scope) {
+            this.content = content
+        }
     }
-}
 
-public data class Footer internal constructor(public val color: Color? = null) {
-    internal lateinit var content: ContentBuilder<HTMLTableCellElement>
+    public data class Footer internal constructor(public val color: Color? = null) {
+        internal lateinit var content: ContentBuilder<HTMLTableCellElement>
 
-    public constructor(color: Color? = null, content: ContentBuilder<HTMLTableCellElement>) : this(color = color) {
-        this.content = content
+        public constructor(color: Color? = null, content: ContentBuilder<HTMLTableCellElement>) : this(color = color) {
+            this.content = content
+        }
     }
-}
 
-public data class Header(val color: Color? = null) {
-    var content: ContentBuilder<HTMLDivElement>? = null
+    public data class Header(val color: Color? = null) {
+        var content: ContentBuilder<HTMLDivElement>? = null
 
-    public constructor(color: Color? = null, content: ContentBuilder<HTMLDivElement>? = null) : this(color) {
-        this.content = content
+        public constructor(color: Color? = null, content: ContentBuilder<HTMLDivElement>? = null) : this(color) {
+            this.content = content
+        }
     }
-}
 
-public data class Row(val cells: List<Cell>, public val key: Any?, val color: Color? = null)
+    public data class Row(val cells: List<Cell>, public val key: Any?, val color: Color? = null)
 
-public class Builder internal constructor() {
+    public class Builder internal constructor() {
 
-    private val values = mutableListOf<Column>()
+        private val values = mutableListOf<Column>()
 
-    public var rowColor: Color? = null
+        public var rowColor: Color? = null
 
-    internal fun build(): Pair<List<Column>, Color?> = values to rowColor
+        internal fun build(): Pair<List<Column>, Color?> = values to rowColor
 
-    public fun column(
-        title: String,
-        scope: Scope? = null,
-        header: Header? = null,
-        footer: Footer? = null,
-        cellColor: Color? = null,
-        cell: ContentBuilder<HTMLTableCellElement>
-    ) {
-        values.add(
-            Column(
-                title = title,
-                scope = scope,
-                header = header,
-                footer = footer,
-                cell = Cell(
-                    cellColor, scope, cell
+        public fun column(
+            title: String,
+            scope: Scope? = null,
+            header: Header? = null,
+            footer: Footer? = null,
+            cellColor: Color? = null,
+            cell: ContentBuilder<HTMLTableCellElement>
+        ) {
+            values.add(
+                Column(
+                    title = title,
+                    scope = scope,
+                    header = header,
+                    footer = footer,
+                    cell = Cell(
+                        cellColor, scope, cell
+                    )
                 )
             )
-        )
+        }
     }
+
+    public class FixedHeaderProperty(
+        public val size: CSSLengthOrPercentageValue,
+        public val background: Color = Color.White
+    )
 }
 
 @Composable
@@ -84,16 +91,16 @@ public fun <T> Table(
     hover: Boolean = false,
     borderless: Boolean = false,
     small: Boolean = false,
-    fixedHeader: FixedHeaderProperty? = null,
+    fixedHeader: Table.FixedHeaderProperty? = null,
     caption: ContentBuilder<HTMLTableCaptionElement>? = null,
     captionTop: Boolean = false,
-    map: Builder.(Int, T) -> Unit
+    map: Table.Builder.(Int, T) -> Unit
 ) {
-    val headers = mutableMapOf<String, Header?>()
-    val _footers = mutableListOf<Footer>()
+    val headers = mutableMapOf<String, Table.Header?>()
+    val _footers = mutableListOf<Table.Footer>()
 
     val rows = data.mapIndexed { index, it ->
-        val (columns, rowColor) = Builder().apply {
+        val (columns, rowColor) = Table.Builder().apply {
             map(index, it)
         }.build()
         val cells = columns.map {
@@ -103,7 +110,7 @@ public fun <T> Table(
             }
             it.cell
         }
-        Row(color = rowColor, cells = cells, key = key?.invoke(it))
+        Table.Row(color = rowColor, cells = cells, key = key?.invoke(it))
     }
     check(rows.all { it.cells.size == headers.size })
     val footers = _footers.takeUnless { it.isEmpty() }
@@ -125,11 +132,6 @@ public fun <T> Table(
     )
 }
 
-public class FixedHeaderProperty(
-    public val size: CSSLengthOrPercentageValue,
-    public val background: Color = Color.White
-)
-
 @Composable
 public fun Table(
     color: Color? = null,
@@ -137,12 +139,12 @@ public fun Table(
     hover: Boolean = false,
     borderless: Boolean = false,
     small: Boolean = false,
-    fixedHeader: FixedHeaderProperty? = null,
+    fixedHeader: Table.FixedHeaderProperty? = null,
     caption: ContentBuilder<HTMLTableCaptionElement>? = null,
     captionTop: Boolean = false,
-    headers: List<Pair<String, Header?>>,
-    footers: List<Footer>? = null,
-    rows: List<Row>,
+    headers: List<Pair<String, Table.Header?>>,
+    footers: List<Table.Footer>? = null,
+    rows: List<Table.Row>,
 ) {
     Table(attrs = {
         classes("table")
