@@ -58,7 +58,7 @@ fun TableView() {
                 }
             }
         }
-        Table(filteredTodos, fixedHeader = FixedHeaderProperty(size = 56.px)) { index, todo ->
+        Table(filteredTodos, fixedHeader = Table.FixedHeaderProperty(size = 56.px)) { index, todo ->
             column("Index", scope = Scope.Row) {
                 Text(index.toString())
             }
@@ -67,7 +67,7 @@ fun TableView() {
             }
             column(
                 "Finished",
-                header = Header(Color.Dark) {
+                header = Table.Header(Color.Dark) {
                     val text = if (filter) "Show finished" else "Hide finished"
                     Button(text) {
                         filter = !filter
