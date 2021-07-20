@@ -1,6 +1,6 @@
 package app.softwork.bootstrapcompose.showcase
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
 import app.softwork.bootstrapcompose.BorderSpec.BorderWidth.Thicker
 import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize
@@ -8,11 +8,11 @@ import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Large
 import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Small
 import app.softwork.bootstrapcompose.Text.Alignment
 import app.softwork.bootstrapcompose.Text.Alignment.Center
-import org.jetbrains.compose.web.dom.Text
-import app.softwork.bootstrapcompose.Text.Style.*
-import app.softwork.bootstrapcompose.Text.Wraps.*
-import app.softwork.bootstrapcompose.Text.Transform.*
-import app.softwork.bootstrapcompose.Text.Weight.*
+import app.softwork.bootstrapcompose.Text.Style.Italic
+import app.softwork.bootstrapcompose.Text.Transform.Uppercase
+import app.softwork.bootstrapcompose.Text.Weight.Bold
+import app.softwork.bootstrapcompose.Text.Wraps.NoWrap
+import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun BoxView() {

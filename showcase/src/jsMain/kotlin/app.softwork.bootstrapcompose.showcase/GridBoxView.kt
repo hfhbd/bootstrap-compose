@@ -1,13 +1,11 @@
 package app.softwork.bootstrapcompose.showcase
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
+import app.softwork.bootstrapcompose.Color
 import app.softwork.bootstrapcompose.Layout.Width
-import org.jetbrains.compose.web.css.em
-import org.jetbrains.compose.web.css.px
-import org.jetbrains.compose.web.dom.Br
-import org.jetbrains.compose.web.dom.Hr
-import org.jetbrains.compose.web.dom.Text
+import org.jetbrains.compose.web.css.*
+import org.jetbrains.compose.web.dom.*
 
 @Composable
 fun GridBoxView() {
@@ -69,7 +67,7 @@ private fun example1() {
                     color = Color.Black50
                 }
             }
-            GridItem() {
+            GridItem {
                 area("A")
                 placement {
                     inline = PlacementSpec.PlacementType.Stretch
@@ -89,7 +87,7 @@ private fun example1() {
                     color = Color.Black50
                 }
             }
-            GridItem() {
+            GridItem {
                 area("B")
                 placement {
                     inline = PlacementSpec.PlacementType.Stretch
@@ -109,7 +107,7 @@ private fun example1() {
                     color = Color.Black50
                 }
             }
-            GridItem() {
+            GridItem {
                 area("C")
                 placement {
                     inline = PlacementSpec.PlacementType.Center

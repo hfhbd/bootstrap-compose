@@ -172,7 +172,7 @@ public fun Table(
                     Th(attrs = {
                         scope(Scope.Col)
                         val color = header?.color
-                        if(color != null) {
+                        if (color != null) {
                             classes("table-$color")
                         }
                         if (fixedHeader != null) {

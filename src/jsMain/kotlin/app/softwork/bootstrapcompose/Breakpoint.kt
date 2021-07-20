@@ -1,7 +1,6 @@
 package app.softwork.bootstrapcompose
 
-import org.jetbrains.compose.web.css.CSSLengthValue
-import org.jetbrains.compose.web.css.px
+import org.jetbrains.compose.web.css.*
 
 public enum class Breakpoint(private val classInfix: String) {
     Small("sm"),

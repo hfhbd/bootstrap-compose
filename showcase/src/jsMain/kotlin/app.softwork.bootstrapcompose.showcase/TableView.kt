@@ -35,6 +35,7 @@ fun TableView() {
             var newTitle by remember { mutableStateOf("") }
             Form(attrs = {
                 onSubmit {
+                    it.preventDefault()
                     todos += Todo(title = newTitle, finished = false)
                     newTitle = ""
                 }
@@ -48,11 +49,10 @@ fun TableView() {
                         ) {
                             newTitle = it.value
                         }
-                        Button("Create", attrs = {
-                            if (newTitle.isBlank()) {
-                                disabled()
-                            }
-                        }) {
+                        Button(
+                            title = "Create",
+                            disabled = newTitle.isBlank()
+                        ) {
                         }
                     }
                 }

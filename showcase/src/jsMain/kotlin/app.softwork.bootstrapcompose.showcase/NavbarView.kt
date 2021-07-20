@@ -1,9 +1,9 @@
 package app.softwork.bootstrapcompose.showcase
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
-import kotlinx.uuid.UUID
-import org.jetbrains.compose.web.attributes.InputType
+import kotlinx.uuid.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
 @Composable

@@ -19,7 +19,7 @@ public fun Column(
     } ?: arrayOf()
 
     Div(attrs = {
-        classes("col" + (breakpoint?.let { "-$it" } ?: "") + (size?.let{"-$it"} ?: "") )
+        classes("col" + (breakpoint?.let { "-$it" } ?: "") + (size?.let { "-$it" } ?: ""))
         classes(*classes)
         if (auto) {
             classes("col-auto")

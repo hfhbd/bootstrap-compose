@@ -13,7 +13,7 @@ public fun Button(
     outlined: Boolean = false,
     type: ButtonType = ButtonType.Submit,
     disabled: Boolean = false,
-    styling: (Styling.() -> Unit)?=null,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLButtonElement>? = null,
     action: () -> Unit
 ) {
@@ -23,12 +23,12 @@ public fun Button(
 
     Button(attrs = {
         classes("btn")
-        if(outlined){
+        if (outlined) {
             classes("btn-outline-$color")
-        }else{
+        } else {
             classes("btn-$color")
         }
-        if(disabled){
+        if (disabled) {
             disabled()
         }
         classes(*classes)
