@@ -264,7 +264,7 @@ public class InputGroupContext(private val inputId: String) {
     @Composable
     public fun TextInput(
         value: String,
-        placeholder: String,
+        placeholder: String?=null,
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
@@ -275,9 +275,11 @@ public class InputGroupContext(private val inputId: String) {
             Styling().apply(it).generate()
         } ?: arrayOf()
 
-        TextInput(value) {
+        org.jetbrains.compose.web.dom.TextInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrs, onInput)
-            placeholder(placeholder)
+            placeholder?.let{
+                placeholder(it)
+            }
         }
     }
 
@@ -440,11 +442,12 @@ public class InputGroupContext(private val inputId: String) {
         title: String,
         color: Color = Color.Primary,
         type: ButtonType = ButtonType.Submit,
+        disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLButtonElement>? = null,
         action: () -> Unit
     ) {
-        Button(title, color, type, styling, attrs, action)
+        Button(title, color, false, type, disabled, styling, attrs, action)
     }
 
     @Composable
