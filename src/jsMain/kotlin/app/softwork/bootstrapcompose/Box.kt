@@ -1,9 +1,8 @@
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.Composable
-import org.jetbrains.compose.web.dom.ContentBuilder
-import org.jetbrains.compose.web.dom.Div
-import org.w3c.dom.HTMLDivElement
+import androidx.compose.runtime.*
+import org.jetbrains.compose.web.dom.*
+import org.w3c.dom.*
 
 @Composable
 public fun Box(styling: (Styling.() -> Unit)? = null, content: ContentBuilder<HTMLDivElement>? = null) {

@@ -102,10 +102,8 @@ class TableTest {
     fun table() = runTest {
         composition {
             Table(listOf("Foo", "Bar")) { _, it ->
-                column("Title", header = Header {
-                    Button(title = "Text") {
-
-                    }
+                column("Title", header = Table.Header {
+                    Button(title = "Text") { }
                 }) {
                     Text(it)
                 }

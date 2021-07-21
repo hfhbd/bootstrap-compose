@@ -35,6 +35,7 @@ fun TableView() {
             var newTitle by remember { mutableStateOf("") }
             Form(attrs = {
                 onSubmit {
+                    it.preventDefault()
                     todos += Todo(title = newTitle, finished = false)
                     newTitle = ""
                 }
@@ -48,17 +49,16 @@ fun TableView() {
                         ) {
                             newTitle = it.value
                         }
-                        Button("Create", attrs = {
-                            if (newTitle.isBlank()) {
-                                disabled()
-                            }
-                        }) {
+                        Button(
+                            title = "Create",
+                            disabled = newTitle.isBlank()
+                        ) {
                         }
                     }
                 }
             }
         }
-        Table(filteredTodos, fixedHeader = FixedHeaderProperty(size = 56.px)) { index, todo ->
+        Table(filteredTodos, fixedHeader = Table.FixedHeaderProperty(size = 56.px)) { index, todo ->
             column("Index", scope = Scope.Row) {
                 Text(index.toString())
             }
@@ -67,7 +67,7 @@ fun TableView() {
             }
             column(
                 "Finished",
-                header = Header(Color.Dark) {
+                header = Table.Header(Color.Dark) {
                     val text = if (filter) "Show finished" else "Hide finished"
                     Button(text) {
                         filter = !filter

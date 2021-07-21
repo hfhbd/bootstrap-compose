@@ -2,16 +2,13 @@
 
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import kotlinx.uuid.UUID
+import androidx.compose.runtime.*
+import kotlinx.uuid.*
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.css.selectors.CSSSelector
-import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.ElementScope
-import org.jetbrains.compose.web.dom.Style
-import org.w3c.dom.HTMLDivElement
-import kotlin.reflect.KProperty
+import org.jetbrains.compose.web.css.selectors.*
+import org.jetbrains.compose.web.dom.*
+import org.w3c.dom.*
+import kotlin.reflect.*
 
 @Composable
 public fun GridBox(
@@ -752,7 +749,7 @@ private fun StyleSheetBuilder.withBreakpoint(
 ) {
     val bp = breakpoints[breakpoint]
     if (bp != null) {
-        media(minWidth(bp)) {
+        media(mediaMinWidth(bp)) {
             block()
         }
     } else {

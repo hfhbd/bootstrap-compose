@@ -1,18 +1,18 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import androidx.compose.web.attributes.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.events.*
 import org.w3c.dom.*
 import org.w3c.dom.Text
 
 @Composable
 public fun <T> Input(
     label: String,
-    placeholder: String,
     value: String,
     type: InputType<T>,
+    placeholder: String? = null,
     autocomplete: AutoComplete = AutoComplete.off,
     labelClasses: String = "form-label",
     inputClasses: String = "form-control",
@@ -28,7 +28,9 @@ public fun <T> Input(
             attrs?.invoke(this)
             classes(inputClasses)
             value(value)
-            placeholder(placeholder)
+            if(placeholder != null) {
+                placeholder(placeholder)
+            }
             onInput {
                 onInput(it)
             }

@@ -1,7 +1,5 @@
 package app.softwork.bootstrapcompose.showcase
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
 

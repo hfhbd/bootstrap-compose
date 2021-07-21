@@ -9,7 +9,7 @@ import org.w3c.dom.*
 public fun Card(
     header: String,
     color: Color = Color.Dark,
-    styling: (Styling.() -> Unit)?=null,
+    styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     footer: ContentBuilder<HTMLDivElement>? = null,
     body: ContentBuilder<HTMLDivElement>

@@ -14,6 +14,7 @@ fun RawInputView() {
     Container {
         Form(attrs = {
             onSubmit {
+                it.preventDefault()
                 window.alert("Hello $name")
                 name = ""
                 password = ""

@@ -1,10 +1,9 @@
 package app.softwork.bootstrapcompose.showcase
 
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
-import org.jetbrains.compose.web.dom.Hr
-import org.jetbrains.compose.web.dom.Text
-import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.*
+import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Medium
+import org.jetbrains.compose.web.dom.*
 
 @Composable
 

@@ -2,12 +2,14 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
+import app.softwork.bootstrapcompose.Gutters.Direction.HorizontalAndVertical
+import app.softwork.bootstrapcompose.Gutters.Direction.Vertical
+import app.softwork.bootstrapcompose.Gutters.GutterSize
+import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Medium
+import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Small
 import kotlinx.browser.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
-import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.*
-import app.softwork.bootstrapcompose.Gutters.Direction.*
-import app.softwork.bootstrapcompose.Gutters.GutterSize
 
 @Composable
 fun FormView() {
@@ -38,6 +40,7 @@ fun FormView() {
 private fun FormOverview() {
     Form(attrs = {
         onSubmit {
+            it.preventDefault()
             window.alert("submitted")
         }
     }) {

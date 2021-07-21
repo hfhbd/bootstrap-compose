@@ -5,7 +5,7 @@ import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
 @Composable
-public fun ButtonGroup(styling: (Styling.() -> Unit)?=null, content: ContentBuilder<HTMLDivElement>) {
+public fun ButtonGroup(styling: (Styling.() -> Unit)? = null, content: ContentBuilder<HTMLDivElement>) {
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()

@@ -9,7 +9,11 @@ import org.w3c.dom.*
  * [Install](https://icons.getbootstrap.com/#install)
  */
 @Composable
-public fun Icon(iconName: String, styling: (Styling.() -> Unit)? = null, attrsBuilder: AttrBuilderContext<HTMLElement>? = null) {
+public fun Icon(
+    iconName: String,
+    styling: (Styling.() -> Unit)? = null,
+    attrsBuilder: AttrBuilderContext<HTMLElement>? = null
+) {
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
