@@ -29,9 +29,12 @@ public object Table {
     }
 
     public data class Footer internal constructor(public val color: Color? = null) {
-        internal lateinit var content: ContentBuilder<HTMLTableCellElement>
+        internal lateinit var content: @Composable ElementScope<HTMLTableCellElement>.(List<Cell>) -> Unit
 
-        public constructor(color: Color? = null, content: ContentBuilder<HTMLTableCellElement>) : this(color = color) {
+        public constructor(
+            color: Color? = null,
+            content: @Composable ElementScope<HTMLTableCellElement>.(List<Cell>) -> Unit
+        ) : this(color = color) {
             this.content = content
         }
     }
@@ -68,9 +71,7 @@ public object Table {
                     scope = scope,
                     header = header,
                     footer = footer,
-                    cell = Cell(
-                        cellColor, scope, cell
-                    )
+                    cell = Cell(cellColor, scope, cell)
                 )
             )
         }
@@ -79,6 +80,13 @@ public object Table {
     public class FixedHeaderProperty(
         public val size: CSSLengthOrPercentageValue,
         public val background: Color = Color.White
+    )
+
+    public class Pagination(
+        public val entriesPerPage: Int,
+        public val position: HorizontalAlignment = HorizontalAlignment.End,
+        public val onPreviousPage: (() -> Unit)? = null,
+        public val onNextPage: (() -> Unit)? = null,
     )
 }
 
@@ -91,9 +99,11 @@ public fun <T> Table(
     hover: Boolean = false,
     borderless: Boolean = false,
     small: Boolean = false,
+    responsive: Boolean = false,
     fixedHeader: Table.FixedHeaderProperty? = null,
     caption: ContentBuilder<HTMLTableCaptionElement>? = null,
     captionTop: Boolean = false,
+    pagination: Table.Pagination? = null,
     attrs: AttrBuilderContext<HTMLTableElement>? = null,
     map: Table.Builder.(Int, T) -> Unit
 ) {
@@ -124,9 +134,11 @@ public fun <T> Table(
         hover = hover,
         borderless = borderless,
         small = small,
+        responsive = responsive,
         fixedHeader = fixedHeader,
         caption = caption,
         captionTop = captionTop,
+        pagination = pagination,
         headers = headers.toList(),
         footers = footers,
         rows = rows,
@@ -141,9 +153,11 @@ public fun Table(
     hover: Boolean = false,
     borderless: Boolean = false,
     small: Boolean = false,
+    responsive: Boolean = false,
     fixedHeader: Table.FixedHeaderProperty? = null,
     caption: ContentBuilder<HTMLTableCaptionElement>? = null,
     captionTop: Boolean = false,
+    pagination: Table.Pagination? = null,
     headers: List<Pair<String, Table.Header?>>,
     footers: List<Table.Footer>? = null,
     rows: List<Table.Row>,
@@ -204,8 +218,13 @@ public fun Table(
                 }
             }
         }
+        val currentPage by remember { mutableStateOf(0) }
+        val currentRows = if (pagination != null) {
+            rows.chunked(pagination.entriesPerPage).get(currentPage)
+        } else rows
+
         Tbody {
-            for (row in rows) {
+            for (row in currentRows) {
                 key(row.key) {
                     Tr(attrs = {
                         row.color?.let { classes("table-$it") }
@@ -225,13 +244,20 @@ public fun Table(
         if (footers != null) {
             Tfoot {
                 Tr {
-                    for (cell in footers) {
+                    footers.forEachIndexed { index, cell ->
                         Td(attrs = {
                             cell.color?.let { classes("table-$it") }
                         }) {
-                            cell.content(this)
+                            cell.content(this, currentRows[index].cells)
                         }
                     }
+                }
+            }
+        }
+        if (pagination != null) {
+            Row {
+                Column(horizontalAlignment = pagination.position) {
+
                 }
             }
         }
