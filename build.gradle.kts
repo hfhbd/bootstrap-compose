@@ -9,12 +9,6 @@ group = "app.softwork"
 repositories {
     mavenCentral()
     maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev")
-    maven(url = "https://maven.pkg.github.com/hfhbd/*") {
-        credentials {
-            username = System.getProperty("gpr.user") ?: System.getenv("GITHUB_ACTOR")
-            password = System.getProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-        }
-    }
 }
 
 kotlin {
@@ -34,7 +28,7 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
-                api("app.softwork:kotlinx-uuid-core:0.0.6")
+                api("app.softwork:kotlinx-uuid-core:0.0.9")
                 api(compose.web.core)
             }
         }
