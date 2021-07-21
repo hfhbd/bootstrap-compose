@@ -1,10 +1,13 @@
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.*
-import org.jetbrains.compose.web.attributes.*
-import org.jetbrains.compose.web.dom.*
+import androidx.compose.runtime.Composable
+import org.jetbrains.compose.web.attributes.ButtonType
+import org.jetbrains.compose.web.attributes.disabled
+import org.jetbrains.compose.web.attributes.type
+import org.jetbrains.compose.web.dom.AttrBuilderContext
+import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Text
-import org.w3c.dom.*
+import org.w3c.dom.HTMLButtonElement
 
 @Composable
 public fun Button(

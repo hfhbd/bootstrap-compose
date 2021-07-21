@@ -94,6 +94,7 @@ public fun <T> Table(
     fixedHeader: Table.FixedHeaderProperty? = null,
     caption: ContentBuilder<HTMLTableCaptionElement>? = null,
     captionTop: Boolean = false,
+    attrs: AttrBuilderContext<HTMLTableElement>? = null,
     map: Table.Builder.(Int, T) -> Unit
 ) {
     val headers = mutableMapOf<String, Table.Header?>()
@@ -128,7 +129,8 @@ public fun <T> Table(
         captionTop = captionTop,
         headers = headers.toList(),
         footers = footers,
-        rows = rows
+        rows = rows,
+        attrs = attrs
     )
 }
 
@@ -145,6 +147,7 @@ public fun Table(
     headers: List<Pair<String, Table.Header?>>,
     footers: List<Table.Footer>? = null,
     rows: List<Table.Row>,
+    attrs: AttrBuilderContext<HTMLTableElement>? = null,
 ) {
     Table(attrs = {
         classes("table")
@@ -164,6 +167,7 @@ public fun Table(
         if (borderless) {
             classes("table-borderless")
         }
+        attrs?.invoke(this)
     }) {
         if (caption != null) {
             Caption(content = caption)
@@ -178,8 +182,8 @@ public fun Table(
                             classes("table-$color")
                         }
                         if (fixedHeader != null) {
+                            classes("sticky-top")
                             style {
-                                position(Position.Sticky)
                                 top(fixedHeader.size)
                                 if (color == null) {
                                     background(fixedHeader.background.toString())
