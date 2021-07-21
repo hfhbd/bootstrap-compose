@@ -443,22 +443,24 @@ public class InputGroupContext(private val inputId: String) {
         title: String,
         color: Color = Color.Primary,
         type: ButtonType = ButtonType.Submit,
+        size: ButtonSize = ButtonSize.Default,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLButtonElement>? = null,
         action: () -> Unit
     ) {
-        Button(title, color, false, type, disabled, styling, attrs, action)
+        Button(title, color, size, false, type, disabled, styling, attrs, action)
     }
 
     @Composable
     public fun DropDownAddOn(
         title: String,
         color: Color = Color.Primary,
+        size: ButtonSize = ButtonSize.Default,
         styling: (Styling.() -> Unit)? = null,
         block: DropDownBuilder.() -> Unit
     ) {
-        DropDown(title, inputId, color, styling, block)
+        DropDown(title, inputId, size, color, styling, block)
     }
 
     @Composable

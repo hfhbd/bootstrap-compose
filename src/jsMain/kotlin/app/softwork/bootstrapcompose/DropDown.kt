@@ -2,6 +2,7 @@ package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
 import kotlinx.uuid.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
@@ -45,6 +46,7 @@ public class DropDownBuilder {
 public fun DropDown(
     title: String,
     id: String = remember { "dropdownMenu${UUID()}" },
+    size: ButtonSize = ButtonSize.Default,
     color: Color = Color.Primary,
     styling: (Styling.() -> Unit)? = null,
     block: DropDownBuilder.() -> Unit
@@ -52,6 +54,7 @@ public fun DropDown(
     val trigger = @Composable { classes: Array<String> ->
         Button(attrs = {
             classes("btn", "btn-$color", "dropdown-toggle")
+            classes(size.toString())
             classes(*classes)
             id(id)
             attr("data-bs-toggle", "dropdown")
