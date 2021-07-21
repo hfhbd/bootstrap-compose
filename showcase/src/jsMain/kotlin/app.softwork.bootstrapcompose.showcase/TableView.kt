@@ -58,7 +58,18 @@ fun TableView() {
                 }
             }
         }
-        Table(filteredTodos, fixedHeader = Table.FixedHeaderProperty(size = 56.px)) { index, todo ->
+        val numberOfEntries = remember { mutableStateOf(3) }
+        Table(
+            filteredTodos, fixedHeader = Table.FixedHeaderProperty(size = 56.px), pagination =
+            Table.OffsetPagination(
+                entriesPerPageLimit = numberOfEntries,
+                actionNavigateBack = { currentPage, previousPage ->
+                    println("go from ${currentPage.index} to ${previousPage.index}")
+                },
+                actionNavigateForward = { currentPage, previousPage ->
+                    println("go from ${currentPage.index} to ${previousPage.index}")
+                })
+        ) { index, todo ->
             column("Index", scope = Scope.Row) {
                 Text(index.toString())
             }
