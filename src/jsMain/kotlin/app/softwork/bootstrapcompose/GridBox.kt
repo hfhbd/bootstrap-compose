@@ -13,6 +13,7 @@ import kotlin.reflect.*
 @Composable
 public fun GridBox(
     styling: GridStyle.() -> Unit,
+    attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: (@Composable GridContentBuilder.() -> Unit)? = null
 ) {
     val style = GridStyle().apply(styling)
@@ -21,6 +22,7 @@ public fun GridBox(
     Div(attrs = {
         classes("d-grid")
         classes(*classes)
+        attrs?.invoke(this)
     }) {
         val scope = remember { GridContentBuilder(this) }
         content?.invoke(scope)
