@@ -307,7 +307,8 @@ public class Text {
 
     public enum class Wraps(private val value: String) {
         Wrap("text-wrap"),
-        NoWrap("text-nowrap");
+        NoWrap("text-nowrap"),
+        Truncate("text-truncate");
 
         override fun toString(): String {
             return value
