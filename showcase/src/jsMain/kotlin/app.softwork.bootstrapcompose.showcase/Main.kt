@@ -52,6 +52,7 @@ fun main() {
                 ActivePage.Grid -> GridBoxView()
                 ActivePage.InputGroup -> InputGroupView()
                 ActivePage.ListGroup -> ListGroupView()
+                ActivePage.Modal -> ModalView()
                 ActivePage.Navbar -> NavbarView()
                 ActivePage.Range -> RangeView()
                 ActivePage.Select -> SelectView()
@@ -76,6 +77,7 @@ enum class ActivePage(val displayName: String) {
     Grid("Grid Layout"),
     InputGroup("Input group"),
     ListGroup("Lists"),
+    Modal("Modal"),
     Navbar("Navbars"),
     Range("Range"),
     Select("Select"),
