@@ -127,7 +127,7 @@ public class GridTemplateTrack internal constructor(
     private val type: ColumnOrRow,
     private val breakpoint: Breakpoint?
 ) {
-    private val items: MutableList<GridTemplateItem> = mutableListOf()
+    private val items: MutableList<Grid.GridTemplateItem> = mutableListOf()
     public var gap: CSSLengthOrPercentageValue? = null
     public var alignment: Alignment? = null
     private var auto = false
@@ -152,7 +152,7 @@ public class GridTemplateTrack internal constructor(
         if (items.isNotEmpty()) {
             throw IllegalStateException("Cannot add 'none' to already specified grid-template-columns")
         }
-        items.add(GridTemplateNone)
+        items.add(Grid.GridTemplateNone)
     }
 
     /**
@@ -223,51 +223,51 @@ public class GridTemplateTrack internal constructor(
 }
 
 public open class TrackListUnits {
-    public val Number.ch: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.ch)
-    public val Number.em: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.em)
-    public val Number.ex: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.ex)
-    public val Number.rem: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.rem)
-    public val Number.vh: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.vh)
-    public val Number.vw: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.vw)
-    public val Number.vmin: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.vmin)
-    public val Number.vmax: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.vmax)
-    public val Number.px: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.px)
-    public val Number.cm: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.cm)
-    public val Number.mm: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.mm)
-    public val Number.pc: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.pc)
-    public val Number.pt: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.pt)
-    public val Number.percent: LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.percent)
+    public val Number.ch: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.ch)
+    public val Number.em: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.em)
+    public val Number.ex: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.ex)
+    public val Number.rem: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.rem)
+    public val Number.vh: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.vh)
+    public val Number.vw: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.vw)
+    public val Number.vmin: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.vmin)
+    public val Number.vmax: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.vmax)
+    public val Number.px: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.px)
+    public val Number.cm: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.cm)
+    public val Number.mm: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.mm)
+    public val Number.pc: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.pc)
+    public val Number.pt: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.pt)
+    public val Number.percent: Grid.LengthPercentage by LengthPercentageUnitPropertyDelegate(CSSUnit.percent)
 
-    public val Number.fr: Flex
-        get(): Flex {
-            return Flex(CSSUnitValueTyped(this.toFloat(), CSSUnit.fr))
+    public val Number.fr: Grid.Flex
+        get(): Grid.Flex {
+            return Grid.Flex(CSSUnitValueTyped(this.toFloat(), CSSUnit.fr))
         }
 
     private class LengthPercentageUnitPropertyDelegate<T : CSSUnitLengthOrPercentage>(val unit: T) {
-        operator fun getValue(thisRef: Number, property: KProperty<*>): LengthPercentage {
-            return LengthPercentage(CSSUnitValueTyped(thisRef.toFloat(), unit))
+        operator fun getValue(thisRef: Number, property: KProperty<*>): Grid.LengthPercentage {
+            return Grid.LengthPercentage(CSSUnitValueTyped(thisRef.toFloat(), unit))
         }
     }
 }
 
 
 public class TrackList internal constructor() : TrackListUnits() {
-    internal val items: MutableList<TrackListItem> = mutableListOf()
+    internal val items: MutableList<Grid.TrackListItem> = mutableListOf()
 
-    public fun track(names: List<String>, size: TrackSizeItem) {
+    public fun track(names: List<String>, size: Grid.TrackSizeItem) {
         if (names.isNotEmpty()) {
-            items += LineNames(*names.toTypedArray())
+            items += Grid.LineNames(*names.toTypedArray())
         }
         items += size
     }
 
-    public fun track(size: TrackSizeItem) {
+    public fun track(size: Grid.TrackSizeItem) {
         items += size
     }
 
     public fun track(names: List<String>, repeat: TrackRepeat) {
         if (names.isNotEmpty()) {
-            items += LineNames(*names.toTypedArray())
+            items += Grid.LineNames(*names.toTypedArray())
         }
         items += repeat
     }
@@ -276,27 +276,27 @@ public class TrackList internal constructor() : TrackListUnits() {
         items += repeat
     }
 
-    public class TrackRepeat(private val count: Int, private vararg val items: TrackRepeatItem) : TrackListItem {
+    public class TrackRepeat(private val count: Int, private vararg val items: Grid.TrackRepeatItem) : Grid.TrackListItem {
         override fun toString(): String {
             return "repeat($count, ${items.joinToString(separator = " ")})"
         }
     }
 
     public fun lineNames(vararg names: String) {
-        items += LineNames(*names)
+        items += Grid.LineNames(*names)
     }
 }
 
 public class AutoList internal constructor() : TrackListUnits() {
-    internal val items: MutableList<TrackSizeItem> = mutableListOf()
+    internal val items: MutableList<Grid.TrackSizeItem> = mutableListOf()
 
-    public fun track(size: TrackSizeItem) {
+    public fun track(size: Grid.TrackSizeItem) {
         items += size
     }
 }
 
-public data class MinMax(private val min: InflexibleBreadthItem, private val max: TrackBreadthItem) :
-    TrackSizeItem {
+public data class MinMax(private val min: Grid.InflexibleBreadthItem, private val max: Grid.TrackBreadthItem) :
+    Grid.TrackSizeItem {
 
     override fun toString(): String {
         return "minmax($min,$max)"
@@ -304,23 +304,23 @@ public data class MinMax(private val min: InflexibleBreadthItem, private val max
 }
 
 public class AutoTrackList internal constructor() : TrackListUnits() {
-    internal val items: MutableList<AutoTrackListItem> = mutableListOf()
+    internal val items: MutableList<Grid.AutoTrackListItem> = mutableListOf()
     private var autoRepeat = false
 
-    public fun track(names: List<String>, size: FixedSizeItem) {
+    public fun track(names: List<String>, size: Grid.FixedSizeItem) {
         if (names.isNotEmpty()) {
-            items += LineNames(*names.toTypedArray())
+            items += Grid.LineNames(*names.toTypedArray())
         }
         items += size
     }
 
-    public fun track(size: FixedSizeItem) {
+    public fun track(size: Grid.FixedSizeItem) {
         items += size
     }
 
     public fun track(names: List<String>, repeat: FixedRepeat) {
         if (names.isNotEmpty()) {
-            items += LineNames(*names.toTypedArray())
+            items += Grid.LineNames(*names.toTypedArray())
         }
         items += repeat
     }
@@ -330,10 +330,10 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
     }
 
     public fun lineNames(vararg names: String) {
-        items += LineNames(*names)
+        items += Grid.LineNames(*names)
     }
 
-    public fun autoRepeat(type: RepeatType, vararg repeatItems: FixedRepeatItem) {
+    public fun autoRepeat(type: RepeatType, vararg repeatItems: Grid.FixedRepeatItem) {
         if (type == RepeatType.AutoFill || type == RepeatType.AutoFit) {
             if (autoRepeat) {
                 //auto-repeat can only be specified once per grid-template-columns
@@ -345,9 +345,9 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
         items += AutoRepeat(type, *repeatItems)
     }
 
-    public class MinMax private constructor(private val min: Any, private val max: Any) : FixedSizeItem {
-        public constructor(minimum: FixedBreadthItem, maximum: TrackBreadthItem) : this(min = minimum, max = maximum)
-        public constructor(minimum: InflexibleBreadthItem, maximum: FixedBreadthItem) : this(
+    public class MinMax private constructor(private val min: Any, private val max: Any) : Grid.FixedSizeItem {
+        public constructor(minimum: Grid.FixedBreadthItem, maximum: Grid.TrackBreadthItem) : this(min = minimum, max = maximum)
+        public constructor(minimum: Grid.InflexibleBreadthItem, maximum: Grid.FixedBreadthItem) : this(
             min = minimum,
             max = maximum
         )
@@ -357,8 +357,8 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
         }
     }
 
-    public class AutoRepeat(private val type: RepeatType, private vararg val items: FixedRepeatItem) :
-        AutoTrackListItem {
+    public class AutoRepeat(private val type: RepeatType, private vararg val items: Grid.FixedRepeatItem) :
+        Grid.AutoTrackListItem {
         override fun toString(): String {
             return "repeat($type, ${items.joinToString(separator = " ")})"
         }
@@ -373,91 +373,93 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
         }
     }
 
-    public class FixedRepeat(private val count: Int, private vararg val items: FixedRepeatItem) : AutoTrackListItem {
+    public class FixedRepeat(private val count: Int, private vararg val items: Grid.FixedRepeatItem) : Grid.AutoTrackListItem {
         override fun toString(): String {
             return "repeat($count, ${items.joinToString(separator = " ")})"
         }
     }
 }
 
-/**
- * Marker interface for items that can be included in a Grid-Template-Columns or
- * Grid-Template-Rows propery.
- */
-public interface GridTemplateItem
+public object Grid{
+    /**
+     * Marker interface for items that can be included in a Grid-Template-Columns or
+     * Grid-Template-Rows propery.
+     */
+    public interface GridTemplateItem
 
-/**
- * Marker interface for items that can be included in a <track-list>.
- * see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns
- */
-public interface TrackListItem : GridTemplateItem
+    /**
+     * Marker interface for items that can be included in a <track-list>.
+     * see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns
+     */
+    public interface TrackListItem : GridTemplateItem
 
-/**
- * Marker interface for items that can be included in an <auto-track-list>.
- * see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns
- */
-public interface AutoTrackListItem : GridTemplateItem
+    /**
+     * Marker interface for items that can be included in an <auto-track-list>.
+     * see https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns
+     */
+    public interface AutoTrackListItem : GridTemplateItem
 
 
-// Marker interfaces for items that can be used as a <track-size>
-public interface TrackSizeItem : TrackListItem, TrackRepeatItem
-public interface TrackBreadthItem : TrackSizeItem
-public interface TrackRepeatItem
+    // Marker interfaces for items that can be used as a <track-size>
+    public interface TrackSizeItem : TrackListItem, TrackRepeatItem
+    public interface TrackBreadthItem : TrackSizeItem
+    public interface TrackRepeatItem
 
-// Marker interfaces for items that can be used as a <fixed-size>
-public interface FixedSizeItem : AutoTrackListItem, FixedRepeatItem
-public interface FixedBreadthItem : FixedSizeItem
-public interface FixedRepeatItem
+    // Marker interfaces for items that can be used as a <fixed-size>
+    public interface FixedSizeItem : AutoTrackListItem, FixedRepeatItem
+    public interface FixedBreadthItem : FixedSizeItem
+    public interface FixedRepeatItem
 
-public interface InflexibleBreadthItem
+    public interface InflexibleBreadthItem
 
-private object GridTemplateNone : GridTemplateItem {
-    override fun toString(): String {
-        return "none"
+    internal object GridTemplateNone : GridTemplateItem {
+        override fun toString(): String {
+            return "none"
+        }
     }
-}
 
-public class LineNames(private vararg val names: String) : TrackListItem,
-    AutoTrackListItem, TrackRepeatItem, FixedRepeatItem {
-    override fun toString(): String {
-        return names.joinToString(prefix = "[", postfix = "]", separator = " ")
+    public class LineNames(private vararg val names: String) : TrackListItem,
+        AutoTrackListItem, TrackRepeatItem, FixedRepeatItem {
+        override fun toString(): String {
+            return names.joinToString(prefix = "[", postfix = "]", separator = " ")
+        }
     }
-}
 
-public data class FitContent(val value: LengthPercentage) : TrackSizeItem {
-    override fun toString(): String {
-        return "fit-content($value)"
+    public data class FitContent(val value: LengthPercentage) : TrackSizeItem {
+        override fun toString(): String {
+            return "fit-content($value)"
+        }
     }
-}
 
-public class LengthPercentage(private val v: CSSLengthOrPercentageValue) : InflexibleBreadthItem,
-    TrackBreadthItem, FixedBreadthItem {
-    override fun toString(): String {
-        return v.toString()
+    public class LengthPercentage(private val v: CSSLengthOrPercentageValue) : InflexibleBreadthItem,
+        TrackBreadthItem, FixedBreadthItem {
+        override fun toString(): String {
+            return v.toString()
+        }
     }
-}
 
-public object MinContent : InflexibleBreadthItem, TrackBreadthItem {
-    override fun toString(): String {
-        return "min-content"
+    public object MinContent : InflexibleBreadthItem, TrackBreadthItem {
+        override fun toString(): String {
+            return "min-content"
+        }
     }
-}
 
-public object MaxContent : InflexibleBreadthItem, TrackBreadthItem {
-    override fun toString(): String {
-        return "max-content"
+    public object MaxContent : InflexibleBreadthItem, TrackBreadthItem {
+        override fun toString(): String {
+            return "max-content"
+        }
     }
-}
 
-public object Auto : InflexibleBreadthItem, TrackBreadthItem {
-    override fun toString(): String {
-        return "auto"
+    public object Auto : InflexibleBreadthItem, TrackBreadthItem {
+        override fun toString(): String {
+            return "auto"
+        }
     }
-}
 
-public class Flex(private val v: CSSSizeValue<CSSUnit.fr>) : TrackBreadthItem {
-    override fun toString(): String {
-        return v.toString()
+    public class Flex(private val v: CSSSizeValue<CSSUnit.fr>) : TrackBreadthItem {
+        override fun toString(): String {
+            return v.toString()
+        }
     }
 }
 
