@@ -37,7 +37,7 @@ private fun example1() {
 
             rows {
                 trackList {
-                    track(Auto)
+                    track(Grid.Auto)
                 }
                 gap = 10.px
                 alignment = GridTemplateTrack.Alignment.Center
@@ -135,7 +135,7 @@ private fun mozillaExample() {
             }
             rows {
                 auto {
-                    track(MinMax(100.px, Auto))
+                    track(MinMax(100.px, Grid.Auto))
                 }
                 gap = 10.px
             }
@@ -262,14 +262,14 @@ private fun example13() {
             columns(Breakpoint.Small) {
                 trackList {
                     track(20.percent)
-                    track(Auto)
+                    track(Grid.Auto)
                 }
             }
             columns(Breakpoint.Medium) {
                 gap = 20.px
                 trackList {
                     track(120.px)
-                    track(Auto)
+                    track(Grid.Auto)
                     track(120.px)
                 }
             }
