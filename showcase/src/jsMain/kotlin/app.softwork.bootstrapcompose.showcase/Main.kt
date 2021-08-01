@@ -48,6 +48,7 @@ fun main() {
             when (state.activePage) {
                 ActivePage.Box -> BoxView()
                 ActivePage.ChecksAndRadios -> ChecksAndRadiosView()
+                ActivePage.DropDown -> DropDownView()
                 ActivePage.Form -> FormView()
                 ActivePage.Grid -> GridBoxView()
                 ActivePage.InputGroup -> InputGroupView()
@@ -73,6 +74,7 @@ fun main() {
 enum class ActivePage(val displayName: String) {
     Box("Boxes"),
     ChecksAndRadios("Checks & radios"),
+    DropDown("Dropdowns"),
     Form("Forms"),
     Grid("Grid Layout"),
     InputGroup("Input group"),
