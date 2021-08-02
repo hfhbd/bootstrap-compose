@@ -460,7 +460,7 @@ public class InputGroupContext(private val inputId: String) {
         styling: (Styling.() -> Unit)? = null,
         block: DropDownBuilder.() -> Unit
     ) {
-        DropDown(title, inputId, size, color, styling, block)
+        DropDown(title, inputId, size, color, styling, block = block)
     }
 
     @Composable
