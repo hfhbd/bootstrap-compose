@@ -58,6 +58,7 @@ fun main() {
                 ActivePage.Range -> RangeView()
                 ActivePage.Select -> SelectView()
                 ActivePage.Table -> TableView()
+                ActivePage.Toast -> ToastView()
             }
         }
         Footer(attrs = { classes("footer", "mt-auto") }) {
@@ -83,6 +84,7 @@ enum class ActivePage(val displayName: String) {
     Navbar("Navbars"),
     Range("Range"),
     Select("Select"),
-    Table("Table")
+    Table("Table"),
+    Toast("Toasts")
 }
 
