@@ -118,4 +118,22 @@ class TableTest {
             actual = root.innerHTML
         )
     }
+
+    @Test
+    fun tableCalcButtonsTest() {
+        val numberOfButtons = 5
+        val pages = 11
+
+        assertEquals(tableCalcButtons(0, pages = pages, numberOfButtons = numberOfButtons), 0..4)
+        assertEquals(tableCalcButtons(0, pages = pages, numberOfButtons = numberOfButtons), 0..4)
+        assertEquals(tableCalcButtons(2, pages = pages, numberOfButtons = numberOfButtons), 0..4)
+        assertEquals(tableCalcButtons(3, pages = pages, numberOfButtons = numberOfButtons), 1..5)
+        assertEquals(tableCalcButtons(4, pages = pages, numberOfButtons = numberOfButtons), 2..6)
+        assertEquals(tableCalcButtons(5, pages = pages, numberOfButtons = numberOfButtons), 3..7)
+        assertEquals(tableCalcButtons(6, pages = pages, numberOfButtons = numberOfButtons), 4..8)
+        assertEquals(tableCalcButtons(7, pages = pages, numberOfButtons = numberOfButtons), 5..9)
+        assertEquals(tableCalcButtons(8, pages = pages, numberOfButtons = numberOfButtons), 6..10)
+        assertEquals(tableCalcButtons(9, pages = pages, numberOfButtons = numberOfButtons), 6..10)
+        assertEquals(tableCalcButtons(10, pages = pages, numberOfButtons = numberOfButtons), 6..10)
+    }
 }

@@ -1,4 +1,4 @@
 package app.softwork.bootstrapcompose
 
 @RequiresOptIn(level = RequiresOptIn.Level.WARNING)
-public annotation class ExperimentalAPI()
+public annotation class ExperimentalAPI
