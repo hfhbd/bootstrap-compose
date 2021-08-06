@@ -6,6 +6,7 @@ import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
+import kotlin.time.*
 
 @Composable
 public fun ToastContainer(
@@ -24,12 +25,14 @@ public fun ToastContainer(
     }
 }
 
+@OptIn(ExperimentalTime::class)
 @Composable
 private fun Toast(message: ToastContainerState.ToastItem<ContentBuilder<HTMLDivElement>>) {
     Div(
         attrs = {
             classes("toast")
             attr("role", "alert")
+            attr("data-bs-delay", message.delay.inWholeMilliseconds.toString())
             attr("aria-live", "assertive")
             attr("aria-atomic", "true")
             message.toastAttrs?.invoke(this)
@@ -62,7 +65,7 @@ private fun Toast(message: ToastContainerState.ToastItem<ContentBuilder<HTMLDivE
         if (message.header == null && message.withDismissButton) {
             Div(attrs = { classes("d-flex") }) {
                 Div(attrs = { classes("toast-body") }, content = message.body)
-                DismissButton() {
+                DismissButton {
                     message.dismissButtonAttrs?.invoke(this)
                     classes("me-2", "m-auto")
                 }
@@ -84,7 +87,8 @@ private fun DismissButton(attrs: (AttrsBuilder<HTMLButtonElement>.() -> Unit)? =
     })
 }
 
-public class ToastContainerState() {
+@OptIn(ExperimentalTime::class)
+public class ToastContainerState {
     internal var toasts by mutableStateOf<List<ToastItem<ContentBuilder<HTMLDivElement>>>>(listOf())
 
     public fun showToast(toastMessage: String) {
@@ -105,6 +109,7 @@ public class ToastContainerState() {
      */
     public fun showToast(
         withDismissButton: Boolean = true,
+        delay: Duration = Duration.seconds(5),
         toastAttrs: (AttrsBuilder<HTMLDivElement>.() -> Unit)? = null,
         dismissButtonAttrs: (AttrsBuilder<HTMLButtonElement>.() -> Unit)? = null,
         header: ContentBuilder<HTMLDivElement>? = null,
@@ -113,6 +118,7 @@ public class ToastContainerState() {
         val uuid = UUID()
         val toastItem = ToastItem(
             uuid,
+            delay = delay,
             withDismissButton,
             toastAttrs,
             dismissButtonAttrs,
@@ -134,6 +140,7 @@ public class ToastContainerState() {
     //Type parameter needed to get around https://github.com/JetBrains/compose-jb/issues/746
     internal data class ToastItem<T>(
         val uuid: UUID,
+        val delay: Duration,
         val withDismissButton: Boolean,
         val toastAttrs: (AttrsBuilder<HTMLDivElement>.() -> Unit)?,
         val dismissButtonAttrs: (AttrsBuilder<HTMLButtonElement>.() -> Unit)?,
