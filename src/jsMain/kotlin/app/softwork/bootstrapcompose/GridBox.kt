@@ -203,7 +203,7 @@ public class GridTemplateTrack internal constructor(
                     auto && type == ColumnOrRow.Row -> "grid-auto-rows"
                     !auto && type == ColumnOrRow.Column -> "grid-template-columns"
                     !auto && type == ColumnOrRow.Row -> "grid-template-rows"
-                    else -> "" //not possible
+                    else -> error("not possible")
                 }
 
                 property(propName, propValue)
@@ -335,9 +335,8 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
 
     public fun autoRepeat(type: RepeatType, vararg repeatItems: Grid.FixedRepeatItem) {
         if (type == RepeatType.AutoFill || type == RepeatType.AutoFit) {
-            if (autoRepeat) {
-                //auto-repeat can only be specified once per grid-template-columns
-                throw IllegalStateException("auto-repeat already specified")
+            require(!autoRepeat) {
+                "auto-repeat already specified, can only be specified once per grid-template-columns"
             }
             autoRepeat = true
         }

@@ -18,8 +18,6 @@ public fun Modal(
     footer: ContentBuilder<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
-    var bsModal: Modal? = null //Bootstrap Modal class
-
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
@@ -35,14 +33,14 @@ public fun Modal(
         attr("data-bs-keyboard", "false")
     }) {
         DomSideEffect { htmlDivElement: HTMLDivElement ->
-            bsModal = Modal(htmlDivElement)
+            val bsModal = Modal(htmlDivElement)
             htmlDivElement.addEventListener("hidePrevented.bs.modal", callback = { _ ->
                 onDismissRequest()
             })
-            bsModal?.show()
+            bsModal.show()
             onDispose {
-                bsModal?.hide()
-                bsModal?.dispose()
+                bsModal.hide()
+                bsModal.dispose()
             }
         }
 
