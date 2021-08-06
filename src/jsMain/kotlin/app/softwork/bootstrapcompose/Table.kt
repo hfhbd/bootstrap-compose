@@ -85,7 +85,6 @@ public object Table {
         public val background: Color = Color.White
     )
 
-    @ExperimentalAPI
     public class OffsetPagination<T>(
         public val entriesPerPageLimit: State<Int>,
         public val numberOfButtons: Int = 5,
@@ -116,23 +115,11 @@ public object Table {
                             goTo(previousIndex)
                         }
 
-                        val buttons = if (pages.size <= numberOfButtons) {
-                            pages.indices
-                        } else {
-                            val nr = min(pages.size, numberOfButtons)
-
-                            when (currentPage.index) {
-                                0 -> 0 until nr
-                                pages.lastIndex -> (max(pages.lastIndex - nr, 0)) until pages.lastIndex
-                                else -> {
-                                    val half = nr / 2
-                                    (max(currentPage.index - half, 0))..(min(
-                                        currentPage.index + half,
-                                        pages.lastIndex
-                                    ))
-                                }
-                            }
-                        }
+                        val buttons = tableCalcButtons(
+                            index = currentPage.index,
+                            pages = pages.size,
+                            numberOfButtons = numberOfButtons
+                        )
 
                         for (index in buttons) {
                             if (index == currentPage.index) {
@@ -177,8 +164,30 @@ public object Table {
     }
 }
 
+internal fun tableCalcButtons(index: Int, pages: Int, numberOfButtons: Int): IntRange {
+    if (pages <= numberOfButtons) {
+        return 0 until pages
+    }
+    val nr = min(pages, numberOfButtons)
+    val max = pages - 1
+    return when (index) {
+        0 -> 0 until nr
+        (pages - 1) -> (max((pages - nr), 0)) until pages
+        else -> {
+            val half = nr / 2
+            val lower = max(index - half, 0)
+            val upper = (min(index + half, max))
+            if (lower == 0) {
+                0 until nr
+            } else if (upper == max) {
+                val newLower = pages - numberOfButtons
+                newLower until pages
+            } else lower..upper
+        }
+    }
+}
+
 @Composable
-@OptIn(ExperimentalAPI::class)
 public fun <T> Table(
     data: List<T>,
     key: ((T) -> Any)? = null,
