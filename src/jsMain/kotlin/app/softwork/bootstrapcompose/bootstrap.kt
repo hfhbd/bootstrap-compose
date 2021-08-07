@@ -9,3 +9,13 @@ public external class Modal(element: HTMLDivElement) {
     public fun hide()
     public fun dispose()
 }
+
+public external class Toast(element: HTMLDivElement) {
+    public fun show()
+    public fun hide()
+    public fun dispose()
+
+    public companion object {
+        public fun getInstance(element: HTMLDivElement): Toast
+    }
+} 
