@@ -44,18 +44,28 @@ class TableTest {
         assertEquals("a", root.innerHTML)
     }
 
-    class HolderConstructor(val s: @Composable () -> Unit)
-
+    data class DataHolderTyped<T>(val s: T)
 
     @Test
-    @Ignore // Constructor is not yet supported
-    fun classConstructorTest() = runTest {
-        val holder = HolderConstructor @Composable { Text("a") }
+    fun dataClassTypedWorkaroundTest() = runTest {
+        val s = @Composable { Text("a") }
+        val holder = DataHolderTyped(s)
         composition {
             holder.s()
         }
         assertEquals("a", root.innerHTML)
     }
+
+    // https://github.com/JetBrains/compose-jb/issues/746
+    /*
+    @Test
+    fun dataClassTypedWorkaroundTestCrash() = runTest {
+        val holder = DataHolderTyped(@Composable { Text("a") })
+        composition {
+            holder.s()
+        }
+        assertEquals("a", root.innerHTML)
+    }*/
 
     data class DataHolder(val s: @Composable () -> Unit)
 
