@@ -17,7 +17,12 @@ fun ModalView() {
         if (showModal) {
             Modal(
                 "Header",
-                onDismissRequest = { showModal = false }
+                onDismissRequest = { showModal = false },
+                footer = {
+                    Button("Close") {
+                        showModal = false
+                    }
+                }
             ) {
                 Button("add item") {
                     items = items + "Item ${items.size + 1}"
