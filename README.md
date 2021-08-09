@@ -16,4 +16,4 @@ dependencies {
 ````
 
 ## Usage
-You still need to implement the Bootstrap js/css files manually.
+You still need to implement the Bootstrap css file manually, for example in your `index.html` file.
