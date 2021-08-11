@@ -42,10 +42,27 @@ public object Table {
         }
     }
 
-    public data class Header(val color: Color? = null) {
-        var content: ContentBuilder<HTMLDivElement>? = null
+    public data class Header(
+        val attrs: AttrBuilderContext<HTMLTableCellElement>? = null,
+    ) {
+        //would like to make this a constructor val...except for https://github.com/JetBrains/compose-jb/issues/746
+        var content: ContentBuilder<HTMLTableCellElement>? = null
 
-        public constructor(color: Color? = null, content: ContentBuilder<HTMLDivElement>? = null) : this(color) {
+        public constructor(
+            color: Color? = null,
+        ) : this(attrs = { classes("table-$color") })
+
+        public constructor(
+            color: Color? = null,
+            content: ContentBuilder<HTMLTableCellElement>? = null
+        ) : this(attrs = { classes("table-$color") }) {
+            this.content = content
+        }
+
+        public constructor(
+            attrs: AttrBuilderContext<HTMLTableCellElement>? = null,
+            content: ContentBuilder<HTMLTableCellElement>? = null
+        ) : this(attrs) {
             this.content = content
         }
     }
@@ -68,11 +85,22 @@ public object Table {
             cellColor: Color? = null,
             cell: ContentBuilder<HTMLTableCellElement>
         ) {
+            val titledHeader = when {
+                header != null && header.content == null -> {
+                    header.content = { Text(title) }
+                    header
+                }
+                header == null -> {
+                    Header(attrs = null) { Text(title) }
+                }
+                else -> header
+            }
+
             values.add(
                 Column(
                     title = title,
                     scope = scope,
-                    header = header,
+                    header = titledHeader,
                     footer = footer,
                     cell = Cell(cellColor, scope, cell)
                 )
@@ -82,7 +110,8 @@ public object Table {
 
     public class FixedHeaderProperty(
         public val size: CSSLengthOrPercentageValue,
-        public val background: Color = Color.White
+        //This can conflict with Header.color, and if color classes are applied with Header, this will take precedence and force White
+        //public val background: Color = Color.White
     )
 
     public class OffsetPagination<T>(
@@ -265,30 +294,16 @@ public fun <T> Table(
                 headers.forEach { (title, header) ->
                     Th(attrs = {
                         scope(Scope.Col)
-                        val color = header?.color
-                        if (color != null) {
-                            classes("table-$color")
-                        }
+                        header?.attrs?.invoke(this)
                         if (fixedHeader != null) {
                             classes("sticky-top")
                             style {
                                 top(fixedHeader.size)
-                                if (color == null) {
-                                    background(fixedHeader.background.toString())
-                                }
                                 property("z-index", "auto")
                             }
                         }
                     }) {
-                        val content = header?.content
-                        if (content != null) {
-                            Row {
-                                Column { Text(title) }
-                                Column(auto = true, content = content)
-                            }
-                        } else {
-                            Text(title)
-                        }
+                        header?.content?.invoke(this)
                     }
                 }
             }

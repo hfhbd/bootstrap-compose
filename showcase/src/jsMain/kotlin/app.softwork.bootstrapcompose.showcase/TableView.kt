@@ -79,9 +79,12 @@ fun TableView() {
             column(
                 "Finished",
                 header = Table.Header(Color.Dark) {
-                    val text = if (filter) "Show finished" else "Hide finished"
-                    Button(text) {
-                        filter = !filter
+                    Div(attrs={classes("d-flex", "justify-content-between")}) {
+                        Text("Finished")
+                        val text = if (filter) "Show finished" else "Hide finished"
+                        Button(text) {
+                            filter = !filter
+                        }
                     }
                 },
                 cellColor = if (todo.finished) Color.Success else Color.Warning
