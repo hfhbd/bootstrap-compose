@@ -4,18 +4,18 @@ package app.softwork.bootstrapcompose
 
 import org.w3c.dom.*
 
-public external class Modal(element: HTMLDivElement) {
-    public fun show()
-    public fun hide()
-    public fun dispose()
+internal external class Modal(element: HTMLDivElement) {
+    internal fun show()
+    internal fun hide()
+    internal fun dispose()
 }
 
-public external class Toast(element: HTMLDivElement) {
-    public fun show()
-    public fun hide()
-    public fun dispose()
+internal external class Toast(element: HTMLDivElement) {
+    internal fun show()
+    internal fun hide()
+    internal fun dispose()
 
-    public companion object {
-        public fun getInstance(element: HTMLDivElement): Toast
+    internal companion object {
+        internal fun getInstance(element: HTMLDivElement): Toast
     }
 } 
