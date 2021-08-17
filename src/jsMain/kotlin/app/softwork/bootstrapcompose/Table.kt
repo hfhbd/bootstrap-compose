@@ -14,7 +14,7 @@ public object Table {
     public data class Column(
         val title: String,
         val scope: Scope?,
-        val header: Header?,
+        val header: Header,
         val cell: Cell,
         val footer: Footer?
     )
@@ -232,7 +232,7 @@ public fun <T> Table(
     attrs: AttrBuilderContext<HTMLTableElement>? = null,
     map: Table.Builder.(Int, T) -> Unit
 ) {
-    val headers = mutableMapOf<String, Table.Header?>()
+    val headers = mutableMapOf<String, Table.Header>()
     val _footers = mutableListOf<Table.Footer>()
 
     val pages = if (pagination != null) {
@@ -294,7 +294,7 @@ public fun <T> Table(
                 headers.forEach { (title, header) ->
                     Th(attrs = {
                         scope(Scope.Col)
-                        header?.attrs?.invoke(this)
+                        header.attrs?.invoke(this)
                         if (fixedHeader != null) {
                             classes("sticky-top")
                             style {
@@ -303,7 +303,7 @@ public fun <T> Table(
                             }
                         }
                     }) {
-                        header?.content?.invoke(this)
+                        header.content?.invoke(this)
                     }
                 }
             }

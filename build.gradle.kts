@@ -1,4 +1,4 @@
-import java.util.Base64
+import java.util.*
 
 plugins {
     kotlin("multiplatform") version "1.5.21"
@@ -96,4 +96,10 @@ nexusPublishing {
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
         }
     }
+}
+
+// https://youtrack.jetbrains.com/issue/KT-48273
+rootProject.plugins.withType(org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootPlugin::class.java) {
+    rootProject.the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsRootExtension>().versions.webpackDevServer.version =
+        "4.0.0-rc.0"
 }
