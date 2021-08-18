@@ -116,6 +116,11 @@ public object Table {
     )
 
     public interface Pagination<T> {
+        public enum class Position {
+            Top, Bottom
+        }
+
+        public val position: Position
         public fun pages(data: List<T>): List<Page<T>>
 
         public val numberOfButtons: Int
@@ -133,7 +138,7 @@ public object Table {
             { pages, currentPage, goTo ->
                 Column(horizontalAlignment = HorizontalAlignment.Start) {
                     ButtonGroup {
-                        Button(title = "<", disabled = currentPage.index == 0) {
+                        Button(title = "<", disabled = currentPage.index == 0, size = ButtonSize.Small) {
                             val previousIndex = currentPage.index - 1
                             actionNavigateBack?.invoke(currentPage, pages[previousIndex])
                             goTo(previousIndex)
@@ -147,9 +152,9 @@ public object Table {
 
                         for (index in buttons) {
                             if (index == currentPage.index) {
-                                Button(title = "$index", disabled = true) { }
+                                Button(title = "$index", disabled = true, size = ButtonSize.Small) { }
                             } else {
-                                Button(title = "$index") {
+                                Button(title = "$index", size = ButtonSize.Small) {
                                     if (index < currentPage.index) {
                                         actionNavigateBack?.invoke(currentPage, pages[index])
                                         goTo(index)
@@ -161,7 +166,7 @@ public object Table {
                             }
                         }
 
-                        Button(title = ">", disabled = currentPage.index == pages.lastIndex) {
+                        Button(title = ">", disabled = currentPage.index == pages.lastIndex, size = ButtonSize.Small) {
                             val nextIndex = currentPage.index + 1
                             actionNavigateForward?.invoke(currentPage, pages[nextIndex])
                             goTo(nextIndex)
@@ -186,6 +191,7 @@ public object Table {
     }
 
     public class OffsetPagination<T>(
+        public override val position: Pagination.Position = Pagination.Position.Bottom,
         public override val entriesPerPageLimit: State<Int>,
         public override val numberOfButtons: Int = 5,
         public override val actionNavigateBack: ((CurrentPage<T>, Pagination.Page<T>) -> Unit)? = null,
@@ -195,12 +201,13 @@ public object Table {
         override var control: PageControl<T> = defaultControl()
 
         public constructor(
+            position: Pagination.Position = Pagination.Position.Bottom,
             entriesPerPageLimit: State<Int>,
             numberOfButtons: Int = 5,
             actionNavigateBack: ((CurrentPage<T>, Pagination.Page<T>) -> Unit)? = null,
             actionNavigateForward: ((CurrentPage<T>, Pagination.Page<T>) -> Unit)? = null,
             control: PageControl<T>
-        ) : this(entriesPerPageLimit, numberOfButtons, actionNavigateBack, actionNavigateForward) {
+        ) : this(position, entriesPerPageLimit, numberOfButtons, actionNavigateBack, actionNavigateForward) {
             this.control = control
         }
 
@@ -281,6 +288,15 @@ public fun <T> Table(
         check(rows.all { it.cells.size == footers.size })
     }
 
+    if (pagination != null && pagination.position == Table.Pagination.Position.Top) {
+        Row {
+            val control = pagination.control
+            control(pages, currentPage) {
+                currentIndex = it
+            }
+        }
+    }
+
     Table(attrs = {
         classes("table")
         if (captionTop) {
@@ -355,7 +371,7 @@ public fun <T> Table(
             }
         }
     }
-    if (pagination != null) {
+    if (pagination != null && pagination.position == Table.Pagination.Position.Bottom) {
         Row {
             val control = pagination.control
             control(pages, currentPage) {
