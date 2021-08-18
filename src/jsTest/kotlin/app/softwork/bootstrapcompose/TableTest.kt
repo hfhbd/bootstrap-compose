@@ -131,7 +131,7 @@ class TableTest {
         }
 
         assertEquals(
-            expected = """<table class="table"><thead><tr><th scope="col"><div class="row"><div class="col">Title</div><div class="col col-auto"><button type="submit" class="btn btn-primary">Text</button></div></div></th><th scope="col">empty</th></tr></thead><tbody><tr><td>Foo</td><td></td></tr><tr><td>Bar</td><td></td></tr></tbody></table>""".trimMargin(),
+            expected = """<table class="table"><thead><tr><th scope="col"><div class="row"><div class="col">Title</div><div class="col col-auto"><button type="submit" class="btn btn-primary">Text</button></div></div></th><th scope="col">empty</th></tr></thead><tbody><tr><td>Foo</td><td></td></tr><tr><td>Bar</td><td></td></tr></tbody></table>""",
             actual = root.innerHTML
         )
     }
