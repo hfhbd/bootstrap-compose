@@ -12,12 +12,10 @@ data class Todo(val title: String, val finished: Boolean)
 
 @Composable
 fun TableView() {
-    var todos by remember {
-        mutableStateOf(
-            listOf(
-                Todo("Learn Compose Web", finished = true),
-                Todo("Create a demo", finished = false)
-            )
+    val todos = remember {
+        mutableStateListOf(
+            Todo("Learn Compose Web", finished = true),
+            Todo("Create a demo", finished = false)
         )
     }
 
@@ -79,7 +77,7 @@ fun TableView() {
             column(
                 "Finished",
                 header = Table.Header(Color.Dark) {
-                    Div(attrs={classes("d-flex", "justify-content-between")}) {
+                    Div(attrs = { classes("d-flex", "justify-content-between") }) {
                         Text("Finished")
                         val text = if (filter) "Show finished" else "Hide finished"
                         Button(text) {
