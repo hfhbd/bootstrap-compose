@@ -152,9 +152,9 @@ public object Table {
 
                     for (index in buttons) {
                         if (index == currentPage.index) {
-                            Button(title = "$index", disabled = true, size = ButtonSize.Small) { }
+                            Button(title = "${index + 1}", disabled = true, size = ButtonSize.Small) { }
                         } else {
-                            Button(title = "$index", size = ButtonSize.Small) {
+                            Button(title = "${index + 1}", size = ButtonSize.Small) {
                                 if (index < currentPage.index) {
                                     actionNavigateBack?.invoke(currentPage, pages[index])
                                     goTo(index)
