@@ -120,102 +120,106 @@ public object Table {
             Top, Bottom
         }
 
-        public val position: Position
-        public fun pages(data: List<T>): List<Page<T>>
+        public val position: Position?
+        public val pages: State<List<Page<T>>>
 
         public val numberOfButtons: Int
-        public val entriesPerPageLimit: State<Int>
+        public val entriesPerPageLimit: State<Int>?
         public val actionNavigateBack: ((CurrentPage<T>, Page<T>) -> Unit)?
         public val actionNavigateForward: ((CurrentPage<T>, Page<T>) -> Unit)?
 
+        public val startPageIndex: Int
 
         public data class Page<T>(val index: Int, val items: List<T>, val numberOfPages: Int)
 
         public val control: PageControl<T>
 
 
-        public fun defaultControl(): PageControl<T> =
-            { pages, currentPage, goTo ->
-                Column(horizontalAlignment = HorizontalAlignment.Start) {
-                    ButtonGroup {
-                        Button(title = "<", disabled = currentPage.index == 0, size = ButtonSize.Small) {
-                            val previousIndex = currentPage.index - 1
-                            actionNavigateBack?.invoke(currentPage, pages[previousIndex])
-                            goTo(previousIndex)
-                        }
+        public fun defaultControl(): PageControl<T> = { pages, currentPage, goTo ->
+            Column(horizontalAlignment = HorizontalAlignment.Start) {
+                ButtonGroup {
+                    Button(title = "<", disabled = currentPage.index == 0, size = ButtonSize.Small) {
+                        val previousIndex = currentPage.index - 1
+                        actionNavigateBack?.invoke(currentPage, pages[previousIndex])
+                        goTo(previousIndex)
+                    }
 
-                        val buttons = tableCalcButtons(
-                            index = currentPage.index,
-                            pages = pages.size,
-                            numberOfButtons = numberOfButtons
-                        )
+                    val buttons = tableCalcButtons(
+                        index = currentPage.index,
+                        pages = pages.size,
+                        numberOfButtons = numberOfButtons
+                    )
 
-                        for (index in buttons) {
-                            if (index == currentPage.index) {
-                                Button(title = "$index", disabled = true, size = ButtonSize.Small) { }
-                            } else {
-                                Button(title = "$index", size = ButtonSize.Small) {
-                                    if (index < currentPage.index) {
-                                        actionNavigateBack?.invoke(currentPage, pages[index])
-                                        goTo(index)
-                                    } else {
-                                        actionNavigateForward?.invoke(currentPage, pages[index])
-                                        goTo(index)
-                                    }
+                    for (index in buttons) {
+                        if (index == currentPage.index) {
+                            Button(title = "$index", disabled = true, size = ButtonSize.Small) { }
+                        } else {
+                            Button(title = "$index", size = ButtonSize.Small) {
+                                if (index < currentPage.index) {
+                                    actionNavigateBack?.invoke(currentPage, pages[index])
+                                    goTo(index)
+                                } else {
+                                    actionNavigateForward?.invoke(currentPage, pages[index])
+                                    goTo(index)
                                 }
                             }
                         }
+                    }
 
-                        Button(title = ">", disabled = currentPage.index == pages.lastIndex, size = ButtonSize.Small) {
-                            val nextIndex = currentPage.index + 1
-                            actionNavigateForward?.invoke(currentPage, pages[nextIndex])
-                            goTo(nextIndex)
-                        }
+                    Button(title = ">", disabled = currentPage.index == pages.lastIndex, size = ButtonSize.Small) {
+                        val nextIndex = currentPage.index + 1
+                        actionNavigateForward?.invoke(currentPage, pages[nextIndex])
+                        goTo(nextIndex)
                     }
                 }
-                if (entriesPerPageLimit is MutableState<Int>) {
-                    val initLimit = remember { entriesPerPageLimit.value }
-                    Column(horizontalAlignment = HorizontalAlignment.End, auto = true) {
-                        DropDown("# ${entriesPerPageLimit.value}", size = ButtonSize.Small) {
-                            List(4) {
-                                initLimit * (it + 1)
-                            }.forEach {
-                                this.Button("$it") {
-                                    (entriesPerPageLimit as MutableState<Int>).value = it
-                                }
+            }
+            if (entriesPerPageLimit is MutableState<Int>) {
+                val initLimit = remember { entriesPerPageLimit!!.value }
+                Column(horizontalAlignment = HorizontalAlignment.End, auto = true) {
+                    DropDown("# ${entriesPerPageLimit!!.value}", size = ButtonSize.Small) {
+                        List(4) {
+                            initLimit * (it + 1)
+                        }.forEach {
+                            this.Button("$it") {
+                                (entriesPerPageLimit as MutableState<Int>).value = it
                             }
                         }
                     }
                 }
             }
+        }
     }
 
     public class OffsetPagination<T>(
-        public override val position: Pagination.Position = Pagination.Position.Bottom,
-        public override val entriesPerPageLimit: State<Int>,
+        data: List<T>,
+        public override val entriesPerPageLimit: State<Int>?,
+        public override val startPageIndex: Int = 0,
+        public override val position: Pagination.Position? = Pagination.Position.Bottom,
         public override val numberOfButtons: Int = 5,
         public override val actionNavigateBack: ((CurrentPage<T>, Pagination.Page<T>) -> Unit)? = null,
         public override val actionNavigateForward: ((CurrentPage<T>, Pagination.Page<T>) -> Unit)? = null,
     ) : Pagination<T> {
 
+        override val pages: State<List<Pagination.Page<T>>> =
+            data.chunked(entriesPerPageLimit?.value ?: data.size).let {
+                mutableStateOf(it.mapIndexed { index, data ->
+                    Pagination.Page(index, data, it.size)
+                })
+            }
+
         override var control: PageControl<T> = defaultControl()
 
         public constructor(
-            position: Pagination.Position = Pagination.Position.Bottom,
+            data: List<T>,
             entriesPerPageLimit: State<Int>,
+            startPageIndex: Int = 0,
+            position: Pagination.Position = Pagination.Position.Bottom,
             numberOfButtons: Int = 5,
             actionNavigateBack: ((CurrentPage<T>, Pagination.Page<T>) -> Unit)? = null,
             actionNavigateForward: ((CurrentPage<T>, Pagination.Page<T>) -> Unit)? = null,
             control: PageControl<T>
-        ) : this(position, entriesPerPageLimit, numberOfButtons, actionNavigateBack, actionNavigateForward) {
+        ) : this(data, entriesPerPageLimit, startPageIndex, position, numberOfButtons, actionNavigateBack, actionNavigateForward) {
             this.control = control
-        }
-
-        override fun pages(data: List<T>): List<Pagination.Page<T>> {
-            val pages = data.chunked(entriesPerPageLimit.value)
-            return pages.mapIndexed { index, data ->
-                Pagination.Page(index, data, pages.size)
-            }
         }
     }
 }
@@ -255,18 +259,48 @@ public fun <T> Table(
     fixedHeader: Table.FixedHeaderProperty? = null,
     caption: ContentBuilder<HTMLTableCaptionElement>? = null,
     captionTop: Boolean = false,
-    pagination: Table.Pagination<T>? = null,
+    attrs: AttrBuilderContext<HTMLTableElement>? = null,
+    map: Table.Builder.(Int, T) -> Unit
+) {
+    Table(
+        pagination = Table.OffsetPagination(data, null, position = null),
+        key,
+        color,
+        striped,
+        hover,
+        borderless,
+        small,
+        fixedHeader,
+        caption,
+        captionTop,
+        attrs,
+        map
+    )
+}
+
+@Composable
+public fun <T> Table(
+    pagination: Table.Pagination<T>,
+    key: ((T) -> Any)? = null,
+    color: Color? = null,
+    striped: Boolean = false,
+    hover: Boolean = false,
+    borderless: Boolean = false,
+    small: Boolean = false,
+    fixedHeader: Table.FixedHeaderProperty? = null,
+    caption: ContentBuilder<HTMLTableCaptionElement>? = null,
+    captionTop: Boolean = false,
     attrs: AttrBuilderContext<HTMLTableElement>? = null,
     map: Table.Builder.(Int, T) -> Unit
 ) {
     val headers = mutableMapOf<String, Table.Header>()
     val _footers = mutableListOf<Table.Footer>()
 
-    val pages = pagination?.pages(data) ?: listOf(Table.Pagination.Page(0, data, 1))
+    val pages by pagination.pages
 
-    var currentIndex by remember { mutableStateOf(0) }
+    var currentIndex by remember { mutableStateOf(pagination.startPageIndex) }
     val currentPage = pages[min(currentIndex, pages.lastIndex)]
-    val baseIndex = currentPage.index * (pagination?.entriesPerPageLimit?.value ?: 0)
+    val baseIndex = currentPage.index * (pagination.entriesPerPageLimit?.value ?: 0)
 
     val rows = currentPage.items.mapIndexed { itemIndexOfPage, item ->
         val (columns, rowColor) = Table.Builder().apply {
@@ -288,7 +322,7 @@ public fun <T> Table(
         check(rows.all { it.cells.size == footers.size })
     }
 
-    if (pagination != null && pagination.position == Table.Pagination.Position.Top) {
+    if (pagination.position == Table.Pagination.Position.Top) {
         Row {
             val control = pagination.control
             control(pages, currentPage) {
@@ -322,7 +356,7 @@ public fun <T> Table(
         }
         Thead {
             Tr {
-                headers.forEach { (title, header) ->
+                headers.forEach { (_, header) ->
                     Th(attrs = {
                         scope(Scope.Col)
                         header.attrs?.invoke(this)
@@ -371,7 +405,7 @@ public fun <T> Table(
             }
         }
     }
-    if (pagination != null && pagination.position == Table.Pagination.Position.Bottom) {
+    if (pagination.position == Table.Pagination.Position.Bottom) {
         Row {
             val control = pagination.control
             control(pages, currentPage) {
