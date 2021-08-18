@@ -9,7 +9,7 @@ import org.w3c.dom.*
 import kotlin.math.*
 
 public typealias CurrentPage<T> = Table.Pagination.Page<T>
-public typealias PageControl<T> = @Composable ElementScope<HTMLDivElement>.(List<Table.Pagination.Page<T>>, Table.Pagination.Page<T>, (Int) -> Unit) -> Unit
+public typealias PageControl<T> = @Composable ElementScope<HTMLDivElement>.(List<Table.Pagination.Page<T>>, CurrentPage<T>, (Int) -> Unit) -> Unit
 
 public object Table {
     public data class Column(
