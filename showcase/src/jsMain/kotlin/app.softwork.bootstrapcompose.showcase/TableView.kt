@@ -167,7 +167,7 @@ private fun CalcPagination.custom(): PageControl<Int> = { pages, currentPage, go
                 goTo(previousIndex)
             }
 
-            Button(title = "${currentPage.index}", disabled = true, size = ButtonSize.Small) { }
+            Button(title = "${currentPage.index + 1}", disabled = true, size = ButtonSize.Small) { }
 
             Button(title = ">", size = ButtonSize.Small) {
                 val nextIndex = currentPage.index + 1
