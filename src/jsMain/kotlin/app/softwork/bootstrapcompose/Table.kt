@@ -20,34 +20,22 @@ public object Table {
         val footer: Footer?
     )
 
-    public data class Cell internal constructor(public val color: Color? = null, val scope: Scope?) {
-        internal lateinit var content: ContentBuilder<HTMLTableCellElement>
+    public data class Cell internal constructor(
+        public val color: Color? = null,
+        val scope: Scope?,
+        val content: ContentBuilder<HTMLTableCellElement>
+    )
 
-        public constructor(
-            color: Color? = null,
-            scope: Scope? = null,
-            content: ContentBuilder<HTMLTableCellElement>
-        ) : this(color = color, scope) {
-            this.content = content
-        }
-    }
-
-    public data class Footer internal constructor(public val color: Color? = null) {
-        internal lateinit var content: @Composable ElementScope<HTMLTableCellElement>.(List<Cell>) -> Unit
-
-        public constructor(
-            color: Color? = null,
-            content: @Composable ElementScope<HTMLTableCellElement>.(List<Cell>) -> Unit
-        ) : this(color = color) {
-            this.content = content
-        }
-    }
+    public data class Footer internal constructor(
+        public val color: Color? = null,
+        val content: @Composable ElementScope<HTMLTableCellElement>.(List<Cell>) -> Unit
+    )
 
     public data class Header(
         val attrs: AttrBuilderContext<HTMLTableCellElement>? = null,
-    ) {
-        //would like to make this a constructor val...except for https://github.com/JetBrains/compose-jb/issues/746
         var content: ContentBuilder<HTMLTableCellElement>? = null
+    ) {
+
 
         public constructor(
             color: Color? = null,
@@ -56,16 +44,7 @@ public object Table {
         public constructor(
             color: Color? = null,
             content: ContentBuilder<HTMLTableCellElement>? = null
-        ) : this(attrs = { classes("table-$color") }) {
-            this.content = content
-        }
-
-        public constructor(
-            attrs: AttrBuilderContext<HTMLTableCellElement>? = null,
-            content: ContentBuilder<HTMLTableCellElement>? = null
-        ) : this(attrs) {
-            this.content = content
-        }
+        ) : this(attrs = { classes("table-$color") }, content)
     }
 
     public data class Row(val cells: List<Cell>, public val key: Any?, val color: Color? = null)
@@ -218,7 +197,15 @@ public object Table {
             actionNavigateBack: ((CurrentPage<T>, Pagination.Page<T>) -> Unit)? = null,
             actionNavigateForward: ((CurrentPage<T>, Pagination.Page<T>) -> Unit)? = null,
             control: PageControl<T>
-        ) : this(data, entriesPerPageLimit, startPageIndex, position, numberOfButtons, actionNavigateBack, actionNavigateForward) {
+        ) : this(
+            data,
+            entriesPerPageLimit,
+            startPageIndex,
+            position,
+            numberOfButtons,
+            actionNavigateBack,
+            actionNavigateForward
+        ) {
             this.control = control
         }
     }

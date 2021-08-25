@@ -4,11 +4,23 @@ package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
 import kotlinx.uuid.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.css.selectors.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 import kotlin.reflect.*
+
+// https://github.com/JetBrains/compose-jb/pull/1112
+@Composable
+private fun Style(
+    applyAttrs: (AttrsBuilder<HTMLStyleElement>.() -> Unit)? = null,
+    rulesBuild: @Composable StyleSheetBuilder.() -> Unit
+) {
+    val builder = StyleSheetBuilderImpl()
+    builder.rulesBuild()
+    Style(applyAttrs, builder.cssRules)
+}
 
 @Composable
 public fun GridBox(
@@ -276,7 +288,8 @@ public class TrackList internal constructor() : TrackListUnits() {
         items += repeat
     }
 
-    public class TrackRepeat(private val count: Int, private vararg val items: Grid.TrackRepeatItem) : Grid.TrackListItem {
+    public class TrackRepeat(private val count: Int, private vararg val items: Grid.TrackRepeatItem) :
+        Grid.TrackListItem {
         override fun toString(): String {
             return "repeat($count, ${items.joinToString(separator = " ")})"
         }
@@ -345,7 +358,11 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
     }
 
     public class MinMax private constructor(private val min: Any, private val max: Any) : Grid.FixedSizeItem {
-        public constructor(minimum: Grid.FixedBreadthItem, maximum: Grid.TrackBreadthItem) : this(min = minimum, max = maximum)
+        public constructor(minimum: Grid.FixedBreadthItem, maximum: Grid.TrackBreadthItem) : this(
+            min = minimum,
+            max = maximum
+        )
+
         public constructor(minimum: Grid.InflexibleBreadthItem, maximum: Grid.FixedBreadthItem) : this(
             min = minimum,
             max = maximum
@@ -372,14 +389,15 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
         }
     }
 
-    public class FixedRepeat(private val count: Int, private vararg val items: Grid.FixedRepeatItem) : Grid.AutoTrackListItem {
+    public class FixedRepeat(private val count: Int, private vararg val items: Grid.FixedRepeatItem) :
+        Grid.AutoTrackListItem {
         override fun toString(): String {
             return "repeat($count, ${items.joinToString(separator = " ")})"
         }
     }
 }
 
-public object Grid{
+public object Grid {
     /**
      * Marker interface for items that can be included in a Grid-Template-Columns or
      * Grid-Template-Rows propery.

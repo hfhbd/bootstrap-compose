@@ -13,9 +13,7 @@ public class DropDownBuilder {
             Content()
 
         public data class Header(val title: String, val styling: (Styling.() -> Unit)?) : Content()
-        public class Custom : Content() {
-            public lateinit var content: ContentBuilder<HTMLLIElement>
-        }
+        public class Custom(public val content: ContentBuilder<HTMLLIElement>) : Content()
 
         public data class Divider(val styling: (Styling.() -> Unit)?) : Content()
     }
@@ -36,7 +34,7 @@ public class DropDownBuilder {
 
 
     public fun Custom(block: ContentBuilder<HTMLLIElement>) {
-        content.add(Content.Custom().apply { content = block })
+        content.add(Content.Custom(block))
     }
 
     internal fun build(): List<Content> = content
