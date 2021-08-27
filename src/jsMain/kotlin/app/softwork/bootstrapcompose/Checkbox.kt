@@ -36,9 +36,7 @@ public fun Checkbox(
         Input(attrs = {
             classes(BSClasses.formCheckInput)
             id("_$id")
-            if (checked) {
-                checked()
-            }
+            checked(checked)
             onInput { event ->
                 onClick(event.value)
             }

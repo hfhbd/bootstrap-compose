@@ -27,7 +27,7 @@ public fun ToastContainer(
 
 @OptIn(ExperimentalTime::class)
 @Composable
-private fun Toast(message: ToastContainerState.ToastItem<ContentBuilder<HTMLDivElement>>) {
+private fun Toast(message: ToastContainerState.ToastItem) {
     Div(
         attrs = {
             classes("toast")
@@ -40,9 +40,9 @@ private fun Toast(message: ToastContainerState.ToastItem<ContentBuilder<HTMLDivE
     ) {
         DomSideEffect { htmlDivElement ->
             val bsToast = Toast(htmlDivElement)
-            htmlDivElement.addEventListener("shown.bs.toast", callback = { _ ->
+            htmlDivElement.addEventListener("shown.bs.toast", callback = {
             })
-            htmlDivElement.addEventListener("hidden.bs.toast", callback = { _ ->
+            htmlDivElement.addEventListener("hidden.bs.toast", callback = {
                 message.remove()
             })
             bsToast.show()
@@ -89,7 +89,7 @@ private fun DismissButton(attrs: (AttrsBuilder<HTMLButtonElement>.() -> Unit)? =
 
 @OptIn(ExperimentalTime::class)
 public class ToastContainerState {
-    internal var toasts by mutableStateOf<List<ToastItem<ContentBuilder<HTMLDivElement>>>>(listOf())
+    internal val toasts = mutableStateListOf<ToastItem>()
 
     public fun showToast(toastMessage: String) {
         showToast(body = {
@@ -127,25 +127,24 @@ public class ToastContainerState {
         ) {
             removeToast(uuid)
         }
-        toasts += toastItem
+        toasts.add(toastItem)
         return { removeToast(uuid) }
     }
 
     private fun removeToast(uuid: UUID) {
-        toasts = toasts.filter {
-            it.uuid != uuid
+        toasts.removeAll {
+            it.uuid == uuid
         }
     }
 
-    //Type parameter needed to get around https://github.com/JetBrains/compose-jb/issues/746
-    internal data class ToastItem<T>(
+    internal data class ToastItem(
         val uuid: UUID,
         val delay: Duration,
         val withDismissButton: Boolean,
         val toastAttrs: (AttrsBuilder<HTMLDivElement>.() -> Unit)?,
         val dismissButtonAttrs: (AttrsBuilder<HTMLButtonElement>.() -> Unit)?,
-        val header: T?,
-        val body: T?,
+        val header: ContentBuilder<HTMLDivElement>?,
+        val body: ContentBuilder<HTMLDivElement>?,
         val remove: () -> Unit
     )
 }

@@ -39,9 +39,8 @@ public class RadioGroupScope(private val name: String) {
             Input(attrs = {
                 classes(BSClasses.formCheckInput)
                 id(id)
-                if (checked) {
-                    checked()
-                }
+                checked(checked)
+
                 onInput { event ->
                     onClick(event.value)
                 }
