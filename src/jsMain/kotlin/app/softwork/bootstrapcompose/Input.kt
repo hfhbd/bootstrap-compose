@@ -2,6 +2,7 @@ package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
 import org.jetbrains.compose.web.attributes.*
+import org.jetbrains.compose.web.attributes.builders.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.events.*
 import org.w3c.dom.*
@@ -16,7 +17,7 @@ public fun <T> Input(
     autocomplete: AutoComplete = AutoComplete.off,
     labelClasses: String = "form-label",
     inputClasses: String = "form-control",
-    attrs: AttrBuilderContext<HTMLInputElement>? = null,
+    attrs: (InputAttrsBuilder<T>.() -> Unit)? = null,
     onInput: (SyntheticInputEvent<T, HTMLInputElement>) -> Unit
 ) {
     Label(forId = null, attrs = {
