@@ -14,6 +14,10 @@ fun AlertView() {
                 Link("#") {
                     Text("Example link")
                 }
+                val badgeColor = if (it == Color.Secondary) Color.Primary else it
+                Badge(badgeColor) {
+                    Text("Badge sample")
+                }
                 CloseButton {
                     show = false
                 }
