@@ -312,9 +312,10 @@ public fun <T> Table(
     if (pagination.position == Table.Pagination.Position.Top) {
         Row {
             val control = pagination.control
-            control(pages, currentPage) {
+            val action : (Int) -> Unit = {
                 currentIndex = it
             }
+            control(pages, currentPage, action)
         }
     }
 
@@ -395,9 +396,10 @@ public fun <T> Table(
     if (pagination.position == Table.Pagination.Position.Bottom) {
         Row {
             val control = pagination.control
-            control(pages, currentPage) {
+            val action : (Int) -> Unit = {
                 currentIndex = it
             }
+            control(pages, currentPage, action)
         }
     }
 }
