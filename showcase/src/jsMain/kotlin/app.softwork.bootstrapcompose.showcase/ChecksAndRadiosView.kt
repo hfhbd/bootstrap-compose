@@ -30,16 +30,21 @@ fun ChecksAndRadiosView() {
         Row {
             Column(size = 6) {
                 Card("Radios") {
+                    var selectedIndex by remember { mutableStateOf(0) }
                     RadioGroup {
-                        Radio("Default radio") {}
-                        Radio("Default checked radio", checked = true) {}
+                        Radio("Default radio", checked = selectedIndex == 0) {
+                            if (it) selectedIndex = 0
+                        }
+                        Radio("Default checked radio", checked = selectedIndex == 1) {
+                            if (it) selectedIndex = 1
+                        }
                     }
                 }
             }
             Column(size = 6) {
                 Card("Disabled Radios") {
                     RadioGroup {
-                        Radio("Disabled radio", disabled = true) {}
+                        Radio("Disabled radio", checked = false, disabled = true) {}
                         Radio("Disabled checked radio", checked = true, disabled = true) {}
                     }
                 }
@@ -48,25 +53,63 @@ fun ChecksAndRadiosView() {
         Row {
             Column(size = 4) {
                 Card("Switches") {
-                    Checkbox(false, label = "Default switch checkbox input", switch = true) {}
-                    Checkbox(true, label = "Checked switch checkbox input", switch = true) {}
-                    Checkbox(false, label = "Disabled switch checkbox input", disabled = true, switch = true) {}
-                    Checkbox(true, label = "Disabled checked switch checkbox input", disabled = true, switch = true) {}
+                    var checkVals by remember { mutableStateOf(listOf(false, false, false, false)) }
+                    Checkbox(checkVals[0], label = "Default switch checkbox input", switch = true) {
+                        checkVals = checkVals.toMutableList().apply { set(0, it) }
+                    }
+                    Checkbox(checkVals[1], label = "Checked switch checkbox input", switch = true) {
+                        checkVals = checkVals.toMutableList().apply { set(1, it) }
+                    }
+                    Checkbox(
+                        checkVals[2],
+                        label = "Disabled switch checkbox input",
+                        disabled = true,
+                        switch = true
+                    ) {
+                        checkVals = checkVals.toMutableList().apply { set(2, it) }
+                    }
+                    Checkbox(
+                        checkVals[3],
+                        label = "Disabled checked switch checkbox input",
+                        disabled = true,
+                        switch = true
+                    ) {
+                        checkVals = checkVals.toMutableList().apply { set(3, it) }
+                    }
                 }
             }
             Column(size = 4) {
+                var checkVals by remember { mutableStateOf(listOf(false, false, false)) }
                 Card("Inline Checks") {
-                    Checkbox(false, label = "1", inline = true) {}
-                    Checkbox(false, label = "2", inline = true) {}
-                    Checkbox(false, label = "3 (disabled)", disabled = true, inline = true) {}
+                    Checkbox(checkVals[0], label = "1", inline = true) {
+                        checkVals = checkVals.toMutableList().apply { set(0, it) }
+                    }
+                    Checkbox(checkVals[1], label = "2", inline = true) {
+                        checkVals = checkVals.toMutableList().apply { set(1, it) }
+                    }
+                    Checkbox(checkVals[2], label = "3 (disabled)", disabled = true, inline = true) {
+                        checkVals = checkVals.toMutableList().apply { set(2, it) }
+                    }
                 }
             }
             Column(size = 4) {
                 Card("Inline Radios") {
+                    var selectedIndex by remember { mutableStateOf(0) }
                     RadioGroup {
-                        Radio(checked = false, inline = true, label = "1") {}
-                        Radio(checked = false, inline = true, label = "2") {}
-                        Radio(checked = false, inline = true, label = "3 (disabled)", disabled = true) {}
+                        Radio(checked = selectedIndex == 0, inline = true, label = "1") {
+                            if (it) selectedIndex = 0
+                        }
+                        Radio(checked = selectedIndex == 1, inline = true, label = "2") {
+                            if (it) selectedIndex = 1
+                        }
+                        Radio(
+                            checked = selectedIndex == 2,
+                            inline = true,
+                            label = "3 (disabled)",
+                            disabled = true
+                        ) {
+                            if (it) selectedIndex = 3
+                        }
                     }
                 }
             }

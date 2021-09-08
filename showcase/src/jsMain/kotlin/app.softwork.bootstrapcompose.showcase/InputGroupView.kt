@@ -48,7 +48,6 @@ fun MutipleAddons() {
 @Composable
 private fun BasicExampleView() {
     var username by remember { mutableStateOf("") }
-    var range by remember { mutableStateOf(0.5) }
     var server by remember { mutableStateOf("") }
 
     Card("Basic example") {
@@ -131,17 +130,19 @@ fun SizingView() {
 
 @Composable
 fun CheckboxesAndRadiosView() {
+    var check by remember { mutableStateOf(false) }
+    var radio by remember { mutableStateOf(false) }
     Card("Checkboxes and radios") {
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
-                CheckboxAddOn(false) { }
+                CheckboxAddOn(checked = check) { check = it }
                 TextInput { }
             }
         }
 
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
-                RadioAddOn(false) { }
+                RadioAddOn(checked = radio) { radio = it }
                 TextInput { }
             }
         }

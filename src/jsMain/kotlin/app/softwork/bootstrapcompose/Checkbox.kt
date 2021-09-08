@@ -3,6 +3,7 @@ package app.softwork.bootstrapcompose
 import androidx.compose.runtime.*
 import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
+import org.jetbrains.compose.web.attributes.builders.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
@@ -16,7 +17,7 @@ public fun Checkbox(
     inline: Boolean = false,
     switch: Boolean = false,
     styling: (Styling.() -> Unit)? = null,
-    attrs: AttrBuilderContext<HTMLInputElement>? = null,
+    attrs: (InputAttrsBuilder<Boolean>.() -> Unit)? = null,
     onClick: (Boolean) -> Unit
 ) {
     val classes = styling?.let {
