@@ -27,6 +27,8 @@ public fun Card(
             Text(header)
         }
         Div({ classes("card-body") }, body)
-        Div({ classes("card-footer") }, footer)
+        footer?.let{
+            Div({ classes("card-footer") }, footer)
+        }
     }
 }
