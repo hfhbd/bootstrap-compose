@@ -430,6 +430,7 @@ public class Layout {
     public var width: Width? = null
     public var height: Height? = null
     public var verticalAlignment: VerticalAlignment? = null
+    public var horizontalAlignment: HorizontalAlignment? = null
     public var visible: Boolean? = null
 
     public operator fun invoke(f: Layout.() -> Unit) {
@@ -497,6 +498,17 @@ public class Layout {
         }
     }
 
+    public enum class HorizontalAlignment(private val classInfix: String) {
+        Start("start"),
+        Center("center"),
+        End("end"),
+        Around("around"),
+        Between("between"),
+        Evenly("evenly");
+
+        override fun toString(): String = "justify-content-$classInfix"
+    }
+
     public enum class VerticalAlignment(private val value: String) {
         Baseline("align-baseline"),
         Top("align-top"),
@@ -505,9 +517,7 @@ public class Layout {
         TextTop("align-text-top"),
         TextBottom("align-text-bottom");
 
-        override fun toString(): String {
-            return value
-        }
+        override fun toString(): String = value
     }
 
     private data class DisplaySpec(val display: Display, val breakpoint: Breakpoint?)
@@ -540,7 +550,7 @@ public class Layout {
             }
         }
 
-        classes += listOfNotNull(overflow, width, height, verticalAlignment).map {
+        classes += listOfNotNull(overflow, width, height, verticalAlignment, horizontalAlignment).map {
             it.toString()
         }
 

@@ -186,7 +186,7 @@ public fun NavbarLink(
             attr("aria-current", "page")
         }
         if (disabled) {
-            classes("disabled")
+            classes(BSClasses.disabled)
         }
         attrs?.invoke(this)
     }, href = link, content = content)

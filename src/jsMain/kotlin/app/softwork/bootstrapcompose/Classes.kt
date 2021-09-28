@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 public object BSClasses {
+    public const val disabled: String = "disabled"
     public const val active: String = "active"
 
     public val align: Align = Align

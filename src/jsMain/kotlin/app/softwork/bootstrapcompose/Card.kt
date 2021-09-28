@@ -7,7 +7,6 @@ import org.w3c.dom.*
 
 @Composable
 public fun Card(
-    color: Color = Color.Dark,
     styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     header: ContentBuilder<HTMLDivElement>? = null,
@@ -19,7 +18,7 @@ public fun Card(
     } ?: arrayOf()
 
     Div({
-        classes("card", "border-$color", "mb-3")
+        classes("card")
         classes(*classes)
         attrs?.invoke(this)
     }) {
@@ -31,16 +30,4 @@ public fun Card(
             Div({ classes("card-footer") }, footer)
         }
     }
-}
-
-@Composable
-public fun Card(
-    header: String,
-    color: Color = Color.Dark,
-    styling: (Styling.() -> Unit)? = null,
-    attrs: AttrBuilderContext<HTMLDivElement>? = null,
-    footer: ContentBuilder<HTMLDivElement>? = null,
-    body: ContentBuilder<HTMLDivElement>
-) {
-    Card(color, styling, attrs, { Text(header) }, footer, body)
 }

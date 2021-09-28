@@ -6,7 +6,6 @@ import org.w3c.dom.*
 
 @Composable
 public fun Row(
-    horizontalAlignment: HorizontalAlignment? = null,
     styling: (RowStyling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
@@ -18,7 +17,6 @@ public fun Row(
     Div(attrs = {
         classes("row")
         classes(*classes)
-        horizontalAlignment?.let { classes(it.toString()) }
         attrs?.invoke(this)
     }, content = content)
 }
