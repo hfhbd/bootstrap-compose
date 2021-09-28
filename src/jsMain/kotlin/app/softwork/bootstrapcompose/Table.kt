@@ -35,8 +35,6 @@ public object Table {
         val attrs: AttrBuilderContext<HTMLTableCellElement>? = null,
         var content: ContentBuilder<HTMLTableCellElement>? = null
     ) {
-
-
         public constructor(
             color: Color? = null,
         ) : this(attrs = { classes("table-$color") })
@@ -115,12 +113,15 @@ public object Table {
 
 
         public fun defaultControl(): PageControl<T> = { pages, currentPage, goTo ->
-            Column(horizontalAlignment = HorizontalAlignment.Start) {
-                ButtonGroup {
-                    Button(title = "<", disabled = currentPage.index == 0, size = ButtonSize.Small) {
-                        val previousIndex = currentPage.index - 1
-                        actionNavigateBack?.invoke(currentPage, pages[previousIndex])
-                        goTo(previousIndex)
+            Column {
+                Pagination(size = PaginationSize.Small) {
+                    PageItem(disabled = currentPage.index == 0) {
+                        PageLink("<") {
+                            val previousIndex = currentPage.index - 1
+                            actionNavigateBack?.invoke(currentPage, pages[previousIndex])
+                            goTo(previousIndex)
+
+                        }
                     }
 
                     val buttons = tableCalcButtons(
@@ -131,30 +132,41 @@ public object Table {
 
                     for (index in buttons) {
                         if (index == currentPage.index) {
-                            Button(title = "${index + 1}", disabled = true, size = ButtonSize.Small) { }
+                            PageItem(active = true, disabled = false) {
+                                PageLink("${index + 1}") { }
+                            }
                         } else {
-                            Button(title = "${index + 1}", size = ButtonSize.Small) {
-                                if (index < currentPage.index) {
-                                    actionNavigateBack?.invoke(currentPage, pages[index])
-                                    goTo(index)
-                                } else {
-                                    actionNavigateForward?.invoke(currentPage, pages[index])
-                                    goTo(index)
+                            PageItem {
+                                PageLink("${index + 1}") {
+                                    if (index < currentPage.index) {
+                                        actionNavigateBack?.invoke(currentPage, pages[index])
+                                        goTo(index)
+                                    } else {
+                                        actionNavigateForward?.invoke(currentPage, pages[index])
+                                        goTo(index)
+                                    }
                                 }
                             }
                         }
                     }
-
-                    Button(title = ">", disabled = currentPage.index == pages.lastIndex, size = ButtonSize.Small) {
-                        val nextIndex = currentPage.index + 1
-                        actionNavigateForward?.invoke(currentPage, pages[nextIndex])
-                        goTo(nextIndex)
+                    PageItem(disabled = currentPage.index == pages.lastIndex) {
+                        PageLink(">") {
+                            val nextIndex = currentPage.index + 1
+                            actionNavigateForward?.invoke(currentPage, pages[nextIndex])
+                            goTo(nextIndex)
+                        }
                     }
                 }
             }
             if (entriesPerPageLimit is MutableState<Int>) {
                 val initLimit = remember { entriesPerPageLimit!!.value }
-                Column(horizontalAlignment = HorizontalAlignment.End, auto = true) {
+                Column(styling = {
+                    Margins {
+                        End {
+                            size = SpacingSpecs.SpacingSize.Auto
+                        }
+                    }
+                }, auto = true) {
                     DropDown("# ${entriesPerPageLimit!!.value}", size = ButtonSize.Small) {
                         List(4) {
                             initLimit * (it + 1)

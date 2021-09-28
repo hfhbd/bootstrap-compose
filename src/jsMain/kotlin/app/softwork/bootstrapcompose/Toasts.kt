@@ -57,7 +57,7 @@ private fun Toast(message: ToastContainerState.ToastItem) {
             }) {
                 header()
                 if (message.withDismissButton) {
-                    DismissButton(message.dismissButtonAttrs)
+                    DismissButton(attrs = message.dismissButtonAttrs)
                 }
             }
         }
@@ -65,9 +65,17 @@ private fun Toast(message: ToastContainerState.ToastItem) {
         if (message.header == null && message.withDismissButton) {
             Div(attrs = { classes("d-flex") }) {
                 Div(attrs = { classes("toast-body") }, content = message.body)
-                DismissButton {
+                DismissButton(styling = {
+                    Margins {
+                        End {
+                            size = SpacingSpecs.SpacingSize.Small
+                        }
+                        All {
+                            size = SpacingSpecs.SpacingSize.Auto
+                        }
+                    }
+                }) {
                     message.dismissButtonAttrs?.invoke(this)
-                    classes("me-2", "m-auto")
                 }
             }
         } else {
@@ -77,12 +85,16 @@ private fun Toast(message: ToastContainerState.ToastItem) {
 }
 
 @Composable
-private fun DismissButton(attrs: (AttrsBuilder<HTMLButtonElement>.() -> Unit)? = null) {
-    Button(attrs = {
+private fun DismissButton(styling: (Styling.() -> Unit)? = null, attrs: (AttrsBuilder<HTMLButtonElement>.() -> Unit)? = null) {
+    val style = styling?.let {
+        Styling().apply(it).generate()
+    } ?: arrayOf()
+    Button( attrs = {
         type(ButtonType.Button)
         classes("btn-close")
         attr("data-bs-dismiss", "toast")
         attr("aria-label", "close")
+        classes(*style)
         attrs?.invoke(this)
     })
 }

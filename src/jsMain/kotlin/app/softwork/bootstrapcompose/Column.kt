@@ -7,7 +7,6 @@ import org.w3c.dom.*
 @Composable
 public fun Column(
     auto: Boolean = false,
-    horizontalAlignment: HorizontalAlignment? = null,
     breakpoint: Breakpoint? = null,
     size: Int? = null,
     styling: (Styling.() -> Unit)? = null,
@@ -24,7 +23,6 @@ public fun Column(
         if (auto) {
             classes("col-auto")
         }
-        horizontalAlignment?.let { classes(it.toString()) }
         attrs?.invoke(this)
     }, content)
 }
