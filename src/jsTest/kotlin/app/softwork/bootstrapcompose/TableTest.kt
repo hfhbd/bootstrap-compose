@@ -3,8 +3,10 @@ package app.softwork.bootstrapcompose
 import androidx.compose.runtime.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.testutils.*
 import kotlin.test.*
 
+@ComposeWebExperimentalTestsApi
 class TableTest {
 
     @Test
