@@ -38,6 +38,11 @@ kotlin {
                 api(npm("@popperjs/core", "2.9.3"))
             }
         }
+        val jsTest by getting {
+            dependencies {
+                implementation(compose.web.testUtils)
+            }
+        }
     }
 }
 
