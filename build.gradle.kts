@@ -41,41 +41,41 @@ kotlin {
     }
 }
 
-task("emptyJar", Jar::class) {
+val emptyJar by tasks.registering(Jar::class) {
 }
 
 publishing {
     publications.all {
-        if (this is MavenPublication) {
-            artifact(tasks.getByName("emptyJar")) {
-                classifier = "javadoc"
+        this as MavenPublication
+        artifact(emptyJar) {
+            classifier = "javadoc"
+        }
+        pom {
+            name.set("app.softwork Bootstrap Library for JetBrains Compose Web")
+            description.set("A wrapper for Bootstrap to use with JetBrains Compose Web")
+            url.set("https://github.com/hfhbd/bootstrap-compose")
+            licenses {
+                license {
+                    name.set("The Apache License, Version 2.0")
+                    url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
+                }
             }
-            pom {
-                name.set("app.softwork Bootstrap Library for JetBrains Compose Web")
-                description.set("A wrapper for Bootstrap to use with JetBrains Compose Web")
+            developers {
+                developer {
+                    id.set("hfhbd")
+                    name.set("Philip Wedemann")
+                    email.set("mybztg+mavencentral@icloud.com")
+                }
+            }
+            scm {
+                connection.set("scm:git://github.com/hfhbd/bootstrap-compose.git")
+                developerConnection.set("scm:git://github.com/hfhbd/bootstrap-compose.git")
                 url.set("https://github.com/hfhbd/bootstrap-compose")
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("hfhbd")
-                        name.set("Philip Wedemann")
-                        email.set("mybztg+mavencentral@icloud.com")
-                    }
-                }
-                scm {
-                    connection.set("scm:git://github.com/hfhbd/bootstrap-compose.git")
-                    developerConnection.set("scm:git://github.com/hfhbd/bootstrap-compose.git")
-                    url.set("https://github.com/hfhbd/bootstrap-compose")
-                }
             }
         }
     }
 }
+
 (System.getProperty("signing.privateKey") ?: System.getenv("SIGNING_PRIVATE_KEY"))?.let {
     String(Base64.getDecoder().decode(it)).trim()
 }?.let { key ->
