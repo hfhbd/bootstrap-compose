@@ -47,6 +47,7 @@ fun main() {
         Main {
             when (state.activePage) {
                 ActivePage.Alert -> AlertView()
+                ActivePage.Autocomplete -> AutoCompleteView()
                 ActivePage.Box -> BoxView()
                 ActivePage.ChecksAndRadios -> ChecksAndRadiosView()
                 ActivePage.DropDown -> DropDownView()
@@ -75,6 +76,7 @@ fun main() {
 
 enum class ActivePage(val displayName: String) {
     Alert("Alert"),
+    Autocomplete("Autocomplete"),
     Box("Boxes"),
     ChecksAndRadios("Checks & radios"),
     DropDown("Dropdowns"),
