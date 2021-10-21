@@ -28,7 +28,9 @@ fun InputGroupView() {
 
 @Composable
 fun MutipleAddons() {
-    Card("Multiple addons") {
+    Card(header = {
+        Text("Multiple addons")
+    }) {
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextAddOn("$")
@@ -50,7 +52,9 @@ private fun BasicExampleView() {
     var username by remember { mutableStateOf("") }
     var server by remember { mutableStateOf("") }
 
-    Card("Basic example") {
+    Card(header = {
+        Text("Basic example")
+    }) {
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 TextAddOn("@")
@@ -100,7 +104,9 @@ private fun BasicExampleView() {
 
 @Composable
 fun SizingView() {
-    Card("Sizing") {
+    Card(header = {
+        Text("Sizing")
+    }) {
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup(
                 size = InputGroupSize.Small,
@@ -132,7 +138,9 @@ fun SizingView() {
 fun CheckboxesAndRadiosView() {
     var check by remember { mutableStateOf(false) }
     var radio by remember { mutableStateOf(false) }
-    Card("Checkboxes and radios") {
+    Card(header = {
+        Text("Checkboxes and radios")
+    }) {
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 CheckboxAddOn(checked = check) { check = it }
@@ -151,7 +159,9 @@ fun CheckboxesAndRadiosView() {
 
 @Composable
 fun ButtonAddOnsView() {
-    Card("Button addons") {
+    Card(header = {
+        Text("Button addons")
+    }) {
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 ButtonAddOn(
@@ -218,7 +228,9 @@ private fun ButtonsWithDropdownsView() {
         Button("Separated link") {}
     }
 
-    Card("Buttons with dropdowns") {
+    Card(header = {
+        Text("Buttons with dropdowns")
+    }) {
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 //TODO DropDown doesn't support adding btn-outline-secondary class
@@ -275,7 +287,9 @@ private fun CustomSelectView() {
         Option(value = "3") { Text("Three") }
     }
 
-    Card("Custom select") {
+    Card(header = {
+        Text("Custom select")
+    }) {
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 LabelAddOn("Options")
@@ -323,7 +337,9 @@ private fun CustomSelectView() {
 
 @Composable
 private fun CustomFileInputView() {
-    Card("Custom file input") {
+    Card(header = {
+        Text("Custom File Input")
+    }) {
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
                 LabelAddOn("Upload")

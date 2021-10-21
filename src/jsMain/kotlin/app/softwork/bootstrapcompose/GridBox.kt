@@ -11,17 +11,6 @@ import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 import kotlin.reflect.*
 
-// https://github.com/JetBrains/compose-jb/pull/1112
-@Composable
-private fun Style(
-    applyAttrs: (AttrsBuilder<HTMLStyleElement>.() -> Unit)? = null,
-    rulesBuild: @Composable StyleSheetBuilder.() -> Unit
-) {
-    val builder = StyleSheetBuilderImpl()
-    builder.rulesBuild()
-    Style(applyAttrs, builder.cssRules)
-}
-
 @Composable
 public fun GridBox(
     styling: GridStyle.() -> Unit,

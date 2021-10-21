@@ -291,7 +291,9 @@ private fun CheckoutFormExample() {
 
 @Composable
 private fun HorizontalFormView() {
-    Card("Horizontal form") {
+    Card(header = {
+        Text("Horizontal form")
+    }) {
         Row(styling = { Margins { Bottom { size = Medium } } }) {
             Label(attrs = { classes(BSClasses.colFormLabel, "col-sm-2") }) { Text("Email") }
             Column(breakpoint = Breakpoint.Small, size = 10) {

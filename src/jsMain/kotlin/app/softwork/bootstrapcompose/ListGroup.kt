@@ -158,11 +158,11 @@ private fun <T : HTMLElement> AttrsBuilder<T>.ListItemAttrs(
 ) {
     classes(BSClasses.listGroupItem)
     if (active) {
-        classes("active")
+        classes(BSClasses.active)
         attr("aria-current", "true")
     }
     if (disabled) {
-        classes("disabled")
+        classes(BSClasses.disabled)
         attr("aria-disabled", "true")
     }
     if (actionable) {

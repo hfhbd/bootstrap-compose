@@ -159,17 +159,21 @@ private class CalcPagination(scope: CoroutineScope) : Table.Pagination<Int>, Cor
 
 
 private fun CalcPagination.custom(): PageControl<Int> = { pages, currentPage, goTo ->
-    Column {
-        ButtonGroup {
-            Button(title = "<", disabled = currentPage.index == 0, size = ButtonSize.Small) {
+    Pagination(size = PaginationSize.Small) {
+        PageItem(disabled = currentPage.index == 0) {
+            PageLink("<") {
                 val previousIndex = currentPage.index - 1
                 actionNavigateBack.invoke(currentPage, pages[previousIndex])
                 goTo(previousIndex)
             }
+        }
 
-            Button(title = "${currentPage.index + 1}", disabled = true, size = ButtonSize.Small) { }
+        PageItem(active = true, disabled = false) {
+            PageLink(title = "${currentPage.index + 1}") { }
+        }
 
-            Button(title = ">", size = ButtonSize.Small) {
+        PageItem {
+            PageLink(">") {
                 val nextIndex = currentPage.index + 1
                 actionNavigateForward.invoke(currentPage, currentPage)
                 goTo(nextIndex)
