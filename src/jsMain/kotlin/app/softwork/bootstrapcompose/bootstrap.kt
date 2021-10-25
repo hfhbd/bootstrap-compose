@@ -19,3 +19,8 @@ internal external class Toast(element: HTMLDivElement) {
         internal fun getInstance(element: HTMLDivElement): Toast
     }
 } 
+
+internal external class Offcanvas(element: HTMLDivElement) {
+    internal fun show()
+    internal fun hide()
+}
