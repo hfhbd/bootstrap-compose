@@ -57,6 +57,7 @@ fun main() {
                 ActivePage.ListGroup -> ListGroupView()
                 ActivePage.Modal -> ModalView()
                 ActivePage.Navbar -> NavbarView()
+                ActivePage.Offcanvas -> OffcanvasView()
                 ActivePage.Range -> RangeView()
                 ActivePage.Select -> SelectView()
                 ActivePage.Table -> TableView()
@@ -86,6 +87,7 @@ enum class ActivePage(val displayName: String) {
     ListGroup("Lists"),
     Modal("Modal"),
     Navbar("Navbars"),
+    Offcanvas("Offcanvas"),
     Range("Range"),
     Select("Select"),
     Table("Table"),
