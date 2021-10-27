@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
+import kotlinx.browser.*
 import org.jetbrains.compose.web.attributes.builders.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
@@ -21,21 +22,24 @@ private class ReferenceHolder<T>(var ref: T? = null)
  */
 @Composable
 public fun Autocomplete(
-        inputAttrs: InputAttrsBuilder<String>.() -> Unit = {},
-        suggestions: ContentBuilder<HTMLDivElement>? = null
+    inputAttrs: InputAttrsBuilder<String>.() -> Unit = {},
+    suggestions: ContentBuilder<HTMLDivElement>? = null
 ) {
     var itemsVisible by remember { mutableStateOf(false) }
     val parentElement = remember { ReferenceHolder<Element>() }
 
+    window.document.addEventListener("mousedown", { event ->
+        if (parentElement.ref?.isChild(event.target) != true) {
+            itemsVisible = false
+        }
+    })
+
     Div(
-            attrs = {
-                this.onFocusOut { event ->
-                    itemsVisible = parentElement.ref?.isChild(event.relatedTarget) == true
-                }
-                style {
-                    padding(0.px)
-                }
-            })
+        attrs = {
+            style {
+                padding(0.px)
+            }
+        })
     {
         DisposableRefEffect { element ->
             parentElement.ref = element
@@ -50,21 +54,21 @@ public fun Autocomplete(
         })
 
         Div(
-                attrs = {
-                    classes("dropdown-menu")
-                    if (itemsVisible) {
-                        classes("d-block")
-                    } else {
-                        classes("d-none")
-                    }
-                    onClick {
-                        itemsVisible = false
-                    }
-                    style {
-                        padding(0.px)
-                    }
-                },
-                content = suggestions
+            attrs = {
+                classes("dropdown-menu")
+                if (itemsVisible) {
+                    classes("d-block")
+                } else {
+                    classes("d-none")
+                }
+                onClick {
+                    itemsVisible = false
+                }
+                style {
+                    padding(0.px)
+                }
+            },
+            content = suggestions
         )
     }
 }
@@ -81,21 +85,21 @@ public fun Autocomplete(
  */
 @Composable
 public fun Autocomplete(
-        value: String,
-        onValueChange: (String) -> Unit,
-        inputId: String? = null,
-        suggestions: List<String> = listOf(),
-        onSelection: (String) -> Unit
+    value: String,
+    onValueChange: (String) -> Unit,
+    inputId: String? = null,
+    suggestions: List<String> = listOf(),
+    onSelection: (String) -> Unit
 ) {
     Autocomplete(
-            value = value,
-            onValueChange = onValueChange,
-            inputId = inputId,
-            suggestions = suggestions,
-            content = { _, item ->
-                Text(item)
-            },
-            onSelection = { _, item -> onSelection(item) }
+        value = value,
+        onValueChange = onValueChange,
+        inputId = inputId,
+        suggestions = suggestions,
+        content = { _, item ->
+            Text(item)
+        },
+        onSelection = { _, item -> onSelection(item) }
     )
 }
 
@@ -119,12 +123,12 @@ public fun Autocomplete(
  */
 @Composable
 public fun Autocomplete(
-        value: String,
-        onValueChange: (String) -> Unit,
-        inputId: String? = null,
-        suggestions: List<String> = listOf(),
-        content: @Composable ElementScope<HTMLButtonElement>.(index: Int, item: String) -> Unit,
-        onSelection: (index: Int, item: String) -> Unit
+    value: String,
+    onValueChange: (String) -> Unit,
+    inputId: String? = null,
+    suggestions: List<String> = listOf(),
+    content: @Composable ElementScope<HTMLButtonElement>.(index: Int, item: String) -> Unit,
+    onSelection: (index: Int, item: String) -> Unit
 ) {
     Autocomplete(inputAttrs = {
         inputId?.let { id(inputId) }
