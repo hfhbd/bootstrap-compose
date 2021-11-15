@@ -72,7 +72,7 @@ fun TableView() {
                     println("go from ${currentPage.index} to ${previousPage.index}")
                 }), fixedHeader = Table.FixedHeaderProperty(size = 56.px)
         ) { index, todo ->
-            column("Index", scope = Scope.Row) {
+            column("Index", scope = Scope.Row, verticalAlignment = Layout.VerticalAlignment.TextTop) {
                 Text(index.toString())
             }
             column("Title") {
