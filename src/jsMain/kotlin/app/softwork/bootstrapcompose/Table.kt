@@ -23,6 +23,7 @@ public object Table {
     public data class Cell internal constructor(
         public val color: Color? = null,
         val scope: Scope?,
+        val verticalAlignment: Layout.VerticalAlignment?,
         val content: ContentBuilder<HTMLTableCellElement>
     )
 
@@ -61,6 +62,7 @@ public object Table {
             header: Header? = null,
             footer: Footer? = null,
             cellColor: Color? = null,
+            verticalAlignment: Layout.VerticalAlignment? = null,
             cell: ContentBuilder<HTMLTableCellElement>
         ) {
             val titledHeader = when {
@@ -80,7 +82,7 @@ public object Table {
                     scope = scope,
                     header = titledHeader,
                     footer = footer,
-                    cell = Cell(cellColor, scope, cell)
+                    cell = Cell(cellColor, scope, verticalAlignment, cell)
                 )
             )
         }
@@ -382,6 +384,7 @@ public fun <T> Table(
                             Td(attrs = {
                                 cell.color?.let { classes("table-$it") }
                                 cell.scope?.let { scope(it) }
+                                cell.verticalAlignment?.let { classes(it.toString()) }
                             }) {
                                 cell.content(this)
                             }
