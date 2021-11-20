@@ -365,7 +365,6 @@ public fun <T> Table(
                             classes("sticky-top")
                             style {
                                 top(fixedHeader.size)
-                                property("z-index", "auto")
                             }
                         }
                     }) {
