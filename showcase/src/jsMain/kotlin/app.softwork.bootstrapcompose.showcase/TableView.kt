@@ -15,99 +15,106 @@ data class Todo(val title: String, val finished: Boolean)
 
 @Composable
 fun TableView() {
-    val todos = remember {
-        mutableStateListOf(
-            Todo("Learn Compose Web", finished = true),
-            Todo("Create a demo", finished = false)
-        )
-    }
-
-    var filter by remember { mutableStateOf(false) }
-
-    val filteredTodos = todos.filter {
-        if (filter) {
-            !it.finished
-        } else {
-            true
-        }
-    }
     Container {
-        P {
-            var newTitle by remember { mutableStateOf("") }
-            Form(attrs = {
-                onSubmit {
-                    it.preventDefault()
-                    todos += Todo(title = newTitle, finished = false)
-                    newTitle = ""
-                }
-            }) {
-                Div {
-                    FormLabel { Text("New Todo Title: $newTitle") }
-                    InputGroup {
-                        TextInput(
-                            value = newTitle,
-                            placeholder = "Title",
-                        ) {
-                            newTitle = it.value
-                        }
-                        Button(
-                            title = "Create",
-                            disabled = newTitle.isBlank()
-                        ) {
+        val todos = remember {
+            mutableStateListOf(
+                Todo("Learn Compose Web", finished = true),
+                Todo("Create a demo", finished = false)
+            )
+        }
+
+        var filter by remember { mutableStateOf(false) }
+
+        val filteredTodos = todos.filter {
+            if (filter) {
+                !it.finished
+            } else {
+                true
+            }
+        }
+        Row {
+            P {
+                var newTitle by remember { mutableStateOf("") }
+                Form(attrs = {
+                    onSubmit {
+                        it.preventDefault()
+                        todos += Todo(title = newTitle, finished = false)
+                        newTitle = ""
+                    }
+                }) {
+                    Div {
+                        FormLabel { Text("New Todo Title: $newTitle") }
+                        InputGroup {
+                            TextInput(
+                                value = newTitle,
+                                placeholder = "Title",
+                            ) {
+                                newTitle = it.value
+                            }
+                            Button(
+                                title = "Create",
+                                disabled = newTitle.isBlank()
+                            ) {
+                            }
                         }
                     }
                 }
             }
-        }
-        val numberOfEntries = remember { mutableStateOf(3) }
-        Table(
-            pagination =
-            Table.OffsetPagination(
-                data = filteredTodos,
-                entriesPerPageLimit = numberOfEntries,
-                actionNavigateBack = { currentPage, previousPage ->
-                    println("go from ${currentPage.index} to ${previousPage.index}")
-                },
-                actionNavigateForward = { currentPage, previousPage ->
-                    println("go from ${currentPage.index} to ${previousPage.index}")
-                }), fixedHeader = Table.FixedHeaderProperty(size = 56.px)
-        ) { index, todo ->
-            column("Index", scope = Scope.Row, verticalAlignment = Layout.VerticalAlignment.TextTop) {
-                Text(index.toString())
-            }
-            column("Title") {
-                Text(todo.title)
-            }
-            column(
-                "Finished",
-                header = Table.Header(Color.Dark) {
-                    Div(attrs = { classes("d-flex", "justify-content-between") }) {
-                        Text("Finished")
-                        val text = if (filter) "Show finished" else "Hide finished"
-                        Button(text) {
-                            filter = !filter
+            val numberOfEntries = remember { mutableStateOf(3) }
+            Table(
+                pagination =
+                Table.OffsetPagination(
+                    data = filteredTodos,
+                    entriesPerPageLimit = numberOfEntries,
+                    actionNavigateBack = { currentPage, previousPage ->
+                        println("go from ${currentPage.index} to ${previousPage.index}")
+                    },
+                    actionNavigateForward = { currentPage, previousPage ->
+                        println("go from ${currentPage.index} to ${previousPage.index}")
+                    }), fixedHeader = Table.FixedHeaderProperty(topSize = 56.px, zIndex = ZIndex(800))
+            ) { index, todo ->
+                column(
+                    "Index",
+                    header = Table.Header(color = Color.Light), scope = Scope.Row,
+                    verticalAlignment = Layout.VerticalAlignment.TextTop
+                ) {
+                    Text(index.toString())
+                }
+                column("Title", header = Table.Header(color = Color.Light)) {
+                    Text(todo.title)
+                }
+                column(
+                    "Finished",
+                    header = Table.Header(Color.Dark) {
+                        Div(attrs = { classes("d-flex", "justify-content-between") }) {
+                            Text("Finished")
+                            val text = if (filter) "Show finished" else "Hide finished"
+                            Button(text) {
+                                filter = !filter
+                            }
                         }
+                    },
+                    cellColor = if (todo.finished) Color.Success else Color.Warning
+                ) {
+                    Column {
+                        Text(todo.finished.toString())
                     }
-                },
-                cellColor = if (todo.finished) Color.Success else Color.Warning
-            ) {
-                Column {
-                    Text(todo.finished.toString())
                 }
             }
         }
-    }
-    Container {
-        val scope = rememberCoroutineScope()
-        val pagination = CalcPagination(scope)
-        Table(pagination = pagination, caption = {
-            Text("Table with custom pagination containing cell calculation")
-        }) { index, i ->
-            column("Index") {
-                Text("$index")
-            }
-            column("Some Calculation") {
-                Text("$i")
+
+        Row {
+            val scope = rememberCoroutineScope()
+            val pagination = CalcPagination(scope)
+            Table(pagination = pagination, caption = {
+                Text("Table with custom pagination containing cell calculation")
+            }) { index, i ->
+                column("Index") {
+                    Text("$index")
+                }
+                column("Some Calculation") {
+                    Text("$i")
+                }
             }
         }
     }
@@ -135,7 +142,8 @@ private class CalcPagination(scope: CoroutineScope) : Table.Pagination<Int>, Cor
 
     override val position: Table.Pagination.Position = Table.Pagination.Position.Top
 
-    override val pages: MutableState<List<Table.Pagination.Page<Int>>> = mutableStateOf(listOf(createPage(0, 1)))
+    override val pages: MutableState<List<Table.Pagination.Page<Int>>> =
+        mutableStateOf(listOf(createPage(0, 1)))
 
     override val numberOfButtons: Int get() = 10
 
