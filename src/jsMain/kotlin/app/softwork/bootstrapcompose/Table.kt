@@ -37,11 +37,11 @@ public object Table {
         var content: ContentBuilder<HTMLTableCellElement>? = null
     ) {
         public constructor(
-            color: Color? = null,
+            color: Color,
         ) : this(attrs = { classes("table-$color") })
 
         public constructor(
-            color: Color? = null,
+            color: Color,
             content: ContentBuilder<HTMLTableCellElement>? = null
         ) : this(attrs = { classes("table-$color") }, content)
     }
@@ -88,11 +88,12 @@ public object Table {
         }
     }
 
-    public class FixedHeaderProperty(
-        public val size: CSSLengthOrPercentageValue,
-        //This can conflict with Header.color, and if color classes are applied with Header, this will take precedence and force White
-        //public val background: Color = Color.White
-    )
+    public class FixedHeaderProperty(public val style: StyleBuilder.() -> Unit) {
+        public constructor(topSize: CSSLengthOrPercentageValue, zIndex: ZIndex) : this({
+                top(topSize)
+                property("z-index", zIndex.unsafeCast<String>())
+            })
+        }
 
     public interface Pagination<T> {
         public enum class Position {
@@ -364,8 +365,7 @@ public fun <T> Table(
                         if (fixedHeader != null) {
                             classes("sticky-top")
                             style {
-                                top(fixedHeader.size)
-                                property("z-index", "auto")
+                                fixedHeader.style(this)
                             }
                         }
                     }) {
