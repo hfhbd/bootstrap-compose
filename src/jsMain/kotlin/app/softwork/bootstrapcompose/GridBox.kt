@@ -94,7 +94,7 @@ public class GridLayout {
         Style {
             val classname = remember { "_${UUID()}" }
 
-            CSSSelector.CSSClass(classname) style {
+            className(classname) style {
                 gap?.let {
                     property("gap", gap.toString())
                 }
@@ -197,7 +197,7 @@ public class GridTemplateTrack internal constructor(
         val classname = remember { "_${UUID()}" }
 
         withBreakpoint(breakpoint) {
-            CSSSelector.CSSClass(classname) style {
+            className(classname) style {
                 val propValue = items.joinToString(separator = " ")
                 val propName = when {
                     auto && type == ColumnOrRow.Column -> "grid-auto-columns"
@@ -481,7 +481,7 @@ public class GridArea internal constructor(private val breakpoint: Breakpoint?) 
         val classname = remember { "_${UUID()}" }
 
         withBreakpoint(breakpoint) {
-            CSSSelector.CSSClass(classname) style {
+            className(classname) style {
                 property("grid-template-areas", rows.joinToString(separator = " ") {
                     it.joinToString(separator = " ", prefix = "\"", postfix = "\"")
                 })
@@ -619,7 +619,7 @@ public class GridItemArea(private val breakpoint: Breakpoint? = null, private va
         val classname = remember { "_${UUID()}" }
 
         withBreakpoint(breakpoint) {
-            CSSSelector.CSSClass(classname) style {
+            className(classname) style {
                 if (name != null) {
                     property("grid-area", name)
                 } else {
@@ -744,7 +744,7 @@ public class PlacementSpec(private val breakpoint: Breakpoint? = null) {
         val classname = remember { "_${UUID()}" }
 
         withBreakpoint(breakpoint) {
-            CSSSelector.CSSClass(classname) style {
+            className(classname) style {
                 property("place-self", block.toString() + (inline?.let { " $it" } ?: ""))
             }
         }
