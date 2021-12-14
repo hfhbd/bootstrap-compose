@@ -6,18 +6,12 @@ import org.jetbrains.compose.web.css.selectors.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
-public interface AlertScope : ElementScope<HTMLDivElement>
-
-private fun AlertScope(scope: ElementScope<HTMLDivElement>) =
-    object : AlertScope, ElementScope<HTMLDivElement> by scope {
-    }
-
 @Composable
 public fun Alert(
     color: Color,
     styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
-    content: @Composable AlertScope.() -> Unit
+    content: @Composable () -> Unit
 ) {
     val classes = styling?.let {
         Styling().apply(it).generate()
@@ -28,12 +22,12 @@ public fun Alert(
         attr("role", "alert")
         attrs?.invoke(this)
     }) {
-        AlertScope(this).content()
+        content()
     }
 }
 
 @Composable
-public fun AlertScope.Link(
+public fun Link(
     href: String?,
     styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLAnchorElement>? = null,
@@ -50,7 +44,7 @@ public fun AlertScope.Link(
 }
 
 @Composable
-public fun AlertScope.CloseButton(onClose: () -> Unit) {
+public fun CloseButton(onClose: () -> Unit) {
     Button({
         type(ButtonType.Button)
         classes("btn-close")
