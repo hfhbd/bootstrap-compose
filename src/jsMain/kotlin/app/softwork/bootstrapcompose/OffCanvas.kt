@@ -8,29 +8,39 @@ import org.w3c.dom.*
 /**
  * State for [Offcanvas] composable component. Provides functions to call
  * into Bootstrap's Javascript to show/hide the Offcanvas element.
+ *
+ * @param confirmStateChange Optional callback invoked to signal a state change.
  */
-public class OffcanvasState {
+public class OffcanvasState(public val confirmStateChange: (Boolean) -> Unit = {}) {
     internal var bsOffcanvas: Offcanvas? = null
+    private var _visible by mutableStateOf(false)
+
+    /**
+     * The current visibility state.
+     */
+    public val visible: Boolean
+        get() {
+            return _visible
+        }
 
     /**
      * Shows the Offcanvas component.
      */
     public fun show() {
-        bsOffcanvas?.apply {
-            show()
-        }
+        _visible = true
+        confirmStateChange(_visible)
+        bsOffcanvas?.apply { show() }
     }
 
     /**
      * Hides the Offcanvas component.
      */
     public fun hide() {
-        bsOffcanvas?.apply {
-            hide()
-        }
+        _visible = false
+        confirmStateChange(_visible)
+        bsOffcanvas?.apply { hide() }
     }
 }
-
 
 /**
  * Creates an Offcanvas component.
@@ -57,6 +67,24 @@ public fun Offcanvas(
     }) {
         DisposableRefEffect { htmlDivElement ->
             offcanvasState.bsOffcanvas = Offcanvas(htmlDivElement)
+
+            // synchronize state with the offcanvas visibility
+            htmlDivElement.addEventListener("hidden.bs.offcanvas", callback = {
+                offcanvasState.hide()
+            })
+            htmlDivElement.addEventListener("shown.bs.offcanvas", callback = {
+                offcanvasState.show()
+            })
+
+            // Set initial state
+            offcanvasState.bsOffcanvas?.apply {
+                if (offcanvasState.visible) {
+                    show()
+                } else {
+                    hide()
+                }
+            }
+
             onDispose {
                 offcanvasState.bsOffcanvas?.hide()
                 offcanvasState.bsOffcanvas = null
