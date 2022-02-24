@@ -17,7 +17,7 @@ public fun Checkbox(
     inline: Boolean = false,
     switch: Boolean = false,
     styling: (Styling.() -> Unit)? = null,
-    attrs: (InputAttrsBuilder<Boolean>.() -> Unit)? = null,
+    attrs: (InputAttrsScope<Boolean>.() -> Unit)? = null,
     onClick: (Boolean) -> Unit
 ) {
     val classes = styling?.let {

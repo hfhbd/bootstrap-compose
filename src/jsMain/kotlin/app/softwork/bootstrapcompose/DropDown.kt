@@ -57,6 +57,7 @@ public object DropDown {
         public object End : MenuAlignment("dropdown-menu", "dropdown-menu-end")
         public class StartThenEndAtBreakpoint(breakpoint: Breakpoint) :
             MenuAlignment("dropdown-menu", "dropdown-menu-$breakpoint-end")
+
         public class EndThenStartAtBreakpoint(breakpoint: Breakpoint) :
             MenuAlignment("dropdown-menu", "dropdown-menu-end", "dropdown-menu-$breakpoint-start")
     }
@@ -119,9 +120,10 @@ public fun NavbarDropDown(
     DropDownBase(trigger, id, styling, direction, menuAlignment, block)
 }
 
-private fun <T: Element> AttrsBuilder<T>.responsiveAlignmentAttribute(menuAlignment: DropDown.MenuAlignment){
-    if(menuAlignment is DropDown.MenuAlignment.EndThenStartAtBreakpoint ||
-        menuAlignment is DropDown.MenuAlignment.StartThenEndAtBreakpoint){
+private fun <T : Element> AttrsScope<T>.responsiveAlignmentAttribute(menuAlignment: DropDown.MenuAlignment) {
+    if (menuAlignment is DropDown.MenuAlignment.EndThenStartAtBreakpoint ||
+        menuAlignment is DropDown.MenuAlignment.StartThenEndAtBreakpoint
+    ) {
         attr("data-bs-display", "static")
     }
 }

@@ -49,7 +49,7 @@ public fun NumberedListGroup(
     )
 }
 
-private fun <T : HTMLElement> AttrsBuilder<T>.ListGroupAttrs(
+private fun <T : HTMLElement> AttrsScope<T>.ListGroupAttrs(
     flush: Boolean = false,
     numbered: Boolean = false,
     listGroupDirection: ListGroupDirection = ListGroupDirection.Vertical,
@@ -149,7 +149,7 @@ public fun ButtonListItem(
     }, content = content)
 }
 
-private fun <T : HTMLElement> AttrsBuilder<T>.ListItemAttrs(
+private fun <T : HTMLElement> AttrsScope<T>.ListItemAttrs(
     active: Boolean = false,
     disabled: Boolean = false,
     actionable: Boolean = false,

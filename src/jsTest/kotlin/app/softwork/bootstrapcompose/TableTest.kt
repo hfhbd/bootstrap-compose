@@ -62,7 +62,7 @@ class TableTest {
         composition {
             Button(title = "a") { }
         }
-        assertEquals("""<button type="submit" class="btn btn-primary">a</button>""", root.innerHTML)
+        assertEquals("""<button class="btn btn-primary" type="submit">a</button>""", root.innerHTML)
     }
 
     @Test
@@ -109,7 +109,7 @@ class TableTest {
         }
 
         assertEquals(
-            expected = """<table class="table"><thead><tr><th scope="col"><div class="row"><div class="col">Title</div><div class="col col-auto"><button type="submit" class="btn btn-primary">Text</button></div></div></th><th scope="col">empty</th></tr></thead><tbody><tr><td>Foo</td><td></td></tr><tr><td>Bar</td><td></td></tr></tbody></table>""",
+            expected = """<table class="table"><thead><tr><th scope="col"><div class="row"><div class="col">Title</div><div class="col col-auto"><button class="btn btn-primary" type="submit">Text</button></div></div></th><th scope="col">empty</th></tr></thead><tbody><tr><td>Foo</td><td></td></tr><tr><td>Bar</td><td></td></tr></tbody></table>""",
             actual = root.innerHTML
         )
     }

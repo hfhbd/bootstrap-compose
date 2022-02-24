@@ -17,7 +17,7 @@ public fun <T> Input(
     autocomplete: AutoComplete = AutoComplete.off,
     labelClasses: String = "form-label",
     inputClasses: String = "form-control",
-    attrs: (InputAttrsBuilder<T>.() -> Unit)? = null,
+    attrs: (InputAttrsScope<T>.() -> Unit)? = null,
     onInput: (SyntheticInputEvent<T, HTMLInputElement>) -> Unit
 ) {
     Label(forId = null, attrs = {

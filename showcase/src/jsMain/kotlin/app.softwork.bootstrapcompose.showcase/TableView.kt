@@ -9,6 +9,7 @@ import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import kotlin.math.*
 import kotlin.time.*
+import kotlin.time.Duration.Companion.milliseconds
 
 
 data class Todo(val title: String, val finished: Boolean)
@@ -131,7 +132,6 @@ private class CalcPagination(scope: CoroutineScope) : Table.Pagination<Int>, Cor
         }, size
     )
 
-    @OptIn(ExperimentalTime::class)
     suspend fun createPages(size: Int): List<Table.Pagination.Page<Int>> {
         delay(500.milliseconds)
         return List(size + 1) { index ->

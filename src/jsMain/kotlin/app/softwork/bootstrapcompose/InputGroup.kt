@@ -33,11 +33,11 @@ public fun InputGroup(
 
 
 public class InputGroupContext(private val inputId: String) {
-    private fun <K> InputAttrsBuilder<K>.buildInputAttrs(
+    private fun <K> InputAttrsScope<K>.buildInputAttrs(
         disabled: Boolean = false,
         autocomplete: AutoComplete = AutoComplete.off,
         classes: Array<String>,
-        attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
+        attrs: (InputAttrsScope<K>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit
     ) {
         classes(BSClasses.formControl)
@@ -59,7 +59,7 @@ public class InputGroupContext(private val inputId: String) {
         type: InputType<K>,
         autocomplete: AutoComplete = AutoComplete.off,
         styling: (Styling.() -> Unit)? = null,
-        attrs: (InputAttrsBuilder<K>.() -> Unit)? = null,
+        attrs: (InputAttrsScope<K>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -79,7 +79,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -98,7 +98,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -117,7 +117,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -136,7 +136,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -153,7 +153,7 @@ public class InputGroupContext(private val inputId: String) {
     public fun HiddenInput(
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -172,7 +172,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -193,7 +193,7 @@ public class InputGroupContext(private val inputId: String) {
         max: Number? = null,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrsBuilder: (InputAttrsBuilder<Number?>.() -> Unit)? = null,
+        attrsBuilder: (InputAttrsScope<Number?>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<Number?, HTMLInputElement>) -> Unit
     ) {
         val classes = styling?.let {
@@ -212,7 +212,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -231,7 +231,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -250,7 +250,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrsBuilder: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -269,7 +269,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrs: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -320,7 +320,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrs: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -339,7 +339,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrs: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {
@@ -358,7 +358,7 @@ public class InputGroupContext(private val inputId: String) {
         autocomplete: AutoComplete = AutoComplete.off,
         disabled: Boolean = false,
         styling: (Styling.() -> Unit)? = null,
-        attrs: (InputAttrsBuilder<String>.() -> Unit)? = null,
+        attrs: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
         val classes = styling?.let {

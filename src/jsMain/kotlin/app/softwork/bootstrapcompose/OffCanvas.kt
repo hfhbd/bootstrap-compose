@@ -65,7 +65,8 @@ public fun Offcanvas(
         classes("offcanvas", placement.toString())
         tabIndex(-1)
     }) {
-        DisposableRefEffect { htmlDivElement ->
+        DisposableEffect(true) {
+            val htmlDivElement = scopeElement
             offcanvasState.bsOffcanvas = Offcanvas(htmlDivElement)
 
             // synchronize state with the offcanvas visibility

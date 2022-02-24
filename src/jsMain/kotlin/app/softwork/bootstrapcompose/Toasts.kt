@@ -7,11 +7,12 @@ import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
 import kotlin.time.*
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 public fun ToastContainer(
     toastContainerState: ToastContainerState,
-    attrs: (AttrsBuilder<HTMLDivElement>.() -> Unit)? = null
+    attrs: (AttrsScope<HTMLDivElement>.() -> Unit)? = null
 ) {
     Div(attrs = {
         classes("toast-container")
@@ -25,7 +26,6 @@ public fun ToastContainer(
     }
 }
 
-@OptIn(ExperimentalTime::class)
 @Composable
 private fun Toast(message: ToastContainerState.ToastItem) {
     Div(
@@ -38,7 +38,8 @@ private fun Toast(message: ToastContainerState.ToastItem) {
             message.toastAttrs?.invoke(this)
         }
     ) {
-        DomSideEffect { htmlDivElement ->
+        DisposableEffect(message) {
+            val htmlDivElement = scopeElement
             val bsToast = Toast(htmlDivElement)
             htmlDivElement.addEventListener("shown.bs.toast", callback = {
             })
@@ -49,6 +50,11 @@ private fun Toast(message: ToastContainerState.ToastItem) {
             onDispose {
                 bsToast.dispose()
                 message.remove()
+                htmlDivElement.removeEventListener("shown.bs.toast", callback = {
+                })
+                htmlDivElement.removeEventListener("hidden.bs.toast", callback = {
+                    message.remove()
+                })
             }
         }
         message.header?.let { header ->
@@ -85,11 +91,14 @@ private fun Toast(message: ToastContainerState.ToastItem) {
 }
 
 @Composable
-private fun DismissButton(styling: (Styling.() -> Unit)? = null, attrs: (AttrsBuilder<HTMLButtonElement>.() -> Unit)? = null) {
+private fun DismissButton(
+    styling: (Styling.() -> Unit)? = null,
+    attrs: (AttrsScope<HTMLButtonElement>.() -> Unit)? = null
+) {
     val style = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
-    Button( attrs = {
+    Button(attrs = {
         type(ButtonType.Button)
         classes("btn-close")
         attr("data-bs-dismiss", "toast")
@@ -99,7 +108,6 @@ private fun DismissButton(styling: (Styling.() -> Unit)? = null, attrs: (AttrsBu
     })
 }
 
-@OptIn(ExperimentalTime::class)
 public class ToastContainerState {
     internal val toasts = mutableStateListOf<ToastItem>()
 
@@ -121,9 +129,9 @@ public class ToastContainerState {
      */
     public fun showToast(
         withDismissButton: Boolean = true,
-        delay: Duration = Duration.seconds(5),
-        toastAttrs: (AttrsBuilder<HTMLDivElement>.() -> Unit)? = null,
-        dismissButtonAttrs: (AttrsBuilder<HTMLButtonElement>.() -> Unit)? = null,
+        delay: Duration = 5.seconds,
+        toastAttrs: (AttrsScope<HTMLDivElement>.() -> Unit)? = null,
+        dismissButtonAttrs: (AttrsScope<HTMLButtonElement>.() -> Unit)? = null,
         header: ContentBuilder<HTMLDivElement>? = null,
         body: ContentBuilder<HTMLDivElement>
     ): () -> Unit {
@@ -153,8 +161,8 @@ public class ToastContainerState {
         val uuid: UUID,
         val delay: Duration,
         val withDismissButton: Boolean,
-        val toastAttrs: (AttrsBuilder<HTMLDivElement>.() -> Unit)?,
-        val dismissButtonAttrs: (AttrsBuilder<HTMLButtonElement>.() -> Unit)?,
+        val toastAttrs: (AttrsScope<HTMLDivElement>.() -> Unit)?,
+        val dismissButtonAttrs: (AttrsScope<HTMLButtonElement>.() -> Unit)?,
         val header: ContentBuilder<HTMLDivElement>?,
         val body: ContentBuilder<HTMLDivElement>?,
         val remove: () -> Unit

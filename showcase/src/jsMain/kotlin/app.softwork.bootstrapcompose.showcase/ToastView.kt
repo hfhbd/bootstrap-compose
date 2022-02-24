@@ -5,8 +5,8 @@ import app.softwork.bootstrapcompose.*
 import kotlinx.coroutines.*
 import org.jetbrains.compose.web.dom.*
 import kotlin.time.*
+import kotlin.time.Duration.Companion.seconds
 
-@OptIn(ExperimentalTime::class)
 @Composable
 fun ToastView() {
     var count: Int by remember { mutableStateOf(0) }
@@ -62,7 +62,7 @@ fun ToastView() {
             All { size = SpacingSpecs.SpacingSize.Small }
         }
     }) {
-        val delay = Duration.seconds(10)
+        val delay = 10.seconds
         count++
         toastContainerState.showToast(
             delay = delay,
@@ -77,8 +77,8 @@ fun ToastView() {
             var remainingDelay by remember { mutableStateOf(delay) }
             LaunchedEffect(delay) {
                 while (true) {
-                    delay(Duration.seconds(1))
-                    remainingDelay -= Duration.seconds(1)
+                    delay(1.seconds)
+                    remainingDelay -= 1.seconds
                 }
             }
             Text("Hello, world! This is a toast message with a remaining delay of $remainingDelay.")

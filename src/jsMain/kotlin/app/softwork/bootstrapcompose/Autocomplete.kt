@@ -22,17 +22,23 @@ private class ReferenceHolder<T>(var ref: T? = null)
  */
 @Composable
 public fun Autocomplete(
-    inputAttrs: InputAttrsBuilder<String>.() -> Unit = {},
+    inputAttrs: InputAttrsScope<String>.() -> Unit = {},
     suggestions: ContentBuilder<HTMLDivElement>? = null
 ) {
     var itemsVisible by remember { mutableStateOf(false) }
     val parentElement = remember { ReferenceHolder<Element>() }
 
-    window.document.addEventListener("mousedown", { event ->
-        if (parentElement.ref?.isChild(event.target) != true) {
-            itemsVisible = false
+    DisposableEffect(true) {
+        val effect: (Event) -> Unit = { event ->
+            if (parentElement.ref?.isChild(event.target) != true) {
+                itemsVisible = false
+            }
         }
-    })
+        window.document.addEventListener("mousedown", effect)
+        onDispose {
+            window.document.removeEventListener("mousedown", effect)
+        }
+    }
 
     Div(
         attrs = {
@@ -41,14 +47,14 @@ public fun Autocomplete(
             }
         })
     {
-        DisposableRefEffect { element ->
-            parentElement.ref = element
+        DisposableEffect(true) {
+            parentElement.ref = scopeElement
             onDispose { parentElement.ref = null }
         }
 
         TextInput(attrs = {
             inputAttrs()
-            onInput { event ->
+            onInput {
                 itemsVisible = true
             }
         })
