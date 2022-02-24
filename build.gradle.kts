@@ -1,3 +1,4 @@
+import org.jetbrains.compose.*
 import java.util.*
 
 plugins {
@@ -12,7 +13,7 @@ group = "app.softwork"
 
 repositories {
     mavenCentral()
-    maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    jetbrainsCompose()
 }
 
 kotlin {

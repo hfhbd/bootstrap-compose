@@ -1,3 +1,5 @@
+import org.jetbrains.compose.*
+
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
@@ -5,7 +7,7 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev")
+    jetbrainsCompose()
 }
 
 kotlin {
@@ -19,6 +21,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(projects.bootstrapCompose)
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0")
             }
         }
     }

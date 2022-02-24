@@ -32,7 +32,8 @@ public fun Modal(
         attr("data-bs-backdrop", "static")
         attr("data-bs-keyboard", "false")
     }) {
-        DomSideEffect { htmlDivElement: HTMLDivElement ->
+        DisposableEffect(true) {
+            val htmlDivElement: HTMLDivElement = scopeElement
             val bsModal = Modal(htmlDivElement)
             htmlDivElement.addEventListener("hidePrevented.bs.modal", callback = { _ ->
                 onDismissRequest()

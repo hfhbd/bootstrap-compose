@@ -88,7 +88,7 @@ public object Table {
         }
     }
 
-    public class FixedHeaderProperty(public val style: StyleBuilder.() -> Unit) {
+    public class FixedHeaderProperty(public val style: StyleScope.() -> Unit) {
         public constructor(topSize: CSSLengthOrPercentageValue, zIndex: ZIndex) : this({
                 top(topSize)
                 property("z-index", zIndex.unsafeCast<String>())
