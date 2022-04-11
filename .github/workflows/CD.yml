@@ -27,7 +27,7 @@ jobs:
           SONARTYPE_APIKEY: ${{ secrets.SONARTYPE_APIKEY }}
           SONARTYPE_APITOKEN: ${{ secrets.SONARTYPE_APITOKEN }}
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           path: showcase/build/distributions
 
