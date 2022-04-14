@@ -33,7 +33,7 @@ kotlin {
         }
         val jsMain by getting {
             dependencies {
-                api("app.softwork:kotlinx-uuid-core:0.0.12")
+                api("app.softwork:kotlinx-uuid-core:0.0.14")
                 api(compose.web.core)
                 api(npm("bootstrap", "5.1.0"))
                 api(npm("@popperjs/core", "2.9.3"))
