@@ -14,6 +14,9 @@ kotlin {
     js(IR) {
         browser {
             binaries.executable()
+            commonWebpackConfig {
+                cssSupport.enabled = true
+            }
         }
     }
 
@@ -21,7 +24,6 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 implementation(projects.bootstrapCompose)
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
             }
         }
     }
