@@ -1,7 +1,7 @@
 import org.jetbrains.compose.*
 
 plugins {
-    kotlin("multiplatform")
+    kotlin("js")
     id("org.jetbrains.compose")
 }
 
@@ -19,12 +19,8 @@ kotlin {
             }
         }
     }
+}
 
-    sourceSets {
-        val jsMain by getting {
-            dependencies {
-                implementation(projects.bootstrapCompose)
-            }
-        }
-    }
+dependencies {
+    implementation(projects.bootstrapCompose)
 }
