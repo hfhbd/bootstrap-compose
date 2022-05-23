@@ -2,7 +2,7 @@ import org.jetbrains.compose.*
 import java.util.*
 
 plugins {
-    kotlin("multiplatform") version "1.6.21"
+    kotlin("js") version "1.6.21"
     id("org.jetbrains.compose") version "1.2.0-alpha01-dev686"
     `maven-publish`
     signing
@@ -27,27 +27,17 @@ kotlin {
     }
 
     explicitApi()
+}
 
-    sourceSets {
-        commonTest {
-            dependencies {
-                implementation(kotlin("test"))
-            }
-        }
-        val jsMain by getting {
-            dependencies {
-                api("app.softwork:kotlinx-uuid-core:0.0.14")
-                api(compose.web.core)
-                api(npm("bootstrap", "5.1.3"))
-                api(npm("@popperjs/core", "2.11.5"))
-            }
-        }
-        val jsTest by getting {
-            dependencies {
-                implementation(compose.web.testUtils)
-            }
-        }
-    }
+dependencies {
+    api("app.softwork:kotlinx-uuid-core:0.0.14")
+    api(compose.web.core)
+    api(npm("bootstrap", "5.1.3"))
+    api(npm("@popperjs/core", "2.11.5"))
+
+    testImplementation(compose.web.testUtils)
+    testImplementation(kotlin("test"))
+
 }
 
 val emptyJar by tasks.registering(Jar::class) {
