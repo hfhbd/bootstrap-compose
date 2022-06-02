@@ -12,9 +12,6 @@ import org.w3c.dom.HTMLButtonElement
 @JsModule("@bootstrap/scss/_buttons.scss")
 private external val Style: dynamic
 
-@JsModule("@bootstrap/js/src/button.js")
-private external val Behaviour: dynamic
-
 @Composable
 public fun Button(
     title: String,
@@ -28,7 +25,6 @@ public fun Button(
     action: () -> Unit
 ) {
     Style
-    Behaviour
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
