@@ -20,9 +20,7 @@ kotlin {
     js(IR) {
         browser {
             binaries.library()
-            commonWebpackConfig {
-                cssSupport.enabled = true
-            }
+            useCommonJs()
         }
     }
 
@@ -35,9 +33,13 @@ dependencies {
     api(npm("bootstrap", "5.1.3"))
     api(npm("@popperjs/core", "2.11.5"))
 
+    implementation(devNpm("style-loader", "^3.3.1"))
+    implementation(devNpm("css-loader", "^6.7.1"))
+    implementation(devNpm("sass-loader", "^13.0.0"))
+    implementation(devNpm("sass", "^1.52.1"))
+
     testImplementation(compose.web.testUtils)
     testImplementation(kotlin("test"))
-
 }
 
 val emptyJar by tasks.registering(Jar::class) {
