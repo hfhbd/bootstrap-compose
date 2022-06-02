@@ -9,6 +9,14 @@ import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.HTMLButtonElement
 
+@JsNonModule
+@JsModule("@bootstrap/scss/_buttons.scss")
+private external val Style: dynamic
+
+@JsNonModule
+@JsModule("@bootstrap/js/src/button.js")
+private external val Behaviour: dynamic
+
 @Composable
 public fun Button(
     title: String,
@@ -21,6 +29,8 @@ public fun Button(
     attrs: AttrBuilderContext<HTMLButtonElement>? = null,
     action: () -> Unit
 ) {
+    Style
+    Behaviour
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
