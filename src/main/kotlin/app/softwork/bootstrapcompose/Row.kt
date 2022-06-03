@@ -10,6 +10,7 @@ public fun Row(
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
+    Style
     val classes = styling?.let {
         RowStyling().apply(it).generate()
     } ?: arrayOf()

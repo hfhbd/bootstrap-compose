@@ -14,6 +14,7 @@ public fun Icon(
     styling: (Styling.() -> Unit)? = null,
     attrsBuilder: AttrBuilderContext<HTMLElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()

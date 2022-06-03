@@ -250,6 +250,7 @@ internal fun tableCalcButtons(index: Int, pages: Int, numberOfButtons: Int): Int
 }
 
 @Composable
+@NonRestartableComposable
 public fun <T> Table(
     data: List<T>,
     key: ((T) -> Any)? = null,
@@ -295,6 +296,7 @@ public fun <T> Table(
     attrs: AttrBuilderContext<HTMLTableElement>? = null,
     map: Table.Builder.(Int, T) -> Unit
 ) {
+    Style
     val headers = mutableMapOf<String, Table.Header>()
     val _footers = mutableListOf<Table.Footer>()
 

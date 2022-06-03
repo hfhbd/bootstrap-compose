@@ -18,6 +18,8 @@ public fun Modal(
     footer: ContentBuilder<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
+    Style
+    needsJS
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()

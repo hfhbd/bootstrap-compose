@@ -74,6 +74,8 @@ public fun DropDown(
     menuAlignment: DropDown.MenuAlignment = DropDown.MenuAlignment.Start,
     block: DropDownBuilder.() -> Unit
 ) {
+    Style
+    needsJS
     val trigger = @Composable { classes: Array<String> ->
         Button(attrs = {
             classes("btn", "btn-$color", "dropdown-toggle")
@@ -101,6 +103,8 @@ public fun NavbarDropDown(
     menuAlignment: DropDown.MenuAlignment = DropDown.MenuAlignment.Start,
     block: DropDownBuilder.() -> Unit
 ) {
+    Style
+    needsJS
     val trigger = @Composable { classes: Array<String> ->
         A(
             attrs = {
@@ -137,6 +141,8 @@ private fun DropDownBase(
     menuAlignment: DropDown.MenuAlignment,
     block: DropDownBuilder.() -> Unit
 ) {
+    Style
+    needsJS
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()

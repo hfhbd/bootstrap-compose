@@ -13,6 +13,7 @@ public fun Card(
     footer: ContentBuilder<HTMLDivElement>? = null,
     body: ContentBuilder<HTMLDivElement>
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()

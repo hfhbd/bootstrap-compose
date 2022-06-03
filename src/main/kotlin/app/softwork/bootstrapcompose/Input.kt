@@ -20,6 +20,7 @@ public fun <T> Input(
     attrs: (InputAttrsScope<T>.() -> Unit)? = null,
     onInput: (SyntheticInputEvent<T, HTMLInputElement>) -> Unit
 ) {
+    Style
     Label(forId = null, attrs = {
         classes(labelClasses)
     }) {

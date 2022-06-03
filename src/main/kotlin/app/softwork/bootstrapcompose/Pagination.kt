@@ -12,6 +12,7 @@ public fun Pagination(
     attrs: AttrBuilderContext<HTMLUListElement>? = null,
     content: @Composable PaginationScope.() -> Unit
 ) {
+    Style
     val style = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
@@ -35,6 +36,7 @@ public enum class PaginationSize(private val classes: String) {
 public class PaginationScope {
     @Composable
     public fun PageItem(active: Boolean = false, disabled: Boolean = false, content: ContentBuilder<HTMLLIElement>) {
+        Style
         Li(attrs = {
             classes("page-item")
             if (active) {
@@ -50,6 +52,7 @@ public class PaginationScope {
 
     @Composable
     public fun PageLink(title: String, onClick: () -> Unit) {
+        Style
         A(attrs = {
             classes("page-link")
             onClick {

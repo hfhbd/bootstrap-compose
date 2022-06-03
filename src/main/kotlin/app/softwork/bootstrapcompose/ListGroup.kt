@@ -14,6 +14,7 @@ public fun ListGroup(
     attrs: AttrBuilderContext<HTMLUListElement>? = null,
     content: ContentBuilder<HTMLUListElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
@@ -35,6 +36,7 @@ public fun NumberedListGroup(
     attrs: AttrBuilderContext<HTMLOListElement>? = null,
     content: ContentBuilder<HTMLOListElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
@@ -70,7 +72,7 @@ private fun <T : HTMLElement> AttrsScope<T>.ListGroupAttrs(
 }
 
 @Composable
-public fun DOMScope<HTMLUListElement>.ListItem(
+public fun ListItem(
     active: Boolean = false,
     disabled: Boolean = false,
     background: Color? = null,
@@ -78,25 +80,7 @@ public fun DOMScope<HTMLUListElement>.ListItem(
     attrs: AttrBuilderContext<HTMLLIElement>? = null,
     content: ContentBuilder<HTMLLIElement>? = null
 ) {
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    } ?: arrayOf()
-
-    Li(attrs = {
-        ListItemAttrs(active, disabled, false, background, attrs)
-        classes(*classes)
-    }, content = content)
-}
-
-@Composable
-public fun DOMScope<HTMLOListElement>.ListItem(
-    active: Boolean = false,
-    disabled: Boolean = false,
-    background: Color? = null,
-    styling: (Styling.() -> Unit)? = null,
-    attrs: AttrBuilderContext<HTMLLIElement>? = null,
-    content: ContentBuilder<HTMLLIElement>? = null
-) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
@@ -117,6 +101,7 @@ public fun AnchorListItem(
     attrs: AttrBuilderContext<HTMLAnchorElement>? = null,
     content: ContentBuilder<HTMLAnchorElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
@@ -139,6 +124,7 @@ public fun ButtonListItem(
     attrs: AttrBuilderContext<HTMLButtonElement>? = null,
     content: ContentBuilder<HTMLButtonElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()

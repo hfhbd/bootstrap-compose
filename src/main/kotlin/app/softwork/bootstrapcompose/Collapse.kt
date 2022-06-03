@@ -13,6 +13,7 @@ public fun Collapse(
     contentAttrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
+    Style
     Button(attrs = {
         classes("btn", "btn-$color")
         attr("data-bs-toggle", "collapse")

@@ -9,9 +9,6 @@ import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.HTMLButtonElement
 
-@JsModule("bootstrap/scss/bootstrap.scss")
-private external val Style: dynamic
-
 @Composable
 public fun Button(
     title: String,

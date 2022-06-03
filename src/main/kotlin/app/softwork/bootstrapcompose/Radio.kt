@@ -25,6 +25,7 @@ public class RadioGroupScope(private val name: String) {
     ) {
         val id = remember { "_${UUID()}" }
 
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()

@@ -61,6 +61,7 @@ public fun Autocomplete(
 
         Div(
             attrs = {
+                Style
                 classes("dropdown-menu")
                 if (itemsVisible) {
                     classes("d-block")

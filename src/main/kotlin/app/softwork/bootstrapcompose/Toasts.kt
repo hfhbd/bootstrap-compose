@@ -28,6 +28,7 @@ public fun ToastContainer(
 
 @Composable
 private fun Toast(message: ToastContainerState.ToastItem) {
+    Style
     Div(
         attrs = {
             classes("toast")
