@@ -4,6 +4,7 @@ import androidx.compose.runtime.*
 import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
 
