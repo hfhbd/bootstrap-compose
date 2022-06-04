@@ -5,7 +5,6 @@ import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
-
 @Composable
 public fun ListGroup(
     flush: Boolean = false,
@@ -40,7 +39,6 @@ public fun NumberedListGroup(
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
-
 
     Ol(
         attrs = {

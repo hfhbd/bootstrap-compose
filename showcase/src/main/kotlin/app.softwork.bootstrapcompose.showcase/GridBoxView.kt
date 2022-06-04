@@ -3,7 +3,7 @@ package app.softwork.bootstrapcompose.showcase
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
 import app.softwork.bootstrapcompose.Color
-import app.softwork.bootstrapcompose.Layout.Width
+import app.softwork.bootstrapcompose.Layout.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 
@@ -20,42 +20,43 @@ fun GridBoxView() {
 
 @Composable
 private fun example1() {
-    GridBox(styling = {
-        Layout {
-            width = Width.Full
-        }
-        GridLayout {
-            columns {
-                trackList {
-                    track(25.fr)
-                    track(50.fr)
-                    track(25.fr)
+    GridBox(
+        styling = {
+            Layout {
+                width = Width.Full
+            }
+            GridLayout {
+                columns {
+                    trackList {
+                        track(25.fr)
+                        track(50.fr)
+                        track(25.fr)
+                    }
+                    gap = 5.px
+                    alignment = GridTemplateTrack.Alignment.End
                 }
-                gap = 5.px
-                alignment = GridTemplateTrack.Alignment.End
-            }
 
-            rows {
-                trackList {
-                    track(Grid.Auto)
+                rows {
+                    trackList {
+                        track(Grid.Auto)
+                    }
+                    gap = 10.px
+                    alignment = GridTemplateTrack.Alignment.Center
                 }
-                gap = 10.px
-                alignment = GridTemplateTrack.Alignment.Center
-            }
 
-            //Example to show how the layout can be changed at different breakpoints
-            areas {
-                row("A", "A", "A")
-                row("B", "B", "B")
-                row("C", "C", "C")
-            }
-            areas(Breakpoint.Large) {
-                row("A", "A", "A")
-                row("B", "C", "C")
-                row("B", "C", "C")
+                // Example to show how the layout can be changed at different breakpoints
+                areas {
+                    row("A", "A", "A")
+                    row("B", "B", "B")
+                    row("C", "C", "C")
+                }
+                areas(Breakpoint.Large) {
+                    row("A", "A", "A")
+                    row("B", "C", "C")
+                    row("B", "C", "C")
+                }
             }
         }
-    }
     ) {
         Box({
             Background {

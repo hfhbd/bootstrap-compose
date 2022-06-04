@@ -7,37 +7,57 @@ import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
 
-public class DropDownBuilder {
-    public sealed class Content {
-        public data class Button(val title: String, val styling: (Styling.() -> Unit)?, val onClick: () -> Unit) :
-            Content()
-
-        public data class Header(val title: String, val styling: (Styling.() -> Unit)?) : Content()
-        public class Custom(public val content: ContentBuilder<HTMLLIElement>) : Content()
-
-        public data class Divider(val styling: (Styling.() -> Unit)?) : Content()
-    }
-
-    private val content = mutableListOf<Content>()
-
+public interface DropDownBuilder : ElementScope<HTMLUListElement> {
+    @Composable
     public fun Button(title: String, styling: (Styling.() -> Unit)? = null, onClick: () -> Unit) {
-        content.add(Content.Button(title, styling, onClick))
+        Li {
+            val buttonClasses = styling?.let {
+                Styling().apply(it).generate()
+            } ?: arrayOf()
+            Button({
+                classes("dropdown-item")
+                classes(*buttonClasses)
+                onClick { onClick() }
+            }) {
+                Text(title)
+            }
+        }
     }
 
+    @Composable
     public fun Divider(styling: (Styling.() -> Unit)? = null) {
-        content.add(Content.Divider(styling))
+        Li {
+            val buttonClasses = styling?.let {
+                Styling().apply(it).generate()
+            } ?: arrayOf()
+            Hr {
+                classes("dropdown-divider")
+                classes(*buttonClasses)
+            }
+        }
     }
 
+    @Composable
     public fun Header(title: String, styling: (Styling.() -> Unit)? = null) {
-        content.add(Content.Header(title, styling))
+        Li {
+            val buttonClasses = styling?.let {
+                Styling().apply(it).generate()
+            } ?: arrayOf()
+            H6({
+                classes("dropdown-header")
+                classes(*buttonClasses)
+            }) {
+                Text(title)
+            }
+        }
     }
 
-
+    @Composable
     public fun Custom(block: ContentBuilder<HTMLLIElement>) {
-        content.add(Content.Custom(block))
+        Li {
+            block()
+        }
     }
-
-    internal fun build(): List<Content> = content
 }
 
 public object DropDown {
@@ -72,10 +92,11 @@ public fun DropDown(
     styling: (Styling.() -> Unit)? = null,
     direction: DropDown.Direction = DropDown.Direction.Down,
     menuAlignment: DropDown.MenuAlignment = DropDown.MenuAlignment.Start,
-    block: DropDownBuilder.() -> Unit
+    block: @Composable DropDownBuilder.() -> Unit
 ) {
     Style
     needsJS
+    needsPopper
     val trigger = @Composable { classes: Array<String> ->
         Button(attrs = {
             classes("btn", "btn-$color", "dropdown-toggle")
@@ -101,7 +122,7 @@ public fun NavbarDropDown(
     styling: (Styling.() -> Unit)? = null,
     direction: DropDown.Direction = DropDown.Direction.Down,
     menuAlignment: DropDown.MenuAlignment = DropDown.MenuAlignment.Start,
-    block: DropDownBuilder.() -> Unit
+    block: @Composable DropDownBuilder.() -> Unit
 ) {
     Style
     needsJS
@@ -139,7 +160,7 @@ private fun DropDownBase(
     styling: (Styling.() -> Unit)? = null,
     direction: DropDown.Direction,
     menuAlignment: DropDown.MenuAlignment,
-    block: DropDownBuilder.() -> Unit
+    block: @Composable DropDownBuilder.() -> Unit
 ) {
     Style
     needsJS
@@ -148,9 +169,6 @@ private fun DropDownBase(
     } ?: arrayOf()
 
     Div({ classes("btn-group", direction.toString()) }) {
-        val buttons = DropDownBuilder().apply {
-            block()
-        }.build()
 
         triggerElement(classes)
 
@@ -158,48 +176,10 @@ private fun DropDownBase(
             classes(*menuAlignment.classes)
             attr("aria-labelledby", id)
         }) {
-
-            for (button in buttons) {
-                Li {
-                    when (button) {
-                        is DropDownBuilder.Content.Button -> {
-                            val buttonClasses = button.styling?.let {
-                                Styling().apply(it).generate()
-                            } ?: arrayOf()
-                            Button({
-                                classes("dropdown-item")
-                                classes(*buttonClasses)
-                                onClick { button.onClick() }
-                            }) {
-                                Text(button.title)
-                            }
-                        }
-                        is DropDownBuilder.Content.Divider -> {
-                            val buttonClasses = button.styling?.let {
-                                Styling().apply(it).generate()
-                            } ?: arrayOf()
-                            Hr {
-                                classes("dropdown-divider")
-                                classes(*buttonClasses)
-                            }
-                        }
-                        is DropDownBuilder.Content.Header -> {
-                            val buttonClasses = button.styling?.let {
-                                Styling().apply(it).generate()
-                            } ?: arrayOf()
-                            H6({
-                                classes("dropdown-header")
-                                classes(*buttonClasses)
-                            }) {
-                                Text(button.title)
-                            }
-                        }
-                        is DropDownBuilder.Content.Custom -> {
-                            button.content(this)
-                        }
-                    }
-                }
-            }
+            DropDownImpl(this).block()
         }
     }
 }
+
+private class DropDownImpl(scope: ElementScope<HTMLUListElement>) :
+    DropDownBuilder, ElementScope<HTMLUListElement> by scope

@@ -37,8 +37,8 @@ public fun Navbar(
     Nav(attrs = {
         classes(
             BSClasses.navbar,
-            "navbar-${colorScheme}",
-            "bg-${backgroundColor}"
+            "navbar-$colorScheme",
+            "bg-$backgroundColor"
         )
         when (placement) {
             NavbarPlacement.Default -> {
@@ -53,7 +53,7 @@ public fun Navbar(
             is NavbarCollapseBehavior.Never -> classes("navbar-expand")
             is NavbarCollapseBehavior.AtBreakpoint -> classes("navbar-expand-${collapseBehavior.breakpoint}")
             is NavbarCollapseBehavior.Always -> {
-            } //No class needed for "Always" behavior
+            } // No class needed for "Always" behavior
         }
         attr("role", "navigation")
         attrs?.invoke(this)
@@ -136,7 +136,6 @@ public fun Navbar(
     }
 }
 
-
 /**
  * Bootstrap navbar-collapse component to be used with the NavbarToggler.
  * @param id The element id. This value should also be used as the target parameter with a NavbarToggler.
@@ -169,7 +168,6 @@ public fun NavbarNav(
         attrs?.invoke(this)
     }, content = links)
 }
-
 
 /**
  * Bootstrap nav-link component.

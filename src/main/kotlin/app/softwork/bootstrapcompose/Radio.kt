@@ -12,7 +12,6 @@ public fun RadioGroup(content: @Composable RadioGroupScope.() -> Unit) {
     context.content()
 }
 
-
 public class RadioGroupScope(private val name: String) {
     @Composable
     public fun Radio(

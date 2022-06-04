@@ -2,9 +2,9 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
+import app.softwork.bootstrapcompose.GridLayout.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
-import app.softwork.bootstrapcompose.GridLayout.Placement
 
 @Composable
 fun OffcanvasView() {
@@ -22,7 +22,6 @@ fun OffcanvasView() {
             }
             alignContent = Placement.Start
             justifyContent = Placement.Start
-
         }
     }) {
         OffcanvasView(OffcanvasPlacement.START, "Offcanvas start")
@@ -40,13 +39,15 @@ private fun OffcanvasView(placement: OffcanvasPlacement, label: String) {
         offcanvasState.show()
     }
 
-    Offcanvas(placement,
+    Offcanvas(
+        placement,
         offcanvasState,
         headerContent = {
             H5 {
                 Text(label)
             }
-        }) {
+        }
+    ) {
         Text("...")
     }
 }

@@ -252,7 +252,6 @@ public open class TrackListUnits {
     }
 }
 
-
 public class TrackList internal constructor() : TrackListUnits() {
     internal val items: MutableList<Grid.TrackListItem> = mutableListOf()
 
@@ -406,7 +405,6 @@ public object Grid {
      */
     public interface AutoTrackListItem : GridTemplateItem
 
-
     // Marker interfaces for items that can be used as a <track-size>
     public interface TrackSizeItem : TrackListItem, TrackRepeatItem
     public interface TrackBreadthItem : TrackSizeItem
@@ -425,8 +423,8 @@ public object Grid {
         }
     }
 
-    public class LineNames(private vararg val names: String) : TrackListItem,
-        AutoTrackListItem, TrackRepeatItem, FixedRepeatItem {
+    public class LineNames(private vararg val names: String) :
+        TrackListItem, AutoTrackListItem, TrackRepeatItem, FixedRepeatItem {
         override fun toString(): String {
             return names.joinToString(prefix = "[", postfix = "]", separator = " ")
         }
@@ -438,8 +436,8 @@ public object Grid {
         }
     }
 
-    public class LengthPercentage(private val v: CSSLengthOrPercentageValue) : InflexibleBreadthItem,
-        TrackBreadthItem, FixedBreadthItem {
+    public class LengthPercentage(private val v: CSSLengthOrPercentageValue) :
+        InflexibleBreadthItem, TrackBreadthItem, FixedBreadthItem {
         override fun toString(): String {
             return v.toString()
         }
@@ -483,16 +481,18 @@ public class GridArea internal constructor(private val breakpoint: Breakpoint?) 
 
         withBreakpoint(breakpoint) {
             className(classname) style {
-                property("grid-template-areas", rows.joinToString(separator = " ") {
-                    it.joinToString(separator = " ", prefix = "\"", postfix = "\"")
-                })
+                property(
+                    "grid-template-areas",
+                    rows.joinToString(separator = " ") {
+                        it.joinToString(separator = " ", prefix = "\"", postfix = "\"")
+                    }
+                )
             }
         }
 
         return classname
     }
 }
-
 
 public class GridItemLayout {
     private val areaSpecs: MutableList<GridItemArea> = mutableListOf()

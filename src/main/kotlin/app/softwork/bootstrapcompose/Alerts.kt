@@ -1,7 +1,6 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
@@ -47,16 +46,4 @@ public fun Link(
         classes(*classes)
         attrs?.invoke(this)
     }, content)
-}
-
-@Composable
-public fun CloseButton(onClose: () -> Unit) {
-    Style
-    Button({
-        type(ButtonType.Button)
-        classes("btn-close")
-        onClick {
-            onClose()
-        }
-    })
 }

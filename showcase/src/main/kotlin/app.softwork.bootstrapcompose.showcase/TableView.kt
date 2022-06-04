@@ -11,9 +11,6 @@ import kotlin.math.*
 import kotlin.time.*
 import kotlin.time.Duration.Companion.milliseconds
 
-
-data class Todo(val title: String, val finished: Boolean)
-
 @Composable
 fun TableView() {
     Container {
@@ -72,7 +69,9 @@ fun TableView() {
                     },
                     actionNavigateForward = { currentPage, previousPage ->
                         println("go from ${currentPage.index} to ${previousPage.index}")
-                    }), fixedHeader = Table.FixedHeaderProperty(topSize = 56.px, zIndex = ZIndex(800))
+                    }
+                ),
+                fixedHeader = Table.FixedHeaderProperty(topSize = 56.px, zIndex = ZIndex(800))
             ) { index, todo ->
                 column(
                     "Index",
@@ -121,15 +120,18 @@ fun TableView() {
     }
 }
 
+data class Todo(val title: String, val finished: Boolean)
+
 private class CalcPagination(scope: CoroutineScope) : Table.Pagination<Int>, CoroutineScope by scope {
 
     override val startPageIndex = 0
 
     fun createPage(index: Int, size: Int) = Table.Pagination.Page(
-        index,
-        List(10) {
+        index = index,
+        items = List(10) {
             max(it - 2 + it - 1, 0) * size
-        }, size
+        },
+        numberOfPages = size
     )
 
     suspend fun createPages(size: Int): List<Table.Pagination.Page<Int>> {
@@ -138,7 +140,6 @@ private class CalcPagination(scope: CoroutineScope) : Table.Pagination<Int>, Cor
             createPage(index, size + 1)
         }
     }
-
 
     override val position: Table.Pagination.Position = Table.Pagination.Position.Top
 
@@ -164,7 +165,6 @@ private class CalcPagination(scope: CoroutineScope) : Table.Pagination<Int>, Cor
 
     override val control: PageControl<Int> = custom()
 }
-
 
 private fun CalcPagination.custom(): PageControl<Int> = { pages, currentPage, goTo ->
     Pagination(size = PaginationSize.Small) {

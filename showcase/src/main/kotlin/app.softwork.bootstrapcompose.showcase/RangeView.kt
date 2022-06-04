@@ -10,7 +10,8 @@ fun RangeView() {
         var example1 by remember { mutableStateOf(5) }
         val example1Id = "ex1"
         FormLabel(forId = example1Id) { Text("Example range") }
-        Range(value = example1,
+        Range(
+            value = example1,
             id = example1Id,
             onInput = {
                 it.value?.let {

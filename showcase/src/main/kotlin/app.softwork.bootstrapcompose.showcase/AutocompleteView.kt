@@ -68,7 +68,7 @@ private fun autocompleteCitiesCustom() {
     }
 }
 
-private const val SEARCH_RESULT_SIZE = 5
+private const val SearchResults = 5
 
 private fun search(input: String): List<String> {
     var insertionPoint = allCities.binarySearch {
@@ -81,7 +81,7 @@ private fun search(input: String): List<String> {
 
     return allCities.subList(
         insertionPoint.coerceAtMost(allCities.lastIndex),
-        (insertionPoint + SEARCH_RESULT_SIZE).coerceAtMost(allCities.size)
+        (insertionPoint + SearchResults).coerceAtMost(allCities.size)
     )
 }
 

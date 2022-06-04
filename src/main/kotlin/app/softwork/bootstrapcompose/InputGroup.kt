@@ -27,11 +27,11 @@ public fun InputGroup(
                 else -> {
                 }
             }
-        }) {
+        }
+    ) {
         scope.content()
     }
 }
-
 
 public class InputGroupContext(private val inputId: String) {
     private fun <K> InputAttrsScope<K>.buildInputAttrs(
@@ -68,10 +68,12 @@ public class InputGroupContext(private val inputId: String) {
             Styling().apply(it).generate()
         } ?: arrayOf()
 
-        Input(type = type,
+        Input(
+            type = type,
             attrs = {
                 buildInputAttrs(false, autocomplete, classes, attrs, onInput)
-            })
+            }
+        )
     }
 
     @Composable
@@ -479,7 +481,7 @@ public class InputGroupContext(private val inputId: String) {
         color: Color = Color.Primary,
         size: ButtonSize = ButtonSize.Default,
         styling: (Styling.() -> Unit)? = null,
-        block: DropDownBuilder.() -> Unit
+        block: @Composable DropDownBuilder.() -> Unit
     ) {
         Style
         DropDown(title, inputId, size, color, styling, block = block)

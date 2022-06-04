@@ -6,7 +6,6 @@ import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
-
 @Composable
 public fun Select(
     multiple: Boolean = false,
@@ -89,7 +88,6 @@ public class SelectContext {
         )
     }
 }
-
 
 public enum class SelectSize {
     Small,

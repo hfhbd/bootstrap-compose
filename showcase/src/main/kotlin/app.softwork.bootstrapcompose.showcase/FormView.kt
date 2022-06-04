@@ -23,7 +23,8 @@ fun FormView() {
                     Borders { All {} }
                     Margins { All { size = Medium } }
                     Padding { All { size = Small } }
-                }) {
+                }
+            ) {
                 FormOverview()
             }
         }
@@ -34,7 +35,6 @@ fun FormView() {
     Hr()
     HorizontalFormView()
 }
-
 
 @Composable
 private fun FormOverview() {
@@ -288,7 +288,6 @@ private fun CheckoutFormExample() {
     }
 }
 
-
 @Composable
 private fun HorizontalFormView() {
     Card(header = {
@@ -328,7 +327,6 @@ private fun HorizontalFormView() {
         }
     }
 }
-
 
 private enum class PaymentType(val label: String) {
     Credit("Credit card"),

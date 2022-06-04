@@ -30,7 +30,7 @@ public fun <T> Input(
             attrs?.invoke(this)
             classes(inputClasses)
             value(value)
-            if(placeholder != null) {
+            if (placeholder != null) {
                 placeholder(placeholder)
             }
             onInput {

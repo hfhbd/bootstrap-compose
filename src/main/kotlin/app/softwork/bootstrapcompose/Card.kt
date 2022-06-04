@@ -2,7 +2,6 @@ package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
 import org.jetbrains.compose.web.dom.*
-import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
 
 @Composable

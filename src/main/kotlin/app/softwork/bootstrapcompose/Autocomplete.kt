@@ -9,7 +9,6 @@ import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
 import org.w3c.dom.events.*
 
-
 private class ReferenceHolder<T>(var ref: T? = null)
 
 /**
@@ -45,8 +44,8 @@ public fun Autocomplete(
             style {
                 padding(0.px)
             }
-        })
-    {
+        }
+    ) {
         DisposableEffect(true) {
             parentElement.ref = scopeElement
             onDispose { parentElement.ref = null }
