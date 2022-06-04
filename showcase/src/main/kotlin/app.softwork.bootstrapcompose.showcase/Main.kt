@@ -7,41 +7,15 @@ import org.jetbrains.compose.web.dom.*
 
 data class AppState(val activePage: ActivePage)
 
+external fun require(file: String)
+
 fun main() {
+    require("./custom.scss")
     renderComposable(rootElementId = "root") {
         var state by remember { mutableStateOf(AppState(ActivePage.Box)) }
 
-        Navbar(
-            placement = NavbarPlacement.StickyTop,
-            collapseBehavior = NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Large),
-            colorScheme = Color.Dark,
-            toggler = true,
-            togglerPosition = TogglerPosition.Right,
-            brand = {
-                Brand {
-                    Text("bootstrap-compose Showcase")
-                }
-            },
-            navAttrs = { classes("flex-grow-1") }
-        ) {
-            NavbarDropDown(title = state.activePage.displayName, href = "#") {
-                ActivePage.values().forEach {
-                    Button(it.displayName) {
-                        state = state.copy(activePage = it)
-                    }
-                }
-            }
-            NavbarDropDown(title = "Login", href = "#") {
-                Custom {
-                    RawInputView()
-                }
-            }
-            A(href = "https://github.com/hfhbd/bootstrap-compose", attrs = {
-                classes("nav-link", "ms-auto", "link-secondary")
-            }) {
-                Text("View on GitHub ")
-                Icon("github")
-            }
+        Navbar(state) {
+            state = it
         }
 
         Main {
@@ -75,6 +49,42 @@ fun main() {
     }
 }
 
+@Composable
+private fun Navbar(state: AppState, onChange: (AppState) -> Unit) {
+    Navbar(
+        placement = NavbarPlacement.StickyTop,
+        collapseBehavior = NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Large),
+        colorScheme = Color.Dark,
+        toggler = true,
+        togglerPosition = TogglerPosition.Right,
+        brand = {
+            Brand {
+                Text("bootstrap-compose Showcase")
+            }
+        },
+        navAttrs = { classes("flex-grow-1") }
+    ) {
+        NavbarDropDown(title = state.activePage.displayName, href = "#") {
+            ActivePage.values().forEach {
+                Button(it.displayName) {
+                    onChange(state.copy(activePage = it))
+                }
+            }
+        }
+        NavbarDropDown(title = "Login", href = "#") {
+            Custom {
+                RawInputView()
+            }
+        }
+        A(href = "https://github.com/hfhbd/bootstrap-compose", attrs = {
+            classes("nav-link", "ms-auto", "link-secondary")
+        }) {
+            Text("View on GitHub ")
+            Icon("github")
+        }
+    }
+}
+
 enum class ActivePage(val displayName: String) {
     Alert("Alert"),
     Autocomplete("Autocomplete"),
@@ -93,4 +103,3 @@ enum class ActivePage(val displayName: String) {
     Table("Table"),
     Toast("Toasts")
 }
-

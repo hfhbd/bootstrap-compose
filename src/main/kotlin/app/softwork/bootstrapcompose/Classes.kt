@@ -82,7 +82,7 @@ public class DisplayBreakpoint(breakpoint: Breakpoint) {
 }
 
 private fun makeDisplayClass(breakpoint: Breakpoint, value: String): String {
-    return "d-${breakpoint}-$value"
+    return "d-$breakpoint-$value"
 }
 
 private object DisplayValue {

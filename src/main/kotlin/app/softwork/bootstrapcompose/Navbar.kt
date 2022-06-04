@@ -29,6 +29,7 @@ public fun Navbar(
     attrs: AttrBuilderContext<HTMLElement>? = null,
     content: ContentBuilder<HTMLDivElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
@@ -36,8 +37,8 @@ public fun Navbar(
     Nav(attrs = {
         classes(
             BSClasses.navbar,
-            "navbar-${colorScheme}",
-            "bg-${backgroundColor}"
+            "navbar-$colorScheme",
+            "bg-$backgroundColor"
         )
         when (placement) {
             NavbarPlacement.Default -> {
@@ -52,7 +53,7 @@ public fun Navbar(
             is NavbarCollapseBehavior.Never -> classes("navbar-expand")
             is NavbarCollapseBehavior.AtBreakpoint -> classes("navbar-expand-${collapseBehavior.breakpoint}")
             is NavbarCollapseBehavior.Always -> {
-            } //No class needed for "Always" behavior
+            } // No class needed for "Always" behavior
         }
         attr("role", "navigation")
         attrs?.invoke(this)
@@ -135,7 +136,6 @@ public fun Navbar(
     }
 }
 
-
 /**
  * Bootstrap navbar-collapse component to be used with the NavbarToggler.
  * @param id The element id. This value should also be used as the target parameter with a NavbarToggler.
@@ -146,6 +146,7 @@ public fun NavbarCollapse(
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>? = null
 ) {
+    Style
     Div(attrs = {
         classes(BSClasses.collapse, BSClasses.navbarCollapse)
         id(id)
@@ -161,12 +162,12 @@ public fun NavbarNav(
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     links: ContentBuilder<HTMLDivElement>? = null
 ) {
+    Style
     Div(attrs = {
         classes(BSClasses.navbarNav)
         attrs?.invoke(this)
     }, content = links)
 }
-
 
 /**
  * Bootstrap nav-link component.
@@ -179,6 +180,7 @@ public fun NavbarLink(
     link: String? = null,
     content: ContentBuilder<HTMLAnchorElement>? = null
 ) {
+    Style
     A(attrs = {
         classes(BSClasses.navLink)
         if (active) {

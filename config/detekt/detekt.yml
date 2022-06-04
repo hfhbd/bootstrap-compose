@@ -1,0 +1,21 @@
+formatting:
+  NoWildcardImports:
+    active: false
+
+style:
+  WildcardImport:
+    active: false
+
+complexity:
+  LongMethod:
+    active: false
+  LongParameterList:
+    active: false
+
+naming:
+  FunctionNaming:
+    ignoreAnnotated: ['Composable']
+  TopLevelPropertyNaming:
+    constantPattern: '[A-Z][A-Za-z0-9]*'
+  VariableNaming:
+    variablePattern: '[a-zA-Z][A-Za-z0-9]*'

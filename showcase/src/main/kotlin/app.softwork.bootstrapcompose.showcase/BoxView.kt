@@ -19,24 +19,25 @@ fun BoxView() {
     Container {
         Row {
             Column {
-                Box(styling = {
-                    Margins {
-                        Top {
-                            size = Large
+                Box(
+                    styling = {
+                        Margins {
+                            Top {
+                                size = Large
+                            }
+                        }
+                        Borders {
+                            All {
+                                width = Thicker
+                                color = Color.Primary
+                            }
+                            radius(BorderSpec.BorderRadius.Top, BorderSpec.RadiusSize.Large)
+                        }
+                        Text {
+                            align(alignment = Center)
+                            style = Italic
                         }
                     }
-                    Borders {
-                        All {
-                            width = Thicker
-                            color = Color.Primary
-                        }
-                        radius(BorderSpec.BorderRadius.Top, BorderSpec.RadiusSize.Large)
-                    }
-                    Text {
-                        align(alignment = Center)
-                        style = Italic
-                    }
-                }
                 ) {
                     Text("Thick primary color borders with large radius on top corners")
                 }

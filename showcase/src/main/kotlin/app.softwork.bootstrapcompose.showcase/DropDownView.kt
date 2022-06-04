@@ -56,6 +56,7 @@ fun DropDownView() {
     }
 }
 
+@Composable
 private fun DropDownBuilder.items() {
     Button("Menu Item") {}
     Button("Menu Item") {}

@@ -21,6 +21,7 @@ public fun Button(
     attrs: AttrBuilderContext<HTMLButtonElement>? = null,
     action: () -> Unit
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()

@@ -73,7 +73,8 @@ fun ToastView() {
                 Small {
                     Text("11 mins ago")
                 }
-            }) {
+            }
+        ) {
             var remainingDelay by remember { mutableStateOf(delay) }
             LaunchedEffect(delay) {
                 while (true) {

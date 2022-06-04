@@ -1,5 +1,6 @@
 import org.jetbrains.compose.*
 import java.util.*
+import io.gitlab.arturbosch.detekt.*
 
 plugins {
     kotlin("js") version "1.6.21"
@@ -7,6 +8,7 @@ plugins {
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    id("io.gitlab.arturbosch.detekt") version "1.20.0"
 }
 
 group = "app.softwork"
@@ -20,6 +22,7 @@ kotlin {
     js(IR) {
         browser {
             binaries.library()
+            useCommonJs()
             commonWebpackConfig {
                 cssSupport.enabled = true
             }
@@ -35,9 +38,10 @@ dependencies {
     api(npm("bootstrap", "5.1.3"))
     api(npm("@popperjs/core", "2.11.5"))
 
+    implementation(devNpm("sass-loader", "^13.0.0"))
+
     testImplementation(compose.web.testUtils)
     testImplementation(kotlin("test"))
-
 }
 
 val emptyJar by tasks.registering(Jar::class) {
@@ -95,6 +99,36 @@ nexusPublishing {
             password.set(System.getProperty("sonartype.apiToken") ?: System.getenv("SONARTYPE_APITOKEN"))
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
+}
+
+detekt {
+    source = files(rootProject.rootDir)
+    parallel = true
+    buildUponDefaultConfig = true
+}
+
+dependencies {
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.20.0")
+}
+
+tasks {
+    fun SourceTask.config() {
+        include("**/*.kt")
+        exclude("**/*.kts")
+        exclude("**/resources/**")
+        exclude("**/generated/**")
+        exclude("**/build/**")
+    }
+    withType<DetektCreateBaselineTask>().configureEach {
+        config()
+    }
+    withType<Detekt>().configureEach {
+        config()
+
+        reports {
+            sarif.required.set(true)
         }
     }
 }

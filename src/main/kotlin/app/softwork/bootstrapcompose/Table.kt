@@ -9,7 +9,11 @@ import org.w3c.dom.*
 import kotlin.math.*
 
 public typealias CurrentPage<T> = Table.Pagination.Page<T>
-public typealias PageControl<T> = @Composable ElementScope<HTMLDivElement>.(List<Table.Pagination.Page<T>>, CurrentPage<T>, (Int) -> Unit) -> Unit
+public typealias PageControl<T> = @Composable ElementScope<HTMLDivElement>.(
+    List<Table.Pagination.Page<T>>,
+    CurrentPage<T>,
+    (Int) -> Unit
+) -> Unit
 
 public object Table {
     public data class Column(
@@ -90,10 +94,10 @@ public object Table {
 
     public class FixedHeaderProperty(public val style: StyleScope.() -> Unit) {
         public constructor(topSize: CSSLengthOrPercentageValue, zIndex: ZIndex) : this({
-                top(topSize)
-                property("z-index", zIndex.unsafeCast<String>())
-            })
-        }
+            top(topSize)
+            property("z-index", zIndex.unsafeCast<String>())
+        })
+    }
 
     public interface Pagination<T> {
         public enum class Position {
@@ -114,7 +118,6 @@ public object Table {
 
         public val control: PageControl<T>
 
-
         public fun defaultControl(): PageControl<T> = { pages, currentPage, goTo ->
             Column {
                 Pagination(size = PaginationSize.Small) {
@@ -123,7 +126,6 @@ public object Table {
                             val previousIndex = currentPage.index - 1
                             actionNavigateBack?.invoke(currentPage, pages[previousIndex])
                             goTo(previousIndex)
-
                         }
                     }
 
@@ -196,9 +198,11 @@ public object Table {
 
         override val pages: State<List<Pagination.Page<T>>> =
             data.chunked(entriesPerPageLimit?.value ?: data.size).let {
-                mutableStateOf(it.mapIndexed { index, data ->
-                    Pagination.Page(index, data, it.size)
-                })
+                mutableStateOf(
+                    it.mapIndexed { index, data ->
+                        Pagination.Page(index, data, it.size)
+                    }
+                )
             }
 
         override var control: PageControl<T> = defaultControl()
@@ -250,6 +254,7 @@ internal fun tableCalcButtons(index: Int, pages: Int, numberOfButtons: Int): Int
 }
 
 @Composable
+@NonRestartableComposable
 public fun <T> Table(
     data: List<T>,
     key: ((T) -> Any)? = null,
@@ -295,6 +300,7 @@ public fun <T> Table(
     attrs: AttrBuilderContext<HTMLTableElement>? = null,
     map: Table.Builder.(Int, T) -> Unit
 ) {
+    Style
     val headers = mutableMapOf<String, Table.Header>()
     val _footers = mutableListOf<Table.Footer>()
 

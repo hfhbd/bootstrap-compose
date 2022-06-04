@@ -6,7 +6,6 @@ import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
-
 @Composable
 public fun Select(
     multiple: Boolean = false,
@@ -20,6 +19,7 @@ public fun Select(
     onChange: (List<String>) -> Unit,
     content: @Composable SelectContext.() -> Unit
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
@@ -71,6 +71,7 @@ public class SelectContext {
         attrs: AttrBuilderContext<HTMLOptionElement>? = null,
         content: ContentBuilder<HTMLOptionElement>? = null
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -87,7 +88,6 @@ public class SelectContext {
         )
     }
 }
-
 
 public enum class SelectSize {
     Small,

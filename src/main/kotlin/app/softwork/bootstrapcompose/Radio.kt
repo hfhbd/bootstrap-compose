@@ -12,7 +12,6 @@ public fun RadioGroup(content: @Composable RadioGroupScope.() -> Unit) {
     context.content()
 }
 
-
 public class RadioGroupScope(private val name: String) {
     @Composable
     public fun Radio(
@@ -25,6 +24,7 @@ public class RadioGroupScope(private val name: String) {
     ) {
         val id = remember { "_${UUID()}" }
 
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()

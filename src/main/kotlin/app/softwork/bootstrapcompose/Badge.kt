@@ -4,7 +4,6 @@ import androidx.compose.runtime.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
-
 @Composable
 public fun Badge(
     backgroundColor: Color,
@@ -14,6 +13,7 @@ public fun Badge(
     attrs: AttrBuilderContext<HTMLSpanElement>? = null,
     content: ContentBuilder<HTMLSpanElement>
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()

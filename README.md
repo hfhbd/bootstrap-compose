@@ -10,10 +10,19 @@ repositories {
     mavenCentral()
 }
 
+kotlin {
+    js(IR) {
+        browser {
+            binaries.executable()
+            
+            commonWebpackConfig {
+                cssSupport.enabled = true
+            }
+        }
+    }
+}
+
 dependencies {
     implementation("app.softwork:bootstrap-compose:LATEST")
 }
 ````
-
-## Usage
-You still need to implement the Bootstrap css file manually, for example in your `index.html` file.

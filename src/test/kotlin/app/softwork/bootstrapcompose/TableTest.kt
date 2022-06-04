@@ -85,26 +85,26 @@ class TableTest {
         assertEquals("""<input type="text" placeholder="">""", root.innerHTML)
     }
 
-
     @Test
     fun table() = runTest {
         composition {
             Table(listOf("Foo", "Bar")) { _, it ->
-                column("Title", header = Table.Header(attrs = { }) {
-                    Row {
-                        Column {
-                            Text("Title")
-                        }
-                        Column(auto = true) {
-                            Button(title = "Text") { }
+                column(
+                    title = "Title",
+                    header = Table.Header(attrs = { }) {
+                        Row {
+                            Column {
+                                Text("Title")
+                            }
+                            Column(auto = true) {
+                                Button(title = "Text") { }
+                            }
                         }
                     }
-                }) {
+                ) {
                     Text(it)
                 }
-                column("empty") {
-
-                }
+                column("empty") { }
             }
         }
 

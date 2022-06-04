@@ -6,7 +6,6 @@ import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
 
-
 @Composable
 public fun Modal(
     header: String,
@@ -18,6 +17,8 @@ public fun Modal(
     footer: ContentBuilder<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
+    Style
+    needsJS
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()
@@ -67,7 +68,7 @@ public fun Modal(
                     }
                     Button({
                         classes("btn-close")
-                        //attr("data-bs-dismiss", "modal")
+                        // attr("data-bs-dismiss", "modal")
                         attr("aria-label", "Close")
                         onClick {
                             onDismissRequest()

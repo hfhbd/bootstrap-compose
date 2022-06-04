@@ -2,7 +2,7 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
-import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Medium
+import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
@@ -168,7 +168,8 @@ fun ButtonAddOnsView() {
                     "Button",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {}
+                    attrs = { classes("btn-outline-secondary") }
+                ) { }
                 TextInput { }
             }
         }
@@ -180,7 +181,8 @@ fun ButtonAddOnsView() {
                     "Button",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {}
+                    attrs = { classes("btn-outline-secondary") }
+                ) { }
             }
         }
 
@@ -190,12 +192,14 @@ fun ButtonAddOnsView() {
                     "Button",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {}
+                    attrs = { classes("btn-outline-secondary") }
+                ) { }
                 ButtonAddOn(
                     "Button",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {}
+                    attrs = { classes("btn-outline-secondary") }
+                ) { }
                 TextInput { }
             }
         }
@@ -207,12 +211,14 @@ fun ButtonAddOnsView() {
                     "Button",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {}
+                    attrs = { classes("btn-outline-secondary") }
+                ) { }
                 ButtonAddOn(
                     "Button",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {}
+                    attrs = { classes("btn-outline-secondary") }
+                ) { }
             }
         }
     }
@@ -220,6 +226,7 @@ fun ButtonAddOnsView() {
 
 @Composable
 private fun ButtonsWithDropdownsView() {
+    @Composable
     fun DropDownBuilder.makeDropDown() {
         Button("Action") {}
         Button("Another action") {}
@@ -233,7 +240,7 @@ private fun ButtonsWithDropdownsView() {
     }) {
         Box(styling = { Margins { Bottom { size = Medium } } }) {
             InputGroup {
-                //TODO DropDown doesn't support adding btn-outline-secondary class
+                // TODO DropDown doesn't support adding btn-outline-secondary class
                 DropDownAddOn(
                     "Dropdown",
                     color = Color.Light
@@ -278,7 +285,7 @@ private fun ButtonsWithDropdownsView() {
 
 @Composable
 private fun CustomSelectView() {
-    //Creates the select options that are reused in many examples
+    // Creates the select options that are reused in many examples
     @Composable
     fun SelectContext.buildOptions() {
         Option(value = "", selected = true) { Text("Choose...") }
@@ -313,7 +320,8 @@ private fun CustomSelectView() {
                     "Button",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {}
+                    attrs = { classes("btn-outline-secondary") }
+                ) {}
                 SelectInput(false, onChange = { }) {
                     buildOptions()
                 }
@@ -329,7 +337,8 @@ private fun CustomSelectView() {
                     "Button",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {}
+                    attrs = { classes("btn-outline-secondary") }
+                ) {}
             }
         }
     }
@@ -360,7 +369,8 @@ private fun CustomFileInputView() {
                     "Button",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {}
+                    attrs = { classes("btn-outline-secondary") }
+                ) {}
                 FileInput { }
             }
         }
@@ -372,7 +382,8 @@ private fun CustomFileInputView() {
                     "Button",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {}
+                    attrs = { classes("btn-outline-secondary") }
+                ) {}
             }
         }
 
@@ -383,16 +394,15 @@ private fun CustomFileInputView() {
                     hidden()
                     ref {
                         upload = it
-                        onDispose {
-
-                        }
+                        onDispose { }
                     }
                 }
                 ButtonAddOn(
                     "Upload using hidden FileInput",
                     Color.Transparent,
                     ButtonType.Button,
-                    attrs = { classes("btn-outline-secondary") }) {
+                    attrs = { classes("btn-outline-secondary") }
+                ) {
                     upload!!.value = ""
                     upload!!.click()
                 }

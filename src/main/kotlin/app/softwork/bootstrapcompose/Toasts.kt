@@ -28,6 +28,8 @@ public fun ToastContainer(
 
 @Composable
 private fun Toast(message: ToastContainerState.ToastItem) {
+    Style
+    needsJS
     Div(
         attrs = {
             classes("toast")
@@ -121,8 +123,9 @@ public class ToastContainerState {
      * Shows a new Toast.
      * @param header Composable to generate the header content
      * @param body Composable to generate the body content
-     * @param withDismissButton Set to True to show a default dismiss button icon, and false to not. You can also choose to
-     * include your own dismiss button in the [header] or [body] content instead of in addition to the default.
+     * @param withDismissButton Set to True to show a default dismiss button icon, and false to not.
+     * You can also choose to include your own dismiss button in the [header] or [body] content
+     * instead of in addition to the default.
      *
      * @return A function the caller can invoke to dismiss the toast, for example, if you provide your own
      * dismiss button in the header or body.

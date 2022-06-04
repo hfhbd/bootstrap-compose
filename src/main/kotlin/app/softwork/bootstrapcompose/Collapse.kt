@@ -8,11 +8,15 @@ import org.w3c.dom.*
 
 @Composable
 public fun Collapse(
-    title: String, id: String = UUID().toString(), color: Color = Color.Primary,
+    title: String,
+    id: String = UUID().toString(),
+    color: Color = Color.Primary,
     buttonAttrs: AttrBuilderContext<HTMLButtonElement>? = null,
     contentAttrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
+    Style
+    needsJS
     Button(attrs = {
         classes("btn", "btn-$color")
         attr("data-bs-toggle", "collapse")

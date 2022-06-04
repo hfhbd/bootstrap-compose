@@ -38,11 +38,11 @@ public open class Styling {
         }
 
         classes += Margins.generateClassStrings() +
-                Padding.generateClassStrings() +
-                Borders.generateClassStrings() +
-                Background.generateClassStrings() +
-                Text.generateClassStrings() +
-                Layout.generateClassStrings()
+            Padding.generateClassStrings() +
+            Borders.generateClassStrings() +
+            Background.generateClassStrings() +
+            Text.generateClassStrings() +
+            Layout.generateClassStrings()
 
         return classes.toTypedArray()
     }
@@ -55,7 +55,6 @@ public open class Styling {
         generators += block
     }
 }
-
 
 @StylingMarker
 public class SpacingSpecs(private val property: String) {
@@ -103,7 +102,6 @@ public class SpacingSpecs(private val property: String) {
     }
 
     private val _specs: MutableList<SideSpec> = mutableListOf()
-
 
     public operator fun Sides.plus(side: Sides): List<Sides> {
         return listOf(this, side)
@@ -251,7 +249,6 @@ public class BorderSpec {
     }
 }
 
-
 @StylingMarker
 public class Background {
     public var color: Color? = null
@@ -370,8 +367,8 @@ public class Text {
     public data class AlignSpec(private val alignment: Alignment, private var breakpoint: Breakpoint? = null) {
         internal fun className(): String {
             return breakpoint?.let {
-                "text-$it-${alignment}"
-            } ?: "text-${alignment}"
+                "text-$it-$alignment"
+            } ?: "text-$alignment"
         }
     }
 

@@ -61,6 +61,8 @@ public fun Offcanvas(
     showHeaderCloseButton: Boolean = true,
     bodyContent: ContentBuilder<HTMLDivElement>? = null
 ) {
+    Style
+    needsJS
     Div(attrs = {
         classes("offcanvas", placement.toString())
         tabIndex(-1)

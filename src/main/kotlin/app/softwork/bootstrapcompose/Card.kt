@@ -2,7 +2,6 @@ package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
 import org.jetbrains.compose.web.dom.*
-import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
 
 @Composable
@@ -13,6 +12,7 @@ public fun Card(
     footer: ContentBuilder<HTMLDivElement>? = null,
     body: ContentBuilder<HTMLDivElement>
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     } ?: arrayOf()

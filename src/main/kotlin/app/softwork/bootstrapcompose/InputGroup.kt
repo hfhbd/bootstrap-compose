@@ -15,6 +15,7 @@ public fun InputGroup(
     size: InputGroupSize = InputGroupSize.Default,
     content: @Composable InputGroupContext.() -> Unit
 ) {
+    Style
     val scope = InputGroupContext(inputId)
 
     Div(
@@ -26,11 +27,11 @@ public fun InputGroup(
                 else -> {
                 }
             }
-        }) {
+        }
+    ) {
         scope.content()
     }
 }
-
 
 public class InputGroupContext(private val inputId: String) {
     private fun <K> InputAttrsScope<K>.buildInputAttrs(
@@ -62,14 +63,17 @@ public class InputGroupContext(private val inputId: String) {
         attrs: (InputAttrsScope<K>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
 
-        Input(type = type,
+        Input(
+            type = type,
             attrs = {
                 buildInputAttrs(false, autocomplete, classes, attrs, onInput)
-            })
+            }
+        )
     }
 
     @Composable
@@ -82,6 +86,7 @@ public class InputGroupContext(private val inputId: String) {
         attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -101,6 +106,7 @@ public class InputGroupContext(private val inputId: String) {
         attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -120,6 +126,7 @@ public class InputGroupContext(private val inputId: String) {
         attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -139,6 +146,7 @@ public class InputGroupContext(private val inputId: String) {
         attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -156,6 +164,7 @@ public class InputGroupContext(private val inputId: String) {
         attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -175,6 +184,7 @@ public class InputGroupContext(private val inputId: String) {
         attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -196,6 +206,7 @@ public class InputGroupContext(private val inputId: String) {
         attrsBuilder: (InputAttrsScope<Number?>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<Number?, HTMLInputElement>) -> Unit
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -215,6 +226,7 @@ public class InputGroupContext(private val inputId: String) {
         attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -234,6 +246,7 @@ public class InputGroupContext(private val inputId: String) {
         attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -253,6 +266,7 @@ public class InputGroupContext(private val inputId: String) {
         attrsBuilder: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -272,6 +286,7 @@ public class InputGroupContext(private val inputId: String) {
         attrs: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -294,6 +309,7 @@ public class InputGroupContext(private val inputId: String) {
         attrs: AttrBuilderContext<HTMLTextAreaElement>? = null,
         onInput: (SyntheticInputEvent<String, HTMLTextAreaElement>) -> Unit
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -323,6 +339,7 @@ public class InputGroupContext(private val inputId: String) {
         attrs: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -342,6 +359,7 @@ public class InputGroupContext(private val inputId: String) {
         attrs: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -361,6 +379,7 @@ public class InputGroupContext(private val inputId: String) {
         attrs: (InputAttrsScope<String>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<String, HTMLInputElement>) -> Unit,
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -380,6 +399,7 @@ public class InputGroupContext(private val inputId: String) {
         onChange: (List<String>) -> Unit,
         content: @Composable SelectContext.() -> Unit
     ) {
+        Style
         Select(
             disabled = disabled,
             id = inputId,
@@ -400,6 +420,7 @@ public class InputGroupContext(private val inputId: String) {
         styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLSpanElement>? = null
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -424,6 +445,7 @@ public class InputGroupContext(private val inputId: String) {
         styling: (Styling.() -> Unit)? = null,
         attrs: AttrBuilderContext<HTMLLabelElement>? = null
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -449,6 +471,7 @@ public class InputGroupContext(private val inputId: String) {
         attrs: AttrBuilderContext<HTMLButtonElement>? = null,
         action: () -> Unit
     ) {
+        Style
         Button(title, color, size, false, type, disabled, styling, attrs, action)
     }
 
@@ -458,8 +481,9 @@ public class InputGroupContext(private val inputId: String) {
         color: Color = Color.Primary,
         size: ButtonSize = ButtonSize.Default,
         styling: (Styling.() -> Unit)? = null,
-        block: DropDownBuilder.() -> Unit
+        block: @Composable DropDownBuilder.() -> Unit
     ) {
+        Style
         DropDown(title, inputId, size, color, styling, block = block)
     }
 
@@ -470,6 +494,7 @@ public class InputGroupContext(private val inputId: String) {
         attrs: AttrBuilderContext<HTMLDivElement>? = null,
         onClick: (Boolean) -> Unit
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
@@ -495,6 +520,7 @@ public class InputGroupContext(private val inputId: String) {
         attrs: AttrBuilderContext<HTMLDivElement>? = null,
         onClick: (Boolean) -> Unit
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         } ?: arrayOf()
