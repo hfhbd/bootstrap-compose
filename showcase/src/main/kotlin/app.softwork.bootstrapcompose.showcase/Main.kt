@@ -7,8 +7,6 @@ import org.jetbrains.compose.web.dom.*
 
 data class AppState(val activePage: ActivePage)
 
-external fun require(file: String)
-
 fun main() {
     require("./custom.scss")
     renderComposable(rootElementId = "root") {
