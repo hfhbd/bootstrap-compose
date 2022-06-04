@@ -24,6 +24,7 @@ kotlin {
 
 dependencies {
     implementation(projects.bootstrapCompose)
+    implementation(projects.bootstrapCompose.icons)
 
     implementation(devNpm("sass-loader", "^13.0.0"))
     implementation(devNpm("sass", "^1.52.1"))

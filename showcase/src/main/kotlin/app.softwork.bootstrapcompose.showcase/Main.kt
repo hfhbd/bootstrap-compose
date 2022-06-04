@@ -2,6 +2,7 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
+import app.softwork.bootstrapcompose.icons.*
 import org.jetbrains.compose.web.*
 import org.jetbrains.compose.web.dom.*
 
@@ -38,7 +39,7 @@ fun main() {
         }
         Footer(attrs = { classes("footer", "mt-auto") }) {
             Container {
-                Hr()
+                org.jetbrains.compose.web.dom.Hr()
                 P {
                     Text("Some Footer")
                 }
@@ -47,6 +48,7 @@ fun main() {
     }
 }
 
+@OptIn(ExperimentalComposeWebSvgApi::class)
 @Composable
 private fun Navbar(state: AppState, onChange: (AppState) -> Unit) {
     Navbar(
@@ -78,7 +80,7 @@ private fun Navbar(state: AppState, onChange: (AppState) -> Unit) {
             classes("nav-link", "ms-auto", "link-secondary")
         }) {
             Text("View on GitHub ")
-            Icon("github")
+            Github()
         }
     }
 }
