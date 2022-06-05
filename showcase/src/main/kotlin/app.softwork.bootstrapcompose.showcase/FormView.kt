@@ -2,11 +2,9 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
-import app.softwork.bootstrapcompose.Gutters.Direction.HorizontalAndVertical
-import app.softwork.bootstrapcompose.Gutters.Direction.Vertical
-import app.softwork.bootstrapcompose.Gutters.GutterSize
-import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Medium
-import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Small
+import app.softwork.bootstrapcompose.Gutters.*
+import app.softwork.bootstrapcompose.Gutters.Direction.*
+import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.*
 import kotlinx.browser.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
@@ -34,6 +32,44 @@ fun FormView() {
     CheckoutFormExample()
     Hr()
     HorizontalFormView()
+    Hr()
+    FormFloatingExample()
+}
+
+@Composable
+private fun FormFloatingExample() {
+    Container {
+        var email by remember { mutableStateOf("") }
+        var password by remember { mutableStateOf("") }
+        FormFloating({
+            Margins { Bottom { size = Medium } }
+        }) {
+            EmailInput(value = email) {
+                classes("form-control")
+                id("floatingInput")
+                placeholder("name@example.com")
+                onInput {
+                    email = it.value
+                }
+            }
+            Label("floatingInput") {
+                Text("Email address")
+            }
+        }
+        FormFloating {
+            PasswordInput(value = password) {
+                classes("form-control")
+                id("floatingPassword")
+                placeholder("Password")
+                onInput {
+                    password = it.value
+                }
+            }
+            Label(forId = "floatingPassword") {
+                Text("Password")
+            }
+        }
+    }
 }
 
 @Composable
