@@ -25,7 +25,7 @@ public fun Modal(
 
     Div({
         classes("modal")
-        classes(*classes)
+        classes(classes = classes)
         id("_$id")
         tabIndex(-1)
         attr("aria-labelledby", "label$id")
@@ -57,7 +57,7 @@ public fun Modal(
         }) {
             Div({
                 classes("modal-content")
-                classes(*classes)
+                classes(classes = classes)
             }) {
                 Div({ classes("modal-header") }) {
                     H5({

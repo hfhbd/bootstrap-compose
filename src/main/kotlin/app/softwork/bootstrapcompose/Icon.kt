@@ -21,7 +21,7 @@ public fun Icon(
 
     I({
         classes("bi", "bi-$iconName")
-        classes(*classes)
+        classes(classes = classes)
         attrsBuilder?.invoke(this)
     })
 }

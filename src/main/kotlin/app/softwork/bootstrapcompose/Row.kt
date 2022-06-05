@@ -17,7 +17,7 @@ public fun Row(
 
     Div(attrs = {
         classes("row")
-        classes(*classes)
+        classes(classes = classes)
         attrs?.invoke(this)
     }, content = content)
 }

@@ -27,7 +27,7 @@ public fun Checkbox(
 
     Div({
         classes(BSClasses.formCheck)
-        classes(*classes)
+        classes(classes = classes)
         if (inline) {
             classes(BSClasses.formCheckInline)
         }

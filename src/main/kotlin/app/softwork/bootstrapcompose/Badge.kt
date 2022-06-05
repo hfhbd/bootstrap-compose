@@ -26,7 +26,7 @@ public fun Badge(
         if (round) {
             classes("rounded-pill")
         }
-        classes(*classes)
+        classes(classes = classes)
         attrs?.invoke(this)
     }, content)
 }

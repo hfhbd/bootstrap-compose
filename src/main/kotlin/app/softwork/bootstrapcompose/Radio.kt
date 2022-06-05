@@ -34,7 +34,7 @@ public class RadioGroupScope(private val name: String) {
             if (inline) {
                 classes(BSClasses.formCheckInline)
             }
-            classes(*classes)
+            classes(classes = classes)
         }) {
             Input(attrs = {
                 classes(BSClasses.formCheckInput)

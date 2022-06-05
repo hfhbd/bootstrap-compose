@@ -20,7 +20,7 @@ public fun Pagination(
     Ul(attrs = {
         classes("pagination")
         classes(size.toString())
-        classes(*style)
+        classes(classes = style)
         attrs?.invoke(this)
     }) {
         PaginationScope().content()

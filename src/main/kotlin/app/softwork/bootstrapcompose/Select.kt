@@ -27,7 +27,7 @@ public fun Select(
     Select(attrs = {
         id(id)
         classes(BSClasses.formSelect)
-        classes(*classes)
+        classes(classes = classes)
         if (multiple) {
             multiple()
         }
@@ -82,7 +82,7 @@ public class SelectContext {
                 if (selected == true) {
                     selected()
                 }
-                classes(*classes)
+                classes(classes = classes)
                 attrs?.invoke(this)
             }, content = content
         )

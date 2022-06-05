@@ -105,7 +105,7 @@ private fun DismissButton(
         classes("btn-close")
         attr("data-bs-dismiss", "toast")
         attr("aria-label", "close")
-        classes(*style)
+        classes(classes = style)
         attrs?.invoke(this)
     })
 }

@@ -19,7 +19,7 @@ public fun Card(
 
     Div({
         classes("card")
-        classes(*classes)
+        classes(classes = classes)
         attrs?.invoke(this)
     }) {
         header?.let {

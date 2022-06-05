@@ -16,6 +16,6 @@ public fun ButtonGroup(
 
     Div({
         classes("btn-group")
-        classes(*classes)
+        classes(classes = classes)
     }, content)
 }

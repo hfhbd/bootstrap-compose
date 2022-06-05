@@ -17,7 +17,7 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
             } ?: arrayOf()
             Button({
                 classes("dropdown-item")
-                classes(*buttonClasses)
+                classes(classes = buttonClasses)
                 onClick { onClick() }
             }) {
                 Text(title)
@@ -33,7 +33,7 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
             } ?: arrayOf()
             Hr {
                 classes("dropdown-divider")
-                classes(*buttonClasses)
+                classes(classes = buttonClasses)
             }
         }
     }
@@ -46,7 +46,7 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
             } ?: arrayOf()
             H6({
                 classes("dropdown-header")
-                classes(*buttonClasses)
+                classes(classes = buttonClasses)
             }) {
                 Text(title)
             }
@@ -102,7 +102,7 @@ public fun DropDown(
         Button(attrs = {
             classes("btn", "btn-$color", "dropdown-toggle")
             classes(size.toString())
-            classes(*classes)
+            classes(classes = classes)
             id(id)
             attr("data-bs-toggle", "dropdown")
             attr("aria-expanded", "false")
@@ -131,7 +131,7 @@ public fun NavbarDropDown(
         A(
             attrs = {
                 classes("nav-link", "dropdown-toggle")
-                classes(*classes)
+                classes(classes = classes)
                 id(id)
                 attr("data-bs-toggle", "dropdown")
                 attr("aria-expanded", "false")
@@ -174,7 +174,7 @@ private fun DropDownBase(
         triggerElement(classes)
 
         Ul({
-            classes(*menuAlignment.classes)
+            classes(classes = menuAlignment.classes)
             attr("aria-labelledby", id)
         }) {
             DropDownImpl(this).block()
