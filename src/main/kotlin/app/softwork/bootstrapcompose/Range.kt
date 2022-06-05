@@ -25,7 +25,7 @@ public fun Range(
     } ?: arrayOf()
 
     RangeInput(value, min, max, step) {
-        classes(*classes)
+        classes(classes = classes)
         onInput {
             onInput(it)
         }

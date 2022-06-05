@@ -20,7 +20,7 @@ public fun Column(
 
     Div(attrs = {
         classes("col" + (breakpoint?.let { "-$it" } ?: "") + (size?.let { "-$it" } ?: ""))
-        classes(*classes)
+        classes(classes = classes)
         if (auto) {
             classes("col-auto")
         }

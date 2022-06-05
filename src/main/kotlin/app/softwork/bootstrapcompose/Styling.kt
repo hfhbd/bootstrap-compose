@@ -1,5 +1,3 @@
-@file:Suppress("unused", "MemberVisibilityCanBePrivate", "PropertyName")
-
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*

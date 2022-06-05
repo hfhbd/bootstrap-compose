@@ -20,7 +20,7 @@ public fun FormLabel(
         forId = forId,
         attrs = {
             classes(BSClasses.formLabel)
-            classes(*classes)
+            classes(classes = classes)
             attrs?.invoke(this)
         },
         content = content

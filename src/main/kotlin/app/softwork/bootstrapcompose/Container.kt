@@ -18,7 +18,7 @@ public fun Container(
     } ?: arrayOf()
 
     Div(attrs = {
-        classes(*classes)
+        classes(classes = classes)
         when {
             fluid -> {
                 classes("container-fluid")

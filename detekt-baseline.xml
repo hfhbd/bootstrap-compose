@@ -22,36 +22,6 @@
     <ID>MagicNumber:TableView.kt$CalcPagination$10</ID>
     <ID>MaxLineLength:TableTest.kt$TableTest$expected = """&lt;table class="table"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;&lt;div class="row"&gt;&lt;div class="col"&gt;Title&lt;/div&gt;&lt;div class="col col-auto"&gt;&lt;button class="btn btn-primary" type="submit"&gt;Text&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/th&gt;&lt;th scope="col"&gt;empty&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Foo&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Bar&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;"""</ID>
     <ID>MaximumLineLength:app.softwork.bootstrapcompose.TableTest.kt:112</ID>
-    <ID>SpreadOperator:Alerts.kt$(*classes)</ID>
-    <ID>SpreadOperator:Badge.kt$(*classes)</ID>
-    <ID>SpreadOperator:Box.kt$(*classes)</ID>
-    <ID>SpreadOperator:Brand.kt$(*classes)</ID>
-    <ID>SpreadOperator:Button.kt$(*classes)</ID>
-    <ID>SpreadOperator:ButtonGroup.kt$(*classes)</ID>
-    <ID>SpreadOperator:Card.kt$(*classes)</ID>
-    <ID>SpreadOperator:Checkbox.kt$(*classes)</ID>
-    <ID>SpreadOperator:Column.kt$(*classes)</ID>
-    <ID>SpreadOperator:Container.kt$(*classes)</ID>
-    <ID>SpreadOperator:DropDown.kt$(*classes)</ID>
-    <ID>SpreadOperator:DropDown.kt$(*menuAlignment.classes)</ID>
-    <ID>SpreadOperator:DropDown.kt$DropDownBuilder$(*buttonClasses)</ID>
-    <ID>SpreadOperator:FormLabel.kt$(*classes)</ID>
-    <ID>SpreadOperator:GridBox.kt$(*classes)</ID>
-    <ID>SpreadOperator:GridBox.kt$AutoTrackList$(*names.toTypedArray())</ID>
-    <ID>SpreadOperator:GridBox.kt$TrackList$(*names.toTypedArray())</ID>
-    <ID>SpreadOperator:Icon.kt$(*classes)</ID>
-    <ID>SpreadOperator:InputGroup.kt$InputGroupContext$(*classes)</ID>
-    <ID>SpreadOperator:ListGroup.kt$(*classes)</ID>
-    <ID>SpreadOperator:Modal.kt$(*classes)</ID>
-    <ID>SpreadOperator:Navbar.kt$(* classes)</ID>
-    <ID>SpreadOperator:Pagination.kt$(*style)</ID>
-    <ID>SpreadOperator:Radio.kt$RadioGroupScope$(*classes)</ID>
-    <ID>SpreadOperator:Range.kt$(*classes)</ID>
-    <ID>SpreadOperator:Row.kt$(*classes)</ID>
-    <ID>SpreadOperator:Select.kt$(*classes)</ID>
-    <ID>SpreadOperator:Select.kt$SelectContext$(*classes)</ID>
-    <ID>SpreadOperator:Toasts.kt$(*style)</ID>
-    <ID>SpreadOperator:Toggler.kt$(*classes)</ID>
     <ID>TooManyFunctions:GridBox.kt$GridItemArea</ID>
     <ID>TooManyFunctions:GridBox.kt$GridItemAreaSpec</ID>
     <ID>TooManyFunctions:InputGroup.kt$InputGroupContext</ID>

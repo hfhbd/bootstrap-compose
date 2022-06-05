@@ -35,7 +35,7 @@ public fun Button(
         if (disabled) {
             disabled()
         }
-        classes(*classes)
+        classes(classes = classes)
         attrs?.invoke(this)
         type(type)
         onClick {
@@ -78,7 +78,7 @@ public fun Button(
         if (disabled) {
             disabled()
         }
-        classes(*classes)
+        classes(classes = classes)
         attrs?.invoke(this)
         type(type)
         onClick {

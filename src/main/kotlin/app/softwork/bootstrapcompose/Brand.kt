@@ -17,7 +17,7 @@ public fun Brand(
 
     Div(attrs = {
         classes("navbar-brand")
-        classes(*classes)
+        classes(classes = classes)
         attrs?.invoke(this)
     }, content)
 }

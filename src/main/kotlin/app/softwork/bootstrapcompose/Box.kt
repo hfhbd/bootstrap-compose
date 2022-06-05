@@ -16,7 +16,7 @@ public fun Box(
     } ?: arrayOf()
 
     Div(attrs = {
-        classes(*classes)
+        classes(classes = classes)
         attrs?.invoke(this)
     }, content = content)
 }

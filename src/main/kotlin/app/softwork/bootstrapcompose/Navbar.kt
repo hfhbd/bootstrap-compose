@@ -48,7 +48,7 @@ public fun Navbar(
             }
         }
 
-        classes(* classes)
+        classes(classes = classes)
         when (collapseBehavior) {
             is NavbarCollapseBehavior.Never -> classes("navbar-expand")
             is NavbarCollapseBehavior.AtBreakpoint -> classes("navbar-expand-${collapseBehavior.breakpoint}")

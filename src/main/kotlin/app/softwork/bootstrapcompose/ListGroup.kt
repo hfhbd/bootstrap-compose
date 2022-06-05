@@ -21,7 +21,7 @@ public fun ListGroup(
     Ul(
         attrs = {
             ListGroupAttrs(flush, false, listGroupDirection, attrs)
-            classes(*classes)
+            classes(classes = classes)
         },
         content = content
     )
@@ -43,7 +43,7 @@ public fun NumberedListGroup(
     Ol(
         attrs = {
             ListGroupAttrs(flush, true, listGroupDirection, attrs)
-            classes(*classes)
+            classes(classes = classes)
         },
         content = content
     )
@@ -85,7 +85,7 @@ public fun ListItem(
 
     Li(attrs = {
         ListItemAttrs(active, disabled, false, background, attrs)
-        classes(*classes)
+        classes(classes = classes)
     }, content = content)
 }
 
@@ -108,7 +108,7 @@ public fun AnchorListItem(
         href = href,
         attrs = {
             ListItemAttrs(active, disabled, true, background, attrs)
-            classes(*classes)
+            classes(classes = classes)
         }, content = content
     )
 }
@@ -129,7 +129,7 @@ public fun ButtonListItem(
 
     Button(attrs = {
         ListItemAttrs(active, disabled, true, background, attrs)
-        classes(*classes)
+        classes(classes = classes)
     }, content = content)
 }
 

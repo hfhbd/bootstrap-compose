@@ -22,7 +22,7 @@ public fun Alert(
             needsJS
             classes("alert-dismissible")
         }
-        classes(*classes)
+        classes(classes = classes)
         attr("role", "alert")
         attrs?.invoke(this)
     }) {
@@ -43,7 +43,7 @@ public fun Link(
     } ?: arrayOf()
     A(href, {
         classes("alert-link")
-        classes(*classes)
+        classes(classes = classes)
         attrs?.invoke(this)
     }, content)
 }

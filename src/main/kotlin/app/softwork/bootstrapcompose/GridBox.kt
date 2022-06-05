@@ -1,12 +1,8 @@
-@file:Suppress("unused")
-
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
 import kotlinx.uuid.*
-import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
-import org.jetbrains.compose.web.css.selectors.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 import kotlin.reflect.*
@@ -23,7 +19,7 @@ public fun GridBox(
 
     Div(attrs = {
         classes("d-grid")
-        classes(*classes)
+        classes(classes = classes)
         attrs?.invoke(this)
     }) {
         val scope = remember { GridContentBuilder(this) }
@@ -257,7 +253,7 @@ public class TrackList internal constructor() : TrackListUnits() {
 
     public fun track(names: List<String>, size: Grid.TrackSizeItem) {
         if (names.isNotEmpty()) {
-            items += Grid.LineNames(*names.toTypedArray())
+            items += Grid.LineNames(names = names.toTypedArray())
         }
         items += size
     }
@@ -268,7 +264,7 @@ public class TrackList internal constructor() : TrackListUnits() {
 
     public fun track(names: List<String>, repeat: TrackRepeat) {
         if (names.isNotEmpty()) {
-            items += Grid.LineNames(*names.toTypedArray())
+            items += Grid.LineNames(names = names.toTypedArray())
         }
         items += repeat
     }
@@ -311,7 +307,7 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
 
     public fun track(names: List<String>, size: Grid.FixedSizeItem) {
         if (names.isNotEmpty()) {
-            items += Grid.LineNames(*names.toTypedArray())
+            items += Grid.LineNames(names = names.toTypedArray())
         }
         items += size
     }
@@ -322,7 +318,7 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
 
     public fun track(names: List<String>, repeat: FixedRepeat) {
         if (names.isNotEmpty()) {
-            items += Grid.LineNames(*names.toTypedArray())
+            items += Grid.LineNames(names = names.toTypedArray())
         }
         items += repeat
     }

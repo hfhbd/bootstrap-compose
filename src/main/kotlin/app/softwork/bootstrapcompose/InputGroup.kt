@@ -42,7 +42,7 @@ public class InputGroupContext(private val inputId: String) {
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit
     ) {
         classes(BSClasses.formControl)
-        classes(*classes)
+        classes(classes = classes)
         id(inputId)
         if (disabled) {
             disabled()
@@ -316,7 +316,7 @@ public class InputGroupContext(private val inputId: String) {
 
         TextArea(attrs = {
             classes(BSClasses.formControl)
-            classes(*classes)
+            classes(classes = classes)
             autoComplete(autocomplete)
             id(inputId)
             if (disabled) {
@@ -427,7 +427,7 @@ public class InputGroupContext(private val inputId: String) {
 
         Span(attrs = {
             classes(BSClasses.inputGroupText)
-            classes(*classes)
+            classes(classes = classes)
             attrs?.invoke(this)
         }) {
             Text(text)
@@ -452,7 +452,7 @@ public class InputGroupContext(private val inputId: String) {
 
         Label(attrs = {
             classes(BSClasses.inputGroupText)
-            classes(*classes)
+            classes(classes = classes)
             forId(inputId)
             attrs?.invoke(this)
         }) {
@@ -501,7 +501,7 @@ public class InputGroupContext(private val inputId: String) {
 
         Div(attrs = {
             classes(BSClasses.inputGroupText)
-            classes(*classes)
+            classes(classes = classes)
             attrs?.invoke(this)
         }) {
             CheckboxInput(checked, attrs = {
@@ -527,7 +527,7 @@ public class InputGroupContext(private val inputId: String) {
 
         Div(attrs = {
             classes(BSClasses.inputGroupText)
-            classes(*classes)
+            classes(classes = classes)
             attrs?.invoke(this)
         }) {
             RadioInput(checked, attrs = {
