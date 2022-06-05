@@ -18,7 +18,7 @@ public fun FormFloating(
     Div(attrs = {
         classes("form-floating")
         classes(classes = classes)
-        if(attrs != null) {
+        if (attrs != null) {
             attrs()
         }
     }, content)
