@@ -27,6 +27,7 @@ dependencies {
     implementation("app.softwork:bootstrap-compose:LATEST")
     implementation("app.softwork:bootstrap-compose-icons:LATEST") // for icons support
     implementation(devNpm("sass-loader", "^13.0.0"))
+    implementation(devNpm("sass", "^1.52.1"))
 }
 ```
 
