@@ -125,7 +125,7 @@ public fun Navbar(
                 }
             }
         } else {
-            NavbarNav {
+            NavbarNav(attrs = { navAttrs?.invoke(this) }) {
                 navItems()
             }
         }
