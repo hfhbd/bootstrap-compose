@@ -43,6 +43,7 @@ public fun Navbar(
         when (placement) {
             NavbarPlacement.Default -> {
             }
+
             else -> {
                 classes(placement.toString())
             }
@@ -95,6 +96,7 @@ public fun Navbar(
     styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLElement>? = null,
     navAttrs: AttrBuilderContext<HTMLDivElement>? = null,
+    additionalNavContent: ContentBuilder<HTMLDivElement>? = null,
     brand: ContentBuilder<HTMLDivElement>,
     navItems: ContentBuilder<HTMLDivElement>
 ) {
@@ -123,10 +125,16 @@ public fun Navbar(
                 NavbarNav(attrs = { navAttrs?.invoke(this) }) {
                     navItems()
                 }
+                if (additionalNavContent != null) {
+                    additionalNavContent()
+                }
             }
         } else {
             NavbarNav(attrs = { navAttrs?.invoke(this) }) {
                 navItems()
+            }
+            if (additionalNavContent != null) {
+                additionalNavContent()
             }
         }
 

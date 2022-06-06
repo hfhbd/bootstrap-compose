@@ -2,7 +2,6 @@ package app.softwork.bootstrapcompose.showcase
 
 import androidx.compose.runtime.*
 import app.softwork.bootstrapcompose.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 
@@ -60,36 +59,32 @@ private fun navBarExpand(collapseBehavior: NavbarCollapseBehavior, fluid: Boolea
         collapseBehavior = collapseBehavior,
         colorScheme = Color.Dark,
         backgroundColor = Color.Dark,
-        fluid = fluid
-    ) {
-        Brand {
-            Text(title)
-        }
-
-        val togglerTargetId = "toggler${UUID()}"
-
-        Toggler(
-            target = togglerTargetId,
-            controls = togglerTargetId
-        )
-        NavbarCollapse(togglerTargetId) {
-            NavbarNav(attrs = { classes("me-auto") }) {
-                NavbarLink(active = true, link = "#") { Text("Home") }
-                NavbarLink(active = false, link = "#") { Text("Link") }
-                NavbarLink(active = false, disabled = true, link = "#") { Text("Disabled") }
-                NavbarDropDown("Dropdown", href = "#") {
-                    Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Action") } }
-                    Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Another action") } }
-                    Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Something else here") } }
-                }
+        fluid = fluid,
+        toggler = true,
+        brand = {
+            Brand {
+                Text(title)
             }
-
+        },
+        navAttrs = {
+            classes("me-auto")
+        },
+        additionalNavContent = {
             Form(attrs = { classes("m-0") }) {
                 Input(type = InputType.Text, attrs = {
                     classes("form-control")
                     attr("placeholder", "Search")
                 })
             }
+        }
+    ) {
+        NavbarLink(active = true, link = "#") { Text("Home") }
+        NavbarLink(active = false, link = "#") { Text("Link") }
+        NavbarLink(active = false, disabled = true, link = "#") { Text("Disabled") }
+        NavbarDropDown("Dropdown", href = "#") {
+            Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Action") } }
+            Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Another action") } }
+            Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Something else here") } }
         }
     }
 }
@@ -101,36 +96,31 @@ private fun containerXL() {
         colorScheme = Color.Dark,
         backgroundColor = Color.Dark,
         fluid = false,
-        containerBreakpoint = Breakpoint.ExtraLarge
-    ) {
-        Brand {
-            Text("Container XL")
-        }
-
-        val togglerTargetId = "toggler${UUID()}"
-
-        Toggler(
-            target = togglerTargetId,
-            controls = togglerTargetId
-        )
-        NavbarCollapse(togglerTargetId) {
-            NavbarNav(attrs = { classes("me-auto") }) {
-                NavbarLink(active = true, link = "#") { Text("Home") }
-                NavbarLink(active = false, link = "#") { Text("Link") }
-                NavbarLink(active = false, disabled = true, link = "#") { Text("Disabled") }
-                NavbarDropDown("Dropdown", href = "#") {
-                    Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Action") } }
-                    Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Another action") } }
-                    Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Something else here") } }
-                }
+        containerBreakpoint = Breakpoint.ExtraLarge,
+        brand = {
+            Brand {
+                Text("Container XL")
             }
-
+        },
+        navAttrs = {
+            classes("me-auto")
+        },
+        additionalNavContent = {
             Form(attrs = { classes("m-0") }) {
                 Input(type = InputType.Text, attrs = {
                     classes("form-control")
                     attr("placeholder", "Search")
                 })
             }
+        }
+    ) {
+        NavbarLink(active = true, link = "#") { Text("Home") }
+        NavbarLink(active = false, link = "#") { Text("Link") }
+        NavbarLink(active = false, disabled = true, link = "#") { Text("Disabled") }
+        NavbarDropDown("Dropdown", href = "#") {
+            Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Action") } }
+            Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Another action") } }
+            Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Something else here") } }
         }
     }
 }
@@ -141,22 +131,16 @@ private fun centeredNavOnly() {
         collapseBehavior = NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Large),
         colorScheme = Color.Dark,
         backgroundColor = Color.Dark,
-        fluid = true
+        fluid = true,
+        brand = {}
     ) {
-        val togglerTargetId = "toggler${UUID()}"
-
-        Toggler(target = togglerTargetId, controls = togglerTargetId)
-        NavbarCollapse(togglerTargetId, attrs = { classes("justify-content-md-center") }) {
-            NavbarNav {
-                NavbarLink(active = true, link = "#") { Text("Centered nav only") }
-                NavbarLink(active = false, link = "#") { Text("Link") }
-                NavbarLink(active = false, disabled = true, link = "#") { Text("Disabled") }
-                NavbarDropDown("Dropdown", href = "#") {
-                    Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Action") } }
-                    Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Another action") } }
-                    Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Something else here") } }
-                }
-            }
+        NavbarLink(active = true, link = "#") { Text("Centered nav only") }
+        NavbarLink(active = false, link = "#") { Text("Link") }
+        NavbarLink(active = false, disabled = true, link = "#") { Text("Disabled") }
+        NavbarDropDown("Dropdown", href = "#") {
+            Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Action") } }
+            Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Another action") } }
+            Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Something else here") } }
         }
     }
 }
@@ -164,37 +148,36 @@ private fun centeredNavOnly() {
 @Composable
 private fun lightNavbar() {
     Container(fluid = false) {
-
         Navbar(
             collapseBehavior = NavbarCollapseBehavior.AtBreakpoint(Breakpoint.Large),
             colorScheme = Color.Light,
             backgroundColor = Color.Light,
             fluid = true,
-            styling = { Borders { radius(BorderSpec.BorderRadius.All, BorderSpec.RadiusSize.Small) } }
-        ) {
-            Brand {
-                Text("Navbar")
-            }
-            val togglerTargetId = "toggler${UUID()}"
-
-            Toggler(target = togglerTargetId, controls = togglerTargetId)
-            NavbarCollapse(togglerTargetId) {
-                NavbarNav(attrs = { classes("me-auto", "mb-2", "mb-lg-0") }) {
-                    NavbarLink(active = true, link = "#") { Text("Home") }
-                    NavbarLink(active = false, link = "#") { Text("Link") }
-                    NavbarLink(active = false, disabled = true, link = "#") { Text("Disabled") }
-                    NavbarDropDown("Dropdown", href = "#") {
-                        Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Action") } }
-                        Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Another action") } }
-                        Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Something else here") } }
-                    }
+            styling = { Borders { radius(BorderSpec.BorderRadius.All, BorderSpec.RadiusSize.Small) } },
+            brand = {
+                Brand {
+                    Text("Navbar")
                 }
+            },
+            navAttrs = {
+                classes("me-auto", "mb-2", "mb-lg-0")
+            },
+            additionalNavContent = {
                 Form(attrs = { classes("m-0") }) {
                     Input(type = InputType.Text, attrs = {
                         classes("form-control")
                         attr("placeholder", "Search")
                     })
                 }
+            }
+        ) {
+            NavbarLink(active = true, link = "#") { Text("Home") }
+            NavbarLink(active = false, link = "#") { Text("Link") }
+            NavbarLink(active = false, disabled = true, link = "#") { Text("Disabled") }
+            NavbarDropDown("Dropdown", href = "#") {
+                Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Action") } }
+                Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Another action") } }
+                Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Something else here") } }
             }
         }
     }
@@ -208,21 +191,23 @@ private fun lightCenteredNavbar() {
             colorScheme = Color.Light,
             backgroundColor = Color.Light,
             fluid = true,
-            styling = { Borders { radius(BorderSpec.BorderRadius.All, BorderSpec.RadiusSize.Small) } }
+            styling = { Borders { radius(BorderSpec.BorderRadius.All, BorderSpec.RadiusSize.Small) } },
+            brand = { },
+            navAttrs = {
+                classes("justify-content-md-center")
+            }
         ) {
-            val togglerTargetId = "toggler${UUID()}"
-
-            Toggler(target = togglerTargetId, controls = togglerTargetId)
-            NavbarCollapse(togglerTargetId, attrs = { classes("justify-content-md-center") }) {
-                NavbarNav {
-                    NavbarLink(active = true, link = "#") { Text("Centered nav only") }
-                    NavbarLink(active = false, link = "#") { Text("Link") }
-                    NavbarLink(active = false, disabled = true, link = "#") { Text("Disabled") }
-                    NavbarDropDown("Dropdown", href = "#") {
-                        Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Action") } }
-                        Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Another action") } }
-                        Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Something else here") } }
-                    }
+            NavbarLink(active = true, link = "#") { Text("Centered nav only") }
+            NavbarLink(active = false, link = "#") { Text("Link") }
+            NavbarLink(active = false, disabled = true, link = "#") { Text("Disabled") }
+            NavbarDropDown("Dropdown", href = "#") {
+                Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Action") } }
+                Custom { A(href = "#", attrs = { classes("dropdown-item") }) { Text("Another action") } }
+                Custom {
+                    A(
+                        href = "#",
+                        attrs = { classes("dropdown-item") }
+                    ) { Text("Something else here") }
                 }
             }
         }
