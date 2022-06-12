@@ -63,7 +63,7 @@ data class SVG(
     val viewBox: String,
     @XmlElement(true)
     @XmlPolyChildren([".Path", ".Circle", ".Rect"])
-    val content: List<@Polymorphic Content>? = null
+    val content: List<@Polymorphic Content>
 ) {
 
     val composeClasses get() = classes.split(" ").joinToString(", ") { "\"$it\"" }
@@ -71,12 +71,14 @@ data class SVG(
 
 import androidx.compose.runtime.*
 import org.jetbrains.compose.web.*
+import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.svg.*
+import org.w3c.dom.svg.*
 
 @ExperimentalComposeWebSvgApi
 @Composable
 @NonRestartableComposable
-public fun $fileName() {
+public fun $fileName(attrs: AttrBuilderContext<SVGElement>? = null) {
     Svg(
         viewBox = "$viewBox",
         attrs = {
@@ -85,11 +87,12 @@ public fun $fileName() {
             xmlns("http://www.w3.org/2000/svg")
             fill("$fill")
             classes($composeClasses)
+            attrs?.invoke(this)
         }
     ) {
-${content?.joinToString(separator = "\n") {
+${content.joinToString(separator = "\n") {
         "        ${it.toCompose()}"
-    } ?: ""}
+    }}
     }
 }
 """
