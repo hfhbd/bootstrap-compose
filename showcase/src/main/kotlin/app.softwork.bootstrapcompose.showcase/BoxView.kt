@@ -12,8 +12,11 @@ import app.softwork.bootstrapcompose.Text.Style.Italic
 import app.softwork.bootstrapcompose.Text.Transform.Uppercase
 import app.softwork.bootstrapcompose.Text.Weight.Bold
 import app.softwork.bootstrapcompose.Text.Wraps.NoWrap
+import app.softwork.bootstrapcompose.icons.*
+import org.jetbrains.compose.web.*
 import org.jetbrains.compose.web.dom.*
 
+@OptIn(ExperimentalComposeWebSvgApi::class)
 @Composable
 fun BoxView() {
     Container {
@@ -39,7 +42,12 @@ fun BoxView() {
                         }
                     }
                 ) {
-                    Text("Thick primary color borders with large radius on top corners")
+                    Text("Thick primary color borders with large radius on top corners and a resized Bootstrap icon")
+                    Bootstrap {
+                        height(50)
+                        width(50)
+                        fill("green")
+                    }
                 }
             }
 
