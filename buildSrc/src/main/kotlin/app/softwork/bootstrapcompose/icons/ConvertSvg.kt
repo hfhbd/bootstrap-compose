@@ -63,7 +63,7 @@ data class SVG(
     val viewBox: String,
     @XmlElement(true)
     @XmlPolyChildren([".Path", ".Circle", ".Rect"])
-    val content: List<@Polymorphic Content>? = null
+    val content: List<@Polymorphic Content>
 ) {
 
     val composeClasses get() = classes.split(" ").joinToString(", ") { "\"$it\"" }
@@ -90,9 +90,9 @@ public fun $fileName(attrs: AttrBuilderContext<SVGElement>? = null) {
             attrs?.invoke(this)
         }
     ) {
-${content?.joinToString(separator = "\n") {
+${content.joinToString(separator = "\n") {
         "        ${it.toCompose()}"
-    } ?: ""}
+    }}
     }
 }
 """
