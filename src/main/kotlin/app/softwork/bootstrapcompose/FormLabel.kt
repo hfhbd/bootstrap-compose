@@ -14,13 +14,15 @@ public fun FormLabel(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Label(
         forId = forId,
         attrs = {
             classes(BSClasses.formLabel)
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes = classes)
+            }
             attrs?.invoke(this)
         },
         content = content

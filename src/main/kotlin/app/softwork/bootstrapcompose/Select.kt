@@ -22,12 +22,14 @@ public fun Select(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Select(attrs = {
         id(id)
         classes(BSClasses.formSelect)
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         if (multiple) {
             multiple()
         }
@@ -74,7 +76,7 @@ public class SelectContext {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.Option(
             value = value,
@@ -82,7 +84,9 @@ public class SelectContext {
                 if (selected == true) {
                     selected()
                 }
-                classes(classes = classes)
+                if (classes != null) {
+                    classes(classes = classes)
+                }
                 attrs?.invoke(this)
             }, content = content
         )

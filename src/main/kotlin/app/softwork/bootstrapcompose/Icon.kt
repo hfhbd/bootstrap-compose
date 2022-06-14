@@ -5,8 +5,8 @@ import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 
 /**
- * Bootstrap Icon shortcut. You must include Bootstrap Icons by yourself.
- * [Install](https://icons.getbootstrap.com/#install)
+ * Bootstrap Icon shortcut when using with already embedded icons.
+ * Alternative use `bootstrap-compose-icons`.
  */
 @Composable
 public fun Icon(
@@ -17,11 +17,13 @@ public fun Icon(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     I({
         classes("bi", "bi-$iconName")
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attrsBuilder?.invoke(this)
     })
 }

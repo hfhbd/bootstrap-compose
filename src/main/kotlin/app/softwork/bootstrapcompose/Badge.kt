@@ -16,7 +16,7 @@ public fun Badge(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Span(attrs = {
         classes("badge", backgroundColor.background())
@@ -26,7 +26,9 @@ public fun Badge(
         if (round) {
             classes("rounded-pill")
         }
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attrs?.invoke(this)
     }, content)
 }

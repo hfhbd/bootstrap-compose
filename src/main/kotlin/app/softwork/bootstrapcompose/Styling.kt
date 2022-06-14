@@ -29,7 +29,7 @@ public open class Styling {
      * @return An array of css class names that are to be applied to the target component.
      */
     @Composable
-    public open fun generate(): Array<String> {
+    public open fun generate(): List<String> {
         val classes: MutableList<String> = mutableListOf()
         for (gen in generators) {
             classes += gen()
@@ -42,7 +42,7 @@ public open class Styling {
             Text.generateClassStrings() +
             Layout.generateClassStrings()
 
-        return classes.toTypedArray()
+        return classes
     }
 
     /**

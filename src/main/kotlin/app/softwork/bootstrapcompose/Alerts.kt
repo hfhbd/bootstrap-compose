@@ -15,14 +15,16 @@ public fun Alert(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
     Div({
         classes("alert", "alert-$color")
         if (dismissible) {
             needsJS
             classes("alert-dismissible")
         }
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attr("role", "alert")
         attrs?.invoke(this)
     }) {
@@ -40,10 +42,12 @@ public fun Link(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
     A(href, {
         classes("alert-link")
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attrs?.invoke(this)
     }, content)
 }

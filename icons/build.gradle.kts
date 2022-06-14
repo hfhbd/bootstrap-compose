@@ -1,4 +1,3 @@
-import io.gitlab.arturbosch.detekt.*
 import org.jetbrains.compose.*
 import java.util.*
 

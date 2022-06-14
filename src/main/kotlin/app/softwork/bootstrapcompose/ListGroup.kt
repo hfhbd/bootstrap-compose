@@ -16,12 +16,14 @@ public fun ListGroup(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Ul(
         attrs = {
             ListGroupAttrs(flush, false, listGroupDirection, attrs)
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes = classes)
+            }
         },
         content = content
     )
@@ -38,12 +40,14 @@ public fun NumberedListGroup(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Ol(
         attrs = {
             ListGroupAttrs(flush, true, listGroupDirection, attrs)
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes = classes)
+            }
         },
         content = content
     )
@@ -81,11 +85,13 @@ public fun ListItem(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Li(attrs = {
         ListItemAttrs(active, disabled, false, background, attrs)
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
     }, content = content)
 }
 
@@ -102,13 +108,15 @@ public fun AnchorListItem(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     A(
         href = href,
         attrs = {
             ListItemAttrs(active, disabled, true, background, attrs)
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes = classes)
+            }
         }, content = content
     )
 }
@@ -125,11 +133,13 @@ public fun ButtonListItem(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Button(attrs = {
         ListItemAttrs(active, disabled, true, background, attrs)
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
     }, content = content)
 }
 

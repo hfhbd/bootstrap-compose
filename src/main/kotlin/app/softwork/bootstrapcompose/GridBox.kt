@@ -41,7 +41,7 @@ public class GridStyle : Styling() {
     public val GridLayout: GridLayout = GridLayout()
 
     @Composable
-    override fun generate(): Array<String> {
+    override fun generate(): List<String> {
         return super.generate() + GridLayout.generate()
     }
 }
@@ -251,9 +251,9 @@ public open class TrackListUnits {
 public class TrackList internal constructor() : TrackListUnits() {
     internal val items: MutableList<Grid.TrackListItem> = mutableListOf()
 
-    public fun track(names: List<String>, size: Grid.TrackSizeItem) {
+    public fun track(names: Array<String>, size: Grid.TrackSizeItem) {
         if (names.isNotEmpty()) {
-            items += Grid.LineNames(names = names.toTypedArray())
+            items += Grid.LineNames(names = names)
         }
         items += size
     }
@@ -262,9 +262,9 @@ public class TrackList internal constructor() : TrackListUnits() {
         items += size
     }
 
-    public fun track(names: List<String>, repeat: TrackRepeat) {
+    public fun track(names: Array<String>, repeat: TrackRepeat) {
         if (names.isNotEmpty()) {
-            items += Grid.LineNames(names = names.toTypedArray())
+            items += Grid.LineNames(names = names)
         }
         items += repeat
     }
@@ -281,7 +281,7 @@ public class TrackList internal constructor() : TrackListUnits() {
     }
 
     public fun lineNames(vararg names: String) {
-        items += Grid.LineNames(*names)
+        items += Grid.LineNames(names = names)
     }
 }
 
@@ -307,7 +307,7 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
 
     public fun track(names: List<String>, size: Grid.FixedSizeItem) {
         if (names.isNotEmpty()) {
-            items += Grid.LineNames(names = names.toTypedArray())
+            lineNames(names)
         }
         items += size
     }
@@ -318,13 +318,17 @@ public class AutoTrackList internal constructor() : TrackListUnits() {
 
     public fun track(names: List<String>, repeat: FixedRepeat) {
         if (names.isNotEmpty()) {
-            items += Grid.LineNames(names = names.toTypedArray())
+            lineNames(names)
         }
         items += repeat
     }
 
     public fun track(repeat: FixedRepeat) {
         items += repeat
+    }
+
+    public fun lineNames(names: List<String>) {
+        items += Grid.LineNames(names = names.toTypedArray())
     }
 
     public fun lineNames(vararg names: String) {

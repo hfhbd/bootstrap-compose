@@ -5,8 +5,6 @@ import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.attributes.builders.*
 import org.jetbrains.compose.web.dom.*
-import org.jetbrains.compose.web.dom.Text
-import org.w3c.dom.*
 
 @Composable
 public fun Checkbox(
@@ -23,11 +21,13 @@ public fun Checkbox(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Div({
         classes(BSClasses.formCheck)
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         if (inline) {
             classes(BSClasses.formCheckInline)
         }

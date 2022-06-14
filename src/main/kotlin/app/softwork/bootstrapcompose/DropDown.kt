@@ -14,10 +14,12 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
         Li {
             val buttonClasses = styling?.let {
                 Styling().apply(it).generate()
-            } ?: arrayOf()
+            }
             Button({
                 classes("dropdown-item")
-                classes(classes = buttonClasses)
+                if (buttonClasses != null) {
+                    classes(classes = buttonClasses)
+                }
                 onClick { onClick() }
             }) {
                 Text(title)
@@ -30,10 +32,12 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
         Li {
             val buttonClasses = styling?.let {
                 Styling().apply(it).generate()
-            } ?: arrayOf()
+            }
             Hr {
                 classes("dropdown-divider")
-                classes(classes = buttonClasses)
+                if (buttonClasses != null) {
+                    classes(classes = buttonClasses)
+                }
             }
         }
     }
@@ -43,10 +47,12 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
         Li {
             val buttonClasses = styling?.let {
                 Styling().apply(it).generate()
-            } ?: arrayOf()
+            }
             H6({
                 classes("dropdown-header")
-                classes(classes = buttonClasses)
+                if (buttonClasses != null) {
+                    classes(buttonClasses)
+                }
             }) {
                 Text(title)
             }
@@ -98,11 +104,13 @@ public fun DropDown(
     Style
     needsJS
     needsPopper
-    val trigger = @Composable { classes: Array<String> ->
+    val trigger = @Composable { classes: List<String>? ->
         Button(attrs = {
             classes("btn", "btn-$color", "dropdown-toggle")
             classes(size.toString())
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes)
+            }
             id(id)
             attr("data-bs-toggle", "dropdown")
             attr("aria-expanded", "false")
@@ -127,11 +135,13 @@ public fun NavbarDropDown(
 ) {
     Style
     needsJS
-    val trigger = @Composable { classes: Array<String> ->
+    val trigger = @Composable { classes: List<String>? ->
         A(
             attrs = {
                 classes("nav-link", "dropdown-toggle")
-                classes(classes = classes)
+                if (classes != null) {
+                    classes(classes)
+                }
                 id(id)
                 attr("data-bs-toggle", "dropdown")
                 attr("aria-expanded", "false")
@@ -156,7 +166,7 @@ private fun <T : Element> AttrsScope<T>.responsiveAlignmentAttribute(menuAlignme
 
 @Composable
 private fun DropDownBase(
-    triggerElement: @Composable (classes: Array<String>) -> Unit,
+    triggerElement: @Composable (classes: List<String>?) -> Unit,
     id: String,
     styling: (Styling.() -> Unit)? = null,
     direction: DropDown.Direction,
@@ -167,7 +177,7 @@ private fun DropDownBase(
     needsJS
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Div({ classes("btn-group", direction.toString()) }) {
 

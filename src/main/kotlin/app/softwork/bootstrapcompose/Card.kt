@@ -15,11 +15,13 @@ public fun Card(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Div({
         classes("card")
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attrs?.invoke(this)
     }) {
         header?.let {

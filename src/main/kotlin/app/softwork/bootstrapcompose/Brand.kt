@@ -13,11 +13,13 @@ public fun Brand(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Div(attrs = {
         classes("navbar-brand")
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attrs?.invoke(this)
     }, content)
 }

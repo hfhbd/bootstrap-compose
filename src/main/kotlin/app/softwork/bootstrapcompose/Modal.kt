@@ -21,11 +21,10 @@ public fun Modal(
     needsJS
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Div({
         classes("modal")
-        classes(classes = classes)
         id("_$id")
         tabIndex(-1)
         attr("aria-labelledby", "label$id")
@@ -57,7 +56,9 @@ public fun Modal(
         }) {
             Div({
                 classes("modal-content")
-                classes(classes = classes)
+                if (classes != null) {
+                    classes(classes = classes)
+                }
             }) {
                 Div({ classes("modal-header") }) {
                     H5({

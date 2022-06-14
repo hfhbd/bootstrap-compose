@@ -13,10 +13,12 @@ public fun Box(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Div(attrs = {
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attrs?.invoke(this)
     }, content = content)
 }
