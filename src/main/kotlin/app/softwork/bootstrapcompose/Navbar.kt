@@ -32,7 +32,7 @@ public fun Navbar(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Nav(attrs = {
         classes(
@@ -49,7 +49,9 @@ public fun Navbar(
             }
         }
 
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         when (collapseBehavior) {
             is NavbarCollapseBehavior.Never -> classes("navbar-expand")
             is NavbarCollapseBehavior.AtBreakpoint -> classes("navbar-expand-${collapseBehavior.breakpoint}")
@@ -72,7 +74,7 @@ public fun Navbar(
  * @param containerBreakpoint Breakpoint for the inner container.
  * @param colorScheme Valid values are Color.Light or Color.Dark to set the navbar-dark/light class.
  * @param backgroundColor Background color to use, with the bg-* classes.
- * @param toggler Whether or not a toggler button should be provided when falling below the breakpoint.
+ * @param toggler Whether a toggler button should be provided when falling below the breakpoint.
  * @param togglerPosition Specifies if the toggler should be placed on the left or right side of the Navbar.
  * @param togglerAttrs Additional attributes to set on the toggler button
  * @param togglerTargetId Optional id of the toggler, using a random UUID by default

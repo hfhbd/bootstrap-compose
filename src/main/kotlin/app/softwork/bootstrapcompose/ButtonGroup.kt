@@ -12,10 +12,12 @@ public fun ButtonGroup(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Div({
         classes("btn-group")
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
     }, content)
 }

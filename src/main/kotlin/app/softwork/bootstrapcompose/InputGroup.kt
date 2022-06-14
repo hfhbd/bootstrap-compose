@@ -37,12 +37,14 @@ public class InputGroupContext(private val inputId: String) {
     private fun <K> InputAttrsScope<K>.buildInputAttrs(
         disabled: Boolean = false,
         autocomplete: AutoComplete = AutoComplete.off,
-        classes: Array<String>,
+        classes: List<String>?,
         attrs: (InputAttrsScope<K>.() -> Unit)? = null,
         onInput: (SyntheticInputEvent<K, HTMLInputElement>) -> Unit
     ) {
         classes(BSClasses.formControl)
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes)
+        }
         id(inputId)
         if (disabled) {
             disabled()
@@ -66,7 +68,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         Input(
             type = type,
@@ -89,7 +91,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.DateInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
@@ -109,7 +111,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.DateTimeLocalInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
@@ -129,7 +131,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.EmailInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
@@ -149,7 +151,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.FileInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
@@ -167,7 +169,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.HiddenInput {
             buildInputAttrs(disabled, autocomplete = AutoComplete.off, classes, attrsBuilder, onInput)
@@ -187,7 +189,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.MonthInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
@@ -209,7 +211,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         NumberInput(value, min, max) {
             buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
@@ -229,7 +231,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.PasswordInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
@@ -249,7 +251,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.SearchInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
@@ -269,7 +271,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.TelInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrsBuilder, onInput)
@@ -289,7 +291,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.TextInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrs, onInput)
@@ -312,11 +314,13 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         TextArea(attrs = {
             classes(BSClasses.formControl)
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes = classes)
+            }
             autoComplete(autocomplete)
             id(inputId)
             if (disabled) {
@@ -342,7 +346,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.TimeInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrs, onInput)
@@ -362,7 +366,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.UrlInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrs, onInput)
@@ -382,7 +386,7 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         org.jetbrains.compose.web.dom.WeekInput(value) {
             buildInputAttrs(disabled, autocomplete, classes, attrs, onInput)
@@ -423,11 +427,13 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         Span(attrs = {
             classes(BSClasses.inputGroupText)
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes = classes)
+            }
             attrs?.invoke(this)
         }) {
             Text(text)
@@ -448,11 +454,13 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         Label(attrs = {
             classes(BSClasses.inputGroupText)
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes = classes)
+            }
             forId(inputId)
             attrs?.invoke(this)
         }) {
@@ -497,11 +505,13 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         Div(attrs = {
             classes(BSClasses.inputGroupText)
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes = classes)
+            }
             attrs?.invoke(this)
         }) {
             CheckboxInput(checked, attrs = {
@@ -523,11 +533,13 @@ public class InputGroupContext(private val inputId: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         Div(attrs = {
             classes(BSClasses.inputGroupText)
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes = classes)
+            }
             attrs?.invoke(this)
         }) {
             RadioInput(checked, attrs = {

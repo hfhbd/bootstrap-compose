@@ -1,9 +1,7 @@
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.Composable
-import org.jetbrains.compose.web.attributes.ButtonType
-import org.jetbrains.compose.web.attributes.disabled
-import org.jetbrains.compose.web.attributes.type
+import androidx.compose.runtime.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.HTMLButtonElement
 
@@ -22,7 +20,7 @@ public fun Button(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Button(attrs = {
         classes("btn")
@@ -35,7 +33,9 @@ public fun Button(
         if (disabled) {
             disabled()
         }
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attrs?.invoke(this)
         type(type)
         onClick {
@@ -66,7 +66,7 @@ public fun Button(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Button(attrs = {
         classes("btn")
@@ -78,7 +78,9 @@ public fun Button(
         if (disabled) {
             disabled()
         }
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attrs?.invoke(this)
         type(type)
         onClick {

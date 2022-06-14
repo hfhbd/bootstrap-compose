@@ -16,11 +16,13 @@ public fun Column(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Div(attrs = {
         classes("col" + (breakpoint?.let { "-$it" } ?: "") + (size?.let { "-$it" } ?: ""))
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         if (auto) {
             classes("col-auto")
         }

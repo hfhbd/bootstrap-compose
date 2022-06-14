@@ -13,11 +13,13 @@ public fun Row(
     Style
     val classes = styling?.let {
         RowStyling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Div(attrs = {
         classes("row")
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attrs?.invoke(this)
     }, content = content)
 }
@@ -26,7 +28,7 @@ public class RowStyling : Styling() {
     public val Gutters: Gutters = Gutters()
 
     @Composable
-    override fun generate(): Array<String> {
+    override fun generate(): List<String> {
         return super.generate() + Gutters.generate()
     }
 }
@@ -37,14 +39,14 @@ public class Gutters {
     }
 
     @Composable
-    internal fun generate(): Array<String> {
+    internal fun generate(): List<String> {
         val classes: MutableList<String> = mutableListOf()
 
         _spec?.let {
             classes += it.generateClassStrings()
         }
 
-        return classes.toTypedArray()
+        return classes
     }
 
     public enum class GutterSize(private val value: String) {

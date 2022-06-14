@@ -27,14 +27,16 @@ public class RadioGroupScope(private val name: String) {
         Style
         val classes = styling?.let {
             Styling().apply(it).generate()
-        } ?: arrayOf()
+        }
 
         Div(attrs = {
             classes(BSClasses.formCheck)
             if (inline) {
                 classes(BSClasses.formCheckInline)
             }
-            classes(classes = classes)
+            if (classes != null) {
+                classes(classes = classes)
+            }
         }) {
             Input(attrs = {
                 classes(BSClasses.formCheckInput)

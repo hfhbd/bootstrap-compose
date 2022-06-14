@@ -99,13 +99,15 @@ private fun DismissButton(
 ) {
     val style = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
     Button(attrs = {
         type(ButtonType.Button)
         classes("btn-close")
         attr("data-bs-dismiss", "toast")
         attr("aria-label", "close")
-        classes(classes = style)
+        if (style != null) {
+            classes(classes = style)
+        }
         attrs?.invoke(this)
     })
 }

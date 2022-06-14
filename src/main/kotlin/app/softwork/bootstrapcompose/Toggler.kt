@@ -14,11 +14,12 @@ public fun Toggler(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
-
+    }
     Button(attrs = {
         classes("navbar-toggler")
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         attr("data-bs-toggle", "collapse")
         attr("data-bs-target", "#$target")
         attr("aria-controls", controls)

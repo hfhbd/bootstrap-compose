@@ -22,10 +22,12 @@ public fun Range(
     Style
     val classes = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     RangeInput(value, min, max, step) {
-        classes(classes = classes)
+        if (classes != null) {
+            classes(classes = classes)
+        }
         onInput {
             onInput(it)
         }

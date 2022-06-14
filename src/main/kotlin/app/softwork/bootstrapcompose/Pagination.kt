@@ -15,12 +15,14 @@ public fun Pagination(
     Style
     val style = styling?.let {
         Styling().apply(it).generate()
-    } ?: arrayOf()
+    }
 
     Ul(attrs = {
         classes("pagination")
         classes(size.toString())
-        classes(classes = style)
+        if (style != null) {
+            classes(classes = style)
+        }
         attrs?.invoke(this)
     }) {
         PaginationScope().content()
