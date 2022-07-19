@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>ComplexMethod:Main.kt$fun main()</ID>
     <ID>ComplexMethod:Table.kt$@Composable public fun &lt;T&gt; Table( pagination: Table.Pagination&lt;T&gt;, key: ((T) -&gt; Any)? = null, color: Color? = null, striped: Boolean = false, hover: Boolean = false, borderless: Boolean = false, small: Boolean = false, fixedHeader: Table.FixedHeaderProperty? = null, caption: ContentBuilder&lt;HTMLTableCaptionElement&gt;? = null, captionTop: Boolean = false, attrs: AttrBuilderContext&lt;HTMLTableElement&gt;? = null, map: Table.Builder.(Int, T) -&gt; Unit )</ID>

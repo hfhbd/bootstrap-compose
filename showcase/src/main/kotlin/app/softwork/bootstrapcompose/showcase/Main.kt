@@ -9,7 +9,7 @@ import org.jetbrains.compose.web.dom.*
 data class AppState(val activePage: ActivePage)
 
 fun main() {
-    require("./custom.scss")
+    require("custom.scss")
     renderComposable(rootElementId = "root") {
         var state by remember { mutableStateOf(AppState(ActivePage.Box)) }
 

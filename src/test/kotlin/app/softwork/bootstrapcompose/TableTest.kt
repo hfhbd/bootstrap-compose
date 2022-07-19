@@ -88,7 +88,7 @@ class TableTest {
     @Test
     fun table() = runTest {
         composition {
-            Table(listOf("Foo", "Bar")) { _, it ->
+            Table(listOf("Foo", "Bar")) { _, text ->
                 column(
                     title = "Title",
                     header = Table.Header(attrs = { }) {
@@ -102,7 +102,7 @@ class TableTest {
                         }
                     }
                 ) {
-                    Text(it)
+                    Text(text)
                 }
                 column("empty") { }
             }
