@@ -147,8 +147,8 @@ public class GridTemplateTrack internal constructor(
     }
 
     public fun none() {
-        if (items.isNotEmpty()) {
-            throw IllegalStateException("Cannot add 'none' to already specified grid-template-columns")
+        check(items.isEmpty()) {
+            "Cannot add 'none' to already specified grid-template-columns"
         }
         items.add(Grid.GridTemplateNone)
     }
@@ -159,8 +159,8 @@ public class GridTemplateTrack internal constructor(
      * See https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns
      */
     public fun trackList(block: TrackList.() -> Unit) {
-        if (items.isNotEmpty()) {
-            throw IllegalStateException("Cannot add more tracks")
+        check(items.isEmpty()) {
+            "Cannot add more tracks"
         }
         items += TrackList().apply(block).items
     }
@@ -171,8 +171,8 @@ public class GridTemplateTrack internal constructor(
      * See https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns
      */
     public fun autoTrackList(block: AutoTrackList.() -> Unit) {
-        if (items.isNotEmpty()) {
-            throw IllegalStateException("Cannot add more tracks")
+        check(items.isEmpty()) {
+            "Cannot add more tracks"
         }
         items += AutoTrackList().apply(block).items
     }
@@ -182,8 +182,8 @@ public class GridTemplateTrack internal constructor(
      * See https://developer.mozilla.org/en-US/docs/Web/CSS/grid-template-columns
      */
     public fun auto(block: AutoList.() -> Unit) {
-        if (items.isNotEmpty()) {
-            throw IllegalStateException("Cannot add more tracks")
+        check(items.isEmpty()) {
+            "Cannot add more tracks"
         }
         items += AutoList().apply(block).items
         auto = true

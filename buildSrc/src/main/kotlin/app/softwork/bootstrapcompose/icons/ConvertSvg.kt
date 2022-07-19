@@ -21,10 +21,10 @@ abstract class ConvertSvg : DefaultTask() {
 
     @TaskAction
     fun doConverting() {
-        icons.asFileTree.forEachIndexed { index, it ->
-            println("$index ${it.nameWithoutExtension}")
-            outputDir.get().file("${it.nameWithoutExtension}.kt").asFile
-                .writeText(convertSvgToComposeSvg(it.readText(), it.nameWithoutExtension))
+        icons.asFileTree.forEachIndexed { index, file ->
+            println("$index ${file.nameWithoutExtension}")
+            outputDir.get().file("${file.nameWithoutExtension}.kt").asFile
+                .writeText(convertSvgToComposeSvg(file.readText(), file.nameWithoutExtension))
         }
     }
 }
