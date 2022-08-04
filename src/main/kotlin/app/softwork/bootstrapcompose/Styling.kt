@@ -66,8 +66,8 @@ public class SpacingSpecs(private val property: String) {
         Bottom("b"),
         Start("s"),
         End("e"),
-        Vertical("x"),
-        Horizontal("y");
+        Vertical("y"),
+        Horizontal("x");
 
         override fun toString(): String {
             return value
