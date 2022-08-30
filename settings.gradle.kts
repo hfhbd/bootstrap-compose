@@ -10,5 +10,4 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 rootProject.name = "bootstrap-compose"
 
 include(":showcase")
-include(":icons")
-project(":icons").name = "bootstrap-compose-icons"
+include(":bootstrap-compose-icons")
