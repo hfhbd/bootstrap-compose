@@ -1,6 +1,6 @@
 plugins {
     `kotlin-dsl`
-    kotlin("plugin.serialization") version "1.5.31" // same kotlin version of kotlin-dsl
+    kotlin("plugin.serialization") version embeddedKotlinVersion
 }
 
 repositories {

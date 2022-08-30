@@ -2,11 +2,10 @@ import org.jetbrains.compose.*
 import java.util.*
 import io.gitlab.arturbosch.detekt.*
 
-val composeVersion = "1.2.0-alpha01-dev774"
-
 plugins {
     kotlin("js") version "1.7.10"
-    id("org.jetbrains.compose") version "$composeVersion"
+    val composeVersion = "1.2.0-alpha01-dev774"
+    id("org.jetbrains.compose") version "$composeVersion" // https://github.com/dependabot/dependabot-core/pull/5381
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
@@ -49,6 +48,7 @@ dependencies {
 
 licensee {
     allow("Apache-2.0")
+    val composeVersion = "1.2.0-alpha01-dev774"
     allowDependency("org.jetbrains.compose.web", "web-core-js", "$composeVersion")
     allowDependency("org.jetbrains.compose.web", "web-core", "$composeVersion")
     allowDependency("org.jetbrains.compose.web", "internal-web-core-runtime-js", "$composeVersion")
