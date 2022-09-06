@@ -4,7 +4,7 @@ import io.gitlab.arturbosch.detekt.*
 
 plugins {
     kotlin("js") version "1.7.10"
-    val composeVersion = "1.2.0-alpha01-dev774"
+    val composeVersion = "1.2.0-alpha01-dev778"
     id("org.jetbrains.compose") version "$composeVersion" // https://github.com/dependabot/dependabot-core/pull/5381
     `maven-publish`
     signing
