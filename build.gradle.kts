@@ -4,7 +4,7 @@ import io.gitlab.arturbosch.detekt.*
 
 plugins {
     kotlin("js") version "1.7.10"
-    val composeVersion = "1.2.0-alpha01-dev774"
+    val composeVersion = "1.2.0-alpha01-dev778"
     id("org.jetbrains.compose") version "$composeVersion" // https://github.com/dependabot/dependabot-core/pull/5381
     `maven-publish`
     signing
@@ -48,7 +48,7 @@ dependencies {
 
 licensee {
     allow("Apache-2.0")
-    val composeVersion = "1.2.0-alpha01-dev774"
+    val composeVersion = "1.2.0-alpha01-dev778"
     allowDependency("org.jetbrains.compose.web", "web-core-js", "$composeVersion")
     allowDependency("org.jetbrains.compose.web", "web-core", "$composeVersion")
     allowDependency("org.jetbrains.compose.web", "internal-web-core-runtime-js", "$composeVersion")
