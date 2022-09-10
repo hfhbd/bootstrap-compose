@@ -37,7 +37,7 @@ kotlin {
 dependencies {
     api("app.softwork:kotlinx-uuid-core:0.0.17")
     api(compose.web.core)
-    api(npm("bootstrap", "5.1.3"))
+    api(npm("bootstrap", "5.2.1"))
     api(npm("@popperjs/core", "2.11.5"))
 
     implementation(devNpm("sass-loader", "^13.0.0"))
