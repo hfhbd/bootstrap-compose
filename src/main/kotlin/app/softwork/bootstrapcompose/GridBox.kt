@@ -9,12 +9,12 @@ import kotlin.reflect.*
 
 @Composable
 public fun GridBox(
-    styling: GridStyle.() -> Unit,
+    styling: @Composable GridStyle.() -> Unit,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: (@Composable GridContentBuilder.() -> Unit)? = null
 ) {
     Style
-    val style = GridStyle().apply(styling)
+    val style = GridStyle(styling)
     val classes = style.generate()
 
     Div(attrs = {
@@ -36,6 +36,9 @@ public class GridContentBuilder(scope: ElementScope<HTMLDivElement>) : ElementSc
         }
     }
 }
+
+@Composable
+public fun GridStyle(styling: @Composable GridStyle.() -> Unit): GridStyle = GridStyle().apply { styling() }
 
 public class GridStyle : Styling() {
     public val GridLayout: GridLayout = GridLayout()

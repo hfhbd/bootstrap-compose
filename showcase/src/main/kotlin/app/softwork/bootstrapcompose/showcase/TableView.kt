@@ -60,8 +60,7 @@ fun TableView() {
             }
             val numberOfEntries = remember { mutableStateOf(3) }
             Table(
-                pagination =
-                Table.OffsetPagination(
+                pagination = Table.OffsetPagination(
                     data = filteredTodos,
                     entriesPerPageLimit = numberOfEntries,
                     actionNavigateBack = { currentPage, previousPage ->
@@ -71,6 +70,7 @@ fun TableView() {
                         println("go from ${currentPage.index} to ${previousPage.index}")
                     }
                 ),
+                stripedRows = true,
                 fixedHeader = Table.FixedHeaderProperty(topSize = 56.px, zIndex = ZIndex(800))
             ) { index, todo ->
                 column(

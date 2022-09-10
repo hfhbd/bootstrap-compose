@@ -6,13 +6,13 @@ import org.w3c.dom.*
 
 @Composable
 public fun Row(
-    styling: (RowStyling.() -> Unit)? = null,
+    styling: (@Composable RowStyling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
     Style
     val classes = styling?.let {
-        RowStyling().apply(it).generate()
+        RowStyling(it).generate()
     }
 
     Div(attrs = {
@@ -23,6 +23,9 @@ public fun Row(
         attrs?.invoke(this)
     }, content = content)
 }
+
+@Composable
+public fun RowStyling(styling: @Composable RowStyling.() -> Unit): RowStyling = RowStyling().apply { styling() }
 
 public class RowStyling : Styling() {
     public val Gutters: Gutters = Gutters()
