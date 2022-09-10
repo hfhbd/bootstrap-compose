@@ -4,8 +4,7 @@ import io.gitlab.arturbosch.detekt.*
 
 plugins {
     kotlin("js") version "1.7.10"
-    val composeVersion = "1.2.0-alpha01-dev778"
-    id("org.jetbrains.compose") version "$composeVersion" // https://github.com/dependabot/dependabot-core/pull/5381
+    id("org.jetbrains.compose") version "1.2.0-alpha01-dev778"
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"

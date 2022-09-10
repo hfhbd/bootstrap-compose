@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose.icons
 
 import kotlinx.serialization.*
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.*
 import nl.adaptivity.xmlutil.serialization.*
 import org.gradle.api.*
@@ -8,6 +9,7 @@ import org.gradle.api.file.*
 import org.gradle.api.tasks.*
 import org.gradle.configurationcache.extensions.*
 import org.gradle.work.*
+import java.io.*
 
 @CacheableTask
 abstract class ConvertSvg : DefaultTask() {
@@ -21,10 +23,12 @@ abstract class ConvertSvg : DefaultTask() {
 
     @TaskAction
     fun doConverting() {
+        val outputDir = outputDir.get().asFile
         icons.asFileTree.forEachIndexed { index, file ->
-            println("$index ${file.nameWithoutExtension}")
-            outputDir.get().file("${file.nameWithoutExtension}.kt").asFile
-                .writeText(convertSvgToComposeSvg(file.readText(), file.nameWithoutExtension))
+            val name = file.nameWithoutExtension
+            println("$index $name")
+            File(outputDir, "$name.kt")
+                .writeText(convertSvgToComposeSvg(file.readText(), name))
         }
     }
 }
@@ -39,14 +43,14 @@ private val xml = XML(
     }
 )
 
-internal fun convertSvgToComposeSvg(input: String, fileName: String): String {
+private fun convertSvgToComposeSvg(input: String, fileName: String): String {
     val xml = xml.decodeFromString(SVG.serializer(), input)
 
     return xml.compose(fileName.toPascalCase())
 }
 
-val regex = Regex("-(\\S)")
-fun String.toPascalCase(): String = capitalized().replace(regex) {
+private val regex = Regex("-(\\S)")
+private fun String.toPascalCase(): String = capitalized().replace(regex) {
     it.groups[1]!!.value.capitalized()
 }
     .replace("1", "One")
@@ -61,7 +65,7 @@ fun String.toPascalCase(): String = capitalized().replace(regex) {
 
 @XmlSerialName("svg", "http://www.w3.org/2000/svg", "")
 @Serializable
-data class SVG(
+private data class SVG(
     val width: String,
     val height: String,
     val fill: String,
@@ -104,13 +108,13 @@ ${content.joinToString(separator = "\n") {
 """
 }
 
-interface Content {
+private interface Content {
     fun toCompose(): String
 }
 
 @XmlSerialName("path", "http://www.w3.org/2000/svg", "")
 @Serializable
-data class Path(val d: String, @SerialName("fill-rule") val fillRule: String? = null) : Content {
+private data class Path(val d: String, @SerialName("fill-rule") val fillRule: String? = null) : Content {
     override fun toCompose() = buildString {
         append("""Path("$d"""")
         if (fillRule != null) {
@@ -124,7 +128,7 @@ data class Path(val d: String, @SerialName("fill-rule") val fillRule: String? = 
 
 @XmlSerialName("circle", "http://www.w3.org/2000/svg", "")
 @Serializable
-data class Circle(
+private data class Circle(
     val cx: String,
     val cy: String,
     val r: String
@@ -134,7 +138,7 @@ data class Circle(
 
 @XmlSerialName("rect", "http://www.w3.org/2000/svg", "")
 @Serializable
-data class Rect(
+private data class Rect(
     val width: String,
     val height: String,
     val x: String?,
