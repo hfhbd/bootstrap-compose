@@ -29,6 +29,7 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 11
+      - run: ./gradlew :bootstrap-compose-icons:generateSVG    
       - name: Generate Docs
         run: ./gradlew :showcase:browserProductionWebpack
       - uses: actions/upload-pages-artifact@v1
