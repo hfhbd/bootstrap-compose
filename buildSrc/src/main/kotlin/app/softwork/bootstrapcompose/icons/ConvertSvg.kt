@@ -52,6 +52,12 @@ fun String.toPascalCase(): String = capitalized().replace(regex) {
     .replace("1", "One")
     .replace("2", "Two")
     .replace("3", "Three")
+    .replace("4", "Four")
+    .replace("5", "Five")
+    .replace("6", "Six")
+    .replace("7", "Seven")
+    .replace("8", "Eight")
+    .replace("9", "Nine")
 
 @XmlSerialName("svg", "http://www.w3.org/2000/svg", "")
 @Serializable
