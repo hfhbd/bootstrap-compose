@@ -56,6 +56,7 @@ public class OffcanvasState(public val confirmStateChange: (Boolean) -> Unit = {
 @Composable
 public fun Offcanvas(
     placement: OffcanvasPlacement,
+    breakpoint: Breakpoint? = null,
     offcanvasState: OffcanvasState = remember { OffcanvasState() },
     headerContent: ContentBuilder<HTMLDivElement>? = null,
     showHeaderCloseButton: Boolean = true,
@@ -64,7 +65,12 @@ public fun Offcanvas(
     Style
     needsJS
     Div(attrs = {
-        classes("offcanvas", placement.toString())
+        if (breakpoint == null) {
+            classes("offcanvas")
+        } else {
+            classes("offcanvas-$breakpoint")
+        }
+        classes(placement.toString())
         tabIndex(-1)
     }) {
         DisposableEffect(true) {

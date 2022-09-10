@@ -54,6 +54,9 @@ public open class Styling {
     }
 }
 
+@Composable
+public fun Styling(styling: @Composable Styling.() -> Unit): Styling = Styling().apply { styling() }
+
 @StylingMarker
 public class SpacingSpecs(private val property: String) {
     public operator fun invoke(f: SpacingSpecs.() -> Unit) {

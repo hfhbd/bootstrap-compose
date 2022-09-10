@@ -259,7 +259,8 @@ public fun <T> Table(
     data: List<T>,
     key: ((T) -> Any)? = null,
     color: Color? = null,
-    striped: Boolean = false,
+    stripedRows: Boolean = false,
+    stripedColumns: Boolean = false,
     hover: Boolean = false,
     borderless: Boolean = false,
     small: Boolean = false,
@@ -273,7 +274,8 @@ public fun <T> Table(
         pagination = Table.OffsetPagination(data, null, position = null),
         key,
         color,
-        striped,
+        stripedRows = stripedRows,
+        stripedColumns = stripedColumns,
         hover,
         borderless,
         small,
@@ -290,7 +292,8 @@ public fun <T> Table(
     pagination: Table.Pagination<T>,
     key: ((T) -> Any)? = null,
     color: Color? = null,
-    striped: Boolean = false,
+    stripedRows: Boolean = false,
+    stripedColumns: Boolean = false,
     hover: Boolean = false,
     borderless: Boolean = false,
     small: Boolean = false,
@@ -351,8 +354,11 @@ public fun <T> Table(
         if (hover) {
             classes("table-hover")
         }
-        if (striped) {
+        if (stripedRows) {
             classes("table-striped")
+        }
+        if (stripedColumns) {
+            classes("table-striped-columns")
         }
         if (borderless) {
             classes("table-borderless")
