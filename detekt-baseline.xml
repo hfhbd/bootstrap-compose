@@ -3,10 +3,14 @@
   <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>ComplexMethod:Main.kt$fun main()</ID>
-    <ID>ComplexMethod:Table.kt$@Composable public fun &lt;T&gt; Table( pagination: Table.Pagination&lt;T&gt;, key: ((T) -&gt; Any)? = null, color: Color? = null, striped: Boolean = false, hover: Boolean = false, borderless: Boolean = false, small: Boolean = false, fixedHeader: Table.FixedHeaderProperty? = null, caption: ContentBuilder&lt;HTMLTableCaptionElement&gt;? = null, captionTop: Boolean = false, attrs: AttrBuilderContext&lt;HTMLTableElement&gt;? = null, map: Table.Builder.(Int, T) -&gt; Unit )</ID>
     <ID>FunctionNaming:GridBox.kt$GridContentBuilder$public fun Styling.GridItem(spec: GridItemLayout.() -&gt; Unit)</ID>
     <ID>FunctionNaming:ListGroup.kt$private fun &lt;T : HTMLElement&gt; AttrsScope&lt;T&gt;.ListGroupAttrs( flush: Boolean = false, numbered: Boolean = false, listGroupDirection: ListGroupDirection = ListGroupDirection.Vertical, attrs: AttrBuilderContext&lt;T&gt;? = null, )</ID>
     <ID>FunctionNaming:ListGroup.kt$private fun &lt;T : HTMLElement&gt; AttrsScope&lt;T&gt;.ListItemAttrs( active: Boolean = false, disabled: Boolean = false, actionable: Boolean = false, background: Color? = null, attrs: AttrBuilderContext&lt;T&gt;? = null, )</ID>
+    <ID>LongMethod:Table.kt$Table.Pagination$public fun defaultControl(): PageControl&lt;T&gt;</ID>
+    <ID>LongParameterList:Table.kt$Table.Builder$( title: String, scope: Scope? = null, header: Header? = null, footer: Footer? = null, cellColor: Color? = null, verticalAlignment: Layout.VerticalAlignment? = null, cell: ContentBuilder&lt;HTMLTableCellElement&gt; )</ID>
+    <ID>LongParameterList:Table.kt$Table.OffsetPagination$( data: List&lt;T&gt;, entriesPerPageLimit: State&lt;Int&gt;, startPageIndex: Int = 0, position: Pagination.Position = Pagination.Position.Bottom, numberOfButtons: Int = 5, actionNavigateBack: ((CurrentPage&lt;T&gt;, Pagination.Page&lt;T&gt;) -&gt; Unit)? = null, actionNavigateForward: ((CurrentPage&lt;T&gt;, Pagination.Page&lt;T&gt;) -&gt; Unit)? = null, control: PageControl&lt;T&gt; )</ID>
+    <ID>LongParameterList:Table.kt$Table.OffsetPagination$( data: List&lt;T&gt;, public override val entriesPerPageLimit: State&lt;Int&gt;?, public override val startPageIndex: Int = 0, public override val position: Pagination.Position? = Pagination.Position.Bottom, public override val numberOfButtons: Int = 5, public override val actionNavigateBack: ((CurrentPage&lt;T&gt;, Pagination.Page&lt;T&gt;) -&gt; Unit)? = null, public override val actionNavigateForward: ((CurrentPage&lt;T&gt;, Pagination.Page&lt;T&gt;) -&gt; Unit)? = null, )</ID>
+    <ID>LongParameterList:Toasts.kt$ToastContainerState$( withDismissButton: Boolean = true, delay: Duration = 5.seconds, toastAttrs: (AttrsScope&lt;HTMLDivElement&gt;.() -&gt; Unit)? = null, dismissButtonAttrs: (AttrsScope&lt;HTMLButtonElement&gt;.() -&gt; Unit)? = null, header: ContentBuilder&lt;HTMLDivElement&gt;? = null, body: ContentBuilder&lt;HTMLDivElement&gt; )</ID>
     <ID>MagicNumber:BoxView.kt$4</ID>
     <ID>MagicNumber:BoxView.kt$50</ID>
     <ID>MagicNumber:ChecksAndRadiosView.kt$3</ID>

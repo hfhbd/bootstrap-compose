@@ -7,10 +7,12 @@ style:
     active: false
 
 complexity:
+  ComplexMethod:
+    ignoreAnnotated: ['Composable']
   LongMethod:
-    active: false
+    ignoreAnnotated: ['Composable']
   LongParameterList:
-    active: false
+    ignoreAnnotated: ['Composable']
 
 naming:
   FunctionNaming:
