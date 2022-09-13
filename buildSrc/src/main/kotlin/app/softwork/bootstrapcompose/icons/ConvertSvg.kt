@@ -27,7 +27,9 @@ abstract class ConvertSvg : DefaultTask() {
         icons.asFileTree.forEachIndexed { index, file ->
             val name = file.nameWithoutExtension
             println("$index $name")
-            File(outputDir, "$name.kt")
+            val packageFile = File(outputDir, "app/softwork/bootstrapcompose/icons")
+            packageFile.mkdirs()
+            File(packageFile, "$name.kt")
                 .writeText(convertSvgToComposeSvg(file.readText(), name))
         }
     }

@@ -27,11 +27,12 @@ kotlin {
 }
 tasks {
     val generateSVG by registering(app.softwork.bootstrapcompose.icons.ConvertSvg::class) {
+        dependsOn(rootProject.tasks.getByName("kotlinNpmInstall"))
         icons.set(rootProject.file("build/js/node_modules/bootstrap-icons/icons"))
         outputDir.set(File(project.buildDir, "generated/icons"))
         kotlin.sourceSets["main"].kotlin.srcDir(outputDir)
     }
-    assemble {
+    getByName("compileKotlinJs") {
         dependsOn(generateSVG)
     }
 }
