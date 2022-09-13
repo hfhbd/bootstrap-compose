@@ -15,6 +15,7 @@ import app.softwork.bootstrapcompose.Text.Wraps.NoWrap
 import app.softwork.bootstrapcompose.icons.*
 import org.jetbrains.compose.web.*
 import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.svg.*
 
 @OptIn(ExperimentalComposeWebSvgApi::class)
 @Composable

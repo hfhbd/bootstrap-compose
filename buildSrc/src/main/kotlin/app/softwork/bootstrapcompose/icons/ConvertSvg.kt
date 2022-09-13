@@ -148,7 +148,7 @@ private data class Rect(
 ) : Content {
     override fun toCompose() = buildString {
         if (x == null || y == null) {
-            append("""Rect($width, $height, $rx, "$transform")""")
+            append("""Rect($width, $height, $rx, $rx, "$transform")""")
         } else {
             append("""Rect($x, $y, $width, $height, attrs = {""")
             append("""rx($rx)""")
