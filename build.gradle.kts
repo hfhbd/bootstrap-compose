@@ -47,11 +47,6 @@ dependencies {
 
 licensee {
     allow("Apache-2.0")
-    val composeVersion = "1.2.0-alpha01-dev778"
-    allowDependency("org.jetbrains.compose.web", "web-core-js", "$composeVersion")
-    allowDependency("org.jetbrains.compose.web", "web-core", "$composeVersion")
-    allowDependency("org.jetbrains.compose.web", "internal-web-core-runtime-js", "$composeVersion")
-    allowDependency("org.jetbrains.compose.web", "internal-web-core-runtime", "$composeVersion")
 }
 
 val emptyJar by tasks.registering(Jar::class) {
