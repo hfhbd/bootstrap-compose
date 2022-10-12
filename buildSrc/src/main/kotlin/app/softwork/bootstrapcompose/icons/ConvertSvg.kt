@@ -24,10 +24,10 @@ abstract class ConvertSvg : DefaultTask() {
     @TaskAction
     fun doConverting() {
         val outputDir = outputDir.get().asFile
-        
+
         val packageFile = File(outputDir, "app/softwork/bootstrapcompose/icons")
         packageFile.mkdirs()
-        
+
         icons.asFileTree.forEachIndexed { index, file ->
             val name = file.nameWithoutExtension
             println("$index $name")
