@@ -25,6 +25,7 @@ kotlin {
 
     explicitApi()
 }
+
 tasks {
     val generateSVG by registering(app.softwork.bootstrapcompose.icons.ConvertSvg::class) {
         dependsOn(rootProject.tasks.getByName("kotlinNpmInstall"))
@@ -36,6 +37,7 @@ tasks {
         dependsOn(generateSVG)
     }
 }
+
 dependencies {
     api(compose.web.core)
     api(compose.web.svg)
