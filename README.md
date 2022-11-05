@@ -1,6 +1,6 @@
 # bootstrap-compose
 
-Highly experimental predefined Bootstrap functions to use in [Compose Web](https://github.com/Jetbrains/compose-jb)
+Predefined Bootstrap functions to use in [Compose Web](https://github.com/Jetbrains/compose-jb)
 
 ## Install
 
@@ -17,6 +17,12 @@ kotlin {
             binaries.executable()
             useCommonJs()
             commonWebpackConfig {
+                // Kotlin >= 1.7.20
+                scssSupport {
+                    enabled = true
+                }
+                
+                // Kotlin <= 1.7.10
                 cssSupport.enabled = true
             }
         }
@@ -26,12 +32,13 @@ kotlin {
 dependencies {
     implementation("app.softwork:bootstrap-compose:LATEST")
     implementation("app.softwork:bootstrap-compose-icons:LATEST") // for icons support
-    implementation(devNpm("sass-loader", "^13.0.0"))
-    implementation(devNpm("sass", "^1.52.1"))
+    
+    implementation(devNpm("sass-loader", "^13.0.0")) // only needed with Kotlin Kotlin <= 1.7.10
+    implementation(devNpm("sass", "^1.52.1")) // only needed with Kotlin <= 1.7.10
 }
 ```
 
-And this `sccs.js` in your `webpack.config.d`:
+And this `sccs.js` in your `webpack.config.d` if you use Kotlin <= 1.7.10:
 
 ```js
 config.module.rules.push({
