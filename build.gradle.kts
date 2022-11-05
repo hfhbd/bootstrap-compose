@@ -2,8 +2,8 @@ import java.util.*
 import io.gitlab.arturbosch.detekt.*
 
 plugins {
-    kotlin("js") version "1.7.10"
-    id("org.jetbrains.compose") version "1.2.0"
+    kotlin("js") version "1.7.20"
+    id("org.jetbrains.compose") version "1.2.1-rc03"
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
@@ -24,7 +24,9 @@ kotlin {
             binaries.library()
             useCommonJs()
             commonWebpackConfig {
-                cssSupport.enabled = true
+                scssSupport {
+                    enabled = true
+                }
             }
         }
     }
@@ -37,8 +39,6 @@ dependencies {
     api(compose.web.core)
     api(npm("bootstrap", "5.2.1"))
     api(npm("@popperjs/core", "2.11.5"))
-
-    implementation(devNpm("sass-loader", "^13.0.0"))
 
     testImplementation(compose.web.testUtils)
     testImplementation(kotlin("test"))
