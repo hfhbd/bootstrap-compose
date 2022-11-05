@@ -24,7 +24,9 @@ kotlin {
             binaries.library()
             useCommonJs()
             commonWebpackConfig {
-                cssSupport.enabled = true
+                scssSupport {
+                    enabled = true
+                }
             }
         }
     }
@@ -37,8 +39,6 @@ dependencies {
     api(compose.web.core)
     api(npm("bootstrap", "5.2.1"))
     api(npm("@popperjs/core", "2.11.5"))
-
-    implementation(devNpm("sass-loader", "^13.0.0"))
 
     testImplementation(compose.web.testUtils)
     testImplementation(kotlin("test"))
