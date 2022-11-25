@@ -14,9 +14,6 @@ public fun Badge(
     content: ContentBuilder<HTMLSpanElement>
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
 
     Span(attrs = {
         classes("badge", backgroundColor.background())
@@ -26,8 +23,8 @@ public fun Badge(
         if (round) {
             classes("rounded-pill")
         }
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         attrs?.invoke(this)
     }, content)

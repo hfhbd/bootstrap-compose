@@ -16,14 +16,10 @@ public fun Card(
     body: ContentBuilder<HTMLDivElement>
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
-
     Div({
         classes("card")
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         attrs?.invoke(this)
     }) {

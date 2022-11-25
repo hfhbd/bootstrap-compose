@@ -18,10 +18,6 @@ public fun Button(
     action: () -> Unit
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
-
     Button(attrs = {
         classes("btn")
         classes(size.toString())
@@ -33,8 +29,8 @@ public fun Button(
         if (disabled) {
             disabled()
         }
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         attrs?.invoke(this)
         type(type)
@@ -64,10 +60,6 @@ public fun Button(
     action: () -> Unit
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
-
     Button(attrs = {
         classes("btn")
         if (outlined) {
@@ -78,8 +70,8 @@ public fun Button(
         if (disabled) {
             disabled()
         }
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         attrs?.invoke(this)
         type(type)

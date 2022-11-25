@@ -11,14 +11,11 @@ public fun Brand(
     content: ContentBuilder<HTMLDivElement>
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
 
     Div(attrs = {
         classes("navbar-brand")
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         attrs?.invoke(this)
     }, content)

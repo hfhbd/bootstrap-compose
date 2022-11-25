@@ -12,16 +12,13 @@ public fun FormLabel(
     content: ContentBuilder<HTMLLabelElement>? = null
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
 
     Label(
         forId = forId,
         attrs = {
             classes(BSClasses.formLabel)
-            if (classes != null) {
-                classes(classes = classes)
+            if (styling != null) {
+                Styling(styling)
             }
             attrs?.invoke(this)
         },

@@ -11,13 +11,10 @@ public fun Box(
     content: ContentBuilder<HTMLDivElement>? = null
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
 
     Div(attrs = {
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         attrs?.invoke(this)
     }, content = content)

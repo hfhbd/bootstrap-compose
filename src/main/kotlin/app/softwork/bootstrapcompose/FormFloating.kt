@@ -12,13 +12,11 @@ public fun FormFloating(
     content: ContentBuilder<HTMLDivElement>? = null
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
+
     Div(attrs = {
         classes("form-floating")
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         if (attrs != null) {
             attrs()

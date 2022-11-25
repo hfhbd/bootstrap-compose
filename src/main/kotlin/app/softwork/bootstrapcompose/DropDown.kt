@@ -12,13 +12,10 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
     @Composable
     public fun Button(title: String, styling: (Styling.() -> Unit)? = null, onClick: () -> Unit) {
         Li {
-            val buttonClasses = styling?.let {
-                Styling().apply(it).generate()
-            }
             Button({
                 classes("dropdown-item")
-                if (buttonClasses != null) {
-                    classes(classes = buttonClasses)
+                if (styling != null) {
+                    Styling(styling)
                 }
                 onClick { onClick() }
             }) {
@@ -30,13 +27,10 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
     @Composable
     public fun Divider(styling: (Styling.() -> Unit)? = null) {
         Li {
-            val buttonClasses = styling?.let {
-                Styling().apply(it).generate()
-            }
             Hr {
                 classes("dropdown-divider")
-                if (buttonClasses != null) {
-                    classes(classes = buttonClasses)
+                if (styling != null) {
+                    Styling(styling)
                 }
             }
         }
@@ -45,13 +39,10 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
     @Composable
     public fun Header(title: String, styling: (Styling.() -> Unit)? = null) {
         Li {
-            val buttonClasses = styling?.let {
-                Styling().apply(it).generate()
-            }
             H6({
                 classes("dropdown-header")
-                if (buttonClasses != null) {
-                    classes(buttonClasses)
+                if (styling != null) {
+                    Styling(styling)
                 }
             }) {
                 Text(title)
@@ -175,9 +166,6 @@ private fun DropDownBase(
 ) {
     Style
     needsJS
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
 
     Div({ classes("btn-group", direction.toString()) }) {
         triggerElement(classes)

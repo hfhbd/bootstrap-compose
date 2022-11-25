@@ -15,14 +15,10 @@ public fun Icon(
     attrsBuilder: AttrBuilderContext<HTMLElement>? = null
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
-
     I({
         classes("bi", "bi-$iconName")
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         attrsBuilder?.invoke(this)
     })

@@ -19,14 +19,10 @@ public fun Checkbox(
     onClick: (Boolean) -> Unit
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
-
     Div({
         classes(BSClasses.formCheck)
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         if (inline) {
             classes(BSClasses.formCheckInline)

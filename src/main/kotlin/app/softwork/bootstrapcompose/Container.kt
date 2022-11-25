@@ -13,13 +13,9 @@ public fun Container(
     content: ContentBuilder<HTMLDivElement>?
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
-
     Div(attrs = {
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         when {
             fluid -> {

@@ -1,9 +1,16 @@
 package app.softwork.bootstrapcompose
 
-import androidx.compose.runtime.*
+import org.jetbrains.compose.web.attributes.*
+import org.w3c.dom.*
 
 @DslMarker
 public annotation class StylingMarker
+
+public fun <T : Element> AttrsScope<T>.Styling(styling: Styling.() -> Unit) {
+    Styling().apply {
+        styling()
+    }.apply(this)
+}
 
 /**
  * Primary entrypoint for the Styling DSL. Component authors may create a subclass to add additional styling
@@ -12,7 +19,7 @@ public annotation class StylingMarker
  */
 @StylingMarker
 public open class Styling {
-    private val generators: MutableList<@Composable () -> List<String>> = mutableListOf()
+    private val generators: MutableList<() -> List<String>> = mutableListOf()
     public val Margins: SpacingSpecs = SpacingSpecs("m")
     public val Padding: SpacingSpecs = SpacingSpecs("p")
     public val Borders: BorderSpec = BorderSpec()
@@ -23,39 +30,28 @@ public open class Styling {
     /**
      * This function will generate a list of css class names that should be applied to a component in order
      * to implement the styling features specified by the dsl. Subclasses should invoke this method and add
-     * any additional class names to the returned list. This method is Composable so additional style tags can
-     * be composed if new css class definitions are required.
-     *
-     * @return An array of css class names that are to be applied to the target component.
+     * any additional class names to the returned list.
      */
-    @Composable
-    public open fun generate(): List<String> {
-        val classes: MutableList<String> = mutableListOf()
+    public open fun<T : Element> apply(target: AttrsScope<T>) {
         for (gen in generators) {
-            classes += gen()
+            target.classes(gen())
         }
 
-        classes += Margins.generateClassStrings() +
-            Padding.generateClassStrings() +
-            Borders.generateClassStrings() +
-            Background.generateClassStrings() +
-            Text.generateClassStrings() +
-            Layout.generateClassStrings()
-
-        return classes
+        target.classes(Margins.generateClassStrings())
+        target.classes(Padding.generateClassStrings())
+        target.classes(Borders.generateClassStrings())
+        target.classes(Background.generateClassStrings())
+        target.classes(Text.generateClassStrings())
+        target.classes(Layout.generateClassStrings())
     }
 
     /**
-     * Register a styling generator. The provided function is a Composable that may create new styles and classes,
-     * and returns an array of classnames that are to be applied to the target component.
+     * Register a styling generator.
      */
-    public fun registerGenerator(block: @Composable () -> List<String>) {
+    public fun registerGenerator(block: () -> List<String>) {
         generators += block
     }
 }
-
-@Composable
-public fun Styling(styling: @Composable Styling.() -> Unit): Styling = Styling().apply { styling() }
 
 @StylingMarker
 public class SpacingSpecs(private val property: String) {

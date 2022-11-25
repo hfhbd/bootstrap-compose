@@ -10,14 +10,10 @@ public fun ButtonGroup(
     content: ContentBuilder<HTMLDivElement>
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
-
     Div({
         classes("btn-group")
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
     }, content)
 }

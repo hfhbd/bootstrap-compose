@@ -14,14 +14,10 @@ public fun Column(
     content: ContentBuilder<HTMLDivElement>
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
-
     Div(attrs = {
         classes("col" + (breakpoint?.let { "-$it" } ?: "") + (size?.let { "-$it" } ?: ""))
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         if (auto) {
             classes("col-auto")

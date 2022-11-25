@@ -13,17 +13,14 @@ public fun Alert(
     content: @Composable () -> Unit
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
     Div({
         classes("alert", "alert-$color")
         if (dismissible) {
             needsJS
             classes("alert-dismissible")
         }
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         attr("role", "alert")
         attrs?.invoke(this)
@@ -40,13 +37,10 @@ public fun Link(
     content: ContentBuilder<HTMLAnchorElement>
 ) {
     Style
-    val classes = styling?.let {
-        Styling().apply(it).generate()
-    }
     A(href, {
         classes("alert-link")
-        if (classes != null) {
-            classes(classes = classes)
+        if (styling != null) {
+            Styling(styling)
         }
         attrs?.invoke(this)
     }, content)

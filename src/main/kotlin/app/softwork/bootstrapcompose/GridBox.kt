@@ -2,6 +2,7 @@ package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
 import kotlinx.uuid.*
+import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
@@ -9,17 +10,14 @@ import kotlin.reflect.*
 
 @Composable
 public fun GridBox(
-    styling: @Composable GridStyle.() -> Unit,
+    styling: GridStyle.() -> Unit,
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: (@Composable GridContentBuilder.() -> Unit)? = null
 ) {
     Style
-    val style = GridStyle(styling)
-    val classes = style.generate()
-
     Div(attrs = {
         classes("d-grid")
-        classes(classes = classes)
+        GridStyle(styling)
         attrs?.invoke(this)
     }) {
         val scope = remember { GridContentBuilder(this) }
@@ -37,15 +35,18 @@ public class GridContentBuilder(scope: ElementScope<HTMLDivElement>) : ElementSc
     }
 }
 
-@Composable
-public fun GridStyle(styling: @Composable GridStyle.() -> Unit): GridStyle = GridStyle().apply { styling() }
+public fun AttrsScope<HTMLDivElement>.GridStyle(styling: GridStyle.() -> Unit) {
+    GridStyle()
+        .apply { styling() }
+        .apply(this)
+}
 
 public class GridStyle : Styling() {
     public val GridLayout: GridLayout = GridLayout()
 
-    @Composable
-    override fun generate(): List<String> {
-        return super.generate() + GridLayout.generate()
+    override fun<T: Element> apply(target: AttrsScope<T>) {
+        super.apply(target)
+        target.classes(GridLayout.generate())
     }
 }
 
@@ -87,7 +88,6 @@ public class GridLayout {
         areas += GridArea(breakpoint).apply(spec)
     }
 
-    @Composable
     internal fun generate(): List<String> {
         val classes: MutableList<String> = mutableListOf()
 
@@ -192,7 +192,6 @@ public class GridTemplateTrack internal constructor(
         auto = true
     }
 
-    @Composable
     internal fun StyleSheetBuilder.generateStyle(): String {
         val classname = remember { "_${UUID()}" }
 
@@ -478,7 +477,6 @@ public class GridArea internal constructor(private val breakpoint: Breakpoint?) 
         rows += listOf(*cells)
     }
 
-    @Composable
     internal fun StyleSheetBuilder.generateStyle(): String {
         val classname = remember { "_${UUID()}" }
 
@@ -529,7 +527,6 @@ public class GridItemLayout {
         placements += PlacementSpec(breakpoint).apply(spec)
     }
 
-    @Composable
     internal fun generate(): List<String> {
         val classes: MutableList<String> = mutableListOf()
 
@@ -618,7 +615,6 @@ public class GridItemArea(private val breakpoint: Breakpoint? = null, private va
         }
     }
 
-    @Composable
     internal fun StyleSheetBuilder.generateStyle(): String {
         val classname = remember { "_${UUID()}" }
 
@@ -743,7 +739,6 @@ public class PlacementSpec(private val breakpoint: Breakpoint? = null) {
         }
     }
 
-    @Composable
     internal fun StyleSheetBuilder.generateStyle(): String {
         val classname = remember { "_${UUID()}" }
 
