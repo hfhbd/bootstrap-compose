@@ -41,7 +41,7 @@ tasks {
 dependencies {
     api(compose.web.core)
     api(compose.web.svg)
-    implementation(devNpm("bootstrap-icons", "1.9.1"))
+    implementation(devNpm("bootstrap-icons", "1.10.3"))
 
     testImplementation(compose.web.testUtils)
     testImplementation(kotlin("test"))
