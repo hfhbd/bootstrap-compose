@@ -48,7 +48,11 @@ private val xml = XML(
 )
 
 private fun convertSvgToComposeSvg(input: String, fileName: String): String {
-    val xml = xml.decodeFromString(SVG.serializer(), input)
+    val xml = try {
+        xml.decodeFromString(SVG.serializer(), input)
+    } catch (e: Exception) {
+        throw Exception("$fileName $input", e)
+    }
 
     return xml.compose(fileName.toPascalCase())
 }
@@ -57,6 +61,7 @@ private val regex = Regex("-(\\S)")
 private fun String.toPascalCase(): String = capitalized().replace(regex) {
     it.groups[1]!!.value.capitalized()
 }
+    .replace("0", "Zero")
     .replace("1", "One")
     .replace("2", "Two")
     .replace("3", "Three")
@@ -85,6 +90,7 @@ private data class SVG(
 
 import androidx.compose.runtime.*
 import org.jetbrains.compose.web.*
+import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.svg.*
 import org.w3c.dom.svg.*
@@ -118,13 +124,28 @@ private sealed interface Content {
 
 @XmlSerialName("path", "http://www.w3.org/2000/svg", "")
 @Serializable
-private data class Path(val d: String, @SerialName("fill-rule") val fillRule: String? = null) : Content {
+private data class Path(
+    val d: String,
+    @SerialName("fill-rule") val fillRule: String? = null,
+    @SerialName("fill-opacity") val fillOpacity: String? = null,
+) : Content {
     override fun toCompose() = buildString {
         append("""Path("$d"""")
-        if (fillRule != null) {
-            append(", attrs = {")
-            append("""fillRule("$fillRule")""")
-            append("}")
+        if (fillRule != null || fillOpacity != null) {
+            appendLine(", attrs = {")
+            if (fillRule != null) {
+                appendLine("""fillRule("$fillRule")""")
+            }
+            if (fillOpacity != null) {
+                val number = fillOpacity.toFloatOrNull()
+                if (number != null) {
+                    appendLine("""fillOpacity($fillOpacity)""")
+                }
+                else {
+                    appendLine("""fillOpacity($fillOpacity.percent)""")
+                }
+            }
+            appendLine("}")
         }
         append(")")
     }

@@ -14,7 +14,7 @@ kotlin.sourceSets["main"].kotlin.srcDir(generateSVG)
 dependencies {
     api(compose.html.core)
     api(compose.html.svg)
-    implementation(devNpm("bootstrap-icons", "1.9.1"))
+    implementation(devNpm("bootstrap-icons", "1.11.1"))
 
     testImplementation(compose.html.testUtils)
     testImplementation(kotlin("test"))
