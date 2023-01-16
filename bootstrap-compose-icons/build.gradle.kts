@@ -8,8 +8,6 @@ plugins {
     signing
 }
 
-group = "app.softwork"
-
 repositories {
     mavenCentral()
     jetbrainsCompose()

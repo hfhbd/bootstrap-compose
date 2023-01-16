@@ -11,8 +11,6 @@ plugins {
     id("app.cash.licensee") version "1.6.0"
 }
 
-group = "app.softwork"
-
 repositories {
     mavenCentral()
     maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev")

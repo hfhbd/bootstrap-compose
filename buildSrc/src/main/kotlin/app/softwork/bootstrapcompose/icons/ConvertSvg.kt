@@ -1,5 +1,6 @@
 package app.softwork.bootstrapcompose.icons
 
+import com.ibm.icu.text.*
 import kotlinx.serialization.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.*
@@ -10,6 +11,7 @@ import org.gradle.api.tasks.*
 import org.gradle.configurationcache.extensions.*
 import org.gradle.work.*
 import java.io.*
+import java.util.*
 
 @CacheableTask
 abstract class ConvertSvg : DefaultTask() {
@@ -28,12 +30,13 @@ abstract class ConvertSvg : DefaultTask() {
         val packageFile = File(outputDir, "app/softwork/bootstrapcompose/icons")
         packageFile.mkdirs()
 
-        icons.asFileTree.forEachIndexed { index, file ->
+        val size = icons.asFileTree.count { file ->
             val name = file.nameWithoutExtension
-            println("$index $name")
             File(packageFile, "$name.kt")
                 .writeText(convertSvgToComposeSvg(file.readText(), name))
+            true
         }
+        println("converted $size icons")
     }
 }
 
@@ -54,18 +57,39 @@ private fun convertSvgToComposeSvg(input: String, fileName: String): String {
 }
 
 private val regex = Regex("-(\\S)")
-private fun String.toPascalCase(): String = capitalized().replace(regex) {
+private val numberSpace = Regex(" (\\S)")
+private val leadingNumber = Regex("(\\d+)([A-Za-z-]+)+")
+val rule = RuleBasedNumberFormat(Locale("en", "US"), RuleBasedNumberFormat.SPELLOUT)
+
+private fun String.toPascalCase2(): String = leadingNumber.replace(this) {
+    println("${it.groupValues} $this")
+    val value = it.groups[1]!!.value
+    val number = value.toInt()
+    rule.format(number).replace(numberSpace) {
+        it.groups[1]!!.value.capitalized()
+    }.capitalized() + (it.groups[2]?.value?.capitalized() ?: "")
+}.capitalized().replace(regex) {
     it.groups[1]!!.value.capitalized()
+}.also { println("$this -> $it") }
+
+private fun String.toPascalCase(): String {
+    return when {
+        this == "123" -> "OneTwoThree"
+        startsWith("0-") -> "Zero${drop(1)}"
+        startsWith("1-") -> "One${drop(1)}"
+        startsWith("2-") -> "Two${drop(1)}"
+        startsWith("3-") -> "Three${drop(1)}"
+        startsWith("4-") -> "Four${drop(1)}"
+        startsWith("5-") -> "Five${drop(1)}"
+        startsWith("6-") -> "Six${drop(1)}"
+        startsWith("7-") -> "Seven${drop(1)}"
+        startsWith("8-") -> "Eight${drop(1)}"
+        startsWith("9-") -> "Nine${drop(1)}"
+        else -> this.capitalized()
+    }.replace(regex) {
+        it.groups[1]!!.value.capitalized()
+    }.also { println("$this -> $it") }
 }
-    .replace("1", "One")
-    .replace("2", "Two")
-    .replace("3", "Three")
-    .replace("4", "Four")
-    .replace("5", "Five")
-    .replace("6", "Six")
-    .replace("7", "Seven")
-    .replace("8", "Eight")
-    .replace("9", "Nine")
 
 @XmlSerialName("svg", "http://www.w3.org/2000/svg", "")
 @Serializable
@@ -104,9 +128,11 @@ public fun $fileName(attrs: AttrBuilderContext<SVGElement>? = null) {
             attrs?.invoke(this)
         }
     ) {
-${content.joinToString(separator = "\n") {
-        "        ${it.toCompose()}"
-    }}
+${
+        content.joinToString(separator = "\n") {
+            "        ${it.toCompose()}"
+        }
+    }
     }
 }
 """
