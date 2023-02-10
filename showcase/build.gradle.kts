@@ -17,7 +17,7 @@ kotlin {
             useCommonJs()
             commonWebpackConfig {
                 scssSupport {
-                    enabled = true
+                    enabled.set(true)
                 }
             }
         }
