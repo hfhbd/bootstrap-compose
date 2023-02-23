@@ -2,10 +2,13 @@ package app.softwork.bootstrapcompose.icons
 
 import kotlinx.serialization.*
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.*
+import kotlinx.serialization.json.*
 import kotlinx.serialization.modules.*
 import nl.adaptivity.xmlutil.serialization.*
 import org.gradle.api.*
 import org.gradle.api.file.*
+import org.gradle.api.provider.*
 import org.gradle.api.tasks.*
 import org.gradle.configurationcache.extensions.*
 import org.gradle.work.*
@@ -18,24 +21,75 @@ abstract class ConvertSvg : DefaultTask() {
     @get:InputDirectory
     abstract val icons: DirectoryProperty
 
-    @get:OutputDirectory
+    @get:Internal
     abstract val outputDir: DirectoryProperty
+
+    @get:OutputDirectory
+    abstract val packageFolder: DirectoryProperty
+
+    init {
+        packageFolder.convention(outputDir.dir("app/softwork/bootstrapcompose/icons"))
+    }
+
+    @get:OutputFile
+    abstract val iconTableName: RegularFileProperty
+
+    @get:OutputFile
+    abstract val jsonIconNames: RegularFileProperty
+
+    init {
+        jsonIconNames.convention(project.layout.buildDirectory.file("reports/iconMapping.json"))
+    }
+
+    @get:Input
+    abstract val version: Property<String>
 
     @TaskAction
     fun doConverting() {
-        val outputDir = outputDir.get().asFile
+        val packageFolder = packageFolder.get().asFile
 
-        val packageFile = File(outputDir, "app/softwork/bootstrapcompose/icons")
-        packageFile.mkdirs()
-
-        icons.asFileTree.forEachIndexed { index, file ->
+        val names = icons.asFileTree.map { file ->
             val name = file.nameWithoutExtension
-            println("$index $name")
-            File(packageFile, "$name.kt")
-                .writeText(convertSvgToComposeSvg(file.readText(), name))
+            val (generated, newName) = convertSvgToComposeSvg(file.readText(), name)
+            File(packageFolder, "$name.kt")
+                .writeText(generated)
+            NameMapping(name, newName)
+        }.sortedBy { it.jsName }
+
+        jsonIconNames.asFile.get().apply {
+            if (!exists()) {
+                createNewFile()
+            }
+        }.writeText(
+            Json.encodeToString(JsonReport.serializer(), JsonReport(version.get(), names, names.size))
+        )
+
+        val table = names.joinToString(
+            "\n",
+            prefix = """
+                ~# Name Mapping #
+                ~The original JS names contain leading zeros not being a valid Kotlin identifier.
+                ~
+                ~| Original Js Name | Kotlin Name |
+                ~|---|---|
+                ~""".trimMargin("~"),
+            postfix = "|-|-|"
+        ) {
+            "|${it.jsName}|${it.kotlinName}|"
         }
+        iconTableName.asFile.get().apply {
+            if (!exists()) {
+                createNewFile()
+            }
+        }.writeText(table)
     }
 }
+
+@Serializable
+data class JsonReport(val version: String, val names: List<NameMapping>, val count: Int)
+
+@Serializable
+data class NameMapping(val jsName: String, val kotlinName: String)
 
 private val xml = XML(
     serializersModule = SerializersModule {
@@ -47,10 +101,10 @@ private val xml = XML(
     }
 )
 
-private fun convertSvgToComposeSvg(input: String, fileName: String): String {
+private fun convertSvgToComposeSvg(input: String, fileName: String): Pair<String, String> {
     val xml = xml.decodeFromString(SVG.serializer(), input)
-
-    return xml.compose(fileName.toPascalCase())
+    val name = fileName.toPascalCase()
+    return xml.compose(name) to name
 }
 
 private val regex = Regex("-(\\S)")
@@ -104,9 +158,11 @@ public fun $fileName(attrs: AttrBuilderContext<SVGElement>? = null) {
             attrs?.invoke(this)
         }
     ) {
-${content.joinToString(separator = "\n") {
+${
+    content.joinToString(separator = "\n") {
         "        ${it.toCompose()}"
-    }}
+    }
+    }
     }
 }
 """
