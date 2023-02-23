@@ -8,8 +8,6 @@ plugins {
     signing
 }
 
-group = "app.softwork"
-
 repositories {
     mavenCentral()
     jetbrainsCompose()
@@ -47,12 +45,11 @@ dependencies {
     testImplementation(kotlin("test"))
 }
 
-val emptyJar by tasks.registering(Jar::class) {
-}
+val emptyJar by tasks.registering(Jar::class)
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        register<MavenPublication>("maven") {
             from(components["kotlin"])
             artifact(emptyJar) {
                 classifier = "javadoc"
