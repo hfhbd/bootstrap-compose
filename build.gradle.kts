@@ -8,10 +8,8 @@ plugins {
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.2.0"
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
-    id("app.cash.licensee") version "1.6.0"
+    id("app.cash.licensee") version "1.7.0-SNAPSHOT"
 }
-
-group = "app.softwork"
 
 repositories {
     mavenCentral()
@@ -48,12 +46,11 @@ licensee {
     allow("Apache-2.0")
 }
 
-val emptyJar by tasks.registering(Jar::class) {
-}
+val emptyJar by tasks.registering(Jar::class)
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        register<MavenPublication>("maven") {
             from(components["kotlin"])
             artifact(emptyJar) {
                 classifier = "javadoc"
