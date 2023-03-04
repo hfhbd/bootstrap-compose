@@ -2,16 +2,14 @@ import java.util.*
 import io.gitlab.arturbosch.detekt.*
 
 plugins {
-    kotlin("js") version "1.7.20"
-    id("org.jetbrains.compose") version "1.2.2"
+    kotlin("js") version "1.8.0"
+    id("org.jetbrains.compose") version "1.3.0"
     `maven-publish`
     signing
-    id("io.github.gradle-nexus.publish-plugin") version "1.1.0"
+    id("io.github.gradle-nexus.publish-plugin") version "1.2.0"
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
-    id("app.cash.licensee") version "1.6.0"
+    id("app.cash.licensee") version "1.7.0-SNAPSHOT"
 }
-
-group = "app.softwork"
 
 repositories {
     mavenCentral()
@@ -25,7 +23,7 @@ kotlin {
             useCommonJs()
             commonWebpackConfig {
                 scssSupport {
-                    enabled = true
+                    enabled.set(true)
                 }
             }
         }
@@ -48,12 +46,11 @@ licensee {
     allow("Apache-2.0")
 }
 
-val emptyJar by tasks.registering(Jar::class) {
-}
+val emptyJar by tasks.registering(Jar::class)
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
+        register<MavenPublication>("maven") {
             from(components["kotlin"])
             artifact(emptyJar) {
                 classifier = "javadoc"
