@@ -33,12 +33,12 @@ dependencies {
     implementation("app.softwork:bootstrap-compose:LATEST")
     implementation("app.softwork:bootstrap-compose-icons:LATEST") // for icons support
     
-    implementation(devNpm("sass-loader", "^13.0.0")) // only needed with Kotlin Kotlin <= 1.7.10
+    implementation(devNpm("sass-loader", "^13.0.0")) // only needed with Kotlin <= 1.7.10
     implementation(devNpm("sass", "^1.52.1")) // only needed with Kotlin <= 1.7.10
 }
 ```
 
-And this `sccs.js` in your `webpack.config.d` if you use Kotlin <= 1.7.10:
+And this `sccs.js` in your `webpack.config.d` (if not present, create this directory at the root of your project) if you use Kotlin <= 1.7.10:
 
 ```js
 config.module.rules.push({
@@ -57,7 +57,7 @@ config.module.rules.push({
 
 ## SCSS
 
-Include your `scss` file in your `ressources` folder:
+Include your `scss` file (e.g. `custom.scss`) in your `resources` folder:
 
 ````scss
 // Variable overrides first
@@ -71,6 +71,8 @@ $primary: #900;
 and load it in your main method.
 
 ````kotlin
+import app.softwork.bootstrapcompose.require
+
 fun main() {
     require("./custom.scss")
 }
