@@ -3,7 +3,7 @@ import io.gitlab.arturbosch.detekt.*
 
 plugins {
     kotlin("js") version "1.8.20"
-    id("org.jetbrains.compose") version "1.4.0-rc03"
+    id("org.jetbrains.compose") version "1.4.0-rc04-dev1023"
     `maven-publish`
     signing
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
