@@ -33,7 +33,7 @@ kotlin {
 }
 
 dependencies {
-    api("app.softwork:kotlinx-uuid-core:0.0.18")
+    api("app.softwork:kotlinx-uuid-core:0.0.19")
     api(compose.web.core)
     api(npm("bootstrap", "5.2.3"))
     api(npm("@popperjs/core", "2.11.5"))
