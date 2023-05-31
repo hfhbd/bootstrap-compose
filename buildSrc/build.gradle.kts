@@ -9,7 +9,7 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.85.0")
+    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.86.0")
 
     testImplementation(kotlin("test-junit"))
 }
