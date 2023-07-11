@@ -32,7 +32,7 @@ jobs:
       - run: ./gradlew assemble  
       - name: Generate Docs
         run: ./gradlew :showcase:browserProductionWebpack
-      - uses: actions/upload-pages-artifact@v1
+      - uses: actions/upload-pages-artifact@v2
         with:
           path: showcase/build/distributions
       - name: Deploy to GitHub Pages
