@@ -1,25 +1,12 @@
-import org.jetbrains.compose.*
-
 plugins {
-    kotlin("js")
+    id("setup")
     id("org.jetbrains.compose")
-}
-
-repositories {
-    mavenCentral()
-    jetbrainsCompose()
 }
 
 kotlin {
     js(IR) {
         browser {
             binaries.executable()
-            useCommonJs()
-            commonWebpackConfig {
-                scssSupport {
-                    enabled.set(true)
-                }
-            }
         }
     }
 }
