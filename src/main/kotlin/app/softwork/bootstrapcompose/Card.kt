@@ -28,11 +28,20 @@ public fun Card(
         attrs?.invoke(this)
     }) {
         header?.let {
-            Div({ classes("card-header"); headerAttrs?.invoke(this) }, header)
+            Div({
+                classes("card-header")
+                headerAttrs?.invoke(this)
+            }, header)
         }
-        Div({ classes("card-body"); bodyAttrs?.invoke(this) }, body)
+        Div({
+            classes("card-body")
+            bodyAttrs?.invoke(this)
+        }, body)
         footer?.let {
-            Div({ classes("card-footer"); footerAttrs?.invoke(this) }, footer)
+            Div({
+                classes("card-footer")
+                footerAttrs?.invoke(this)
+            }, footer)
         }
     }
 }

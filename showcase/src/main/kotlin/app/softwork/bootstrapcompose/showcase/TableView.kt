@@ -75,7 +75,8 @@ fun TableView() {
             ) { index, todo ->
                 column(
                     "Index",
-                    header = Table.Header(color = Color.Light), scope = Scope.Row,
+                    header = Table.Header(color = Color.Light),
+                    scope = Scope.Row,
                     verticalAlignment = Layout.VerticalAlignment.TextTop
                 ) {
                     Text(index.toString())

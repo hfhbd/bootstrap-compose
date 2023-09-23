@@ -6,7 +6,6 @@ import app.softwork.bootstrapcompose.SpacingSpecs.SpacingSize.Medium
 import org.jetbrains.compose.web.dom.*
 
 @Composable
-
 fun SelectView() {
     Container(styling = { Margins { Top { size = Medium } } }) {
         Row {

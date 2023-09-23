@@ -117,7 +117,8 @@ public fun AnchorListItem(
             if (classes != null) {
                 classes(classes = classes)
             }
-        }, content = content
+        },
+        content = content
     )
 }
 

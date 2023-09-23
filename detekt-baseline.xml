@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues/>
+  <ManuallySuppressedIssues></ManuallySuppressedIssues>
   <CurrentIssues>
-    <ID>ComplexMethod:Main.kt$fun main()</ID>
+    <ID>CyclomaticComplexMethod:Main.kt$fun main()</ID>
     <ID>FunctionNaming:GridBox.kt$GridContentBuilder$public fun Styling.GridItem(spec: GridItemLayout.() -&gt; Unit)</ID>
     <ID>FunctionNaming:ListGroup.kt$private fun &lt;T : HTMLElement&gt; AttrsScope&lt;T&gt;.ListGroupAttrs( flush: Boolean = false, numbered: Boolean = false, listGroupDirection: ListGroupDirection = ListGroupDirection.Vertical, attrs: AttrBuilderContext&lt;T&gt;? = null, )</ID>
     <ID>FunctionNaming:ListGroup.kt$private fun &lt;T : HTMLElement&gt; AttrsScope&lt;T&gt;.ListItemAttrs( active: Boolean = false, disabled: Boolean = false, actionable: Boolean = false, background: Color? = null, attrs: AttrBuilderContext&lt;T&gt;? = null, )</ID>
@@ -26,13 +26,13 @@
     <ID>MagicNumber:TableView.kt$800</ID>
     <ID>MagicNumber:TableView.kt$CalcPagination$10</ID>
     <ID>MaxLineLength:TableTest.kt$TableTest$expected = """&lt;table class="table"&gt;&lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;&lt;div class="row"&gt;&lt;div class="col"&gt;Title&lt;/div&gt;&lt;div class="col col-auto"&gt;&lt;button class="btn btn-primary" type="submit"&gt;Text&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;&lt;/th&gt;&lt;th scope="col"&gt;empty&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;Foo&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;Bar&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;"""</ID>
-    <ID>MaximumLineLength:app.softwork.bootstrapcompose.TableTest.kt:112</ID>
+    <ID>MaximumLineLength:TableTest.kt$TableTest$ </ID>
     <ID>TooManyFunctions:GridBox.kt$GridItemArea</ID>
     <ID>TooManyFunctions:GridBox.kt$GridItemAreaSpec</ID>
     <ID>TooManyFunctions:InputGroup.kt$InputGroupContext</ID>
-    <ID>UnusedPrivateMember:bootstrap.kt$Modal$element: HTMLDivElement</ID>
-    <ID>UnusedPrivateMember:bootstrap.kt$Offcanvas$element: HTMLDivElement</ID>
-    <ID>UnusedPrivateMember:bootstrap.kt$Toast$element: HTMLDivElement</ID>
+    <ID>UnusedPrivateProperty:bootstrap.kt$Modal$element: HTMLDivElement</ID>
+    <ID>UnusedPrivateProperty:bootstrap.kt$Offcanvas$element: HTMLDivElement</ID>
+    <ID>UnusedPrivateProperty:bootstrap.kt$Toast$element: HTMLDivElement</ID>
     <ID>VariableNaming:Table.kt$val _footers = mutableListOf&lt;Table.Footer&gt;()</ID>
   </CurrentIssues>
 </SmellBaseline>
