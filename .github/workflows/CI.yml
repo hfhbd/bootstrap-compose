@@ -10,22 +10,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
+      contents: write
       security-events: write
 
     steps:
       - uses: actions/checkout@v4
-      - uses: gradle/wrapper-validation-action@v1
       - uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: 11
+      - uses: gradle/gradle-build-action@v2
+        with:
+          dependency-graph: generate-and-submit
+          gradle-home-cache-cleanup: true
       - name: Build with Gradle
         run: ./gradlew build
       - name: Detekt
         run: ./gradlew detekt
-        if: success() || failure()
+        if: always()
       - name: Upload SARIF to Github using the upload-sarif action
         uses: github/codeql-action/upload-sarif@v2
-        if: success() || failure()
+        if: always()
         with:
           sarif_file: build/reports/detekt/detekt.sarif
