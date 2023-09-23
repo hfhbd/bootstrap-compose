@@ -88,7 +88,8 @@ public class SelectContext {
                     classes(classes = classes)
                 }
                 attrs?.invoke(this)
-            }, content = content
+            },
+            content = content
         )
     }
 }

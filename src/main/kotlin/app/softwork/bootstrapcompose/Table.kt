@@ -248,7 +248,9 @@ internal fun tableCalcButtons(index: Int, pages: Int, numberOfButtons: Int): Int
             } else if (upper == max) {
                 val newLower = pages - numberOfButtons
                 newLower until pages
-            } else lower..upper
+            } else {
+                lower..upper
+            }
         }
     }
 }

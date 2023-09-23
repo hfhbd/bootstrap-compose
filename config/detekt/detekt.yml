@@ -1,13 +1,15 @@
 formatting:
   NoWildcardImports:
     active: false
+  Filename:
+    active: false
 
 style:
   WildcardImport:
     active: false
 
 complexity:
-  ComplexMethod:
+  CyclomaticComplexMethod:
     ignoreAnnotated: ['Composable']
   LongMethod:
     ignoreAnnotated: ['Composable']

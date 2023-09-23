@@ -180,7 +180,6 @@ private fun DropDownBase(
     }
 
     Div({ classes("btn-group", direction.toString()) }) {
-
         triggerElement(classes)
 
         Ul({

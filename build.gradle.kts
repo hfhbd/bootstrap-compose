@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.compose") version "1.5.1"
     id("sign")
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
-    id("io.gitlab.arturbosch.detekt") version "1.21.0"
+    id("io.gitlab.arturbosch.detekt") version "1.23.1"
     id("app.cash.licensee") version "1.7.0"
 }
 
@@ -41,7 +41,7 @@ detekt {
 }
 
 dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.21.0")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
 }
 
 tasks {
