@@ -50,8 +50,8 @@ private val xml = XML(
 private fun convertSvgToComposeSvg(input: String, fileName: String): String {
     val xml = try {
         xml.decodeFromString(SVG.serializer(), input)
-    } catch (e: Exception) {
-        throw Exception("$fileName $input", e)
+    } catch (e: XmlSerialException) {
+        throw XmlSerialException("$fileName $input", e)
     }
 
     return xml.compose(fileName.toPascalCase())
@@ -140,8 +140,7 @@ private data class Path(
                 val number = fillOpacity.toFloatOrNull()
                 if (number != null) {
                     appendLine("""fillOpacity($fillOpacity)""")
-                }
-                else {
+                } else {
                     appendLine("""fillOpacity($fillOpacity.percent)""")
                 }
             }
