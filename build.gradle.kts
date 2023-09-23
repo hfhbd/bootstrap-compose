@@ -1,44 +1,20 @@
-import java.util.*
 import io.gitlab.arturbosch.detekt.*
 
 plugins {
-    kotlin("js") version "1.8.20"
-    id("org.jetbrains.compose") version "1.4.3"
-    `maven-publish`
-    signing
+    id("org.jetbrains.compose") version "1.5.1"
+    id("sign")
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     id("io.gitlab.arturbosch.detekt") version "1.21.0"
     id("app.cash.licensee") version "1.7.0"
 }
 
-repositories {
-    mavenCentral()
-    maven(url = "https://maven.pkg.jetbrains.space/public/p/compose/dev")
-}
-
-kotlin {
-    js(IR) {
-        browser {
-            binaries.library()
-            useCommonJs()
-            commonWebpackConfig {
-                scssSupport {
-                    enabled.set(true)
-                }
-            }
-        }
-    }
-
-    explicitApi()
-}
-
 dependencies {
     api("app.softwork:kotlinx-uuid-core:0.0.20")
-    api(compose.web.core)
+    api(compose.html.core)
     api(npm("bootstrap", "5.2.3"))
     api(npm("@popperjs/core", "2.11.5"))
 
-    testImplementation(compose.web.testUtils)
+    testImplementation(compose.html.testUtils)
     testImplementation(kotlin("test"))
 }
 
@@ -46,55 +22,8 @@ licensee {
     allow("Apache-2.0")
 }
 
-val emptyJar by tasks.registering(Jar::class)
-
-publishing {
-    publications {
-        register<MavenPublication>("maven") {
-            from(components["kotlin"])
-            artifact(emptyJar) {
-                classifier = "javadoc"
-            }
-            pom {
-                name.set("app.softwork Bootstrap Library for JetBrains Compose Web")
-                description.set("A wrapper for Bootstrap to use with JetBrains Compose Web")
-                url.set("https://github.com/hfhbd/bootstrap-compose")
-                licenses {
-                    license {
-                        name.set("The Apache License, Version 2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("hfhbd")
-                        name.set("Philip Wedemann")
-                        email.set("mybztg+mavencentral@icloud.com")
-                    }
-                }
-                scm {
-                    connection.set("scm:git://github.com/hfhbd/bootstrap-compose.git")
-                    developerConnection.set("scm:git://github.com/hfhbd/bootstrap-compose.git")
-                    url.set("https://github.com/hfhbd/bootstrap-compose")
-                }
-            }
-        }
-    }
-}
-
-(System.getProperty("signing.privateKey") ?: System.getenv("SIGNING_PRIVATE_KEY"))?.let {
-    String(Base64.getDecoder().decode(it)).trim()
-}?.let { key ->
-    println("found key, config signing")
-    signing {
-        val signingPassword = System.getProperty("signing.password") ?: System.getenv("SIGNING_PASSWORD")
-        useInMemoryPgpKeys(key, signingPassword)
-        sign(publishing.publications)
-    }
-}
-
 nexusPublishing {
-    repositories {
+    this.repositories {
         sonatype {
             username.set(System.getProperty("sonartype.apiKey") ?: System.getenv("SONARTYPE_APIKEY"))
             password.set(System.getProperty("sonartype.apiToken") ?: System.getenv("SONARTYPE_APITOKEN"))
@@ -107,6 +36,7 @@ nexusPublishing {
 detekt {
     source = files(rootProject.rootDir)
     parallel = true
+    autoCorrect = true
     buildUponDefaultConfig = true
 }
 

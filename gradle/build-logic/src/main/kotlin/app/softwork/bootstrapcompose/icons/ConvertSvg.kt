@@ -75,7 +75,7 @@ private data class SVG(
     val fill: String,
     @SerialName("class") val classes: String,
     val viewBox: String,
-    @XmlElement(true)
+    @XmlElement
     @XmlPolyChildren([".Path", ".Circle", ".Rect"])
     val content: List<@Polymorphic Content>
 ) {
@@ -112,7 +112,7 @@ ${content.joinToString(separator = "\n") {
 """
 }
 
-private interface Content {
+private sealed interface Content {
     fun toCompose(): String
 }
 
