@@ -37,4 +37,4 @@ jobs:
           path: showcase/build/distributions
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@main
+        uses: actions/deploy-pages@v2
