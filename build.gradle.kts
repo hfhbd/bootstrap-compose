@@ -1,11 +1,11 @@
 import io.gitlab.arturbosch.detekt.*
 
 plugins {
-    id("org.jetbrains.compose") version "1.5.11"
+    id("org.jetbrains.compose") version "1.5.12"
     id("sign")
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
-    id("io.gitlab.arturbosch.detekt") version "1.23.4"
-    id("app.cash.licensee") version "1.8.0"
+    id("io.gitlab.arturbosch.detekt") version "1.23.5"
+    id("app.cash.licensee") version "1.9.0"
 }
 
 dependencies {
