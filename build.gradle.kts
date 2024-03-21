@@ -9,7 +9,7 @@ plugins {
 }
 
 dependencies {
-    api("app.softwork:kotlinx-uuid-core:0.0.23")
+    api("app.softwork:kotlinx-uuid-core:0.0.25")
     api(compose.html.core)
     api(npm("bootstrap", "5.2.3"))
     api(npm("@popperjs/core", "2.11.5"))
