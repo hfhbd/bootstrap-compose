@@ -1,6 +1,6 @@
 # bootstrap-compose
 
-Predefined Bootstrap functions to use in [Compose Web](https://github.com/Jetbrains/compose-jb)
+Predefined Bootstrap functions to use in [Compose HTML](https://github.com/Jetbrains/compose-jb)
 
 ## Install
 
