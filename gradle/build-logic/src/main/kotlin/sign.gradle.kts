@@ -9,7 +9,7 @@ plugins {
 }
 
 kotlin {
-    js(IR) {
+    js {
         browser {
             binaries.library()
         }
@@ -54,13 +54,10 @@ publishing {
     }
 }
 
-(System.getProperty("signing.privateKey") ?: System.getenv("SIGNING_PRIVATE_KEY"))?.let {
-    String(Base64.getDecoder().decode(it)).trim()
-}?.let { key ->
-    println("found key, config signing")
-    signing {
-        val signingPassword = System.getProperty("signing.password") ?: System.getenv("SIGNING_PASSWORD")
-        useInMemoryPgpKeys(key, signingPassword)
+signing {
+    val signingKey = providers.gradleProperty("SIGNING_PRIVATE_KEY")
+    if (signingKey.isPresent) {
+        useInMemoryPgpKeys(String(Base64.getDecoder().decode(signingKey.get())).trim(), providers.gradleProperty("SIGNING_PASSWORD").get())
         sign(publishing.publications)
     }
 }

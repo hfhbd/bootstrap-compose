@@ -3,7 +3,7 @@ import io.gitlab.arturbosch.detekt.*
 plugins {
     id("org.jetbrains.compose") version "1.5.12"
     id("sign")
-    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
     id("app.cash.licensee") version "1.11.0"
 }
@@ -25,8 +25,8 @@ licensee {
 nexusPublishing {
     this.repositories {
         sonatype {
-            username.set(System.getProperty("sonartype.apiKey") ?: System.getenv("SONARTYPE_APIKEY"))
-            password.set(System.getProperty("sonartype.apiToken") ?: System.getenv("SONARTYPE_APITOKEN"))
+            username.set(providers.gradleProperty("SONARTYPE_APIKEY"))
+            password.set(providers.gradleProperty("SONARTYPE_APITOKEN"))
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
         }
