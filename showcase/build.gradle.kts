@@ -1,6 +1,6 @@
 plugins {
     id("setup")
-    id("org.jetbrains.compose")
+    kotlin("plugin.compose")
 }
 
 kotlin {
@@ -12,6 +12,7 @@ kotlin {
 }
 
 dependencies {
+    implementation(libs.coroutines.core)
     implementation(projects.bootstrapCompose)
     implementation(projects.bootstrapCompose.bootstrapComposeIcons)
 }
