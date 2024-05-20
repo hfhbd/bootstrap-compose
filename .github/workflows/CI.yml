@@ -2,26 +2,29 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
   pull_request:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       security-events: write
+
+    env:
+      GRADLE_OPTS: -Dorg.gradle.caching=true
 
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
-          distribution: 'adopt'
-          java-version: 11
-      - uses: gradle/gradle-build-action@v2
+          distribution: 'temurin'
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v3
         with:
-          dependency-graph: generate-and-submit
+          validate-wrappers: true
           gradle-home-cache-cleanup: true
       - name: Build with Gradle
         run: ./gradlew build

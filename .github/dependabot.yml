@@ -6,6 +6,12 @@ updates:
       interval: "daily"
     assignees:
       - "hfhbd"
+  - package-ecosystem: "devcontainers"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    assignees:
+      - "hfhbd"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
