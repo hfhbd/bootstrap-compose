@@ -1,2 +1,19 @@
+[versions]
+kotlin = "2.0.0-RC3"
+compose = "1.6.10-rc03"
+coroutines = "1.8.1"
+
+[libraries]
+coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+
+compose-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "compose" }
+compose-html-core = { module = "org.jetbrains.compose.html:html-core", version.ref = "compose" }
+compose-html-svg = { module = "org.jetbrains.compose.html:html-svg", version.ref = "compose" }
+compose-html-testUtils = { module = "org.jetbrains.compose.html:html-test-utils", version.ref = "compose" }
+
+uuid = { module = "app.softwork:kotlinx-uuid-core", version = "0.0.25" }
+
 [plugins]
-kotlin-js = { id = "org.jetbrains.kotlin.js", version = "1.9.21" }
+kotlin-js = { id = "org.jetbrains.kotlin.js", version.ref = "kotlin" }
+kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

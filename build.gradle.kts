@@ -1,21 +1,24 @@
 import io.gitlab.arturbosch.detekt.*
 
 plugins {
-    id("org.jetbrains.compose") version "1.5.12"
     id("sign")
+    kotlin("plugin.compose")
     id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
     id("app.cash.licensee") version "1.11.0"
 }
 
 dependencies {
-    api("app.softwork:kotlinx-uuid-core:0.0.25")
-    api(compose.html.core)
+    api(libs.uuid)
+    compileOnly(libs.compose.runtime)
+    api(libs.compose.html.core)
     api(npm("bootstrap", "5.2.3"))
     api(npm("@popperjs/core", "2.11.5"))
 
-    testImplementation(compose.html.testUtils)
     testImplementation(kotlin("test"))
+    testImplementation(libs.compose.runtime)
+    testImplementation(libs.compose.html.testUtils)
+    testImplementation(libs.coroutines.test)
 }
 
 licensee {

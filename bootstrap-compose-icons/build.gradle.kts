@@ -1,6 +1,6 @@
 plugins {
-    id("org.jetbrains.compose")
     id("sign")
+    kotlin("plugin.compose")
 }
 
 val generateSVG by tasks.registering(app.softwork.bootstrapcompose.icons.ConvertSvg::class) {
@@ -14,10 +14,12 @@ kotlin.sourceSets.main {
 }
 
 dependencies {
-    api(compose.html.core)
-    api(compose.html.svg)
+    compileOnly(libs.compose.runtime)
+    api(libs.compose.html.core)
+    api(libs.compose.html.svg)
     implementation(devNpm("bootstrap-icons", "1.11.1"))
 
-    testImplementation(compose.html.testUtils)
     testImplementation(kotlin("test"))
+    testImplementation(libs.compose.runtime)
+    testImplementation(libs.compose.html.testUtils)
 }

@@ -10,7 +10,24 @@ import org.w3c.dom.*
 
 public interface DropDownBuilder : ElementScope<HTMLUListElement> {
     @Composable
-    public fun Button(title: String, styling: (Styling.() -> Unit)? = null, onClick: () -> Unit) {
+    @NonRestartableComposable
+    public fun Button(
+        title: String,
+        onClick: () -> Unit
+    ) {
+        Button(
+            title = title,
+            styling = null,
+            onClick = onClick
+        )
+    }
+
+    @Composable
+    public fun Button(
+        title: String,
+        styling: (Styling.() -> Unit)?,
+        onClick: () -> Unit
+    ) {
         Li {
             val buttonClasses = styling?.let {
                 Styling().apply(it).generate()
@@ -28,7 +45,13 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
     }
 
     @Composable
-    public fun Divider(styling: (Styling.() -> Unit)? = null) {
+    @NonRestartableComposable
+    public fun Divider() {
+        Divider(null)
+    }
+
+    @Composable
+    public fun Divider(styling: (Styling.() -> Unit)?) {
         Li {
             val buttonClasses = styling?.let {
                 Styling().apply(it).generate()
@@ -43,7 +66,18 @@ public interface DropDownBuilder : ElementScope<HTMLUListElement> {
     }
 
     @Composable
-    public fun Header(title: String, styling: (Styling.() -> Unit)? = null) {
+    @NonRestartableComposable
+    public fun Header(
+        title: String,
+    ) {
+        Header(title, null)
+    }
+
+    @Composable
+    public fun Header(
+        title: String,
+        styling: (Styling.() -> Unit)?,
+    ) {
         Li {
             val buttonClasses = styling?.let {
                 Styling().apply(it).generate()
