@@ -14,11 +14,12 @@ kotlin.sourceSets.main {
 }
 
 dependencies {
-    api(libs.compose.runtime)
+    compileOnly(libs.compose.runtime)
     api(libs.compose.html.core)
     api(libs.compose.html.svg)
     implementation(devNpm("bootstrap-icons", "1.11.1"))
 
-    testImplementation(libs.compose.html.testUtils)
     testImplementation(kotlin("test"))
+    testImplementation(libs.compose.runtime)
+    testImplementation(libs.compose.html.testUtils)
 }

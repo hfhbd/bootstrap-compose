@@ -10,12 +10,13 @@ plugins {
 
 dependencies {
     api(libs.uuid)
-    api(libs.compose.runtime)
+    compileOnly(libs.compose.runtime)
     api(libs.compose.html.core)
     api(npm("bootstrap", "5.2.3"))
     api(npm("@popperjs/core", "2.11.5"))
 
     testImplementation(kotlin("test"))
+    testImplementation(libs.compose.runtime)
     testImplementation(libs.compose.html.testUtils)
     testImplementation(libs.coroutines.test)
 }

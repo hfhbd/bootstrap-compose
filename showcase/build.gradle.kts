@@ -12,6 +12,7 @@ kotlin {
 }
 
 dependencies {
+    implementation(libs.compose.runtime)
     implementation(libs.coroutines.core)
     implementation(projects.bootstrapCompose)
     implementation(projects.bootstrapCompose.bootstrapComposeIcons)
