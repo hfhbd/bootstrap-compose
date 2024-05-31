@@ -13,7 +13,7 @@ dependencies {
     compileOnly(libs.compose.runtime)
     api(libs.compose.html.core)
     api(npm("bootstrap", "5.2.3"))
-    api(npm("@popperjs/core", "2.11.5"))
+    api(npm("@popperjs/core", "2.11.6"))
 
     testImplementation(kotlin("test"))
     testImplementation(libs.compose.runtime)
