@@ -66,3 +66,5 @@ tasks {
         }
     }
 }
+
+println("USE BROWSER " + providers.gradleProperty("kotlin.js.browser.karma.browsers").get())
