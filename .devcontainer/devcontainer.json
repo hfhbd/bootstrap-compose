@@ -6,8 +6,5 @@
       "ghcr.io/devcontainers/features/sshd:1": {}
     },
     "updateContentCommand": "./gradlew build --dry-run",
-    "containerUser": "vscode",
-    "remoteEnv": {
-      "ORG_GRADLE_PROJECT_kotlin.js.browser.karma.browsers": "chromium-headless"
-    }
+    "containerUser": "vscode"
   }
