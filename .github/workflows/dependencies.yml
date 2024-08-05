@@ -23,7 +23,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21
-      - uses: gradle/actions/dependency-submission@v3
+      - uses: gradle/actions/dependency-submission@v4
 
   dependency-review:
     runs-on: ubuntu-latest
