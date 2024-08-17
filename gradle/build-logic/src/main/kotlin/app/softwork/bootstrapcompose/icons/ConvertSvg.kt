@@ -58,8 +58,8 @@ private fun convertSvgToComposeSvg(input: String, fileName: String): String {
 }
 
 private val regex = Regex("-(\\S)")
-private fun String.toPascalCase(): String = capitalized().replace(regex) {
-    it.groups[1]!!.value.capitalized()
+private fun String.toPascalCase(): String = replaceFirstChar { it.uppercaseChar() }.replace(regex) {
+    it.groups[1]!!.value.replaceFirstChar { it.uppercaseChar() }
 }
     .replace("0", "Zero")
     .replace("1", "One")
