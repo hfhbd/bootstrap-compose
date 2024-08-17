@@ -13,7 +13,6 @@ import java.io.*
 
 @CacheableTask
 abstract class ConvertSvg : DefaultTask() {
-    @get:Incremental
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
     @get:InputDirectory
     abstract val icons: DirectoryProperty
@@ -30,7 +29,6 @@ abstract class ConvertSvg : DefaultTask() {
 
         icons.asFileTree.forEachIndexed { index, file ->
             val name = file.nameWithoutExtension
-            println("$index $name")
             File(packageFile, "$name.kt")
                 .writeText(convertSvgToComposeSvg(file.readText(), name))
         }
