@@ -1,15 +1,15 @@
 plugins {
     `kotlin-dsl`
-    kotlin("plugin.serialization") version embeddedKotlinVersion
+    alias(libs.plugins.kotlin.plugin.serialization)
 }
 
 dependencies {
     implementation(libs.plugins.kotlin.js.toDep())
     implementation(libs.plugins.kotlin.plugin.compose.toDep())
-    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.86.3") {
+    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.90.1") {
         exclude("io.github.pdvrieze.xmlutil", "core")
     }
-    implementation("io.github.pdvrieze.xmlutil:core-jvm:0.86.3")
+    implementation("io.github.pdvrieze.xmlutil:core-jdk:0.90.1")
 
     testImplementation(kotlin("test"))
 }
