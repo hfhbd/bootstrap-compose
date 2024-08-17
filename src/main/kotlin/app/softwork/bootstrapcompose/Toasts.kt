@@ -1,13 +1,13 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
 import kotlin.time.*
 import kotlin.time.Duration.Companion.seconds
+import kotlin.uuid.*
 
 @Composable
 public fun ToastContainer(
@@ -112,6 +112,7 @@ private fun DismissButton(
     })
 }
 
+@OptIn(ExperimentalUuidApi::class)
 public class ToastContainerState {
     internal val toasts = mutableStateListOf<ToastItem>()
 
@@ -140,7 +141,7 @@ public class ToastContainerState {
         header: ContentBuilder<HTMLDivElement>? = null,
         body: ContentBuilder<HTMLDivElement>
     ): () -> Unit {
-        val uuid = UUID()
+        val uuid = Uuid.random()
         val toastItem = ToastItem(
             uuid,
             delay = delay,
@@ -156,14 +157,14 @@ public class ToastContainerState {
         return { removeToast(uuid) }
     }
 
-    private fun removeToast(uuid: UUID) {
+    private fun removeToast(uuid: Uuid) {
         toasts.removeAll {
             it.uuid == uuid
         }
     }
 
     internal data class ToastItem(
-        val uuid: UUID,
+        val uuid: Uuid,
         val delay: Duration,
         val withDismissButton: Boolean,
         val toastAttrs: (AttrsScope<HTMLDivElement>.() -> Unit)?,

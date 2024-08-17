@@ -1,12 +1,12 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Button
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
+import kotlin.uuid.*
 
 public interface DropDownBuilder : ElementScope<HTMLUListElement> {
     @Composable
@@ -125,9 +125,10 @@ public object DropDown {
 }
 
 @Composable
+@OptIn(ExperimentalUuidApi::class)
 public fun DropDown(
     title: String,
-    id: String = remember { "dropdownMenu${UUID()}" },
+    id: String = remember { "dropdownMenu${Uuid.random()}" },
     size: ButtonSize = ButtonSize.Default,
     color: Color = Color.Primary,
     styling: (Styling.() -> Unit)? = null,
@@ -158,10 +159,11 @@ public fun DropDown(
 }
 
 @Composable
+@OptIn(ExperimentalUuidApi::class)
 public fun NavbarDropDown(
     title: String,
     href: String?,
-    id: String = remember { "dropdownMenu${UUID()}" },
+    id: String = remember { "dropdownMenu${Uuid.random()}" },
     styling: (Styling.() -> Unit)? = null,
     direction: DropDown.Direction = DropDown.Direction.Down,
     menuAlignment: DropDown.MenuAlignment = DropDown.MenuAlignment.Start,

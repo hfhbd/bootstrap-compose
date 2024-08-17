@@ -24,6 +24,7 @@ public object Table {
         val footer: Footer?
     )
 
+    @ConsistentCopyVisibility
     public data class Cell internal constructor(
         public val color: Color? = null,
         val scope: Scope?,
@@ -31,6 +32,7 @@ public object Table {
         val content: ContentBuilder<HTMLTableCellElement>
     )
 
+    @ConsistentCopyVisibility
     public data class Footer internal constructor(
         public val color: Color? = null,
         val content: @Composable ElementScope<HTMLTableCellElement>.(List<Cell>) -> Unit

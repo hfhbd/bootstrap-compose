@@ -1,19 +1,21 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
+import kotlin.uuid.*
 
 @Composable
+@OptIn(ExperimentalUuidApi::class)
 public fun RadioGroup(content: @Composable RadioGroupScope.() -> Unit) {
-    val groupName = remember { "_${UUID()}" }
+    val groupName = remember { "_${Uuid.random()}" }
     val context = RadioGroupScope(groupName)
     context.content()
 }
 
 public class RadioGroupScope(private val name: String) {
     @Composable
+    @OptIn(ExperimentalUuidApi::class)
     public fun Radio(
         label: String,
         checked: Boolean = false,
@@ -22,7 +24,7 @@ public class RadioGroupScope(private val name: String) {
         styling: (Styling.() -> Unit)? = null,
         onClick: (Boolean) -> Unit
     ) {
-        val id = remember { "_${UUID()}" }
+        val id = remember { "_${Uuid.random()}" }
 
         Style
         val classes = styling?.let {

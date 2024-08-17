@@ -1,9 +1,9 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
+import kotlin.uuid.*
 
 /**
  * Bootstrap Navbar component. This version provides more flexibility than the alternative but is more complex
@@ -84,6 +84,7 @@ public fun Navbar(
  * @param navItems navigation items, normally comprised of NavbarLink and NavbarDropDown menu items.
  */
 @Composable
+@OptIn(ExperimentalUuidApi::class)
 public fun Navbar(
     collapseBehavior: NavbarCollapseBehavior = NavbarCollapseBehavior.Always,
     fluid: Boolean = false,
@@ -93,7 +94,7 @@ public fun Navbar(
     backgroundColor: Color = Color.Primary,
     toggler: Boolean = true,
     togglerPosition: TogglerPosition = TogglerPosition.Right,
-    togglerTargetId: String = remember { "toggler${UUID()}" },
+    togglerTargetId: String = remember { "toggler${Uuid.random()}" },
     togglerAttrs: AttrBuilderContext<HTMLButtonElement>? = null,
     styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLElement>? = null,

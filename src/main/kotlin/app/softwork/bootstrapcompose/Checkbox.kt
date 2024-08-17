@@ -1,16 +1,17 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.attributes.builders.*
 import org.jetbrains.compose.web.dom.*
+import kotlin.uuid.*
 
 @Composable
+@OptIn(ExperimentalUuidApi::class)
 public fun Checkbox(
     checked: Boolean,
     label: String,
-    id: String = remember { UUID().toString() },
+    id: String = remember { Uuid.random().toString() },
     disabled: Boolean = false,
     inline: Boolean = false,
     switch: Boolean = false,

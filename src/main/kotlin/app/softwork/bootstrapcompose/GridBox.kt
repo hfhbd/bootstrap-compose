@@ -1,11 +1,11 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.css.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
 import kotlin.reflect.*
+import kotlin.uuid.*
 
 @Composable
 public fun GridBox(
@@ -88,11 +88,12 @@ public class GridLayout {
     }
 
     @Composable
+    @OptIn(ExperimentalUuidApi::class)
     internal fun generate(): List<String> {
         val classes: MutableList<String> = mutableListOf()
 
         Style {
-            val classname = remember { "_${UUID()}" }
+            val classname = remember { "_${Uuid.random()}" }
 
             className(classname) style {
                 gap?.let {
@@ -193,8 +194,9 @@ public class GridTemplateTrack internal constructor(
     }
 
     @Composable
+    @OptIn(ExperimentalUuidApi::class)
     internal fun StyleSheetBuilder.generateStyle(): String {
-        val classname = remember { "_${UUID()}" }
+        val classname = remember { "_${Uuid.random()}" }
 
         withBreakpoint(breakpoint) {
             className(classname) style {
@@ -479,8 +481,9 @@ public class GridArea internal constructor(private val breakpoint: Breakpoint?) 
     }
 
     @Composable
+    @OptIn(ExperimentalUuidApi::class)
     internal fun StyleSheetBuilder.generateStyle(): String {
-        val classname = remember { "_${UUID()}" }
+        val classname = remember { "_${Uuid.random()}" }
 
         withBreakpoint(breakpoint) {
             className(classname) style {
@@ -619,8 +622,9 @@ public class GridItemArea(private val breakpoint: Breakpoint? = null, private va
     }
 
     @Composable
+    @OptIn(ExperimentalUuidApi::class)
     internal fun StyleSheetBuilder.generateStyle(): String {
-        val classname = remember { "_${UUID()}" }
+        val classname = remember { "_${Uuid.random()}" }
 
         withBreakpoint(breakpoint) {
             className(classname) style {
@@ -744,8 +748,9 @@ public class PlacementSpec(private val breakpoint: Breakpoint? = null) {
     }
 
     @Composable
+    @OptIn(ExperimentalUuidApi::class)
     internal fun StyleSheetBuilder.generateStyle(): String {
-        val classname = remember { "_${UUID()}" }
+        val classname = remember { "_${Uuid.random()}" }
 
         withBreakpoint(breakpoint) {
             className(classname) style {
