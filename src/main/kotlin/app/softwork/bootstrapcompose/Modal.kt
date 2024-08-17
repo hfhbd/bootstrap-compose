@@ -1,17 +1,18 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.*
+import kotlin.uuid.*
 
 @Composable
+@OptIn(ExperimentalUuidApi::class)
 public fun Modal(
     header: String,
     size: Breakpoint? = null,
     scrollable: Boolean = false,
-    id: String = UUID().toString(),
+    id: String = Uuid.random().toString(),
     styling: (Styling.() -> Unit)? = null,
     onDismissRequest: () -> Unit,
     footer: ContentBuilder<HTMLDivElement>? = null,

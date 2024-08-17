@@ -1,19 +1,20 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
+import kotlin.uuid.*
 
 @Composable
+@OptIn(ExperimentalUuidApi::class)
 public fun Select(
     multiple: Boolean = false,
     size: SelectSize = SelectSize.Default,
     rows: Int? = null,
     disabled: Boolean = false,
     autocomplete: AutoComplete = AutoComplete.off,
-    id: String = remember { "_${UUID()}" },
+    id: String = remember { "_${Uuid.random()}" },
     styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLSelectElement>? = null,
     onChange: (List<String>) -> Unit,

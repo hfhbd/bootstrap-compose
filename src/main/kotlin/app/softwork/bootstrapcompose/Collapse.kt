@@ -1,15 +1,16 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.*
+import kotlin.uuid.*
 
 @Composable
+@OptIn(ExperimentalUuidApi::class)
 public fun Collapse(
     title: String,
-    id: String = UUID().toString(),
+    id: String = Uuid.random().toString(),
     color: Color = Color.Primary,
     buttonAttrs: AttrBuilderContext<HTMLButtonElement>? = null,
     contentAttrs: AttrBuilderContext<HTMLDivElement>? = null,
