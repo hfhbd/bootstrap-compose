@@ -12,8 +12,6 @@ compose-html-core = { module = "org.jetbrains.compose.html:html-core", version.r
 compose-html-svg = { module = "org.jetbrains.compose.html:html-svg", version.ref = "compose" }
 compose-html-testUtils = { module = "org.jetbrains.compose.html:html-test-utils", version.ref = "compose" }
 
-uuid = { module = "app.softwork:kotlinx-uuid-core", version = "0.1.2" }
-
 [plugins]
 kotlin-js = { id = "org.jetbrains.kotlin.js", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
