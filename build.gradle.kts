@@ -9,7 +9,6 @@ plugins {
 }
 
 dependencies {
-    api(libs.uuid)
     compileOnly(libs.compose.runtime)
     api(libs.compose.html.core)
     api(npm("bootstrap", "5.2.3"))
