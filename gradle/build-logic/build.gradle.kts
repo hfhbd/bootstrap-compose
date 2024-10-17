@@ -6,7 +6,7 @@ plugins {
 dependencies {
     implementation(libs.plugins.kotlin.js.toDep())
     implementation(libs.plugins.kotlin.plugin.compose.toDep())
-    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.90.1") {
+    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.90.2") {
         exclude("io.github.pdvrieze.xmlutil", "core")
     }
     implementation("io.github.pdvrieze.xmlutil:core-jdk:0.90.1")
