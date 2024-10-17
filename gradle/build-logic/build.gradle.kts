@@ -9,7 +9,7 @@ dependencies {
     implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.90.1") {
         exclude("io.github.pdvrieze.xmlutil", "core")
     }
-    implementation("io.github.pdvrieze.xmlutil:core-jdk:0.90.1")
+    implementation("io.github.pdvrieze.xmlutil:core-jdk:0.90.2")
 
     testImplementation(kotlin("test"))
 }
