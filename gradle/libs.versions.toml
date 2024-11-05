@@ -2,7 +2,7 @@
 kotlin = "2.0.21"
 compose = "1.6.11"
 coroutines = "1.9.0"
-xml = "0.90.1"
+xml = "0.90.3"
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
