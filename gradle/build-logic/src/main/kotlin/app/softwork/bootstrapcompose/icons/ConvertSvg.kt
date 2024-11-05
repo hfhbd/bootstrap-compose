@@ -109,7 +109,7 @@ public fun $fileName(attrs: AttrBuilderContext<SVGElement>? = null) {
         }
     ) {
 ${content.joinToString(separator = "\n") {
-            "        ${it.toCompose()}"
+        "        ${it.toCompose()}"
     }}
     }
 }
