@@ -1,9 +1,7 @@
-import io.gitlab.arturbosch.detekt.*
-
 plugins {
     id("sign")
     kotlin("plugin.compose")
-    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+    id("io.github.hfhbd.mavencentral") version "0.0.14"
     id("io.gitlab.arturbosch.detekt") version "1.23.7"
     id("app.cash.licensee") version "1.12.0"
 }
@@ -24,44 +22,22 @@ licensee {
     allow("Apache-2.0")
 }
 
-nexusPublishing {
-    this.repositories {
-        sonatype {
-            username.set(providers.gradleProperty("SONARTYPE_APIKEY"))
-            password.set(providers.gradleProperty("SONARTYPE_APITOKEN"))
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-        }
-    }
-}
-
 detekt {
-    source.from(files(rootProject.rootDir))
-    parallel = true
-    autoCorrect = true
-    buildUponDefaultConfig = true
-}
-
-dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
-}
-
-tasks {
-    fun SourceTask.config() {
+    source.from(fileTree(rootProject.rootDir) {
         include("**/*.kt")
         exclude("**/*.kts")
         exclude("**/resources/**")
         exclude("**/generated/**")
         exclude("**/build/**")
+    })
+    parallel = true
+    autoCorrect = true
+    buildUponDefaultConfig = true
+    reports {
+        sarif.required.set(true)
     }
-    withType<DetektCreateBaselineTask>().configureEach {
-        config()
-    }
-    withType<Detekt>().configureEach {
-        config()
+}
 
-        reports {
-            sarif.required.set(true)
-        }
-    }
+dependencies {
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
 }
