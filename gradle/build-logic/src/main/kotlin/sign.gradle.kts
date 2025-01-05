@@ -57,7 +57,7 @@ publishing {
 signing {
     val signingKey = providers.gradleProperty("SIGNING_PRIVATE_KEY")
     if (signingKey.isPresent) {
-        useInMemoryPgpKeys(String(Base64.getDecoder().decode(signingKey.get())).trim(), providers.gradleProperty("SIGNING_PASSWORD").get())
+        useInMemoryPgpKeys(signingKey.get(), providers.gradleProperty("SIGNING_PASSWORD").get())
         sign(publishing.publications)
     }
 }
