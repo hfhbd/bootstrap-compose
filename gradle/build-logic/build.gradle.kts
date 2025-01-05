@@ -6,12 +6,10 @@ plugins {
 dependencies {
     implementation(libs.plugins.kotlin.js.toDep())
     implementation(libs.plugins.kotlin.plugin.compose.toDep())
-    implementation("io.github.pdvrieze.xmlutil:serialization-jvm:0.86.3") {
+    implementation(libs.serialization.xml) {
         exclude("io.github.pdvrieze.xmlutil", "core")
     }
-    implementation("io.github.pdvrieze.xmlutil:core-jvm:0.86.3")
-
-    testImplementation(kotlin("test"))
+    implementation(libs.serialization.corejdk)
 }
 
 fun Provider<PluginDependency>.toDep(): Provider<String> = map {

@@ -13,7 +13,6 @@ import java.io.*
 
 @CacheableTask
 abstract class ConvertSvg : DefaultTask() {
-    @get:Incremental
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
     @get:InputDirectory
     abstract val icons: DirectoryProperty
@@ -28,9 +27,8 @@ abstract class ConvertSvg : DefaultTask() {
         val packageFile = File(outputDir, "app/softwork/bootstrapcompose/icons")
         packageFile.mkdirs()
 
-        icons.asFileTree.forEachIndexed { index, file ->
+        for (file in icons.asFileTree) {
             val name = file.nameWithoutExtension
-            println("$index $name")
             File(packageFile, "$name.kt")
                 .writeText(convertSvgToComposeSvg(file.readText(), name))
         }
@@ -58,8 +56,8 @@ private fun convertSvgToComposeSvg(input: String, fileName: String): String {
 }
 
 private val regex = Regex("-(\\S)")
-private fun String.toPascalCase(): String = capitalized().replace(regex) {
-    it.groups[1]!!.value.capitalized()
+private fun String.toPascalCase(): String = replaceFirstChar { it.uppercaseChar() }.replace(regex) {
+    it.groups[1]!!.value.replaceFirstChar { it.uppercaseChar() }
 }
     .replace("0", "Zero")
     .replace("1", "One")

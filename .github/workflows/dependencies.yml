@@ -14,16 +14,13 @@ jobs:
     permissions:
       contents: write
 
-    env:
-      GRADLE_OPTS: -Dorg.gradle.caching=true
-
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 21
-      - uses: gradle/actions/dependency-submission@v3
+      - uses: gradle/actions/dependency-submission@v4
 
   dependency-review:
     runs-on: ubuntu-latest

@@ -1,7 +1,8 @@
 [versions]
-kotlin = "2.0.0"
-compose = "1.6.10"
-coroutines = "1.8.1"
+kotlin = "2.1.0"
+compose = "1.7.3"
+coroutines = "1.10.1"
+xml = "0.90.3"
 
 [libraries]
 coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -12,8 +13,10 @@ compose-html-core = { module = "org.jetbrains.compose.html:html-core", version.r
 compose-html-svg = { module = "org.jetbrains.compose.html:html-svg", version.ref = "compose" }
 compose-html-testUtils = { module = "org.jetbrains.compose.html:html-test-utils", version.ref = "compose" }
 
-uuid = { module = "app.softwork:kotlinx-uuid-core", version = "0.0.25" }
+serialization-xml = { module = "io.github.pdvrieze.xmlutil:serialization", version.ref = "xml" }
+serialization-corejdk = { module = "io.github.pdvrieze.xmlutil:core-jdk", version.ref = "xml" }
 
 [plugins]
 kotlin-js = { id = "org.jetbrains.kotlin.js", version.ref = "kotlin" }
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }

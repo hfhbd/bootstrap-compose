@@ -1,17 +1,18 @@
 package app.softwork.bootstrapcompose
 
 import androidx.compose.runtime.*
-import kotlinx.uuid.*
 import org.jetbrains.compose.web.attributes.*
 import org.jetbrains.compose.web.attributes.builders.*
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.events.*
 import org.w3c.dom.*
+import kotlin.uuid.*
 
 @Composable
+@OptIn(ExperimentalUuidApi::class)
 public fun InputGroup(
-    inputId: String = remember { "_${UUID()}" },
+    inputId: String = remember { "_${Uuid.random()}" },
     size: InputGroupSize = InputGroupSize.Default,
     content: @Composable InputGroupContext.() -> Unit
 ) {
