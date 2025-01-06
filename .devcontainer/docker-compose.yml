@@ -1,0 +1,14 @@
+services:
+  dev:
+    container_name: javadev
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    volumes:
+      - ../..:/workspaces:cached
+    
+    command: ["sleep", "infinity"]
+
+    cap_add:
+      - SYS_ADMIN
