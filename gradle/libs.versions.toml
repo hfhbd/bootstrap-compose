@@ -1,7 +1,7 @@
 [versions]
 kotlin = "2.1.10"
 compose = "1.7.3"
-coroutines = "1.10.1"
+coroutines = "1.10.2"
 xml = "0.91.0"
 
 [libraries]
