@@ -9,17 +9,21 @@ val generateSVG by tasks.registering(app.softwork.bootstrapcompose.icons.Convert
     outputDir.set(project.layout.buildDirectory.dir("generated/icons"))
 }
 
-kotlin.sourceSets.main {
-    kotlin.srcDir(generateSVG)
-}
-
-dependencies {
-    compileOnly(libs.compose.runtime)
-    api(libs.compose.html.core)
-    api(libs.compose.html.svg)
-    implementation(devNpm("bootstrap-icons", "1.11.1"))
-
-    testImplementation(kotlin("test"))
-    testImplementation(libs.compose.runtime)
-    testImplementation(libs.compose.html.testUtils)
+kotlin.sourceSets {
+    jsMain {
+        kotlin.srcDir(generateSVG)
+        dependencies {
+            api(libs.compose.runtime)
+            api(libs.compose.html.core)
+            api(libs.compose.html.svg)
+            implementation(devNpm("bootstrap-icons", "1.11.1"))
+        }
+    }
+    jsTest {
+        dependencies {
+            implementation(kotlin("test"))
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.html.testUtils)
+        }
+    }
 }

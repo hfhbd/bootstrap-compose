@@ -9,11 +9,14 @@ kotlin {
             binaries.executable()
         }
     }
-}
-
-dependencies {
-    implementation(libs.compose.runtime)
-    implementation(libs.coroutines.core)
-    implementation(projects.bootstrapCompose)
-    implementation(projects.bootstrapCompose.bootstrapComposeIcons)
+    sourceSets {
+        jsMain {
+            dependencies {
+                implementation(libs.compose.runtime)
+                implementation(libs.coroutines.core)
+                implementation(projects.bootstrapCompose)
+                implementation(projects.bootstrapCompose.bootstrapComposeIcons)
+            }
+        }
+    }
 }

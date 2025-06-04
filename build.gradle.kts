@@ -6,16 +6,25 @@ plugins {
     id("app.cash.licensee") version "1.13.0"
 }
 
-dependencies {
-    compileOnly(libs.compose.runtime)
-    api(libs.compose.html.core)
-    api(npm("bootstrap", "5.2.3"))
-    api(npm("@popperjs/core", "2.11.6"))
-
-    testImplementation(kotlin("test"))
-    testImplementation(libs.compose.runtime)
-    testImplementation(libs.compose.html.testUtils)
-    testImplementation(libs.coroutines.test)
+kotlin {
+    sourceSets {
+        jsMain {
+            dependencies {
+                api(libs.compose.runtime)
+                api(libs.compose.html.core)
+                api(npm("bootstrap", "5.2.3"))
+                api(npm("@popperjs/core", "2.11.6"))
+            }
+        }
+        jsTest {
+            dependencies {
+                implementation(kotlin("test"))
+                implementation(libs.compose.runtime)
+                implementation(libs.compose.html.testUtils)
+                implementation(libs.coroutines.test)
+            }
+        }
+    }
 }
 
 licensee {
@@ -36,8 +45,8 @@ detekt {
     reports {
         sarif.required.set(true)
     }
-}
 
-dependencies {
-    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
+    dependencies {
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detekt.toolVersion}")
+    }
 }

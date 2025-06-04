@@ -1,6 +1,7 @@
 package app.softwork.bootstrapcompose.icons
 
-import kotlinx.serialization.*
+import kotlinx.serialization.Polymorphic
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.modules.*
 import nl.adaptivity.xmlutil.serialization.*
@@ -9,7 +10,7 @@ import org.gradle.api.file.*
 import org.gradle.api.tasks.*
 import org.gradle.configurationcache.extensions.*
 import org.gradle.work.*
-import java.io.*
+import java.io.File
 
 @CacheableTask
 abstract class ConvertSvg : DefaultTask() {

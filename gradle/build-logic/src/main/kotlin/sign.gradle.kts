@@ -22,8 +22,7 @@ val emptyJar by tasks.registering(Jar::class)
 
 publishing {
     publications {
-        register<MavenPublication>("maven") {
-            from(components["kotlin"])
+        withType<MavenPublication>().configureEach {
             artifact(emptyJar) {
                 classifier = "javadoc"
             }
@@ -33,7 +32,7 @@ publishing {
                 url.set("https://github.com/hfhbd/bootstrap-compose")
                 licenses {
                     license {
-                        name.set("The Apache License, Version 2.0")
+                        name.set("Apache-2.0")
                         url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
