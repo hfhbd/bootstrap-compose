@@ -1,11 +1,10 @@
 {
-    "dockerComposeFile": "docker-compose.yml",
-    "service": "dev",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-
-    "features": {
-        "ghcr.io/devcontainers/features/sshd:1": {}
-    },
-    "updateContentCommand": "./gradlew build --dry-run",
-    "containerUser": "vscode"
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "dev",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {}
+  },
+  "updateContentCommand": "./gradlew build",
+  "containerUser": "vscode"
 }
