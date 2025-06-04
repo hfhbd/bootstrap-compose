@@ -60,3 +60,9 @@ signing {
         sign(publishing.publications)
     }
 }
+
+// https://youtrack.jetbrains.com/issue/KT-46466
+val signingTasks = tasks.withType<Sign>()
+tasks.withType<AbstractPublishToMaven>().configureEach {
+    dependsOn(signingTasks)
+}
