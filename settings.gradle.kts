@@ -24,10 +24,11 @@ develocity {
     }
 }
 
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 
 rootProject.name = "bootstrap-compose"
 
-include(":showcase")
+include(":bootstrap-compose")
 include(":bootstrap-compose-icons")
+
+include(":showcase")

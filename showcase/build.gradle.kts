@@ -1,6 +1,5 @@
 plugins {
     id("setup")
-    kotlin("plugin.compose")
 }
 
 kotlin {
@@ -14,13 +13,9 @@ kotlin {
             dependencies {
                 implementation(libs.compose.runtime)
                 implementation(libs.coroutines.core)
-                implementation(projects.bootstrapCompose)
-                implementation(projects.bootstrapCompose.bootstrapComposeIcons)
+                implementation(project(":bootstrap-compose"))
+                implementation(project(":bootstrap-compose-icons"))
             }
         }
     }
-}
-
-plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin> {
-    the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec>().downloadBaseUrl = null
 }

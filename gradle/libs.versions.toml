@@ -20,3 +20,6 @@ serialization-corejdk = { module = "io.github.pdvrieze.xmlutil:core-jdk", versio
 kotlin-js = { id = "org.jetbrains.kotlin.js", version.ref = "kotlin" }
 kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kotlin-plugin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+licensee = { id = "app.cash.licensee", version = "1.13.0" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version = "1.23.8" }
+mavencentral = { id = "io.github.hfhbd.mavencentral", version = "0.0.17" }

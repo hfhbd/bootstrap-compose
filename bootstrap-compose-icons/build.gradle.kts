@@ -1,6 +1,5 @@
 plugins {
-    id("sign")
-    kotlin("plugin.compose")
+    id("publishedLibrary")
 }
 
 val generateSVG by tasks.registering(app.softwork.bootstrapcompose.icons.ConvertSvg::class) {
@@ -21,13 +20,8 @@ kotlin.sourceSets {
     }
     jsTest {
         dependencies {
-            implementation(kotlin("test"))
             implementation(libs.compose.runtime)
             implementation(libs.compose.html.testUtils)
         }
     }
-}
-
-plugins.withType<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsPlugin> {
-    the<org.jetbrains.kotlin.gradle.targets.js.nodejs.NodeJsEnvSpec>().downloadBaseUrl = null
 }

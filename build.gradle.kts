@@ -1,38 +1,9 @@
 plugins {
-    id("sign")
-    kotlin("plugin.compose")
-    id("io.github.hfhbd.mavencentral") version "0.0.17"
-    id("io.gitlab.arturbosch.detekt") version "1.23.8"
-    id("app.cash.licensee") version "1.13.0"
-}
-
-kotlin {
-    sourceSets {
-        jsMain {
-            dependencies {
-                api(libs.compose.runtime)
-                api(libs.compose.html.core)
-                api(npm("bootstrap", "5.2.3"))
-                api(npm("@popperjs/core", "2.11.6"))
-            }
-        }
-        jsTest {
-            dependencies {
-                implementation(kotlin("test"))
-                implementation(libs.compose.runtime)
-                implementation(libs.compose.html.testUtils)
-                implementation(libs.coroutines.test)
-            }
-        }
-    }
-}
-
-licensee {
-    allow("Apache-2.0")
+    id("io.gitlab.arturbosch.detekt")
 }
 
 detekt {
-    source.from(fileTree(rootProject.rootDir) {
+    source.from(fileTree(layout.settingsDirectory) {
         include("**/*.kt")
         exclude("**/*.kts")
         exclude("**/resources/**")
