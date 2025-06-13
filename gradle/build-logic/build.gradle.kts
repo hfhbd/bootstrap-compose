@@ -6,6 +6,9 @@ plugins {
 dependencies {
     implementation(libs.plugins.kotlin.js.toDep())
     implementation(libs.plugins.kotlin.plugin.compose.toDep())
+    implementation(libs.plugins.licensee.toDep())
+    implementation(libs.plugins.detekt.toDep())
+    implementation(libs.plugins.mavencentral.toDep())
     implementation(libs.serialization.xml) {
         exclude("io.github.pdvrieze.xmlutil", "core")
     }
