@@ -15,16 +15,15 @@ kotlin {
     js {
         browser {
             binaries.executable()
-            useCommonJs()
+            useESModules()
             commonWebpackConfig {
-                // Kotlin >= 1.7.20
                 scssSupport {
                     enabled = true
                 }
-                
-                // Kotlin <= 1.7.10
-                cssSupport.enabled = true
             }
+        }
+        compilerOptions {
+            target = "es2015"
         }
     }
 }
@@ -32,27 +31,7 @@ kotlin {
 dependencies {
     implementation("app.softwork:bootstrap-compose:LATEST")
     implementation("app.softwork:bootstrap-compose-icons:LATEST") // for icons support
-    
-    implementation(devNpm("sass-loader", "^13.0.0")) // only needed with Kotlin <= 1.7.10
-    implementation(devNpm("sass", "^1.52.1")) // only needed with Kotlin <= 1.7.10
 }
-```
-
-And this `sccs.js` in your `webpack.config.d` (if not present, create this directory at the root of your project) if you use Kotlin <= 1.7.10:
-
-```js
-config.module.rules.push({
-    test: /\.(scss|sass)$/,
-    use: [
-        /**
-         *  fallback to style-loader in development
-         *  "style-loader" creates style nodes from JS strings
-         */
-        "style-loader",   // translates CSS into CommonJS
-        "css-loader",   // translates CSS into CommonJS
-        "sass-loader"   // compiles Sass to CSS, using Node Sass by default
-    ]
-});
 ```
 
 ## SCSS
@@ -71,9 +50,11 @@ $primary: #900;
 and load it in your main method.
 
 ````kotlin
-import app.softwork.bootstrapcompose.require
+@JsModule("./custom.scss")
+@JsNonModule
+private external val customSCSS: dynamic
 
 fun main() {
-    require("./custom.scss")
+    customSCSS
 }
 ````
