@@ -10,7 +10,7 @@ data class AppState(val activePage: ActivePage)
 
 @JsModule("./custom.scss")
 @JsNonModule
-external val customScss: dynamic
+private external val customScss: dynamic
 
 fun main() {
     customScss
