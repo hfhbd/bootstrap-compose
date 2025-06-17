@@ -63,7 +63,7 @@ public fun Offcanvas(
     bodyContent: ContentBuilder<HTMLDivElement>? = null
 ) {
     Style
-    needsJS
+    OffcanvasJs
     Div(attrs = {
         if (breakpoint == null) {
             classes("offcanvas")

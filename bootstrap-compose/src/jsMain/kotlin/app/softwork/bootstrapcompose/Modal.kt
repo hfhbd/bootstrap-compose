@@ -19,7 +19,7 @@ public fun Modal(
     content: ContentBuilder<HTMLDivElement>
 ) {
     Style
-    needsJS
+    ModalJs
     val classes = styling?.let {
         Styling().apply(it).generate()
     }

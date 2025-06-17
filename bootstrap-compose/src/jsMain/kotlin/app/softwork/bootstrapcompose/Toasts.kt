@@ -29,7 +29,7 @@ public fun ToastContainer(
 @Composable
 private fun Toast(message: ToastContainerState.ToastItem) {
     Style
-    needsJS
+    ToastJs
     Div(
         attrs = {
             classes("toast")

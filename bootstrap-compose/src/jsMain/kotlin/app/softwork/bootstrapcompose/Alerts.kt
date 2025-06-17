@@ -19,7 +19,7 @@ public fun Alert(
     Div({
         classes("alert", "alert-$color")
         if (dismissible) {
-            needsJS
+            Alert
             classes("alert-dismissible")
         }
         if (classes != null) {

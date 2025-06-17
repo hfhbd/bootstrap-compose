@@ -137,8 +137,8 @@ public fun DropDown(
     block: @Composable DropDownBuilder.() -> Unit
 ) {
     Style
-    needsJS
-    needsPopper
+    DropDownJs
+    popper
     val trigger = @Composable { classes: List<String>? ->
         Button(attrs = {
             classes("btn", "btn-$color", "dropdown-toggle")
@@ -170,7 +170,7 @@ public fun NavbarDropDown(
     block: @Composable DropDownBuilder.() -> Unit
 ) {
     Style
-    needsJS
+    DropDownJs
     val trigger = @Composable { classes: List<String>? ->
         A(
             attrs = {
@@ -210,7 +210,7 @@ private fun DropDownBase(
     block: @Composable DropDownBuilder.() -> Unit
 ) {
     Style
-    needsJS
+    DropDownJs
     val classes = styling?.let {
         Styling().apply(it).generate()
     }

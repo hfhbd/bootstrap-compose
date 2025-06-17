@@ -8,8 +8,12 @@ import org.jetbrains.compose.web.dom.*
 
 data class AppState(val activePage: ActivePage)
 
+@JsModule("./custom.scss")
+@JsNonModule
+external val customScss: dynamic
+
 fun main() {
-    require("./custom.scss")
+    customScss
     renderComposable(rootElementId = "root") {
         var state by remember { mutableStateOf(AppState(ActivePage.Box)) }
 

@@ -17,7 +17,7 @@ public fun Collapse(
     content: ContentBuilder<HTMLDivElement>
 ) {
     Style
-    needsJS
+    Collapse
     Button(attrs = {
         classes("btn", "btn-$color")
         attr("data-bs-toggle", "collapse")
