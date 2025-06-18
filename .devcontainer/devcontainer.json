@@ -5,6 +5,6 @@
   "features": {
     "ghcr.io/devcontainers/features/sshd:1": {}
   },
-  "updateContentCommand": "./gradlew build",
+  "onCreateCommand": "./gradlew build",
   "containerUser": "vscode"
 }
