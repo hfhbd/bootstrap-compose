@@ -28,7 +28,7 @@ jobs:
 
       - name: Generate Docs
         run: ./gradlew :showcase:jsBrowserDistribution
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v4
         with:
           path: showcase/build/dist/js/productionExecutable
       - name: Deploy to GitHub Pages
