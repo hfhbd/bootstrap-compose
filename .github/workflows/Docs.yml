@@ -24,7 +24,7 @@ jobs:
     steps:
       - uses: actions/configure-pages@v5
       - uses: actions/checkout@v5
-      - uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v5
 
       - name: Generate Docs
         run: ./gradlew :showcase:jsBrowserDistribution
