@@ -15,7 +15,7 @@ kotlin.sourceSets {
             api(libs.compose.runtime)
             api(libs.compose.html.core)
             api(libs.compose.html.svg)
-            implementation(devNpm("bootstrap-icons", "1.11.1"))
+            implementation(devNpm("bootstrap-icons", "1.13.1"))
         }
     }
     jsTest {
