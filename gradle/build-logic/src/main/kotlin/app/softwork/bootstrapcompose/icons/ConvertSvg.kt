@@ -1,20 +1,24 @@
 package app.softwork.bootstrapcompose.icons
 
-import kotlinx.serialization.Polymorphic
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.modules.*
-import nl.adaptivity.xmlutil.serialization.*
-import org.gradle.api.*
-import org.gradle.api.file.*
-import org.gradle.api.tasks.*
-import org.gradle.configurationcache.extensions.*
-import org.gradle.work.*
+import nl.adaptivity.xmlutil.serialization.XmlSerialName
+import nl.adaptivity.xmlutil.serialization.XML
+import nl.adaptivity.xmlutil.serialization.XmlElement
+import nl.adaptivity.xmlutil.serialization.XmlSerialException
+import org.gradle.api.DefaultTask
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.InputDirectory
+import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 @CacheableTask
 abstract class ConvertSvg : DefaultTask() {
-    @get:PathSensitive(PathSensitivity.NAME_ONLY)
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:InputDirectory
     abstract val icons: DirectoryProperty
 
@@ -22,7 +26,7 @@ abstract class ConvertSvg : DefaultTask() {
     abstract val outputDir: DirectoryProperty
 
     @TaskAction
-    fun doConverting() {
+    internal fun doConverting() {
         val outputDir = outputDir.get().asFile
 
         val packageFile = File(outputDir, "app/softwork/bootstrapcompose/icons")
@@ -31,29 +35,22 @@ abstract class ConvertSvg : DefaultTask() {
         for (file in icons.asFileTree) {
             val name = file.nameWithoutExtension
             File(packageFile, "$name.kt")
-                .writeText(convertSvgToComposeSvg(file.readText(), name))
+                .writeText(convertSvgToComposeSvg(file))
         }
     }
 }
 
-private val xml = XML(
-    serializersModule = SerializersModule {
-        polymorphic(Content::class) {
-            subclass(Path::class)
-            subclass(Circle::class)
-            subclass(Rect::class)
-        }
-    }
-)
-
-private fun convertSvgToComposeSvg(input: String, fileName: String): String {
+private fun convertSvgToComposeSvg(file: File): String {
+    val input = file.readText()
     val xml = try {
-        xml.decodeFromString(SVG.serializer(), input)
+        XML {
+            autoPolymorphic = true
+        }.decodeFromString(SVG.serializer(), input)
     } catch (e: XmlSerialException) {
-        throw XmlSerialException("$fileName $input", e)
+        throw XmlSerialException("file:///$file $input", e)
     }
 
-    return xml.compose(fileName.toPascalCase())
+    return xml.compose(file.nameWithoutExtension.toPascalCase())
 }
 
 private val regex = Regex("-(\\S)")
@@ -80,8 +77,7 @@ private data class SVG(
     @SerialName("class") val classes: String,
     val viewBox: String,
     @XmlElement
-    @XmlPolyChildren([".Path", ".Circle", ".Rect"])
-    val content: List<@Polymorphic Content>
+    val content: List<Content>
 ) {
 
     val composeClasses get() = classes.split(" ").joinToString(", ") { "\"$it\"" }
@@ -117,12 +113,13 @@ ${content.joinToString(separator = "\n") {
 """
 }
 
+@Serializable
 private sealed interface Content {
     fun toCompose(): String
 }
 
-@XmlSerialName("path", "http://www.w3.org/2000/svg", "")
 @Serializable
+@SerialName("path")
 private data class Path(
     val d: String,
     @SerialName("fill-rule") val fillRule: String? = null,
@@ -149,7 +146,7 @@ private data class Path(
     }
 }
 
-@XmlSerialName("circle", "http://www.w3.org/2000/svg", "")
+@SerialName("circle")
 @Serializable
 private data class Circle(
     val cx: String,
@@ -159,7 +156,7 @@ private data class Circle(
     override fun toCompose() = """Circle($cx, $cy, $r)"""
 }
 
-@XmlSerialName("rect", "http://www.w3.org/2000/svg", "")
+@SerialName("rect")
 @Serializable
 private data class Rect(
     val width: String,
