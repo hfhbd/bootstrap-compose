@@ -9,12 +9,11 @@ import org.jetbrains.compose.web.dom.*
 data class AppState(val activePage: ActivePage)
 
 @JsModule("./custom.scss")
-@JsNonModule
 private external val customScss: dynamic
 
 fun main() {
     customScss
-    renderComposable(rootElementId = "root") {
+    renderComposableInBody {
         var state by remember { mutableStateOf(AppState(ActivePage.Box)) }
 
         Navbar(state) {
