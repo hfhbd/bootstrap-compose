@@ -2,10 +2,10 @@ package app.softwork.bootstrapcompose.icons
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import nl.adaptivity.xmlutil.serialization.XmlSerialName
 import nl.adaptivity.xmlutil.serialization.XML
 import nl.adaptivity.xmlutil.serialization.XmlElement
 import nl.adaptivity.xmlutil.serialization.XmlSerialException
+import nl.adaptivity.xmlutil.serialization.XmlSerialName
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.CacheableTask
@@ -118,6 +118,7 @@ private sealed interface Content {
     fun toCompose(): String
 }
 
+@Suppress("unused")
 @Serializable
 @SerialName("path")
 private data class Path(
@@ -146,6 +147,7 @@ private data class Path(
     }
 }
 
+@Suppress("unused")
 @SerialName("circle")
 @Serializable
 private data class Circle(
@@ -156,6 +158,7 @@ private data class Circle(
     override fun toCompose() = """Circle($cx, $cy, $r)"""
 }
 
+@Suppress("unused")
 @SerialName("rect")
 @Serializable
 private data class Rect(
