@@ -1,6 +1,6 @@
 [versions]
 kotlin = "2.3.0"
-compose = "1.9.0"
+compose = "1.9.3"
 coroutines = "1.10.2"
 xml = "0.91.3"
 
