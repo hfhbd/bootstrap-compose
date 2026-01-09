@@ -1,12 +1,11 @@
 import org.gradle.api.publish.maven.*
-import org.gradle.kotlin.dsl.*
-import java.util.*
 
 plugins {
     id("setup")
     id("maven-publish")
     id("signing")
     id("io.github.hfhbd.mavencentral")
+    id("dev.sigstore.sign")
 }
 
 kotlin {
@@ -55,11 +54,12 @@ publishing {
 }
 
 signing {
-    val signingKey = providers.gradleProperty("SIGNING_PRIVATE_KEY")
-    if (signingKey.isPresent) {
-        useInMemoryPgpKeys(signingKey.get(), providers.gradleProperty("SIGNING_PASSWORD").get())
-        sign(publishing.publications)
-    }
+    useInMemoryPgpKeys(
+        project.providers.gradleProperty("signingKey").orNull,
+        project.providers.gradleProperty("signingPassword").orNull,
+    )
+    isRequired = project.providers.gradleProperty("signingKey").isPresent
+    sign(publishing.publications)
 }
 
 // https://youtrack.jetbrains.com/issue/KT-46466

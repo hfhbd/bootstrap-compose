@@ -9,6 +9,8 @@ dependencies {
     implementation(libs.plugins.licensee.toDep())
     implementation(libs.plugins.detekt.toDep())
     implementation(libs.plugins.mavencentral.toDep())
+    implementation(libs.plugins.sigstore.toDep())
+    implementation(libs.plugins.foojay.toDep())
     implementation(libs.serialization.xml) {
         exclude("io.github.pdvrieze.xmlutil", "core")
     }

@@ -404,7 +404,7 @@ private fun CustomFileInputView() {
                     attrs = { classes("btn-outline-secondary") }
                 ) {
                     upload!!.value = ""
-                    upload!!.click()
+                    upload.click()
                 }
             }
         }

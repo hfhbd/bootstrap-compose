@@ -19,7 +19,9 @@ jobs:
       - uses: gradle/actions/dependency-submission@v5
 
   dependency-review:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-slim
+    permissions: {}
+
     needs: dependency-submission
     if: github.event_name == 'pull_request'
     steps:
