@@ -10,7 +10,6 @@ public fun Brand(
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
-    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }

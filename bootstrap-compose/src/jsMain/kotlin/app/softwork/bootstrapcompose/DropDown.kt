@@ -136,7 +136,6 @@ public fun DropDown(
     menuAlignment: DropDown.MenuAlignment = DropDown.MenuAlignment.Start,
     block: @Composable DropDownBuilder.() -> Unit
 ) {
-    Style
     DropDownJs
     popper
     val trigger = @Composable { classes: List<String>? ->
@@ -169,7 +168,6 @@ public fun NavbarDropDown(
     menuAlignment: DropDown.MenuAlignment = DropDown.MenuAlignment.Start,
     block: @Composable DropDownBuilder.() -> Unit
 ) {
-    Style
     DropDownJs
     val trigger = @Composable { classes: List<String>? ->
         A(
@@ -209,7 +207,6 @@ private fun DropDownBase(
     menuAlignment: DropDown.MenuAlignment,
     block: @Composable DropDownBuilder.() -> Unit
 ) {
-    Style
     DropDownJs
     val classes = styling?.let {
         Styling().apply(it).generate()

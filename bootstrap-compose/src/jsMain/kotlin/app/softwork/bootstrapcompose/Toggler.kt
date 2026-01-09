@@ -11,7 +11,6 @@ public fun Toggler(
     styling: (Styling.() -> Unit)? = null,
     attrs: AttrBuilderContext<HTMLButtonElement>? = null
 ) {
-    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }

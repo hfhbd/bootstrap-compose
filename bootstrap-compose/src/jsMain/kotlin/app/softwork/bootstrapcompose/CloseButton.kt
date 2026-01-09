@@ -9,7 +9,6 @@ public fun CloseButton(
     disabled: Boolean = false,
     onClose: () -> Unit
 ) {
-    Style
     Button({
         type(ButtonType.Button)
         classes("btn-close")

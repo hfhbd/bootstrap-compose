@@ -12,7 +12,6 @@ public fun Alert(
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: @Composable () -> Unit
 ) {
-    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }
@@ -39,7 +38,6 @@ public fun Link(
     attrs: AttrBuilderContext<HTMLAnchorElement>? = null,
     content: ContentBuilder<HTMLAnchorElement>
 ) {
-    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }

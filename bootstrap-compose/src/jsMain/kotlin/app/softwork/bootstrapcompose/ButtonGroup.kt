@@ -9,7 +9,6 @@ public fun ButtonGroup(
     styling: (Styling.() -> Unit)? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
-    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }

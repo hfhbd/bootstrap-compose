@@ -307,7 +307,6 @@ public fun <T> Table(
     attrs: AttrBuilderContext<HTMLTableElement>? = null,
     map: Table.Builder.(Int, T) -> Unit
 ) {
-    Style
     val headers = mutableMapOf<String, Table.Header>()
     val _footers = mutableListOf<Table.Footer>()
 

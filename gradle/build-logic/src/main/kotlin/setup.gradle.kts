@@ -6,14 +6,8 @@ plugins {
 
 kotlin {
     js {
+        browser()
         useEsModules()
-        browser {
-            commonWebpackConfig {
-                scssSupport {
-                    enabled.set(true)
-                }
-            }
-        }
         compilerOptions {
             target.set("es2015")
         }
