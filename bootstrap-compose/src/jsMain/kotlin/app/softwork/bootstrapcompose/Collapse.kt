@@ -16,6 +16,7 @@ public fun Collapse(
     contentAttrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
+    Style
     Collapse
     Button(attrs = {
         classes("btn", "btn-$color")

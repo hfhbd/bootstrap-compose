@@ -20,6 +20,7 @@ public fun Select(
     onChange: (List<String>) -> Unit,
     content: @Composable SelectContext.() -> Unit
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }
@@ -73,6 +74,7 @@ public class SelectContext {
         attrs: AttrBuilderContext<HTMLOptionElement>? = null,
         content: ContentBuilder<HTMLOptionElement>? = null
     ) {
+        Style
         val classes = styling?.let {
             Styling().apply(it).generate()
         }

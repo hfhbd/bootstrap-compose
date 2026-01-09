@@ -62,6 +62,7 @@ public fun Offcanvas(
     showHeaderCloseButton: Boolean = true,
     bodyContent: ContentBuilder<HTMLDivElement>? = null
 ) {
+    Style
     OffcanvasJs
     Div(attrs = {
         if (breakpoint == null) {

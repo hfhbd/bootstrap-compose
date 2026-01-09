@@ -11,6 +11,7 @@ public fun FormLabel(
     attrs: AttrBuilderContext<HTMLLabelElement>? = null,
     content: ContentBuilder<HTMLLabelElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }

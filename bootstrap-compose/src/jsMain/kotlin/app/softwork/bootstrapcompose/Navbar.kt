@@ -29,6 +29,7 @@ public fun Navbar(
     attrs: AttrBuilderContext<HTMLElement>? = null,
     content: ContentBuilder<HTMLDivElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }
@@ -156,6 +157,7 @@ public fun NavbarCollapse(
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>? = null
 ) {
+    Style
     Div(attrs = {
         classes(BSClasses.collapse, BSClasses.navbarCollapse)
         id(id)
@@ -171,6 +173,7 @@ public fun NavbarNav(
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     links: ContentBuilder<HTMLDivElement>? = null
 ) {
+    Style
     Div(attrs = {
         classes(BSClasses.navbarNav)
         attrs?.invoke(this)
@@ -188,6 +191,7 @@ public fun NavbarLink(
     link: String? = null,
     content: ContentBuilder<HTMLAnchorElement>? = null
 ) {
+    Style
     A(attrs = {
         classes(BSClasses.navLink)
         if (active) {

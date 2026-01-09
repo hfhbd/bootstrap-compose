@@ -13,6 +13,7 @@ public fun GridBox(
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: (@Composable GridContentBuilder.() -> Unit)? = null
 ) {
+    Style
     val style = GridStyle(styling)
     val classes = style.generate()
 

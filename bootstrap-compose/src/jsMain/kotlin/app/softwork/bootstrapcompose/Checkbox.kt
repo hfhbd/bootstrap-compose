@@ -19,6 +19,7 @@ public fun Checkbox(
     attrs: (InputAttrsScope<Boolean>.() -> Unit)? = null,
     onClick: (Boolean) -> Unit
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }

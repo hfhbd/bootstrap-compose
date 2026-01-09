@@ -13,6 +13,7 @@ public fun ListGroup(
     attrs: AttrBuilderContext<HTMLUListElement>? = null,
     content: ContentBuilder<HTMLUListElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }
@@ -36,6 +37,7 @@ public fun NumberedListGroup(
     attrs: AttrBuilderContext<HTMLOListElement>? = null,
     content: ContentBuilder<HTMLOListElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }
@@ -80,6 +82,7 @@ public fun ListItem(
     attrs: AttrBuilderContext<HTMLLIElement>? = null,
     content: ContentBuilder<HTMLLIElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }
@@ -102,6 +105,7 @@ public fun AnchorListItem(
     attrs: AttrBuilderContext<HTMLAnchorElement>? = null,
     content: ContentBuilder<HTMLAnchorElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }
@@ -127,6 +131,7 @@ public fun ButtonListItem(
     attrs: AttrBuilderContext<HTMLButtonElement>? = null,
     content: ContentBuilder<HTMLButtonElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }

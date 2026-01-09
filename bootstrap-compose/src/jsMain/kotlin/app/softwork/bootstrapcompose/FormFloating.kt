@@ -11,6 +11,7 @@ public fun FormFloating(
     attrs: AttrBuilderContext<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>? = null
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }

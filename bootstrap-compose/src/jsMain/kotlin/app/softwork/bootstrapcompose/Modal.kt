@@ -18,6 +18,7 @@ public fun Modal(
     footer: ContentBuilder<HTMLDivElement>? = null,
     content: ContentBuilder<HTMLDivElement>
 ) {
+    Style
     ModalJs
     val classes = styling?.let {
         Styling().apply(it).generate()

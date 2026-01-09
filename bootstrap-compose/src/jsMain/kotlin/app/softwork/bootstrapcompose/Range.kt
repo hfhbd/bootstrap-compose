@@ -20,6 +20,7 @@ public fun Range(
     attrs: AttrBuilderContext<HTMLInputElement>? = null,
     onInput: (SyntheticInputEvent<Number?, HTMLInputElement>) -> Unit,
 ) {
+    Style
     val classes = styling?.let {
         Styling().apply(it).generate()
     }
