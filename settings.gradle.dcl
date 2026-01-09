@@ -12,7 +12,7 @@ plugins {
 
 enableFeaturePreview("STABLE_CONFIGURATION_CACHE")
 
-rootProject.name = "bootstrap"
+rootProject.name = "bootstrap-compose"
 
 include(":bootstrap-compose")
 include(":bootstrap-compose-icons")
